@@ -6,7 +6,7 @@ use App\Http\Controllers\interiorPostController;
 
 
 Route::get('/login-interior', [interiorController::class,'login'])->name('login');
-Route::post('/interior/ecommerce', [interiorPostController::class,'login_interior'])->name('login_interior');
+Route::post('/dashboard-login', [interiorPostController::class,'login_interior'])->name('login_interior');
 
 Route::get('/register-interior', [interiorController::class,'register'])->name('register');
 Route::post('/register', [interiorPostController::class, 'register_interior'])->name('register_interior');

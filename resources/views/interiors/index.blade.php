@@ -90,7 +90,7 @@
 										<div class="col-sm-5">
 											<div class="single-welcome-hero">
 												<div class="welcome-hero-img">
-													<img src="interior/images/slider/slider1.png" alt="slider image">
+													<img src="{{ asset('interior/images/slider/slider1.png') }}" alt="slider image">
 												</div><!--/.welcome-hero-txt-->
 											</div><!--/.single-welcome-hero-->
 										</div><!--/.col-->
@@ -133,7 +133,7 @@
 				                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
 				                    <i class="fa fa-bars"></i>
 				                </button>
-				                <a class="navbar-brand" href="index.html">Interior<span>CS</span>.</a>
+				                <a class="navbar-brand" href="{{route('index')}}">Interior<span>CS</span>.</a>
 
 				            </div><!--/.navbar-header-->
 				            <!-- End Header Navigation -->
@@ -167,7 +167,7 @@
 						<div class="col-md-3">
 							<div class="single-populer-products">
 								<div class="single-populer-product-img mt40">
-									<img src="interior/images/populer-products/p1.png" alt="populer-products images">
+									<img src="{{ asset('interior/images/populer-products/p1.png') }}" alt="populer-products images">
 								</div>
 								<h2><a href="#">arm chair</a></h2>
 								<div class="single-populer-products-para">
@@ -181,7 +181,7 @@
 									<div class="row">
 										<div class="col-md-4 col-sm-12">
 											<div class="single-inner-populer-product-img">
-												<img src="interior/images/populer-products/p2.png" alt="populer-products images">
+												<img src="{{ asset('interior/images/populer-products/p2.png') }}" alt="populer-products images">
 											</div>
 										</div>
 										<div class="col-md-8 col-sm-12">
@@ -210,7 +210,7 @@
 							<div class="single-populer-products">
 								<div class="single-populer-products">
 									<div class="single-populer-product-img">
-										<img src="interior/images/populer-products/p3.png" alt="populer-products images">
+										<img src="{{ asset('interior/images/populer-products/p3.png') }}" alt="populer-products images">
 									</div>
 									<h2><a href="#">hanging lamp</a></h2>
 									<div class="single-populer-products-para">
@@ -237,7 +237,7 @@
 						<div class="col-md-3 col-sm-4">
 							<div class="single-new-arrival">
 								<div class="single-new-arrival-bg">
-									<img src="interior/images/collection/arrivals1.png" alt="new-arrivals images">
+									<img src="{{ asset('interior/images/collection/arrivals1.png') }}" alt="new-arrivals images">
 									<div class="single-new-arrival-bg-overlay"></div>
 									<div class="sale bg-1">
 										<p>sale</p>

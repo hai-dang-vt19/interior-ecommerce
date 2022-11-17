@@ -85,8 +85,8 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block">Đăng</span>
-                            <small class="text-muted">Admin</small>
+                              <span class="fw-semibold d-block">{{Auth::user()->name}}</span>
+                              <small class="text-muted">{{Auth::user()->email}}</small>
                           </div>
                         </div>
                       </a>
@@ -144,7 +144,7 @@
                     <div class="d-flex align-items-end row">
                       <div class="col-sm-7">
                         <div class="card-body">
-                          <h5 class="card-title text-primary">Xin chào Đăng! 🎉</h5>
+                          <h5 class="card-title text-primary">Xin chào {{Auth::user()->name}}! 🎉</h5>
                           <p class="mb-5">
                             Hôm nay đã thu được <span class="fw-bold">72,000,000đ</span>. Hãy kiểm tra những gì bạn làm được.
                           </p>

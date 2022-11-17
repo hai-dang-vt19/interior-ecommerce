@@ -19,8 +19,8 @@ class interiorPostController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             if (Auth::check()) {
-                if(Auth::user()->name_roles == 'admin' || Auth::user()->name_roles == 'manager' || Auth::user()->name_roles == 'staff'  ){
-                    session()->flash('login-sc', 'Đăng nhập thành công');
+                if(Auth::user()->name_roles == 'admin'){
+                    session()->flash('login-sc', 'Đăng nhập thành công')    ;
                     return view('dashboards.index-dashboard');
                 }else{
                     session()->flash('login-sc', 'Đăng nhập thành công');

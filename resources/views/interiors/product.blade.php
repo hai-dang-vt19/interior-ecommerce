@@ -77,7 +77,7 @@
 				        <div class="container">            
 				            <!-- Start Atribute Navigation -->
 				            <div class="attr-nav">
-				                @include('interior.block.cart')
+				                @include('interiors.blocks.cart')
 				            </div><!--/.attr-nav-->
 				            <!-- End Atribute Navigation -->
 
@@ -234,13 +234,13 @@
 		<!--new-arrivals end -->
 
 		<section id="sofa-collection">
-			@include('interior.block.unlimit-collection');
+			@include('interiors.blocks.unlimit-collection');
 		</section>
 		<section id="newsletter"  class="newsletter">
-			@include('interior.block.news-letter');
+			@include('interiors.blocks.news-letter');
 		</section><!--/newsletter-->	
 		<footer id="footer"  class="footer">
-			@include('interior.block.footer');
+			@include('interiors.blocks.footer');
         </footer>
 		
 		<!-- Include all js compiled plugins (below), or include individual files as needed -->

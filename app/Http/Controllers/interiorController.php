@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class interiorController extends Controller
 {
@@ -17,6 +19,7 @@ class interiorController extends Controller
     }
     public function index_dashboard()
     {
+        // if(Auth::user())
         return view('dashboards.index-dashboard');
     }
 

@@ -1,5 +1,5 @@
   <div class="app-brand demo">
-    <a href="index.html" class="app-brand-link d-flex">
+    <a href="{{ route('index_dashboard') }}" class="app-brand-link d-flex">
       <span class="app-brand-text demo menu-text fw-bolder ms-2">Interior </span><span class="menu-text fw-bolder ms-2" style="color: rgb(231, 171, 6)">CS</span>
     </a>
     <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -8,11 +8,10 @@
   </div>
 
   <div class="menu-inner-shadow"></div>
-
   <ul class="menu-inner py-1">
     <!-- Dashboard -->
     <li class="menu-item active">
-      <a href="index.html" class="menu-link">
+      <a href="{{ route('index_dashboard') }}" class="menu-link">
         <i class="menu-icon tf-icons bx bx-home-circle"></i>
         <div data-i18n="Analytics">Dashboard</div>
       </a>
