@@ -1,29 +1,21 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\interiorController;
+use App\Http\Controllers\interiorPostController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
-Route::get('/login-dashboard', [])->name('login_dashboard');
-Route::post('/login', [])->name('login_to_dashboard');
+Route::get('/login-interior', [interiorController::class,'login'])->name('login');
+Route::post('/interior/ecommerce', [interiorPostController::class,'login_interior'])->name('login_interior');
 
-Route::get('/register-dashboard', [])->name('register_dashboard');
-Route::post('/register', [])->name('register_to_dashboard');
+Route::get('/register-interior', [interiorController::class,'register'])->name('register');
+Route::post('/register', [interiorPostController::class, 'register_interior'])->name('register_interior');
+Route::get('/logout/interior',[interiorPostController::class, 'logout'])->name('logout');
 
-Route::get('/dashboard-interior', [])->middleware('auth')->name('index_interior');
+Route::get('/dashboard-interior', [interiorController::class,'index_dashboard'])->middleware('auth')->name('index_dashboard');
 
 
 // ---- user
-Route::get('/login-user', [])->name('login-user');
-Route::get('/index', )->name('index');
-Route::get('/product', )->name('product');
-Route::get('/blog', )->name('blog');
+Route::get('/index', [interiorController::class,'index'])->name('index');
+Route::get('/product', [interiorController::class,'product'])->name('product');
+Route::get('/blog', [interiorController::class,'blog'])->name('blog');

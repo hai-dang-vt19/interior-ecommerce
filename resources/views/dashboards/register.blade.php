@@ -46,20 +46,16 @@
               </div>
               <!-- /Logo -->
 
-              <form class="mb-3" action="{{route('register_to_dashboard')}}" method="POST">
+              <form class="mb-3" action="{{route('register_interior')}}" method="POST">
                 @csrf
                 <div class="mb-3">
-                  <label class="form-label">Tên người dùng</label>
-                  <input type="text" class="form-control" name="name_user" />
-                </div>
-                <div class="mb-3">
                   <label class="form-label">Email</label>
-                  <input type="text" class="form-control" id="email" name="email" />
+                  <input type="text" class="form-control" name="email" />
                 </div>
                 <div class="mb-3 form-password-toggle">
                   <label class="form-label">Password</label>
                   <div class="input-group input-group-merge">
-                    <input  type="password"  class="form-control"  name="password"/>
+                    <input type="password" class="form-control" name="password"/>
                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                   </div>
                 </div>
@@ -69,13 +65,17 @@
                       <input type="password" class="form-control" name="check_password"/>
                       <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                     </div>
-                  </div>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Tên người dùng</label>
+                  <input type="text" class="form-control" name="name" />
+                </div>
                 <input type="submit" value="Đăng ký" class="btn btn-primary d-grid w-100">
               </form>
 
               <p class="text-center">
                 <span>Bạn đã có tài khoản?</span>
-                <a href="auth-login-basic.html">
+                <a href="{{route('login')}}">
                   <span>Đăng nhập tại đây</span>
                 </a>
               </p>
@@ -107,11 +107,10 @@
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    @if (session()->has('error'))
+    @if (session()->has('register-er'))
       <script>
         swal({
-              title: "{{session()->get('error')}}",
-              text: "Không thành công"
+              title: "{{session()->get('register-er')}}",
               icon: "error",
               button: "OK",
               timer: 2000,

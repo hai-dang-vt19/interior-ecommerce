@@ -53,7 +53,7 @@
               <!-- /Logo -->
               <h4 class="mb-2">Welcome to InteriorCS! 👋</h4>
               <p class="mb-4">Please sign-in to your account and start the adventure</p>
-              <form class="mb-3" action="{{route('login_to_dashboard')}}" method="POST">
+              <form class="mb-3" action="{{route('login_interior')}}" method="POST">
                 @csrf
                 <div class="mb-3">
                   <label class="form-label">Email or Username</label>
@@ -72,6 +72,13 @@
                   <button class="btn btn-primary d-grid w-100" type="submit">Đăng nhâp</button>
                 </div>
               </form>
+
+              <p class="text-center">
+                <span>Bạn chưa có tài khoản?</span>
+                <a href="{{route('register')}}">
+                  <span>Đăng ký tại đây</span>
+                </a>
+              </p>
             </div>
           </div>
           <!-- /Register -->
@@ -94,21 +101,20 @@
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    @if (session()->has('success'))
+    @if (session()->has('register-sc'))
       <script>
         swal({
-              title: "{{session()->get('success')}}",
-              text: "Tạo tài khoản thành công",
+              title: "{{session()->get('register-sc')}}",
               icon: "success",
               button: "OK",
-              timer: 20000,
+              timer: 2000,
             });
       </script>
     @endif
-    @if (session()->has('error'))
+    @if (session()->has('login-er'))
       <script>
         swal({
-              title: "{{session()->get('error')}}",
+              title: "{{session()->get('login-er')}}",
               icon: "error",
               button: "OK",
               timer: 20000,
