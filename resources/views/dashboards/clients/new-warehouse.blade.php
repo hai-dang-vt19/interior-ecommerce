@@ -45,7 +45,7 @@
       <div class="layout-container">
         <!-- Menu -->
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-          @include('dashboards.blocks.menu-new-product')
+          @include('dashboards.blocks.menu-new-warehouse')
         </aside>
         <!-- / Menu -->
         <!-- Layout container -->
