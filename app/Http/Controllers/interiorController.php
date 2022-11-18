@@ -28,7 +28,7 @@ class interiorController extends Controller
     }
     public function list_product_dashboard()
     {
-        return view('dashboards.clients.list-product')
+        return view('dashboards.clients.list-product');
     }
     //------------------------------------------   client   -----------------------------------------
     public function blog()
