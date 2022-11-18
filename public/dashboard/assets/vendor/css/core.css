@@ -2205,7 +2205,7 @@ progress {
   cursor: pointer;
 }
 .form-control:focus {
-  color: #697a8d;
+  color: rgb(197, 145, 1);
   background-color: #fff;
   border-color: rgba(249, 249, 255, 0.54);
   outline: 0;
@@ -2383,7 +2383,8 @@ textarea.form-control-lg {
   }
 }
 .form-select:focus {
-  border-color: rgba(249, 249, 255, 0.54);
+  color: rgb(197, 145, 1);
+  border-color: rgb(197, 145, 1);
   outline: 0;
   box-shadow: 0 0 0.25rem 0.05rem rgba(105, 108, 255, 0.1);
 }

@@ -81,55 +81,48 @@
           <!-- / Navbar -->
 
           <!-- Content wrapper -->
-          <div class="content-wrapper">
-            <!-- Content -->
-            <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Tables /</span> Basic Tables</h4>
-
-              <hr class="my-5" />
-              <!-- Responsive Table -->
-              <div class="card">
-                <h5 class="card-header">Responsive Table</h5>
-                <div class="table-responsive text-nowrap">
-                  <table class="table">
-                    <thead>
-                      <tr class="text-nowrap">
-                        <th>#</th>
-                        <th>Table heading</th>
-                        <th>Table heading</th>
-                        <th>Table heading</th>
-                        <th>Table heading</th>
-                        <th>Table heading</th>
-                        <th>Table heading</th>
-                        <th>Table heading</th>
-                        <th>Table heading</th>
-                        <th>Table heading</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+          <div class="container-xxl flex-grow-1 container-p-y">
+            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Comment / </span>Danh sách nhận xét</h4>
+            <!-- Responsive Table -->
+            <div class="card">
+              <div class="table-responsive text-nowrap">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>
+                      <th style="color: rgb(231, 171, 6);font-size: 14px">Tên sản phẩm</th>
+                      <th style="color: rgb(231, 171, 6);font-size: 14px">Loại sản phẩm</th>
+                      <th style="color: rgb(231, 171, 6);font-size: 14px">Số lượng</th>
+                      <th style="color: rgb(231, 171, 6);font-size: 14px">Màu sắc</th>
+                      <th style="color: rgb(231, 171, 6);font-size: 14px">Giá tiền</th>
+                      <th style="color: rgb(231, 171, 6);font-size: 14px">Chất liệu</th>
+                      <th style="color: rgb(231, 171, 6);font-size: 14px">Nhà sản xuất</th>
+                      <th style="color: rgb(231, 171, 6);font-size: 14px">Mô tả</th>
+                      <th style="color: rgb(231, 171, 6);font-size: 14px">Hình ảnh</th>
+                      <th style="color: rgb(231, 171, 6);font-size: 14px">trạng thái</th>
+                      <th style="color: rgb(231, 171, 6);font-size: 14px">Chức năng</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">key + 1</th>
+                      <td>Table cell</td>
+                      <td>Table cell</td>
+                      <td>Table cell</td>
+                      <td>Table cell</td>
+                      <td>Table cell</td>
+                      <td>Table cell</td>
+                      <td>Table cell</td>
+                      <td>Table cell</td>
+                      <td>Table cell</td>
+                      <td>Table cell</td>
+                      <td>Table cell</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <!--/ Responsive Table -->
             </div>
-            <!-- / Content -->
-            <!-- Footer -->
-            @include('dashboards.blocks.footer')
-            <!-- / Footer -->
-            <div class="content-backdrop fade"></div>
+            <!--/ Responsive Table -->
           </div>
           <!-- Content wrapper -->
         </div>
