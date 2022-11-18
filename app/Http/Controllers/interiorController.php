@@ -22,7 +22,14 @@ class interiorController extends Controller
         // if(Auth::user())
         return view('dashboards.index-dashboard');
     }
-
+    public function product_dashboard()
+    {
+        return view('dashboards.clients.new-product');
+    }
+    public function list_product_dashboard()
+    {
+        return view('dashboards.clients.list-product')
+    }
     //------------------------------------------   client   -----------------------------------------
     public function blog()
     {

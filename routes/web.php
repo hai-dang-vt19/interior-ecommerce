@@ -14,6 +14,8 @@ Route::get('/logout/interior',[interiorPostController::class, 'logout'])->name('
 
 Route::get('/dashboard-interior', [interiorController::class,'index_dashboard'])->middleware('auth')->name('index_dashboard');
 
+Route::get('dashboard-product', [interiorController::class, 'product_dashboard'])->middleware('auth')->name('product_dashboard');
+Route::get('dashboard-list-product', [interiorController::class,'list_product_dashboard'])->middleware('auth')->name('list_product_dashboard');
 
 // ---- user
 Route::get('/index', [interiorController::class,'index'])->name('index');

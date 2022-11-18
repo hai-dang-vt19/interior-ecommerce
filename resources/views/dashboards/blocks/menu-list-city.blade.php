@@ -27,12 +27,12 @@
       </a>
       <ul class="menu-sub">
         <li class="menu-item">
-          <a href="pages-account-settings-account.html" class="menu-link">
+          <a href="{{ route('product_dashboard') }}" class="menu-link">
             <div data-i18n="Account">New Product</div>
           </a>
         </li>
         <li class="menu-item">
-          <a href="pages-account-settings-notifications.html" class="menu-link">
+          <a href="{{ route('list_product_dashboard') }}" class="menu-link">
             <div data-i18n="Notifications">List Product</div>
           </a>
         </li>
