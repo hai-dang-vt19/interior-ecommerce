@@ -33,23 +33,6 @@ class interiorPostController extends Controller
             session()->flash('login-er', 'Tài khoản hoặc mật khẩu không chính xác');
             return redirect(route('login'));
         }
-        // $credentials = $request->validate([
-        //     'email' => ['required', 'email'],
-        //     'password' => ['required'],
-        // ]);
-        // if (Auth::attempt($credentials)) {
-        //     $request->session()->regenerate();
-        //     if (Auth::check()) {
-        //         session()->flash('login-sc', 'Đăng nhập thành công');
-        //         // return redirect(route('index_dashboard'));
-        //         return view('dashboards.index-dashboard');
-        //     } else {
-        //         return false;
-        //     }  
-        // }else{
-        //     session()->flash('login-er', 'Tài khoản hoặc mật khẩu không chính xác');
-        //     return redirect(route('login'));
-        // }
      }
      public function register_interior(Request $request)
      {
@@ -58,7 +41,6 @@ class interiorPostController extends Controller
             'email' => 'required',
             'password' => 'required|min:6',
             'check_password' =>  'required|same:password',
-            
         ], [
             'name.required' => '* Bạn chưa nhập tên tài khoản',
             'email.required' => '* Bạn chưa nhập email',
@@ -66,11 +48,12 @@ class interiorPostController extends Controller
             'password.min' => '* Mật khẩu tối thiểu 6 ký tự',
             'check_password.required' => '* Bạn chưa nhập mật khẩu',
             'check_password.same' => '* Nhập lại mật khẩu không chính xác',
-            
         ]);
         $email = $request->email;
         $password = $request->password;
         $name = $request->name;
+        $user_id = $request->user_id;
+
         $data = User::where('email',$email)->get('email');
         $e = '[{"email":"'.$email.'"}]';
         if($data != $e){
@@ -78,6 +61,7 @@ class interiorPostController extends Controller
             $user->email = $email;
             $user->password = Hash::make($password);
             $user->name = $name;
+            $user->user_id = 'IT'.$user_id.time().'-KH'.rand(1,10000);
             $user->save();
             session()->flash('register-sc','Đăng ký thành công');
             return redirect(route('login'));

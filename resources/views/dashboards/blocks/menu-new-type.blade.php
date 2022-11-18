@@ -1,4 +1,4 @@
-  <div class="app-brand demo">
+<div class="app-brand demo">
     <a href="{{ route('index_dashboard') }}" class="app-brand-link d-flex">
       <span class="app-brand-text demo menu-text fw-bolder ms-2">Interior </span><span class="menu-text fw-bolder ms-2" style="color: rgb(231, 171, 6)">CS</span>
     </a>
@@ -10,7 +10,7 @@
   <div class="menu-inner-shadow"></div>
   <ul class="menu-inner py-1">
     <!-- Dashboard -->
-    <li class="menu-item active">
+    <li class="menu-item">
       <a href="{{ route('index_dashboard') }}" class="menu-link">
         <i class="menu-icon tf-icons bx bx-home-circle"></i>
         <div data-i18n="Analytics">Dashboard</div>
@@ -44,7 +44,7 @@
         <div data-i18n="Authentications">Type Product</div>
       </a>
       <ul class="menu-sub">
-        <li class="menu-item">
+        <li class="menu-item active">
           <a href="auth-login-basic.html" class="menu-link" target="_blank">
             <div data-i18n="Basic">New Type</div>
           </a>
@@ -68,13 +68,14 @@
           </a>
         </li>
         <li class="menu-item">
-          <a href="pages-misc-error.html" class="menu-link">
-            <div data-i18n="Error">New Material</div>
-          </a>
-        </li>
-        <li class="menu-item">
           <a href="pages-misc-under-maintenance.html" class="menu-link">
             <div data-i18n="Under Maintenance">List Supplier </div>
+          </a>
+        </li> 
+
+        <li class="menu-item">
+          <a href="pages-misc-error.html" class="menu-link">
+            <div data-i18n="Error">New Material</div>
           </a>
         </li>
         <li class="menu-item">
@@ -86,18 +87,18 @@
     </li>
     <li class="menu-item">
       <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-        <div data-i18n="Authentications">kho hàng</div>
+        <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+        <div data-i18n="Authentications">Warehouse</div>
       </a>
       <ul class="menu-sub">
         <li class="menu-item">
           <a href="auth-login-basic.html" class="menu-link" target="_blank">
-            <div data-i18n="Basic">New loại kho hàng</div>
+            <div data-i18n="Basic">New loại Warehouse</div>
           </a>
         </li>
         <li class="menu-item">
           <a href="auth-register-basic.html" class="menu-link" target="_blank">
-            <div data-i18n="Basic">List kho hàng </div>
+            <div data-i18n="Basic">List Warehouse </div>
           </a>
         </li>
       </ul>

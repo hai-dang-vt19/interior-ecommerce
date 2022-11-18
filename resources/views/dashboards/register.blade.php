@@ -69,6 +69,7 @@
                 <div class="mb-3">
                   <label class="form-label">Tên người dùng</label>
                   <input type="text" class="form-control" name="name" />
+                  <input type="hidden" class="form-control" name="user_id"/>
                 </div>
                 <input type="submit" value="Đăng ký" class="btn btn-primary d-grid w-100">
               </form>
