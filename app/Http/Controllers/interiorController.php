@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\typestatus;
+use App\Models\status;
 use Illuminate\Support\Facades\Auth;
 
 class interiorController extends Controller
@@ -108,7 +110,9 @@ class interiorController extends Controller
 
     public function status_dashboard()
     {
-        return view('dashboards.clients.z-status');
+        $type = typestatus::all();
+        $status = status::all();
+        return view('dashboards.clients.z-status', compact('type','status'));
     }
 
     public function discount_dashboard()

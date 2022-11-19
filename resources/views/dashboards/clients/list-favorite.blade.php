@@ -92,23 +92,21 @@
                     <thead>
                       <tr>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>
+                        <th style="color: rgb(231, 171, 6);font-size: 14px">Mã yêu thích</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Tên sản phẩm</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Loại sản phẩm</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Số lượng</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Màu sắc</th>
+                        <th style="color: rgb(231, 171, 6);font-size: 14px">Trạng thái</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Giá tiền</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Chất liệu</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Nhà sản xuất</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Mô tả</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Hình ảnh</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">trạng thái</th>
+                        <th style="color: rgb(231, 171, 6);font-size: 14px">Mô tả</th>
+                        <th style="color: rgb(231, 171, 6);font-size: 14px">Nhà sản xuất</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Chức năng</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
                         <th scope="row">key + 1</th>
-                        <td>Table cell</td>
                         <td>Table cell</td>
                         <td>Table cell</td>
                         <td>Table cell</td>

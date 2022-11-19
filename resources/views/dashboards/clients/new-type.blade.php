@@ -92,14 +92,14 @@
                 <div class="col-xxl">
                   <div class="card mb-4">
                     <div class="card-header d-flex align-items-center justify-content-between">
-                      <h5 class="mb-0" style="color: #696cff">Quản lý sản phẩm</h5>
+                      <h5 class="mb-0" style="color: #696cff">Quản lý loại sản phẩm</h5>
                       <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
                     </div>
                     <hr class="my-0">
                     <div class="card-body">
                       <form action="" method="" enctype="multipart/form-data">
                         <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Tên sản phẩm</label>
+                          <label class="col-sm-2 col-form-label">Tên loại sản phẩm</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
@@ -108,7 +108,7 @@
                           </div>
                         </div>
                         <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Loại sản phẩm</label>
+                          <label class="col-sm-2 col-form-label">Trạng thái</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class='bx bx-cube-alt'></i></span>
@@ -118,78 +118,9 @@
                             </div>
                           </div>
                         </div>
-                        <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Số lượng</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class='bx bx-archive'></i></span>
-                              <input type="text" class="form-control" name="amount"/>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label class="col-sm-2 form-label">Màu sắc</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class='bx bx-brush'></i></span>
-                              <select class="form-select" name="color">
-                                <option value="">None</option>
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label class="col-sm-2 form-label">Giá tiền</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class='bx bx-money'></i></span>
-                              <input type="text" class="form-control phone-mask" name="price"/>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label class="col-sm-2 form-label">Hình ảnh</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class='bx bx-image'></i></span>
-                              <input type="file" class="form-control phone-mask" name="images"/>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label class="col-sm-2 form-label">Chất liệu</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class='bx bx-shape-square'></i></span>
-                              <select class="form-select" name="material">
-                                <option value="">None</option>
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label class="col-sm-2 form-label">Nhà sản xuất</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class="bx bx-crown"></i></span>
-                              <select class="form-select" name="supplier">
-                                <option value="">None</option>
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label class="col-sm-2 form-label">Mô tả</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class="bx bx-comment"></i></span>
-                              <textarea class="form-control" row="1"name="descriptions"></textarea>
-                            </div>
-                          </div>
-                        </div>
                         <div class="row justify-content-end">
                           <div class="col-sm-10">
-                            <button type="submit" class="btn btn-success">Thêm sản phẩm</button>
+                            <button type="submit" class="btn btn-success">Thêm loại sản phẩm</button>
                           </div>
                         </div>
                       </form>

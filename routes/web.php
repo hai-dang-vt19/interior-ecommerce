@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\interiorController;
 use App\Http\Controllers\interiorPostController;
+use App\Http\Controllers\statusController;
 
 //----------------------------------login------------------------------------------------------------
 Route::get('/login-interior', [interiorController::class,'login'])->name('login');
@@ -42,9 +43,15 @@ Route::get('/dashboard-list-province', [interiorController::class,'list_province
 Route::get('/dashboard-list-city', [interiorController::class,'list_city_dashboard'])->middleware('auth')->name('list_city_dashboard');
 
 Route::get('/dashboard-comment', [interiorController::class, 'comment_dashboard'])->middleware('auth')->name('comment_dashboard');
+
 Route::get('/dashboard-roles', [interiorController::class, 'roles_dashboard'])->middleware('auth')->name('roles_dashboard');
+
 Route::get('/dashboard-status', [interiorController::class, 'status_dashboard'])->middleware('auth')->name('status_dashboard');
+Route::post('/dashboard-add-type-status',[statusController::class,'add_type_status'])->middleware('auth')->name('add_type_status');
+Route::post('/dashboard-add-status',[statusController::class, 'add_status'])->middleware('auth')->name('add_status');
+
 Route::get('/dashboard-discount', [interiorController::class, 'discount_dashboard'])->middleware('auth')->name('discount_dashboard');
+
 Route::get('/dashboard-color', [interiorController::class, 'color_dashboard'])->middleware('auth')->name('color_dashboard');
 
 

@@ -84,7 +84,82 @@
           <div class="content-wrapper">
             <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Status / </span>Danh sách trạng thái</h4>
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Status / </span>Quản lý trạng thái</h4>
+              <div class="row">
+                <!-- Basic with Icons -->
+                <div class="col-xxl">
+                  <div class="card mb-4">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                      <h5 class="mb-0" style="color: #696cff">Thêm loại trạng thái</h5>
+                      <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
+                    </div>
+                    <hr class="my-0">
+                    <div class="card-body">
+                      <form action="{{ route('add_type_status') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label">Tên loại</label>
+                          <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                              <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
+                              <input type="text" class="form-control" name="nametype"/>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row justify-content-end">
+                          <div class="col-sm-10">
+                            <button type="submit" class="btn btn-success">Thêm</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <!-- Basic with Icons -->
+                <div class="col-xxl">
+                  <div class="card mb-4">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                      <h5 class="mb-0" style="color: #696cff">Thêm trạng thái</h5>
+                      <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
+                    </div>
+                    <hr class="my-0">
+                    <div class="card-body">
+                      <form action="{{ route('add_status') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label">Tên trạng thái</label>
+                          <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                              <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
+                              <input type="text" class="form-control" name="name_status"/>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label">Loại trạng thái</label>
+                          <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                              <span class="input-group-text"><i class='bx bx-cube-alt'></i></span>
+                              <select class="form-select" name="type_status">
+                                @foreach ($type as $types)
+                                    <option value="{{$types->nametype}}">{{$types->nametype}}</option>
+                                @endforeach
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row justify-content-end">
+                          <div class="col-sm-10">
+                            <button type="submit" class="btn btn-success">Thêm</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <!-- Responsive Table -->
               <div class="card">
                 <div class="table-responsive text-nowrap">
@@ -92,34 +167,22 @@
                     <thead>
                       <tr>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Tên sản phẩm</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Loại sản phẩm</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Số lượng</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Màu sắc</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Giá tiền</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Chất liệu</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Nhà sản xuất</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Mô tả</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Hình ảnh</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">trạng thái</th>
+                        <th style="color: rgb(231, 171, 6);font-size: 14px">Mã trạng thái</th>
+                        <th style="color: rgb(231, 171, 6);font-size: 14px">Tên trạng thái</th>
+                        <th style="color: rgb(231, 171, 6);font-size: 14px">Loại trạng thái</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Chức năng</th>
                       </tr>
                     </thead>
                     <tbody>
+                      @foreach ($status as $key => $statuses)
                       <tr>
-                        <th scope="row">key + 1</th>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
+                        <th scope="row">{{$key + 1}}</th>
+                        <td>{{$statuses->id_status}}</td>
+                        <td>{{$statuses->name_status}}</td>
+                        <td>{{$statuses->type_status}}</td>
+                        <td>NONE</td>
                       </tr>
+                      @endforeach
                     </tbody>
                   </table>
                 </div>
@@ -155,5 +218,28 @@
     <!-- Page JS -->
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    @if (session()->has('type_sc'))
+      <script>
+        swal({
+              title: "{{session()->get('type_sc')}}",
+              text: "Tạo thành công",
+              icon: "success",
+              button: "OK",
+              timer: 20000,
+            });
+      </script>
+    @endif
+    @if (session()->has('status_sc'))
+      <script>
+        swal({
+              title: "{{session()->get('status_sc')}}",
+              text: "Tạo thành công",
+              icon: "success",
+              button: "OK",
+              timer: 20000,
+            });
+      </script>
+    @endif
   </body>
 </html>
