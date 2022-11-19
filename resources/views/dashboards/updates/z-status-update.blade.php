@@ -101,14 +101,14 @@
                       <div class="col-xxl">
                         <div>
                           <div class="card-body">
-                            <form action="{{ route('add_status') }}" method="POST">
+                            <form action="{{ route('update_status', $stt['id']) }}" method="POST">
                               @csrf
                               <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label">Tên trạng thái</label>
                                 <div class="col-sm-10">
                                   <div class="input-group input-group-merge">
                                     <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
-                                    <input type="text" class="form-control" name="name_status"/>
+                                    <input type="text" class="form-control" name="name_status" value="{{$stt['name_status']}}"/>
                                   </div>
                                 </div>
                               </div>
@@ -118,6 +118,7 @@
                                   <div class="input-group input-group-merge">
                                     <span class="input-group-text"><i class='bx bx-cube-alt'></i></span>
                                     <select class="form-select" name="type_status">
+                                        <option selected value="{{$stt['type_status']}}">{{$stt['type_status']}}</option>
                                       @foreach ($type as $types)
                                           <option value="{{$types->nametype}}">{{$types->nametype}}</option>
                                       @endforeach
@@ -126,53 +127,16 @@
                                 </div>
                               </div>
                               <div class="row justify-content-end">
-                                <div class="col-sm-10">
-                                  <button type="submit" class="btn btn-success">Thêm</button>
+                                <div class="col-sm-10 d-flex">
+                                  <button type="submit" class="btn btn-success me-1">Cập nhật</button>
+                                  <a href="{{ route('status_dashboard') }}" class="btn btn-danger">Quay lại</a>
                                 </div>
                               </div>
                             </form>
                           </div>
                         </div>
                       </div>
-                      <hr class="my-3">
-                      <!-- Responsive Table -->
-                      <div>
-                        <div class="table-responsive text-nowrap">
-                          <form action="" method="">
-                            @csrf
-                            <table class="table table-hover table-dark">
-                              <thead>
-                                <tr>
-                                  <th style="color: rgb(255, 201, 53);font-size: 14px">STT</th>
-                                  <th style="color: rgb(255, 201, 53);font-size: 14px">Mã trạng thái</th>
-                                  <th style="color: rgb(255, 201, 53);font-size: 14px">Tên trạng thái</th>
-                                  <th style="color: rgb(255, 201, 53);font-size: 14px">Loại trạng thái</th>
-                                  <th style="color: rgb(255, 201, 53);font-size: 14px">Chức năng</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                @foreach ($status as $key => $statuses)
-                                <tr>
-                                  <th>{{$key + 1}}</th>
-                                  <td style="color: gold">{{$statuses->id}}</td>
-                                  <td>{{$statuses->name_status}}</td>
-                                  <td>{{$statuses->type_status}}</td>
-                                  <td>
-                                    <a href="{{ route('edit_status_dashboard', ['id'=>$statuses->id]) }}" class="btn btn-primary"><i class='bx bxs-edit'></i></a>
-                                    <a onclick="return confirm('Bạn có chắc chắn xóa không?')"  href="{{ route('destroy_status', ['id'=>$statuses->id]) }}" class="btn btn-danger"><i class='bx bx-x'></i></a>
-                                  </td>
-                                </tr>
-                                @endforeach
-                              </tbody>
-                            </table>
-                          </form>
-                        </div>
-                      </div>
-                      <div class="d-flex">
-                        {{ $status->links() }}
-                      </div>
                       <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
-                      <!--/ Responsive Table -->
                     </div>
                   </div>
                 </div>
@@ -208,38 +172,6 @@
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    @if (session()->has('type_sc'))
-      <script>
-        swal({
-              title: "{{session()->get('type_sc')}}",
-              text: "Tạo thành công",
-              icon: "success",
-              button: "OK",
-              timer: 20000,
-            });
-      </script>
-    @endif
-    @if (session()->has('status_sc'))
-      <script>
-        swal({
-              title: "{{session()->get('status_sc')}}",
-              text: "Tạo thành công",
-              icon: "success",
-              button: "OK",
-              timer: 20000,
-            });
-      </script>
-    @endif
-    @if (session()->has('update_status_sc'))
-    <script>
-      swal({
-            title: "{{session()->get('update_status_sc')}}",
-            text: "Cập nhật thành công",
-            icon: "success",
-            button: "OK",
-            timer: 20000,
-          });
-    </script>
-  @endif
+
   </body>
 </html>

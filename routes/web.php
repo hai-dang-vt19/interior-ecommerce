@@ -47,8 +47,14 @@ Route::get('/dashboard-comment', [interiorController::class, 'comment_dashboard'
 Route::get('/dashboard-roles', [interiorController::class, 'roles_dashboard'])->middleware('auth')->name('roles_dashboard');
 
 Route::get('/dashboard-status', [interiorController::class, 'status_dashboard'])->middleware('auth')->name('status_dashboard');
+Route::post('/dashboard-add-status', [statusController::class, 'add_status'])->middleware('auth')->name('add_status');
+Route::get('/dashboard-edit-status/{id}', [interiorController::class, 'edit_status_dashboard'])->middleware('auth')->name('edit_status_dashboard');
+Route::post('/dashboard-update-status/{id}', [statusController::class, 'update_status'])->name('update_status');
+Route::get('/dashboard-destroy-status/{id}', [statusController::class, 'destroy_status'])->middleware('auth')->name('destroy_status');
+
+Route::get('/dashboard-type-status', [interiorController::class, 'type_status_dashboard'])->middleware('auth')->name('type_status_dashboard');
 Route::post('/dashboard-add-type-status',[statusController::class,'add_type_status'])->middleware('auth')->name('add_type_status');
-Route::post('/dashboard-add-status',[statusController::class, 'add_status'])->middleware('auth')->name('add_status');
+Route::get('/dashboard-destroy-type-status/{id_type_status}', [statusController::class, 'destroy_type_status'])->middleware('auth')->name('destroy_type_status');
 
 Route::get('/dashboard-discount', [interiorController::class, 'discount_dashboard'])->middleware('auth')->name('discount_dashboard');
 

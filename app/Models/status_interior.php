@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class status extends Model
+class status_interior extends Model
 {
     use HasFactory;
-    protected $table = 'status';
+    protected $table = 'status_interior';
     protected $fillable = [
         'id_status',
         'name_status',

@@ -89,90 +89,63 @@
                 <div class="nav-align-top mb-4">
                   <ul class="nav nav-pills mb-3" role="tablist">
                     <li class="nav-item">
-                      <a href="{{ route('status_dashboard') }}" class="nav-link active">Trạng thái</a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="{{ route('type_status_dashboard') }}" class="nav-link">Loại trạng thái</a>
-                    </li>
+                        <a href="{{ route('status_dashboard') }}" class="nav-link">Trạng thái</a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="{{ route('type_status_dashboard') }}" class="nav-link active">Loại trạng thái</a>
+                      </li>
                   </ul>
                   <div class="tab-content">
                     <div>
-                      <!-- Basic with Icons -->
-                      <div class="col-xxl">
-                        <div>
-                          <div class="card-body">
-                            <form action="{{ route('add_status') }}" method="POST">
-                              @csrf
-                              <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label">Tên trạng thái</label>
-                                <div class="col-sm-10">
-                                  <div class="input-group input-group-merge">
-                                    <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
-                                    <input type="text" class="form-control" name="name_status"/>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label">Loại trạng thái</label>
-                                <div class="col-sm-10">
-                                  <div class="input-group input-group-merge">
-                                    <span class="input-group-text"><i class='bx bx-cube-alt'></i></span>
-                                    <select class="form-select" name="type_status">
-                                      @foreach ($type as $types)
-                                          <option value="{{$types->nametype}}">{{$types->nametype}}</option>
-                                      @endforeach
-                                    </select>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="row justify-content-end">
-                                <div class="col-sm-10">
+                        <div class="card-body">
+                          <form action="{{ route('add_type_status') }}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <div class="row mb-3">
+                              <label class="col-sm-2 col-form-label">Loại trạng thái</label>
+                              <div class="col-sm-10">
+                                <div class="input-group input-group-merge">
+                                  <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
+                                  <input type="text" class="form-control" name="nametype"/>
                                   <button type="submit" class="btn btn-success">Thêm</button>
                                 </div>
                               </div>
-                            </form>
-                          </div>
+                            </div>
+                          </form>
                         </div>
-                      </div>
-                      <hr class="my-3">
-                      <!-- Responsive Table -->
-                      <div>
-                        <div class="table-responsive text-nowrap">
-                          <form action="" method="">
-                            @csrf
+                        <hr class="my-3">
+                        <!-- Responsive Table -->
+                        <div>
+                          <div class="table-responsive text-nowrap">
                             <table class="table table-hover table-dark">
                               <thead>
                                 <tr>
                                   <th style="color: rgb(255, 201, 53);font-size: 14px">STT</th>
-                                  <th style="color: rgb(255, 201, 53);font-size: 14px">Mã trạng thái</th>
-                                  <th style="color: rgb(255, 201, 53);font-size: 14px">Tên trạng thái</th>
-                                  <th style="color: rgb(255, 201, 53);font-size: 14px">Loại trạng thái</th>
+                                  <th style="color: rgb(255, 201, 53);font-size: 14px">Mã loại</th>
+                                  <th style="color: rgb(255, 201, 53);font-size: 14px">Tên loại</th>
                                   <th style="color: rgb(255, 201, 53);font-size: 14px">Chức năng</th>
                                 </tr>
                               </thead>
                               <tbody>
-                                @foreach ($status as $key => $statuses)
+                                @foreach ($type as $key => $types)
                                 <tr>
                                   <th>{{$key + 1}}</th>
-                                  <td style="color: gold">{{$statuses->id}}</td>
-                                  <td>{{$statuses->name_status}}</td>
-                                  <td>{{$statuses->type_status}}</td>
+                                  <td style="color: gold">{{$types->id_type_status}}</td>
+                                  <td>{{$types->nametype}}</td>
                                   <td>
-                                    <a href="{{ route('edit_status_dashboard', ['id'=>$statuses->id]) }}" class="btn btn-primary"><i class='bx bxs-edit'></i></a>
-                                    <a onclick="return confirm('Bạn có chắc chắn xóa không?')"  href="{{ route('destroy_status', ['id'=>$statuses->id]) }}" class="btn btn-danger"><i class='bx bx-x'></i></a>
+                                    <a href="#" class="btn btn-primary"><i class='bx bxs-edit'></i></a>
+                                    <a onclick="return confirm('Bạn có chắc chắn xóa không?')"  href="{{ route('destroy_type_status', ['id_type_status'=>$types->id_type_status]) }}" class="btn btn-danger"><i class='bx bx-x'></i></a>
                                   </td>
                                 </tr>
                                 @endforeach
                               </tbody>
                             </table>
-                          </form>
+                          </div>
                         </div>
-                      </div>
-                      <div class="d-flex">
-                        {{ $status->links() }}
-                      </div>
-                      <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
-                      <!--/ Responsive Table -->
+                        <div class="d-flex">
+                          {{ $type->links() }}
+                        </div>
+                        <!--/ Responsive Table -->
+                        <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
                     </div>
                   </div>
                 </div>
@@ -230,16 +203,5 @@
             });
       </script>
     @endif
-    @if (session()->has('update_status_sc'))
-    <script>
-      swal({
-            title: "{{session()->get('update_status_sc')}}",
-            text: "Cập nhật thành công",
-            icon: "success",
-            button: "OK",
-            timer: 20000,
-          });
-    </script>
-  @endif
   </body>
 </html>

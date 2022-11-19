@@ -15,6 +15,9 @@
         >
         <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues" target="_blank" class="footer-link me-4" >Support</a
         >
+        <a href="{{ route('logout') }}" class="btn btn-sm btn-outline-danger">
+          <i class="bx bx-log-out-circle"></i> Logout
+        </a>
       </div>
     </div>
 </footer>

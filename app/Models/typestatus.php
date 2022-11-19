@@ -10,6 +10,7 @@ class typestatus extends Model
     use HasFactory;
     protected $table = 'typestatus';
     protected $fillable = [
+        'id_type_status',
         'nametype'       
     ];
     public $timestamps = false;

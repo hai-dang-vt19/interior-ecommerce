@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\typestatus;
-use App\Models\status;
+use App\Models\status_interior;
 use Illuminate\Support\Facades\Auth;
 
 class interiorController extends Controller
@@ -111,10 +111,26 @@ class interiorController extends Controller
     public function status_dashboard()
     {
         $type = typestatus::all();
-        $status = status::all();
-        return view('dashboards.clients.z-status', compact('type','status'));
+        $status = status_interior::limit(5)->paginate(5);
+        return view('dashboards.clients.z-status', compact('status','type'));
     }
-
+    public function edit_status_dashboard(Request $request)
+    {
+        $type = typestatus::all();
+        $data['stt'] = status_interior::find($request->id)->toArray();
+        return view('dashboards.updates.z-status-update',$data,compact('type'));
+    }
+    public function type_status_dashboard()
+    {
+        $type = typestatus::limit(5)->paginate(5);
+        return view('dashboards.clients.z-status-type', compact('type'));
+    }
+    public function edit_type_status_dashboard(Request $request)
+    {
+        $data['type_status'] = typestatus::find($request->id_type_status);
+        return view('dashboards.updates.z-status-type-update',$data);
+    }
+    
     public function discount_dashboard()
     {
         return view('dashboards.clients.z-discount');
