@@ -109,6 +109,11 @@ class interiorController extends Controller
         $roles = roles::all();
         return view('dashboards.clients.z-roles', compact('roles'));
     }
+    public function edit_roles_dashboard(Request $request)
+    {
+        $data['rol'] = roles::find($request->id)->toArray();
+        return view('dashboards.updates.z-roles-update', $data);
+    }
 
     public function status_dashboard()
     {

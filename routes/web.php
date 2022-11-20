@@ -46,6 +46,9 @@ Route::get('/dashboard-comment', [interiorController::class, 'comment_dashboard'
 
 Route::get('/dashboard-roles', [interiorController::class, 'roles_dashboard'])->middleware('auth')->name('roles_dashboard');
 Route::post('/dashboard-add-roles', [statusController::class, 'add_roles'])->middleware('auth')->name('add_roles');
+Route::get('/dashboard-edit-roles/{id}', [interiorController::class, 'edit_roles_dashboard'])->middleware('auth')->name('edit_roles_dashboard');
+Route::post('/dashboard-update-rples/{id}', [statusController::class, 'update_roles'])->middleware('auth')->name('update_roles');
+Route::get('/dashboard-destroy-roles/{id}', [statusController::class, 'destroy_roles'])->middleware('auth')->name('destroy_roles');
 
 Route::get('/dashboard-status', [interiorController::class, 'status_dashboard'])->middleware('auth')->name('status_dashboard');
 Route::post('/dashboard-add-status', [statusController::class, 'add_status'])->middleware('auth')->name('add_status');

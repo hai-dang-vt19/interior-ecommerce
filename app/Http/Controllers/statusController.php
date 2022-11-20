@@ -58,4 +58,18 @@ class statusController extends Controller
         session()->flash('roles_sc', $request->name_roles);
         return back();
     }
+    public function update_roles(Request $request)
+    {
+        $role = roles::find($request->id);
+        $role->name_roles = $request->name_roles;
+        $role->save();
+        session()->flash('update_roles_sc', $request->name_roles);
+        return redirect(route('roles_dashboard'));
+    }
+    public function destroy_roles(Request $request)
+    {
+        roles::find($request->id)->delete();
+        session()->flash('roles_ds', 'Xóa thành công');
+        return back();
+    }
 }

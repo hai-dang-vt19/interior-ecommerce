@@ -88,46 +88,19 @@
               <!-- Responsive Table -->
               <div class="card">
                 <div class="card-body">
-                  <form action="{{ route('add_roles') }}" method="POST">
+                  <form action="{{ route('update_roles', $rol['id']) }}" method="POST">
                     @csrf
                     <div class="row mb-3">
                       <label class="col-sm-2 col-form-label">Roles</label>
                       <div class="col-sm-10">
                         <div class="input-group input-group-merge">
                           <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
-                          <input type="text" class="form-control" name="name_roles"/>
-                          <button type="submit" class="btn btn-success">Thêm</button>
+                          <input type="text" class="form-control" name="name_roles" value="{{$rol['name_roles']}}"/>
+                          <button type="submit" class="btn btn-success">Cập nhật</button>
                         </div>
                       </div>
                     </div>
                   </form>
-                </div>
-                <div class="card-body">
-                  <div class="table-responsive text-nowrap">
-                    <table class="table table-hover table-dark">
-                      <thead>
-                        <tr>
-                          <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>
-                          <th style="color: rgb(231, 171, 6);font-size: 14px">Mã roles</th>
-                          <th style="color: rgb(231, 171, 6);font-size: 14px">Tên roles</th>
-                          <th style="color: rgb(231, 171, 6);font-size: 14px">Chức năng</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        @foreach ($roles as $key => $role)
-                        <tr>
-                          <th>{{$key +1}}</th>
-                          <td style="color: gold">{{$role->id}}</td>
-                          <td>{{$role->name_roles}}</td>
-                          <td>
-                            <a href="{{ route('edit_roles_dashboard', ['id'=>$role->id]) }}" class="btn btn-primary"><i class='bx bxs-edit'></i></a>
-                            <a onclick="return confirm('Bạn có chắc chắn xóa không?')"  href="{{ route('destroy_roles', ['id'=>$role->id]) }}" class="btn btn-danger"><i class='bx bx-x'></i></a>
-                          </td>
-                        </tr>
-                        @endforeach
-                      </tbody>
-                    </table>
-                  </div>
                 </div>
               </div>
               <!--/ Responsive Table -->
@@ -161,38 +134,5 @@
     <!-- Page JS -->
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    @if (session()->has('roles_sc'))
-      <script>
-        swal({
-              title: "{{session()->get('roles_sc')}}",
-              text: "Tạo thành công",
-              icon: "success",
-              button: "OK",
-              timer: 20000,
-            });
-      </script>
-    @endif
-    @if (session()->has('update_roles_sc'))
-    <script>
-      swal({
-            title: "{{session()->get('update_status_sc')}}",
-            text: "Cập nhật thành công",
-            icon: "success",
-            button: "OK",
-            timer: 20000,
-          });
-    </script>
-    @endif
-    @if (session()->has('roles_ds'))
-    <script>
-      swal({
-            title: "{{session()->get('roles_ds')}}",
-            icon: "success",
-            button: "OK",
-            timer: 20000,
-          });
-    </script>
-    @endif
   </body>
 </html>
