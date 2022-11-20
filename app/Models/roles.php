@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class typestatus extends Model
+class roles extends Model
 {
     use HasFactory;
-    protected $table = 'typestatus';
+    protected $table = 'roles';
     protected $fillable = [
         'id',
-        'nametype'       
+        'name_roles'       
     ];
     public $timestamps = false;
 }

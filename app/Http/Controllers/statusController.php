@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\typestatus;
 use App\Models\status_interior;
+use App\Models\roles;
 
 class statusController extends Controller
 {
@@ -38,7 +39,7 @@ class statusController extends Controller
     }
     public function update_type_status(Request $request)
     {
-        $up = typestatus::find($request->id_type_status);
+        $up = typestatus::find($request->id);
         $up->nametype = $request->nametype;
         $up->save();
         session()->flash('update_type_status', $request->nametype);
@@ -46,8 +47,15 @@ class statusController extends Controller
     }
     public function destroy_type_status(Request $request)
     {
-        typestatus::find($request->id_type_status)->delete();
+        typestatus::find($request->id)->delete();
         session()->flash('type_ds', 'Xóa thành công');
+        return back();
+    }
+
+    public function add_roles(Request $request)
+    {
+        roles::updateOrCreate(['name_roles'=>$request->name_roles]);
+        session()->flash('roles_sc', $request->name_roles);
         return back();
     }
 }

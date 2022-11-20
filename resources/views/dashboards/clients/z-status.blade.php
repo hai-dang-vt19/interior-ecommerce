@@ -208,17 +208,6 @@
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    @if (session()->has('type_sc'))
-      <script>
-        swal({
-              title: "{{session()->get('type_sc')}}",
-              text: "Tạo thành công",
-              icon: "success",
-              button: "OK",
-              timer: 20000,
-            });
-      </script>
-    @endif
     @if (session()->has('status_sc'))
       <script>
         swal({
@@ -240,6 +229,17 @@
             timer: 20000,
           });
     </script>
-  @endif
+    @endif
+    @if (session()->has('status_ds'))
+    <script>
+      swal({
+            title: "{{session()->get('status_ds')}}",
+            text: "Xóa thành công",
+            icon: "success",
+            button: "OK",
+            timer: 20000,
+          });
+    </script>
+    @endif
   </body>
 </html>

@@ -129,11 +129,11 @@
                                 @foreach ($type as $key => $types)
                                 <tr>
                                   <th>{{$key + 1}}</th>
-                                  <td style="color: gold">{{$types->id_type_status}}</td>
+                                  <td style="color: gold">{{$types->id}}</td>
                                   <td>{{$types->nametype}}</td>
                                   <td>
-                                    <a href="#" class="btn btn-primary"><i class='bx bxs-edit'></i></a>
-                                    <a onclick="return confirm('Bạn có chắc chắn xóa không?')"  href="{{ route('destroy_type_status', ['id_type_status'=>$types->id_type_status]) }}" class="btn btn-danger"><i class='bx bx-x'></i></a>
+                                    <a href="{{ route('edit_type_status_dashboard', ['id'=>$types->id]) }}" class="btn btn-primary"><i class='bx bxs-edit'></i></a>
+                                    <a onclick="return confirm('Bạn có chắc chắn xóa không?')"  href="{{ route('destroy_type_status', ['id'=>$types->id]) }}" class="btn btn-danger"><i class='bx bx-x'></i></a>
                                   </td>
                                 </tr>
                                 @endforeach
@@ -181,10 +181,10 @@
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    @if (session()->has('type_sc'))
+    @if (session()->has('status_sc'))
       <script>
         swal({
-              title: "{{session()->get('type_sc')}}",
+              title: "{{session()->get('status_sc')}}",
               text: "Tạo thành công",
               icon: "success",
               button: "OK",
@@ -192,11 +192,21 @@
             });
       </script>
     @endif
-    @if (session()->has('status_sc'))
+    @if (session()->has('update_type_status'))
       <script>
         swal({
-              title: "{{session()->get('status_sc')}}",
-              text: "Tạo thành công",
+              title: "{{session()->get('update_type_status')}}",
+              text: "Cập nhật thành công",
+              icon: "success",
+              button: "OK",
+              timer: 20000,
+            });
+      </script>
+    @endif
+    @if (session()->has('type_ds'))
+      <script>
+        swal({
+              title: "{{session()->get('type_ds')}}",
               icon: "success",
               button: "OK",
               timer: 20000,

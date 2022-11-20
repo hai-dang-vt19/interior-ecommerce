@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\typestatus;
 use App\Models\status_interior;
+use App\Models\roles;
 use Illuminate\Support\Facades\Auth;
 
 class interiorController extends Controller
@@ -105,7 +106,8 @@ class interiorController extends Controller
 
     public function roles_dashboard()
     {
-        return view('dashboards.clients.z-roles');
+        $roles = roles::all();
+        return view('dashboards.clients.z-roles', compact('roles'));
     }
 
     public function status_dashboard()
@@ -127,7 +129,7 @@ class interiorController extends Controller
     }
     public function edit_type_status_dashboard(Request $request)
     {
-        $data['type_status'] = typestatus::find($request->id_type_status);
+        $data['type_status'] = typestatus::find($request->id);
         return view('dashboards.updates.z-status-type-update',$data);
     }
     
