@@ -90,7 +90,7 @@
                 <div class="card-body">
                   <form action="{{ route('add_roles') }}" method="POST">
                     @csrf
-                    <div class="row mb-3">
+                    <div class="row">
                       <label class="col-sm-2 col-form-label">Roles</label>
                       <div class="col-sm-10">
                         <div class="input-group input-group-merge">

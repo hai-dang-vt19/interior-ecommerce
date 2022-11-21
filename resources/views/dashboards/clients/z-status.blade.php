@@ -134,7 +134,6 @@
                           </div>
                         </div>
                       </div>
-                      <hr class="my-3">
                       <!-- Responsive Table -->
                       <div>
                         <div class="table-responsive text-nowrap">

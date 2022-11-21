@@ -39,7 +39,6 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('dashboard/assets/js/config.js') }}"></script>
   </head>
-
   <body>
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
@@ -49,7 +48,6 @@
           @include('dashboards.blocks.menu-list-favorite');
         </aside>
         <!-- / Menu -->
-
         <!-- Layout container -->
         <div class="layout-page">
           <!-- Navbar -->

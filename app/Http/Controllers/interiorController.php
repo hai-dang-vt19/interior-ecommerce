@@ -175,6 +175,7 @@ class interiorController extends Controller
 
     public function color_dashboard()
     {
+        
         return view('dashboards.clients.z-color');
     }
     //------------------------------------------   client   -----------------------------------------
