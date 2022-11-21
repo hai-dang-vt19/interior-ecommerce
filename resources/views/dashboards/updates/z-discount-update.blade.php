@@ -16,7 +16,7 @@
     <title>Tables - Basic Tables | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
     <meta name="description" content="" />
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico') }}" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('dashboard/assets/img/favicon/favicon.ico') }}" />
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -46,7 +46,7 @@
       <div class="layout-container">
         <!-- Menu -->
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-          @include('dashboards.blocks.menu-list-city');
+          @include('dashboards.blocks.menu-z-discount');
         </aside>
         <!-- / Menu -->
 
@@ -84,30 +84,54 @@
           <div class="content-wrapper">
             <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">City / </span>Danh sách thành phố</h4>
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Discount / </span>Danh sách mã giảm giá</h4>
               <!-- Responsive Table -->
               <div class="card">
-                <div class="table-responsive text-nowrap">
-                  <table class="table table-hover">
-                    <thead>
-                      <tr>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Mã thành phố</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Tên thành phố</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Giá vận chuyển</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Chức năng</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row">key + 1</th>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                <div class="card-body">
+                  <form action="{{ route('update_discount', ['id'=>$disc->id]) }}" method="POST">
+                    @csrf
+                    <div class="row mb-3">
+                      <label class="col-sm-2 col-form-label">Discount</label>
+                      <div class="col-sm-10">
+                        <div class="input-group input-group-merge">
+                          <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
+                          <input type="text" class="form-control" name="name_discount" value="{{$disc->name_discount}}"/>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label class="col-sm-2 col-form-label">Số tiền giảm</label>
+                      <div class="col-sm-10">
+                        <div class="input-group input-group-merge">
+                          <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
+                          <input type="text" class="form-control" name="price" value="{{$disc->price}}"/>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label class="col-sm-2 col-form-label">Trạng thái</label>
+                      <div class="col-sm-10">
+                        <div class="input-group input-group-merge">
+                          <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
+                          <select class="select2 form-select" name="status_discount">
+                            <option selected value="{{$disc->status_discount}}">{{$disc->status_discount}}</option>
+                            @foreach ($status as $stt)
+                              <option value="{{$stt->name_status}}">{{$stt->name_status}}</option>
+                            @endforeach
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row justify-content-end">
+                      <div class="col-sm-10">
+                        <button type="submit" class="btn btn-success">Cập nhật</button>
+                        <a href="{{route('discount_dashboard')}}" class="btn btn-danger"><i class='bx bx-log-out'></i></a>
+                      </div>
+                    </div>
+                  </form>
+                  <div>
+                    <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
+                  </div>
                 </div>
               </div>
               <!--/ Responsive Table -->

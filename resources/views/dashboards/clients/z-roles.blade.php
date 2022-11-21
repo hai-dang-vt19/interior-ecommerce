@@ -103,31 +103,40 @@
                   </form>
                 </div>
                 <div class="card-body">
-                  <div class="table-responsive text-nowrap">
-                    <table class="table table-hover table-dark">
-                      <thead>
-                        <tr>
-                          <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>
-                          <th style="color: rgb(231, 171, 6);font-size: 14px">Mã roles</th>
-                          <th style="color: rgb(231, 171, 6);font-size: 14px">Tên roles</th>
-                          <th style="color: rgb(231, 171, 6);font-size: 14px">Chức năng</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        @foreach ($roles as $key => $role)
-                        <tr>
-                          <th>{{$key +1}}</th>
-                          <td style="color: gold">{{$role->id}}</td>
-                          <td>{{$role->name_roles}}</td>
-                          <td>
-                            <a href="{{ route('edit_roles_dashboard', ['id'=>$role->id]) }}" class="btn btn-primary"><i class='bx bxs-edit'></i></a>
-                            <a onclick="return confirm('Bạn có chắc chắn xóa không?')"  href="{{ route('destroy_roles', ['id'=>$role->id]) }}" class="btn btn-danger"><i class='bx bx-x'></i></a>
-                          </td>
-                        </tr>
-                        @endforeach
-                      </tbody>
-                    </table>
+                  <div>
+                    <div class="table-responsive text-nowrap">
+                      <form action="">
+                        @csrf
+                        <table class="table table-hover table-dark">
+                          <thead>
+                            <tr>
+                              <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>
+                              <th style="color: rgb(231, 171, 6);font-size: 14px">Mã roles</th>
+                              <th style="color: rgb(231, 171, 6);font-size: 14px">Tên roles</th>
+                              <th style="color: rgb(231, 171, 6);font-size: 14px">Chức năng</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            @foreach ($roles as $key => $role)
+                            <tr>
+                              <th>{{$key +1}}</th>
+                              <td style="color: gold">{{$role->id}}</td>
+                              <td>{{$role->name_roles}}</td>
+                              <td>
+                                <a href="{{ route('edit_roles_dashboard', ['id'=>$role->id]) }}" class="btn btn-primary"><i class='bx bxs-edit'></i></a>
+                                <a onclick="return confirm('Bạn có chắc chắn xóa không?')"  href="{{ route('destroy_roles', ['id'=>$role->id]) }}" class="btn btn-danger"><i class='bx bx-x'></i></a>
+                              </td>
+                            </tr>
+                            @endforeach
+                          </tbody>
+                        </table>
+                      </form>
+                    </div>
                   </div>
+                  <div class="d-flex mt-3">
+                    {{ $roles->links() }}
+                  </div>
+                  <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>    
                 </div>
               </div>
               <!--/ Responsive Table -->

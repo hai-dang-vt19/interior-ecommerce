@@ -189,23 +189,11 @@
     </a>
   </li>
   <li class="menu-item">
-    <a href="#" class="menu-link menu-toggle">
-      <i class="menu-icon tf-icons bx bx-building-house"></i>
-      <div>Province - City</div>
-    </a>
-    <ul class="menu-sub">
-      <li class="menu-item">
-        <a href="{{ route('list_province_dashboard') }}" class="menu-link">
-          <div>List Province</div>
-        </a>
-      </li>
-      <li class="menu-item">
-        <a href="{{ route('list_city_dashboard') }}" class="menu-link">
-          <div data-i18n="Vertical Form">List City</div>
-        </a>
-      </li>
-    </ul>
-  </li>
+      <a href="{{route('list_province_dashboard')}}" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-building-house"></i>
+        <div data-i18n="Form Layouts">Province - City</div>
+      </a>
+    </li>
   <li class="menu-item">
     <a href="{{ route('color_dashboard') }}" class="menu-link">
       <i class="menu-icon tf-icons bx bx-cookie"></i>
@@ -403,23 +391,11 @@
     </a>
   </li>
   <li class="menu-item">
-    <a href="#" class="menu-link menu-toggle">
-      <i class="menu-icon tf-icons bx bx-building-house"></i>
-      <div>Province - City</div>
-    </a>
-    <ul class="menu-sub">
-      <li class="menu-item">
-        <a href="{{ route('list_province_dashboard') }}" class="menu-link">
-          <div>List Province</div>
-        </a>
-      </li>
-      <li class="menu-item">
-        <a href="{{ route('list_city_dashboard') }}" class="menu-link">
-          <div data-i18n="Vertical Form">List City</div>
-        </a>
-      </li>
-    </ul>
-  </li>
+      <a href="{{route('list_province_dashboard')}}" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-building-house"></i>
+        <div data-i18n="Form Layouts">Province - City</div>
+      </a>
+    </li>
   <li class="menu-item">
     <a href="{{ route('color_dashboard') }}" class="menu-link">
       <i class="menu-icon tf-icons bx bx-cookie"></i>

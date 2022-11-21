@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\interiorController;
 use App\Http\Controllers\interiorPostController;
 use App\Http\Controllers\statusController;
+use App\Http\Controllers\provinceCityController;
 
 //----------------------------------login------------------------------------------------------------
 Route::get('/login-interior', [interiorController::class,'login'])->name('login');
@@ -40,7 +41,15 @@ Route::get('/dashboard-cart', [interiorController::class, 'cart_dashboard'])->mi
 Route::get('/dashboard-list-cart', [interiorController::class,'list_cart_dashboard'])->middleware('auth')->name('list_cart_dashboard');
 
 Route::get('/dashboard-list-province', [interiorController::class,'list_province_dashboard'])->middleware('auth')->name('list_province_dashboard');
-Route::get('/dashboard-list-city', [interiorController::class,'list_city_dashboard'])->middleware('auth')->name('list_city_dashboard');
+Route::post('/dashboard-add-province', [provinceCityController::class, 'add_province'])->middleware('auth')->name('add_province');
+Route::get('/dashboard-edit-province/{id}', [interiorController::class, 'edit_province_dashboard'])->middleware('auth')->name('edit_province_dashboard');
+Route::post('/dashboard-update-province/{id}', [provinceCityController::class, 'update_province'])->middleware('auth')->name('update_province');
+Route::get('/dashboard-destroy-province/{id}', [provinceCityController::class, 'destroy_province'])->middleware('auth')->name('destroy_province');
+
+Route::post('/dashboard-add-city', [provinceCityController::class, 'add_city'])->middleware('auth')->name('add_city');
+Route::get('/dashboard-edit-city/{id}', [interiorController::class, 'edit_city_dashboard'])->middleware('auth')->name('edit_city_dashboard');
+Route::post('/dashboard-update-city/{id}', [provinceCityController::class, 'update_city'])->middleware('auth')->name('update_city');
+Route::get('/dashboard-destroy-city/{id}', [provinceCityController::class, 'destrooy_city'])->middleware('auth')->name('destroy_city');
 
 Route::get('/dashboard-comment', [interiorController::class, 'comment_dashboard'])->middleware('auth')->name('comment_dashboard');
 
@@ -63,6 +72,10 @@ Route::post('/dashboard-update-type-status/{id}', [statusController::class,'upda
 Route::get('/dashboard-destroy-type-status/{id}', [statusController::class, 'destroy_type_status'])->middleware('auth')->name('destroy_type_status');
 
 Route::get('/dashboard-discount', [interiorController::class, 'discount_dashboard'])->middleware('auth')->name('discount_dashboard');
+Route::post('/dashboard-add-discount', [statusController::class, 'add_discount'])->middleware('auth')->name('add_discount');
+Route::get('/dashboard-edit-discount/{id}', [interiorController::class, 'edit_discount_dashboard'])->middleware('auth')->name('edit_discount_dashboard');
+Route::post('/dashboard-update-discount/{id}', [statusController::class, 'update_discount'])->middleware('auth')->name('update_discount');
+Route::get('dashboard-destroy-discount/{id}', [statusController::class, 'destroy_discount'])->middleware('auth')->name('destroy_discount');
 
 Route::get('/dashboard-color', [interiorController::class, 'color_dashboard'])->middleware('auth')->name('color_dashboard');
 

@@ -83,32 +83,132 @@
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
-            <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Province / </span>Danh sách tỉnh thành</h4>
-              <!-- Responsive Table -->
-              <div class="card">
-                <div class="table-responsive text-nowrap">
-                  <table class="table table-hover">
-                    <thead>
-                      <tr>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Mã tỉnh</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Tên tỉnh</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Chức năng</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row">key + 1</th>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                      </tr>
-                    </tbody>
-                  </table>
+            <div class="container flex-grow-1 container-p-y">
+              <div class="row">
+                <div class="col-xl">
+                  <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">City / </span>Danh sách Thành phố</h4>
+                  <div class="card mb-4">
+                    <div class="card-body">
+                      <form action="{{ route('add_city') }}" method="POST">
+                        @csrf
+                        <div class="d-flex">
+                          <div class="mb-3 me-1">
+                            <label class="form-label">Thành phố</label>
+                            <div class="input-group input-group-merge">
+                              <span class="input-group-text">
+                                <i class="bx bx-user"></i>
+                              </span>
+                              <input type="text" class="form-control" name="name_city"/>
+                            </div>
+                          </div>
+                          <div class="mb-3 me-1">
+                            <label class="form-label">Tỉnh</label>
+                            <div class="input-group input-group-merge">
+                              <span class="input-group-text">
+                                <i class="bx bx-user"></i>
+                              </span>
+                              <select name="city_province" class="select form-select">
+                                <option selected disabled> </option>
+                                @foreach ($select_province as $slt_pro)
+                                    <option value="{{$slt_pro->name_province}}">{{$slt_pro->name_province}}</option>
+                                @endforeach
+                              </select>
+                            </div>
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Giá tiền</label>
+                            <div class="input-group input-group-merge">
+                              <span class="input-group-text">
+                                <i class="bx bx-user"></i>
+                              </span>
+                              <input type="text" class="form-control" name="price"/>
+                            </div>
+                          </div>
+                        </div>
+                        <button type="submit" class="btn btn-success">Thêm</button>
+                      </form>
+                      <div class="table-responsive text-nowrap mt-4">
+                        <table class="table table-hover table-dark">
+                          <thead>
+                            <tr>
+                              <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>
+                              <th style="color: rgb(231, 171, 6);font-size: 14px">Mã thành phố</th>
+                              <th style="color: rgb(231, 171, 6);font-size: 14px">Tên thành phố</th>
+                              <th style="color: rgb(231, 171, 6);font-size: 14px">Giá tiền</th>
+                              <th style="color: rgb(231, 171, 6);font-size: 14px">Chức năng</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            @foreach ($city as $key => $cty)
+                              <tr>
+                                <td scope="row">{{$key +1}}</td>
+                                <td>{{$cty->id}}</td>
+                                <td>{{$cty->name_city}}</td>
+                                <td>{{$cty->price}}</td>
+                                <td>
+                                  <a href="{{ route('edit_city_dashboard', ['id'=>$cty->id]) }}" class="btn btn-primary"><i class='bx bxs-edit'></i></a>
+                                  <a onclick="return confirm('Bạn có chắc chắn xóa không?')"  href="{{ route('destroy_city', ['id'=>$cty->id]) }}" class="btn btn-danger"><i class='bx bx-x'></i></a>
+                                </td>
+                              </tr>
+                            @endforeach
+                          </tbody>
+                        </table>
+                        <div class="d-flex mt-3">
+                          {{$city->links()}}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl">
+                  <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Province / </span>Danh sách Tỉnh lẻ</h4>
+                  <div class="card mb-4">
+                    <div class="card-body">
+                      <form action="{{ route('add_province') }}" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                          <label class="form-label">Tỉnh lẻ</label>
+                          <div class="input-group input-group-merge">
+                            <span class="input-group-text">
+                              <i class="bx bx-user"></i>
+                            </span>
+                            <input type="text" class="form-control" name="name_province"/>
+                          </div>
+                        </div>
+                        <button type="submit" class="btn btn-success">Thêm</button>
+                      </form>
+                      <div class="table-responsive text-nowrap mt-4">
+                        <table class="table table-hover table-dark">
+                          <thead>
+                            <tr>
+                              <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>
+                              <th style="color: rgb(231, 171, 6);font-size: 14px">Mã tỉnh</th>
+                              <th style="color: rgb(231, 171, 6);font-size: 14px">Tên tỉnh</th>
+                              <th style="color: rgb(231, 171, 6);font-size: 14px">Chức năng</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            @foreach ($province as $key => $pro)
+                            <tr>
+                              <th scope="row">{{$key +1}}</th>
+                              <td>{{$pro->id}}</td>
+                              <td>{{$pro->name_province}}</td>
+                              <td>
+                                <a href="{{ route('edit_province_dashboard', ['id'=>$pro->id]) }}" class="btn btn-primary"><i class='bx bxs-edit'></i></a>
+                                <a onclick="return confirm('Bạn có chắc chắn xóa không?')"  href="{{ route('destroy_province', ['id'=>$pro->id]) }}" class="btn btn-danger"><i class='bx bx-x'></i></a>
+                              </td>
+                            </tr>
+                            @endforeach
+                          </tbody>
+                        </table>
+                        <div class="d-flex mt-3">
+                          {{$province->links()}}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <!--/ Responsive Table -->
             </div>
             <!-- / Content -->
             <!-- Footer -->
@@ -139,5 +239,70 @@
     <!-- Page JS -->
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    @if (session()->has('province_sc'))
+      <script>
+        swal({
+              title: "{{session()->get('province_sc')}}",
+              text: "Tạo thành công",
+              icon: "success",
+              button: "OK",
+              timer: 20000,
+            });
+      </script>
+    @endif
+    @if (session()->has('update_province_sc'))
+      <script>
+        swal({
+              title: "{{session()->get('update_province_sc')}}",
+              text: "Cập nhật thành công",
+              icon: "success",
+              button: "OK",
+              timer: 20000,
+            });
+      </script>
+    @endif
+    @if (session()->has('province_ds'))
+      <script>
+        swal({
+              title: "{{session()->get('province_ds')}}",
+              icon: "success",
+              button: "OK",
+              timer: 20000,
+            });
+      </script>
+    @endif
+    @if (session()->has('city_sc'))
+      <script>
+        swal({
+              title: "{{session()->get('city_sc')}}",
+              text: "Tạo thành công",
+              icon: "success",
+              button: "OK",
+              timer: 20000,
+            });
+      </script>
+    @endif
+    @if (session()->has('update_city_sc'))
+      <script>
+        swal({
+              title: "{{session()->get('update_city_sc')}}",
+              text: "Cập nhật thành công",
+              icon: "success",
+              button: "OK",
+              timer: 20000,
+            });
+      </script>
+    @endif
+    @if (session()->has('city_ds'))
+      <script>
+        swal({
+              title: "{{session()->get('city_ds')}}",
+              icon: "success",
+              button: "OK",
+              timer: 20000,
+            });
+      </script>
+    @endif
   </body>
 </html>

@@ -129,7 +129,7 @@
                               <div class="row justify-content-end">
                                 <div class="col-sm-10 d-flex">
                                   <button type="submit" class="btn btn-success me-1">Cập nhật</button>
-                                  <a href="{{ route('status_dashboard') }}" class="btn btn-danger">Quay lại</a>
+                                  <a href="{{ route('status_dashboard') }}" class="btn btn-danger"><i class='bx bx-log-out'></i></a>
                                 </div>
                               </div>
                             </form>

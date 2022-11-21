@@ -141,7 +141,7 @@
                             </table>
                           </div>
                         </div>
-                        <div class="d-flex">
+                        <div class="d-flex mt-3">
                           {{ $type->links() }}
                         </div>
                         <!--/ Responsive Table -->

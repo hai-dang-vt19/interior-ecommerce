@@ -46,7 +46,7 @@
       <div class="layout-container">
         <!-- Menu -->
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-          @include('dashboards.blocks.menu-z-roles');
+          @include('dashboards.blocks.menu-list-province');
         </aside>
         <!-- / Menu -->
 
@@ -84,27 +84,29 @@
           <div class="content-wrapper">
             <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Roles / </span>Danh sách phân quyền</h4>
-              <!-- Responsive Table -->
-              <div class="card">
-                <div class="card-body">
-                  <form action="{{ route('update_roles', $rol['id']) }}" method="POST">
-                    @csrf
-                    <div class="row mb-3">
-                      <label class="col-sm-2 col-form-label">Roles</label>
-                      <div class="col-sm-10">
-                        <div class="input-group input-group-merge">
-                          <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
-                          <input type="text" class="form-control" name="name_roles" value="{{$rol['name_roles']}}"/>
-                          <button type="submit" class="btn btn-success">Cập nhật</button>
-                          <a href="{{ route('roles_dashboard') }}" class="btn btn-danger"><i class='bx bx-log-out'></i></a>
+              <div class="row">
+                <div class="col-xl">
+                  <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Province / </span>Danh sách Tỉnh lẻ</h4>
+                  <div class="card mb-4">
+                    <div class="card-body">
+                      <form action="{{ route('update_province', ['id'=>$province['id']]) }}" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                          <label class="form-label">Tỉnh lẻ</label>
+                          <div class="input-group input-group-merge">
+                            <span class="input-group-text">
+                              <i class="bx bx-user"></i>
+                            </span>
+                            <input type="text" class="form-control" name="name_province" value="{{$province['name_province']}}"/>
+                          </div>
                         </div>
-                      </div>
+                        <button type="submit" class="btn btn-success">Cập nhật</button>
+                        <a href="{{route('list_province_dashboard')}}" class="btn btn-danger"><i class='bx bx-log-out'></i></a>
+                      </form>
                     </div>
-                  </form>
+                  </div>
                 </div>
               </div>
-              <!--/ Responsive Table -->
             </div>
             <!-- / Content -->
             <!-- Footer -->
@@ -135,5 +137,6 @@
     <!-- Page JS -->
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   </body>
 </html>

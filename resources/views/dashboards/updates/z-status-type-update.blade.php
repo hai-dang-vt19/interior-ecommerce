@@ -107,6 +107,7 @@
                                   <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
                                   <input type="text" class="form-control" name="nametype" value="{{$type_status['nametype']}}"/>
                                   <button type="submit" class="btn btn-success">Cập nhật</button>
+                                  <a href="{{ route('type_status_dashboard') }}" class="btn btn-danger"><i class='bx bx-log-out'></i></a>
                                 </div>
                               </div>
                             </div>

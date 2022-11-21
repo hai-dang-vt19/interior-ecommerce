@@ -7,6 +7,9 @@ use App\Models\User;
 use App\Models\typestatus;
 use App\Models\status_interior;
 use App\Models\roles;
+use App\Models\discount;
+use App\Models\province;
+use App\Models\city;
 use Illuminate\Support\Facades\Auth;
 
 class interiorController extends Controller
@@ -106,7 +109,7 @@ class interiorController extends Controller
 
     public function roles_dashboard()
     {
-        $roles = roles::all();
+        $roles = roles::limit(2)->paginate(2);
         return view('dashboards.clients.z-roles', compact('roles'));
     }
     public function edit_roles_dashboard(Request $request)
@@ -118,7 +121,7 @@ class interiorController extends Controller
     public function status_dashboard()
     {
         $type = typestatus::all();
-        $status = status_interior::limit(5)->paginate(5);
+        $status = status_interior::limit(2)->paginate(2);
         return view('dashboards.clients.z-status', compact('status','type'));
     }
     public function edit_status_dashboard(Request $request)
@@ -129,7 +132,7 @@ class interiorController extends Controller
     }
     public function type_status_dashboard()
     {
-        $type = typestatus::limit(5)->paginate(5);
+        $type = typestatus::limit(2)->paginate(2);
         return view('dashboards.clients.z-status-type', compact('type'));
     }
     public function edit_type_status_dashboard(Request $request)
@@ -140,17 +143,34 @@ class interiorController extends Controller
     
     public function discount_dashboard()
     {
-        return view('dashboards.clients.z-discount');
+        $status = status_interior::all()->where('type_status','=','discount');
+        $discount = discount::limit(2)->paginate(2);
+        return view('dashboards.clients.z-discount', compact('status','discount'));
+    }
+    public function edit_discount_dashboard(Request $request)
+    {
+        $status = status_interior::all()->where('type_status','=','discount');
+        $data['disc'] = discount::find($request->id);
+        return view('dashboards.updates.z-discount-update',$data,compact('status'));
     }
 
     public function list_province_dashboard()
     {
-        return view('dashboards.clients.list-province');
+        $province = province::limit(2)->paginate(2);
+        $select_province = province::all();
+        $city = city::limit(2)->paginate(2);
+        return view('dashboards.clients.list-province', compact('province','city','select_province'));
     }
-
-    public function list_city_dashboard()
+    public function edit_province_dashboard(Request $request)
     {
-        return view('dashboards.clients.list-city');
+        $data['province'] = province::find($request->id);
+        return view('dashboards.updates.list-province-update',$data);
+    }
+    public function edit_city_dashboard(Request $request)
+    {
+        $data['city'] = city::find($request->id);
+        $select_province = province::all();
+        return view('dashboards.updates.list-city-update',$data,compact('select_province'));
     }
 
     public function color_dashboard()

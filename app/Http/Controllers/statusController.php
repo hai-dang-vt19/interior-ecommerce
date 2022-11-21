@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\typestatus;
 use App\Models\status_interior;
 use App\Models\roles;
+use App\Models\discount;
 
 class statusController extends Controller
 {
@@ -70,6 +71,33 @@ class statusController extends Controller
     {
         roles::find($request->id)->delete();
         session()->flash('roles_ds', 'Xóa thành công');
+        return back();
+    }
+    
+    public function add_discount(Request $request)
+    {
+         discount::updateOrCreate([
+            'name_discount'=>$request->name_discount,
+            'price'=>$request->price,
+            'status_discount'=>$request->status_discount
+        ]);
+        session()->flash('discount_sc', $request->name_discount);
+        return back();
+    }
+    public function update_discount(Request $request)
+    {
+        $updisc = discount::find($request->id);
+        $updisc->name_discount = $request->name_discount;
+        $updisc->price = $request->price;
+        $updisc->status_discount = $request->status_discount;
+        $updisc->save();
+        session()->flash('update_discount_sc', $request->name_discount);
+        return redirect(route('discount_dashboard'));
+    }
+    public function destroy_discount(Request $request)
+    {
+        discount::find($request->id)->delete();
+        session()->flash('discount_ds', 'Xóa thành công');
         return back();
     }
 }

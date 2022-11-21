@@ -87,41 +87,84 @@
               <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Discount / </span>Danh sách mã giảm giá</h4>
               <!-- Responsive Table -->
               <div class="card">
-                <div class="table-responsive text-nowrap">
-                  <table class="table table-hover">
-                    <thead>
-                      <tr>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Tên sản phẩm</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Loại sản phẩm</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Số lượng</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Màu sắc</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Giá tiền</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Chất liệu</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Nhà sản xuất</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Mô tả</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Hình ảnh</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">trạng thái</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Chức năng</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row">key + 1</th>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                <div class="card-body">
+                  <form action="{{ route('add_discount') }}" method="POST">
+                    @csrf
+                    <div class="row mb-3">
+                      <label class="col-sm-2 col-form-label">Discount</label>
+                      <div class="col-sm-10">
+                        <div class="input-group input-group-merge">
+                          <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
+                          <input type="text" class="form-control" name="name_discount"/>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label class="col-sm-2 col-form-label">Số tiền giảm</label>
+                      <div class="col-sm-10">
+                        <div class="input-group input-group-merge">
+                          <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
+                          <input type="text" class="form-control" name="price"/>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label class="col-sm-2 col-form-label">Trạng thái</label>
+                      <div class="col-sm-10">
+                        <div class="input-group input-group-merge">
+                          <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
+                          <select class="select2 form-select" name="status_discount">
+                            <option selected disabled> </option>
+                            @foreach ($status as $stt)
+                              <option value="{{$stt->name_status}}">{{$stt->name_status}}</option>
+                            @endforeach
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row justify-content-end">
+                      <div class="col-sm-10">
+                        <button type="submit" class="btn btn-success">Thêm</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="card-body">
+                  <div>
+                    <div class="table-responsive text-nowrap">
+                      <table class="table table-hover table-dark">
+                        <thead>
+                          <tr>
+                            <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>
+                            <th style="color: rgb(231, 171, 6);font-size: 14px">ID Mã giảm giá</th>
+                            <th style="color: rgb(231, 171, 6);font-size: 14px">Tên mã giảm giá</th>
+                            <th style="color: rgb(231, 171, 6);font-size: 14px">Giá tiền giảm</th>
+                            <th style="color: rgb(231, 171, 6);font-size: 14px">Trạng thái</th>
+                            <th style="color: rgb(231, 171, 6);font-size: 14px">Chức năng</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          @foreach ($discount as $key => $disc)
+                          <tr>
+                            <th>{{$key +1}}</th>
+                            <td style="color: gold">{{$disc->id}}</td>
+                            <td>{{$disc->name_discount}}</td>
+                            <td>{{$disc->price}}</td>
+                            <td>{{$disc->status_discount}}</td>
+                            <td>
+                              <a href="{{ route('edit_discount_dashboard', ['id'=>$disc->id]) }}" class="btn btn-primary"><i class='bx bxs-edit'></i></a>
+                              <a onclick="return confirm('Bạn có chắc chắn xóa không?')"  href="{{ route('destroy_discount', ['id'=>$disc->id]) }}" class="btn btn-danger"><i class='bx bx-x'></i></a>
+                            </td>
+                          </tr>
+                          @endforeach
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="d-flex mt-3">
+                    {{$discount->links()}}
+                  </div>
+                  <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
                 </div>
               </div>
               <!--/ Responsive Table -->
@@ -155,5 +198,39 @@
     <!-- Page JS -->
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    @if (session()->has('discount_sc'))
+      <script>
+        swal({
+              title: "{{session()->get('discount_sc')}}",
+              text: "Tạo thành công",
+              icon: "success",
+              button: "OK",
+              timer: 20000,
+            });
+      </script>
+    @endif
+    @if (session()->has('update_discount_sc'))
+    <script>
+      swal({
+            title: "{{session()->get('update_discount_sc')}}",
+            text: "Cập nhật thành công",
+            icon: "success",
+            button: "OK",
+            timer: 20000,
+          });
+    </script>
+    @endif
+    @if (session()->has('discount_ds'))
+    <script>
+      swal({
+            title: "{{session()->get('discount_ds')}}",
+            text: "Xóa thành công",
+            icon: "success",
+            button: "OK",
+            timer: 20000,
+          });
+    </script>
+    @endif
   </body>
 </html>
