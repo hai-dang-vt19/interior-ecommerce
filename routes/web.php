@@ -36,6 +36,11 @@ Route::get('/dashboard-list-warehouse', [interiorController::class,'list_warehou
 Route::get('/dashboard-user', [interiorController::class, 'user_dashboard'])->middleware('auth')->name('user_dashboard');
 Route::post('/dashboard-add-user', [userController::class, 'add_user'])->middleware('auth')->name('add_user');
 Route::get('/dashboard-list-user', [interiorController::class,'list_user_dashboard'])->middleware('auth')->name('list_user_dashboard');
+Route::get('/dashboard-edit-list-user/{id}', [interiorController::class, 'edit_list_user'])->middleware('auth')->name('edit_list_user');
+Route::post('/dashboard-update-list-user/{id}', [userController::class, 'update_list_user'])->middleware('auth')->name('update_list_user');
+Route::get('/dashboard-profile-user', [interiorController::class, 'edit_profile_user'])->middleware('auth')->name('edit_profile_user');
+Route::post('/dashboard-update-profile-user/{id}', [userController::class, 'update_profile_user'])->middleware('auth')->name('update_profile_user');
+// 
 Route::get('/dashboard-destroy-user/{id}', [userController::class, 'destroy_user'])->middleware('auth')->name('destroy_user');
 
 Route::get('/dashboard-favorite', [interiorController::class, 'favorite_dashboard'])->middleware('auth')->name('favorite_dashboard');

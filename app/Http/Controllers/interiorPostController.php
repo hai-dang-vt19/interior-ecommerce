@@ -26,12 +26,12 @@ class interiorPostController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             if (Auth::check()) {
-                if(Auth::user()->name_roles == 'admin'){
+                if(Auth::user()->name_roles == 'user'){
                     session()->flash('login-sc', 'Đăng nhập thành công')    ;
-                    return view('dashboards.index-dashboard');
+                    return view('interiors.index');
                 }else{
                     session()->flash('login-sc', 'Đăng nhập thành công');
-                    return view('interiors.index');
+                    return view('dashboards.index-dashboard');
                 }
             } else {
                 return false;

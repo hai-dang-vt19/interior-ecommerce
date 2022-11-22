@@ -185,7 +185,7 @@
     @if (session()->has('update_roles_sc'))
     <script>
       swal({
-            title: "{{session()->get('update_status_sc')}}",
+            title: "{{session()->get('update_roles_sc')}}",
             text: "Cập nhật thành công",
             icon: "success",
             button: "OK",

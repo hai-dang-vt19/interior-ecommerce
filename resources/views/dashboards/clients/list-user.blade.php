@@ -111,15 +111,25 @@
                         <td style="color: #696CFF;">{{$us->user_id}}</td>
                         <td>{{$us->email}}</td>
                         <td>{{$us->name}}</td>
-                        <td>{{$us->name_roles}}</td>
+                        <td>
+                          @if ($us->name_roles == 'admin')
+                            <span class="badge rounded-pill bg-warning me-1" style="width: 93px; font-size: 12px">{{$us->name_roles}}</span>
+                          @elseif($us->name_roles == 'manager')
+                            <span class="badge rounded-pill bg-dark me-1" style="width: 93px; font-size: 11px">{{$us->name_roles}}</span>
+                          @elseif($us->name_roles == 'staff')
+                            <span class="badge rounded-pill bg-label-dark me-1" style="width: 93px; font-size: 11px">{{$us->name_roles}}</span>
+                          @else
+                            <span class="badge rounded-pill bg-info me-1" style="width: 93px; font-size: 11px">{{$us->name_roles}}</span>
+                          @endif
+                        </td>
                         <td>{{$us->sex_user}}</td>
                         <td>{{$us->date_user}}</td>
                         <td>{{$us->district}}, {{$us->city}}, {{$us->province}}</td>
                         <td>{{$us->phone}}</td>
                         {{-- <td>Table cell</td> --}}
                         <td>
-                          {{-- <a href="{{ route('edit_discount_dashboard', ['id'=>$disc->id]) }}" class="btn btn-primary"><i class='bx bxs-edit'></i></a> --}}
-                          <a onclick="return confirm('Bạn có chắc chắn xóa không?')"  href="{{ route('destroy_user', ['id'=>$us->id]) }}" class="btn btn-danger"><i class='bx bx-x'></i></a>
+                          <a href="{{ route('edit_list_user', ['id'=>$us->id]) }}" class="btn btn-primary"><i class='bx bxs-edit'></i></a>
+                          <a onclick="return confirm('Bạn có chắc chắn xóa không?')"  href="{{ route('destroy_user', ['id'=>$us->id]) }}" class="btn btn-danger"><i class='bx bx-trash-alt'></i></a>
                         </td>
                       </tr>
                       @endforeach
@@ -162,5 +172,27 @@
     <!-- Page JS -->
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    @if (session()->has('update_user_sc'))
+    <script>
+      swal({
+            title: "{{session()->get('update_user_sc')}}",
+            text: "Cập nhật thành công",
+            icon: "success",
+            button: "OK",
+            timer: 20000,
+          });
+    </script>
+    @endif
+    @if (session()->has('user_ds'))
+    <script>
+      swal({
+            title: "{{session()->get('user_ds')}}",
+            icon: "success",
+            button: "OK",
+            timer: 20000,
+          });
+    </script>
+    @endif
   </body>
 </html>

@@ -97,6 +97,43 @@ class interiorController extends Controller
         $user = User::limit(10)->paginate(10);
         return view('dashboards.clients.list-user',compact('user'));
     }
+    public function edit_list_user(Request $request)
+    {
+        $up_user['user'] = User::find($request->id)->toArray();
+        $pro = province::all();
+        $cty = city::all();
+        if(Auth::user()->name_roles == 'admin'){
+            $rol = roles::where('name_roles','!=','admin')->get();
+        }elseif(Auth::user()->name_roles == 'manager'){
+            $rol = roles::where('name_roles','!=','admin')
+                            ->where('name_roles','!=','manager')
+                            ->get();
+        }else{
+            $rol = roles::where('name_roles','!=','admin')
+                            ->where('name_roles','!=','manager')
+                            ->where('name_roles','!=','staff')
+                            ->get();
+        }
+        return view('dashboards.updates.list-user-update',$up_user,compact('pro','cty','rol'));
+    }
+    public function edit_profile_user()
+    {
+        $cty = city::all();
+        $pro = province::all();
+        if(Auth::user()->name_roles == 'admin'){
+            $rol = roles::where('name_roles','!=','admin')->get();
+        }elseif(Auth::user()->name_roles == 'manager'){
+            $rol = roles::where('name_roles','!=','admin')
+                            ->where('name_roles','!=','manager')
+                            ->get();
+        }else{
+            $rol = roles::where('name_roles','!=','admin')
+                            ->where('name_roles','!=','manager')
+                            ->where('name_roles','!=','staff')
+                            ->get();
+        }
+        return view('dashboards.clients.profile-user',compact('cty','rol','pro'));
+    }
 
     public function favorite_dashboard()
     {

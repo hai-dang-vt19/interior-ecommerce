@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\city;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -51,6 +52,67 @@ class userController extends Controller
                 return redirect(route('user_dashboard'));
             }
         }
+    }
+    public function update_list_user(Request $request)
+    {
+        $user_id = $request->user_id;
+        $email = $request->email;
+        $name = $request->name;
+        $name_roles = $request->name_roles;
+        $sex_user = $request->sex_user;
+        $date_user = $request->date_user;
+        $province = $request->province;
+        $city = $request->city;
+        $district = $request->district;
+        $phone = $request->phone;
+
+        $update = User::find($request->id);
+        $update->user_id = $user_id;
+        $update->email = $email;
+        $update->name = $name;
+        $update->name_roles = $name_roles;
+        $update->sex_user = $sex_user;
+        $update->date_user = $date_user;
+        $update->province = $province;
+        $update->city = $city;
+        $update->district = $district;
+        $update->phone = $phone;
+        $update->save();
+
+        session()->flash('update_user_sc', $email);
+        return redirect(route('list_user_dashboard'));
+    }
+    
+    public function update_profile_user(Request $request)
+    {
+        $email = $request->email;
+        $name = $request->name;
+        $name_roles = $request->name_roles;
+        $sex_user = $request->sex_user;
+        $date_user = $request->date_user;
+        // $province = $request->province;
+        $city = $request->city;
+        $district = $request->district;
+        $phone = $request->phone;
+
+        $province = city::where('name_city',$city)->get('city_province');
+        // $str = strlen($province);
+        // echo $province;
+        // echo '<br>'.$str;
+        $update = User::find($request->id);
+        $update->email = $email;
+        $update->name = $name;
+        $update->name_roles = $name_roles;
+        $update->sex_user = $sex_user;
+        $update->date_user = $date_user;
+        $update->province = $province;
+        $update->city = $city;
+        $update->district = $district;
+        $update->phone = $phone;
+        $update->save();
+        
+        session()->flash('update_user_sc', $email);
+        return redirect(route('edit_profile_user'));
     }
     public function destroy_user(Request $request)
     {
