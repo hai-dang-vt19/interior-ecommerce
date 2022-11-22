@@ -95,33 +95,42 @@
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Mã người dùng</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Email</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Tên người dùng</th>
+                        <th style="color: rgb(231, 171, 6);font-size: 14px">Quyền hạn</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Giới tính</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Ngày sinh</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Địa chỉ</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Số điện thoại</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Quyền hạn</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Trạng thái</th>
+                        {{-- <th style="color: rgb(231, 171, 6);font-size: 14px">Trạng thái</th> --}}
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Chức năng</th>
                       </tr>
                     </thead>
                     <tbody>
+                      @foreach ($user as $key => $us)
                       <tr>
-                        <th scope="row">key + 1</th>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
+                        <td scope="row">{{$key +1}}</td>
+                        <td style="color: #696CFF;">{{$us->user_id}}</td>
+                        <td>{{$us->email}}</td>
+                        <td>{{$us->name}}</td>
+                        <td>{{$us->name_roles}}</td>
+                        <td>{{$us->sex_user}}</td>
+                        <td>{{$us->date_user}}</td>
+                        <td>{{$us->district}}, {{$us->city}}, {{$us->province}}</td>
+                        <td>{{$us->phone}}</td>
+                        {{-- <td>Table cell</td> --}}
+                        <td>
+                          {{-- <a href="{{ route('edit_discount_dashboard', ['id'=>$disc->id]) }}" class="btn btn-primary"><i class='bx bxs-edit'></i></a> --}}
+                          <a onclick="return confirm('Bạn có chắc chắn xóa không?')"  href="{{ route('destroy_user', ['id'=>$us->id]) }}" class="btn btn-danger"><i class='bx bx-x'></i></a>
+                        </td>
                       </tr>
+                      @endforeach
                     </tbody>
                   </table>
                 </div>
               </div>
+              <div class="d-flex mt-3">
+                {{$user->links()}}
+              </div>
+              <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
               <!--/ Responsive Table -->
             </div>
             <!-- / Content -->

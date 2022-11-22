@@ -10,6 +10,7 @@ use App\Models\roles;
 use App\Models\discount;
 use App\Models\province;
 use App\Models\city;
+use App\Models\color;
 use Illuminate\Support\Facades\Auth;
 
 class interiorController extends Controller
@@ -77,11 +78,24 @@ class interiorController extends Controller
 
     public function user_dashboard()
     {
-        return view('dashboards.clients.new-user');
+        if(Auth::user()->name_roles == 'admin'){
+            $roles = roles::where('name_roles','!=','admin')->get();
+        }elseif(Auth::user()->name_roles == 'manager'){
+            $roles = roles::where('name_roles','!=','admin')
+                            ->where('name_roles','!=','manager')
+                            ->get();
+        }else{
+            $roles = roles::where('name_roles','!=','admin')
+                            ->where('name_roles','!=','manager')
+                            ->where('name_roles','!=','staff')
+                            ->get();
+        }
+        return view('dashboards.clients.new-user', compact('roles'));
     }
     public function list_user_dashboard()
     {
-        return view('dashboards.clients.list-user');
+        $user = User::limit(10)->paginate(10);
+        return view('dashboards.clients.list-user',compact('user'));
     }
 
     public function favorite_dashboard()
@@ -175,8 +189,13 @@ class interiorController extends Controller
 
     public function color_dashboard()
     {
-        
-        return view('dashboards.clients.z-color');
+        $color = color::limit(2)->paginate(2);
+        return view('dashboards.clients.z-color', compact('color'));
+    }
+    public function edit_color_dashboard(Request $request)
+    {
+        $data['color'] = color::find($request->id);
+        return view('dashboards.updates.z-color-update',$data);
     }
     //------------------------------------------   client   -----------------------------------------
     public function blog()

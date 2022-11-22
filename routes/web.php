@@ -5,6 +5,8 @@ use App\Http\Controllers\interiorController;
 use App\Http\Controllers\interiorPostController;
 use App\Http\Controllers\statusController;
 use App\Http\Controllers\provinceCityController;
+use App\Http\Controllers\colorController;
+use App\Http\Controllers\userController;
 
 //----------------------------------login------------------------------------------------------------
 Route::get('/login-interior', [interiorController::class,'login'])->name('login');
@@ -32,7 +34,9 @@ Route::get('/dashboard-warehouse', [interiorController::class, 'warehouse_dashbo
 Route::get('/dashboard-list-warehouse', [interiorController::class,'list_warehouse_dashboard'])->middleware('auth')->name('list_warehouse_dashboard');
 
 Route::get('/dashboard-user', [interiorController::class, 'user_dashboard'])->middleware('auth')->name('user_dashboard');
+Route::post('/dashboard-add-user', [userController::class, 'add_user'])->middleware('auth')->name('add_user');
 Route::get('/dashboard-list-user', [interiorController::class,'list_user_dashboard'])->middleware('auth')->name('list_user_dashboard');
+Route::get('/dashboard-destroy-user/{id}', [userController::class, 'destroy_user'])->middleware('auth')->name('destroy_user');
 
 Route::get('/dashboard-favorite', [interiorController::class, 'favorite_dashboard'])->middleware('auth')->name('favorite_dashboard');
 Route::get('/dashboard-list-favorite', [interiorController::class,'list_favorite_dashboard'])->middleware('auth')->name('list_favorite_dashboard');
@@ -78,6 +82,10 @@ Route::post('/dashboard-update-discount/{id}', [statusController::class, 'update
 Route::get('dashboard-destroy-discount/{id}', [statusController::class, 'destroy_discount'])->middleware('auth')->name('destroy_discount');
 
 Route::get('/dashboard-color', [interiorController::class, 'color_dashboard'])->middleware('auth')->name('color_dashboard');
+Route::post('/dashboard-add-color', [colorController::class, 'add_color'])->middleware('auth')->name('add_color');
+Route::get('/dashboard-edit-color/{id}', [interiorController::class, 'edit_color_dashboard'])->middleware('auth')->name('edit_color_dashboard');
+Route::post('/dashboard-update-color/{id}', [colorController::class, 'update_color'])->middleware('auth')->name('update_color');
+Route::get('/dashboard-destroy-color/{id}', [colorController::class, 'destroy_color'])->middleware('auth')->name('destroy_color');
 
 
 // ---- user

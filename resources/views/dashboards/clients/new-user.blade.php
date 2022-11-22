@@ -92,104 +92,66 @@
                 <div class="col-xxl">
                   <div class="card mb-4">
                     <div class="card-header d-flex align-items-center justify-content-between">
-                      <h5 class="mb-0" style="color: #696cff">Quản lý sản phẩm</h5>
+                      <h5 class="mb-0" style="color: #696cff">Quản lý người dùng</h5>
                       <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
                     </div>
                     <hr class="my-0">
                     <div class="card-body">
-                      <form action="" method="" enctype="multipart/form-data">
+                      <form action="{{ route('add_user') }}" method="post">
+                        @csrf
                         <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Tên sản phẩm</label>
+                          <label class="col-sm-2 col-form-label">Email</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
-                              <input type="text" class="form-control" name="name_product"/>
+                              <input type="text" class="form-control" name="email"/>
                             </div>
                           </div>
                         </div>
                         <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Loại sản phẩm</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class='bx bx-cube-alt'></i></span>
-                              <select class="form-select" name="type_product">
-                                <option value="">None</option>
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Số lượng</label>
+                          <label class="col-sm-2 col-form-label">Mật khẩu</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class='bx bx-archive'></i></span>
-                              <input type="text" class="form-control" name="amount"/>
+                              <input type="password" class="form-control" name="password"/>
                             </div>
                           </div>
                         </div>
                         <div class="row mb-3">
-                          <label class="col-sm-2 form-label">Màu sắc</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class='bx bx-brush'></i></span>
-                              <select class="form-select" name="color">
-                                <option value="">None</option>
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label class="col-sm-2 form-label">Giá tiền</label>
+                          <label class="col-sm-2 form-label">Nhập lại mật khẩu</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class='bx bx-money'></i></span>
-                              <input type="text" class="form-control phone-mask" name="price"/>
+                              <input type="password" class="form-control phone-mask" name="check_password"/>
                             </div>
                           </div>
                         </div>
                         <div class="row mb-3">
-                          <label class="col-sm-2 form-label">Hình ảnh</label>
+                          <label class="col-sm-2 form-label">Tên người dùng</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class='bx bx-image'></i></span>
-                              <input type="file" class="form-control phone-mask" name="images"/>
+                              <input type="text" class="form-control phone-mask" name="name"/>
                             </div>
                           </div>
                         </div>
                         <div class="row mb-3">
-                          <label class="col-sm-2 form-label">Chất liệu</label>
+                          <label class="col-sm-2 form-label">Phân quyền</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class='bx bx-shape-square'></i></span>
-                              <select class="form-select" name="material">
-                                <option value="">None</option>
+                              <select class="form-select" name="name_roles">
+                                <option disabled selected></option>
+                                @foreach ($roles as $rol)
+                                    <option value="{{$rol->name_roles}}">{{$rol->name_roles}}</option>
+                                @endforeach
                               </select>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label class="col-sm-2 form-label">Nhà sản xuất</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class="bx bx-crown"></i></span>
-                              <select class="form-select" name="supplier">
-                                <option value="">None</option>
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label class="col-sm-2 form-label">Mô tả</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class="bx bx-comment"></i></span>
-                              <textarea class="form-control" row="1"name="descriptions"></textarea>
                             </div>
                           </div>
                         </div>
                         <div class="row justify-content-end">
                           <div class="col-sm-10">
-                            <button type="submit" class="btn btn-success">Thêm sản phẩm</button>
+                            <button type="submit" class="btn btn-success">Thêm</button>
                           </div>
                         </div>
                       </form>
@@ -235,5 +197,27 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    @if (session()->has('user_er'))
+      <script>
+        swal({
+              title: "{{session()->get('user_er')}}",
+              icon: "error",
+              button: "OK",
+              timer: 2000,
+            });
+      </script>
+    @endif
+    @if (session()->has('user_sc'))
+      <script>
+        swal({
+              title: "{{session()->get('user_sc')}}",
+              text: "Đăng ký thành công",
+              icon: "success",
+              button: "OK",
+              timer: 2000,
+            });
+      </script>
+    @endif
   </body>
 </html>
