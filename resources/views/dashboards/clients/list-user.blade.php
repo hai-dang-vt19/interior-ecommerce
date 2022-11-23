@@ -123,7 +123,7 @@
                           @endif
                         </td>
                         <td>{{$us->sex_user}}</td>
-                        <td>{{$us->date_user}}</td>
+                        <td>{{Carbon\Carbon::parse($us->date_user)->format('d-m-Y')}}</td>
                         <td>{{$us->district}}, {{$us->city}}, {{$us->province}}</td>
                         <td>{{$us->phone}}</td>
                         {{-- <td>Table cell</td> --}}

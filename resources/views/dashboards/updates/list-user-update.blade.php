@@ -268,7 +268,7 @@
     <script src="https://npmcdn.com/flatpickr/dist/l10n/vn.js"></script>
     <script>
       flatpickr("#datepiker", {
-        // dateFormat:'d-m-Y',
+        dateFormat:'d-m-Y',
         defaultDate:'today',
         allowInput: 'true' //cho phep go
         // locale: "vn"

@@ -41,10 +41,21 @@
     {{-- flat picker --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
-
   </head>
 
   <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        function chooseFile(fileInput){
+            if(fileInput.files && fileInput.files[0]){
+                var reader = new FileReader();
+                reader.onload = function(e){
+                    $('#display_image').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        }
+    </script>
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
@@ -92,79 +103,71 @@
               <div class="card mb-4">
                 <h5 class="card-header">Profile Details</h5>
                 <!-- Account -->
-                <div class="card-body">
-                  <div class="d-flex align-items-start align-items-sm-center gap-4">
-                    <img src="{{ asset('dashboard/assets/img/avatars/1.png') }}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar"
-                    />
-                    <div class="button-wrapper">
-                      <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                        <span class="d-none d-sm-block">Upload new photo</span>
-                        <i class="bx bx-upload d-block d-sm-none"></i>
-                        <input type="file" id="upload" class="account-file-input" hidden accept="image/png, image/jpeg"/>
-                      </label>
-                      @if (Auth::user()->district == null || Auth::user()->city == null)
-                        <p class="text-muted mb-0">D/c: Chưa cập nhật đủ thông tin.</p>  
+                <form action="{{ route('update_profile_user', ['id'=>Auth::user()->id]) }}" method="POST" enctype="multipart/form-data">
+                  @csrf
+                  <div class="card-body">
+                    <div class="d-flex align-items-start align-items-sm-center gap-4">
+                      @if (Auth::user()->image == null)
+                        <img src="{{ asset('dashboard/assets/img/avatars/1.png') }}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="display_image"/>
                       @else
-                        <p class="text-muted mb-0">D/c: {{Auth::user()->district}}, {{Auth::user()->city}}, {{Auth::user()->province}}</p> 
+                        <img src="{{ asset('dashboard/upload_img/user/'.Auth::user()->image.'') }}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="display_image"/>
                       @endif
+                      <div class="button-wrapper">
+                        <label class="btn btn-primary me-2 mb-4">
+                          <span class="d-none d-sm-block">Upload new photo</span>
+                          <i class="bx bx-upload d-block d-sm-none"></i>
+                          <input type="file" name="image" onchange="chooseFile(this)" class="account-file-input" hidden/>
+                        </label>
+                        @if (Auth::user()->district == null || Auth::user()->province == null)
+                          <p class="text-muted mb-0">D/c: Chưa cập nhật đủ thông tin.</p>  
+                        @else
+                          <p class="text-muted mb-0">D/c: {{Auth::user()->district}}, {{Auth::user()->city}}, {{Auth::user()->province}}</p> 
+                        @endif
+                      </div>
                     </div>
                   </div>
-                </div>
-                <hr class="my-0" />
-                <div class="card-body">
-                  <form action="{{ route('update_profile_user', ['id'=>Auth::user()->id]) }}" method="POST">
-                    @csrf
-                    <div class="row">
-                      <div class="mb-3 col-md-6">
-                        <label class="form-label">Email</label>
-                        <input class="form-control" type="text" name="email" value="{{Auth::user()->email}}"/>
-                      </div>
-                      <div class="mb-3 col-md-6">
-                        <label class="form-label">Tên người dùng</label>
-                        <input class="form-control" type="text" name="name" value="{{Auth::user()->name}}"/>
-                      </div>
-                      <div class="mb-3 col-md-6">
-                        <label class="form-label">Ngày sinh</label>
-                        <input class="form-control" type="text" name="date_user" id="datepiker" value="{{Auth::user()->date_user}}"/>
-                      </div>
-                      <div class="mb-3 col-md-6">
-                        <label class="form-label">Giới tính</label>
-                        <select class="select form-select" name="sex_user">
-                            <option style="color: rgb(164, 164, 164)" selected value="{{Auth::user()->sex_user}}">{{Auth::user()->sex_user}}</option>
-                            <option value="Nam">Nam</option>
-                            <option value="Nữ">Nữ</option>
-                        </select>
-                      </div>
-                      <div class="mb-3 col-md-6">
-                        <label class="form-label">Phân quyền</label>
-                        <select class="select form-select" name="name_roles">
-                            <option style="color: rgb(164, 164, 164)" selected value="{{Auth::user()->name_roles}}">{{Auth::user()->name_roles}}</option>
-                            @foreach ($rol as $ro)
-                                <option value="{{$ro->name_roles}}">{{$ro->name_roles}}</option>
-                            @endforeach
-                        </select>
-                      </div>
-                      <div class="mb-3 col-md-6">
-                        <label class="form-label">Số điện thoại</label>
-                        <input class="form-control" type="text" name="phone" value="{{Auth::user()->phone}}"/>
-                      </div>
-                      <div class="mt-2 d-flex">
-                        <div class="btn-group">
-                          <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            Chọn thành phố
-                          </button>
-                          <ul class="dropdown-menu">
-                            @foreach ($cty as $ct)
-                              <li><a class="dropdown-item" href="{{ route('edit_profile_address_user', ['id'=>$ct->id]) }}">{{$ct->name_city}}</a></li>   
-                            @endforeach
-                          </ul>
+                  <hr class="my-0" />
+                  <div class="card-body">
+                      <div class="row">
+                        <div class="mb-3 col-md-6">
+                          <label class="form-label">Email</label>
+                          <input class="form-control" type="text" name="email" value="{{Auth::user()->email}}"/>
                         </div>
-                        <div class="container-xxl">
-                          <button type="submit" class="btn btn-primary me-2 ">Cập nhật</button>
+                        <div class="mb-3 col-md-6">
+                          <label class="form-label">Tên người dùng</label>
+                          <input class="form-control" type="text" name="name" value="{{Auth::user()->name}}"/>
+                        </div>
+                        <div class="mb-3 col-md-6">
+                          <label class="form-label">Ngày sinh</label>
+                          <input class="form-control" type="text" name="date_user" id="datepiker" value="{{Auth::user()->date_user}}"/>
+                        </div>
+                        <div class="mb-3 col-md-6">
+                          <label class="form-label">Phân quyền</label>
+                          <select class="select form-select" name="name_roles">
+                              <option style="color: rgb(164, 164, 164)" selected value="{{Auth::user()->name_roles}}">{{Auth::user()->name_roles}}</option>
+                              @foreach ($rol as $ro)
+                                  <option value="{{$ro->name_roles}}">{{$ro->name_roles}}</option>
+                              @endforeach
+                          </select>
+                        </div>
+                        <div class="mt-2 d-flex">
+                          <div class="btn-group">
+                            <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                              Chọn thành phố và cập nhật thông tin khác
+                            </button>
+                            <ul class="dropdown-menu">
+                              @foreach ($cty as $ct)
+                                <li><a class="dropdown-item" href="{{ route('edit_profile_address_user', ['id'=>$ct->id]) }}">{{$ct->name_city}}</a></li>   
+                              @endforeach
+                            </ul>
+                          </div>
+                          <div class="container-xxl">
+                            <button type="submit" class="btn btn-primary me-2 ">Cập nhật</button>
+                          </div>
                         </div>
                       </div>
-                  </form>
-                </div>
+                  </div>
+                </form>
                 <!-- /Account -->
               </div>
             </div>
@@ -213,7 +216,7 @@
     @endif
     <script>
         flatpickr("#datepiker", {
-          // dateFormat:'d-m-Y',
+          dateFormat:'d-m-Y',
           defaultDate:'today',
           allowInput: 'true' //cho phep go
           // locale: "vn"

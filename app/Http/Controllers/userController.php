@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\city;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\File;
+use Carbon\Carbon;
 
 class userController extends Controller
 {
@@ -60,7 +63,7 @@ class userController extends Controller
         $name = $request->name;
         $name_roles = $request->name_roles;
         $sex_user = $request->sex_user;
-        $date_user = $request->date_user;
+        $date_user = Carbon::parse($request ->date_user)->format('Y-m-d');
         $province = $request->province;
         $city = $request->city;
         $district = $request->district;
@@ -86,13 +89,25 @@ class userController extends Controller
     public function update_profile_user(Request $request)
     {
         $email = $request->email;
+        $name = $request->name;
+        $date_user = Carbon::parse($request ->date_user)->format('Y-m-d');
         $update = User::find($request->id);
         $update->email = $email;
-        $update->name = $request->name;
+        $update->name = $name;
         $update->name_roles = $request->name_roles;
-        $update->sex_user = $request->sex_user;
-        $update->date_user = $request->date_user;
-        $update->phone = $request->phone;
+        $update->date_user = $date_user;
+        if($request->hasFile('image')){
+            $destination = 'dashboard/upload_img/user/'.Auth::user()->image;
+            if(File::exists($destination))
+            {
+                File::delete($destination);
+            }
+            $file = $request -> file('image');
+            $name_file = $file -> getClientOriginalName();
+            $filename = $name.'_'.$request->id.'_'.$name_file;
+            $file -> move('dashboard/upload_img/user/',$filename);
+            $update -> image = $filename;
+        }
         $update->save();
         
         session()->flash('update_user_sc', $email);
@@ -101,16 +116,30 @@ class userController extends Controller
     public function update_profile_adress_user(Request $request)
     {
         $email = $request->email;
+        $name = $request->name;
+        $date_user = Carbon::parse($request ->date_user)->format('Y-m-d');
         $update = User::find($request->id);
         $update->email = $email;
-        $update->name = $request->name;
+        $update->name = $name;
         $update->name_roles = $request->name_roles;
         $update->sex_user = $request->sex_user;
-        $update->date_user = $request->date_user;
+        $update->date_user = $date_user;
         $update->phone = $request->phone;
         $update->district = $request->district;
         $update->city = $request->city;
         $update->province = $request->province;
+        if($request->hasFile('image')){
+            $destination = 'dashboard/upload_img/user/'.Auth::user()->image;
+            if(File::exists($destination))
+            {
+                File::delete($destination);
+            }
+            $file = $request -> file('image');
+            $name_file = $file -> getClientOriginalName();
+            $filename = $name.'_'.$request->id.'_'.$name_file;
+            $file -> move('dashboard/upload_img/user/',$filename);
+            $update -> image = $filename;
+        }
         $update->save();
 
         session()->flash('update_user_sc', $email);

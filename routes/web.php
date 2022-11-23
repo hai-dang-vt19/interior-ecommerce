@@ -42,7 +42,7 @@ Route::get('/dashboard-profile-user', [interiorController::class, 'edit_profile_
 Route::get('/dashboard-profile-user-address/{id}', [interiorController::class, 'edit_profile_address_user'])->middleware('auth')->name('edit_profile_address_user');
 Route::post('/dashboard-update-profile-user/{id}', [userController::class, 'update_profile_user'])->middleware('auth')->name('update_profile_user');
 Route::post('/dashboard-update-profile-addess-user/{id}', [userController::class, 'update_profile_adress_user'])->middleware('auth')->name('update_profile_adress_user');
-// 
+//
 Route::get('/dashboard-destroy-user/{id}', [userController::class, 'destroy_user'])->middleware('auth')->name('destroy_user');
 
 Route::get('/dashboard-favorite', [interiorController::class, 'favorite_dashboard'])->middleware('auth')->name('favorite_dashboard');
