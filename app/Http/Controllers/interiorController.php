@@ -11,6 +11,7 @@ use App\Models\discount;
 use App\Models\province;
 use App\Models\city;
 use App\Models\color;
+use App\Models\history;
 use Illuminate\Support\Facades\Auth;
 
 class interiorController extends Controller
@@ -252,6 +253,11 @@ class interiorController extends Controller
     {
         $data['color'] = color::find($request->id);
         return view('dashboards.updates.z-color-update',$data);
+    }
+    public function history_dashboard()
+    {
+        $his = history::orderbyDESC('id')->limit(10)->paginate(10);
+        return view('dashboards.clients.z-history', compact('his'));
     }
     //------------------------------------------   client   -----------------------------------------
     public function blog()

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\city;
 use App\Models\User;
+use App\Models\history;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -44,6 +45,11 @@ class userController extends Controller
             else{ $us = 'IT'.time().'-KH0'.$sub; }
 
             User::where('id',$sub)->update(['user_id'=>$us]);
+            history::create([
+                'name_his'=>'Create',
+                'user_his'=>Auth::user()->email.'-'.Auth::user()->name_roles,
+                'description_his'=>Auth::user()->email.': tạo người dùng :'.$request->email
+            ]);
             session()->flash('user_sc', $email);
             return redirect(route('user_dashboard'));
         }else{
@@ -82,6 +88,12 @@ class userController extends Controller
         $update->phone = $phone;
         $update->save();
 
+        history::create([
+            'name_his'=>'Update',
+            'user_his'=>Auth::user()->email.'-'.Auth::user()->name_roles,
+            'description_his'=>Auth::user()->email.': cập nhật người dùng :'.$request->email
+        ]);
+
         session()->flash('update_user_sc', $email);
         return redirect(route('list_user_dashboard'));
     }
@@ -109,6 +121,11 @@ class userController extends Controller
             $update -> image = $filename;
         }
         $update->save();
+        history::create([
+            'name_his'=>'Update',
+            'user_his'=>Auth::user()->email.'-'.Auth::user()->name_roles,
+            'description_his'=>Auth::user()->email.': cập nhật người dùng :'.$request->email
+        ]);
         
         session()->flash('update_user_sc', $email);
         return redirect(route('edit_profile_user'));
@@ -142,12 +159,23 @@ class userController extends Controller
         }
         $update->save();
 
+        history::create([
+            'name_his'=>'Update',
+            'user_his'=>Auth::user()->email.'-'.Auth::user()->name_roles,
+            'description_his'=>Auth::user()->email.': cập nhật địa chỉ người dùng :'.$email
+        ]);
+
         session()->flash('update_user_sc', $email);
         return redirect(route('edit_profile_user'));
     }
     public function destroy_user(Request $request)
     {
         User::find($request->id)->delete();
+        history::create([
+            'name_his'=>'Destroy',
+            'user_his'=>Auth::user()->email.'-'.Auth::user()->name_roles,
+            'description_his'=>Auth::user()->email.': xóa người dùng :'.$request->email
+        ]);
         session()->flash('user_ds', 'Xóa thành công');
         return back();
     }

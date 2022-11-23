@@ -200,4 +200,10 @@
       <div>Color Product</div>
     </a>
   </li>
+  <li class="menu-item">
+    <a href="{{ route('history_dashboard') }}" class="menu-link">
+      <i class="menu-icon tf-icons bx bx-cookie"></i>
+      <div>History</div>
+    </a>
+</li>
 </ul>

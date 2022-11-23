@@ -94,6 +94,7 @@ Route::get('/dashboard-edit-color/{id}', [interiorController::class, 'edit_color
 Route::post('/dashboard-update-color/{id}', [colorController::class, 'update_color'])->middleware('auth')->name('update_color');
 Route::get('/dashboard-destroy-color/{id}', [colorController::class, 'destroy_color'])->middleware('auth')->name('destroy_color');
 
+Route::get('/dashboard-history', [interiorController::class, 'history_dashboard'])->middleware('auth')->name('history_dashboard');
 
 // ---- user
 Route::get('/index', [interiorController::class,'index'])->name('index');

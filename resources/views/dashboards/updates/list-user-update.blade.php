@@ -269,7 +269,7 @@
     <script>
       flatpickr("#datepiker", {
         dateFormat:'d-m-Y',
-        defaultDate:'today',
+        // defaultDate:'today',
         allowInput: 'true' //cho phep go
         // locale: "vn"
       });
