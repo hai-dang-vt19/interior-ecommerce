@@ -86,31 +86,33 @@ class userController extends Controller
     public function update_profile_user(Request $request)
     {
         $email = $request->email;
-        $name = $request->name;
-        $name_roles = $request->name_roles;
-        $sex_user = $request->sex_user;
-        $date_user = $request->date_user;
-        // $province = $request->province;
-        $city = $request->city;
-        $district = $request->district;
-        $phone = $request->phone;
-
-        $province = city::where('name_city',$city)->get('city_province');
-        // $str = strlen($province);
-        // echo $province;
-        // echo '<br>'.$str;
         $update = User::find($request->id);
         $update->email = $email;
-        $update->name = $name;
-        $update->name_roles = $name_roles;
-        $update->sex_user = $sex_user;
-        $update->date_user = $date_user;
-        $update->province = $province;
-        $update->city = $city;
-        $update->district = $district;
-        $update->phone = $phone;
+        $update->name = $request->name;
+        $update->name_roles = $request->name_roles;
+        $update->sex_user = $request->sex_user;
+        $update->date_user = $request->date_user;
+        $update->phone = $request->phone;
         $update->save();
         
+        session()->flash('update_user_sc', $email);
+        return redirect(route('edit_profile_user'));
+    }
+    public function update_profile_adress_user(Request $request)
+    {
+        $email = $request->email;
+        $update = User::find($request->id);
+        $update->email = $email;
+        $update->name = $request->name;
+        $update->name_roles = $request->name_roles;
+        $update->sex_user = $request->sex_user;
+        $update->date_user = $request->date_user;
+        $update->phone = $request->phone;
+        $update->district = $request->district;
+        $update->city = $request->city;
+        $update->province = $request->province;
+        $update->save();
+
         session()->flash('update_user_sc', $email);
         return redirect(route('edit_profile_user'));
     }

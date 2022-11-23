@@ -39,7 +39,9 @@ Route::get('/dashboard-list-user', [interiorController::class,'list_user_dashboa
 Route::get('/dashboard-edit-list-user/{id}', [interiorController::class, 'edit_list_user'])->middleware('auth')->name('edit_list_user');
 Route::post('/dashboard-update-list-user/{id}', [userController::class, 'update_list_user'])->middleware('auth')->name('update_list_user');
 Route::get('/dashboard-profile-user', [interiorController::class, 'edit_profile_user'])->middleware('auth')->name('edit_profile_user');
+Route::get('/dashboard-profile-user-address/{id}', [interiorController::class, 'edit_profile_address_user'])->middleware('auth')->name('edit_profile_address_user');
 Route::post('/dashboard-update-profile-user/{id}', [userController::class, 'update_profile_user'])->middleware('auth')->name('update_profile_user');
+Route::post('/dashboard-update-profile-addess-user/{id}', [userController::class, 'update_profile_adress_user'])->middleware('auth')->name('update_profile_adress_user');
 // 
 Route::get('/dashboard-destroy-user/{id}', [userController::class, 'destroy_user'])->middleware('auth')->name('destroy_user');
 
@@ -58,7 +60,7 @@ Route::get('/dashboard-destroy-province/{id}', [provinceCityController::class, '
 Route::post('/dashboard-add-city', [provinceCityController::class, 'add_city'])->middleware('auth')->name('add_city');
 Route::get('/dashboard-edit-city/{id}', [interiorController::class, 'edit_city_dashboard'])->middleware('auth')->name('edit_city_dashboard');
 Route::post('/dashboard-update-city/{id}', [provinceCityController::class, 'update_city'])->middleware('auth')->name('update_city');
-Route::get('/dashboard-destroy-city/{id}', [provinceCityController::class, 'destrooy_city'])->middleware('auth')->name('destroy_city');
+Route::get('/dashboard-destroy-city/{id}', [provinceCityController::class, 'destroy_city'])->middleware('auth')->name('destroy_city');
 
 Route::get('/dashboard-comment', [interiorController::class, 'comment_dashboard'])->middleware('auth')->name('comment_dashboard');
 

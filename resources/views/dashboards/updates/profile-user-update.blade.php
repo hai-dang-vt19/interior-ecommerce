@@ -105,14 +105,14 @@
                       @if (Auth::user()->district == null || Auth::user()->city == null)
                         <p class="text-muted mb-0">D/c: Chưa cập nhật đủ thông tin.</p>  
                       @else
-                        <p class="text-muted mb-0">D/c: {{Auth::user()->district}}, {{Auth::user()->city}}, {{Auth::user()->province}}</p> 
+                        <p class="text-muted mb-0">D/c: {{Auth::user()->district}}, {{Auth::user()->city}}, {{Auth::user()->province}}</p>   
                       @endif
                     </div>
                   </div>
                 </div>
                 <hr class="my-0" />
                 <div class="card-body">
-                  <form action="{{ route('update_profile_user', ['id'=>Auth::user()->id]) }}" method="POST">
+                  <form action="{{ route('update_profile_adress_user', ['id'=>Auth::user()->id]) }}" method="POST">
                     @csrf
                     <div class="row">
                       <div class="mb-3 col-md-6">
@@ -147,6 +147,18 @@
                       <div class="mb-3 col-md-6">
                         <label class="form-label">Số điện thoại</label>
                         <input class="form-control" type="text" name="phone" value="{{Auth::user()->phone}}"/>
+                      </div>
+                      <div class="mb-3 col-md-6">
+                        <label class="form-label">Địa chỉ sẽ được cập nhật</label>
+                        @foreach ($get as $gets)
+                        <h5 class="mt-2">Tp.{{$gets->name_city}}, Tỉnh {{$gets->city_province}} </h5>
+                        <input type="hidden" name="city" value="{{$gets->name_city}}">
+                        <input type="hidden" name="province" value="{{$gets->city_province}}">
+                        @endforeach
+                      </div>
+                      <div class="mb-3 col-md-6">
+                        <label class="form-label"> Số nhà - Phường / xã</label>
+                        <input class="form-control" type="text" name="district" value="{{Auth::user()->district}}"/>
                       </div>
                       <div class="mt-2 d-flex">
                         <div class="btn-group">

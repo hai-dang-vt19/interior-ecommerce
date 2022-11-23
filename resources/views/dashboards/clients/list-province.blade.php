@@ -134,6 +134,7 @@
                               <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>
                               <th style="color: rgb(231, 171, 6);font-size: 14px">Mã thành phố</th>
                               <th style="color: rgb(231, 171, 6);font-size: 14px">Tên thành phố</th>
+                              <th style="color: rgb(231, 171, 6);font-size: 14px">Tên tỉnh</th>
                               <th style="color: rgb(231, 171, 6);font-size: 14px">Giá tiền</th>
                               <th style="color: rgb(231, 171, 6);font-size: 14px">Chức năng</th>
                             </tr>
@@ -144,6 +145,7 @@
                                 <td scope="row">{{$key +1}}</td>
                                 <td>{{$cty->id}}</td>
                                 <td>{{$cty->name_city}}</td>
+                                <td>{{$cty->city_province}}</td>
                                 <td>{{$cty->price}}</td>
                                 <td>
                                   <a href="{{ route('edit_city_dashboard', ['id'=>$cty->id]) }}" class="btn btn-primary"><i class='bx bxs-edit'></i></a>

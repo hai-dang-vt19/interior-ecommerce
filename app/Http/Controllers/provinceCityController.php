@@ -11,9 +11,9 @@ class provinceCityController extends Controller
     public function add_province(Request $request)
     {
         province::updateOrCreate([
-            'name_province'=>$request->name_province,
+            'name_province'=>'Tỉnh '.$request->name_province,
         ]);
-        session()->flash('province_sc', $request->name_province);
+        session()->flash('province_sc', 'Tỉnh '.$request->name_province);
         return back();
     }
     public function update_province(Request $request)
@@ -34,11 +34,11 @@ class provinceCityController extends Controller
     public function add_city(Request $request)
     {
         city::updateOrCreate([
-            'name_city'=>$request->name_city,
+            'name_city'=>'Tp.'.$request->name_city,
             'city_province'=>$request->city_province,
             'price'=>$request->price
         ]);
-        session()->flash('city_sc', $request->name_city);
+        session()->flash('city_sc', 'Tp.'.$request->name_city);
         return back();
     }
     public function update_city(Request $request)
@@ -54,7 +54,7 @@ class provinceCityController extends Controller
     public function destroy_city(Request $request)
     {
         city::find($request->id)->delete();
-        session()->flash('cit_ds', 'Xóa thành công');
+        session()->flash('city_ds', 'Xóa thành công');
         return back();
     }
 }

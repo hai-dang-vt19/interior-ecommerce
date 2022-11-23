@@ -119,7 +119,7 @@ class interiorController extends Controller
     public function edit_profile_user()
     {
         $cty = city::all();
-        $pro = province::all();
+        // $pro = province::all();
         if(Auth::user()->name_roles == 'admin'){
             $rol = roles::where('name_roles','!=','admin')->get();
         }elseif(Auth::user()->name_roles == 'manager'){
@@ -132,7 +132,26 @@ class interiorController extends Controller
                             ->where('name_roles','!=','staff')
                             ->get();
         }
-        return view('dashboards.clients.profile-user',compact('cty','rol','pro'));
+        return view('dashboards.clients.profile-user',compact('cty','rol'));
+        // return view('dashboards.clients.profile-user',compact('cty','rol','pro'));
+    }
+    public function edit_profile_address_user(Request $request)
+    {
+        $cty = city::all();
+        $get = city::all()->where('id',$request->id);
+        if(Auth::user()->name_roles == 'admin'){
+            $rol = roles::where('name_roles','!=','admin')->get();
+        }elseif(Auth::user()->name_roles == 'manager'){
+            $rol = roles::where('name_roles','!=','admin')
+                            ->where('name_roles','!=','manager')
+                            ->get();
+        }else{
+            $rol = roles::where('name_roles','!=','admin')
+                            ->where('name_roles','!=','manager')
+                            ->where('name_roles','!=','staff')
+                            ->get();
+        }
+        return view('dashboards.updates.profile-user-update', compact('rol','cty','get'));
     }
 
     public function favorite_dashboard()
@@ -160,7 +179,7 @@ class interiorController extends Controller
 
     public function roles_dashboard()
     {
-        $roles = roles::limit(2)->paginate(2);
+        $roles = roles::limit(5)->paginate(5);
         return view('dashboards.clients.z-roles', compact('roles'));
     }
     public function edit_roles_dashboard(Request $request)
@@ -172,7 +191,7 @@ class interiorController extends Controller
     public function status_dashboard()
     {
         $type = typestatus::all();
-        $status = status_interior::limit(2)->paginate(2);
+        $status = status_interior::limit(5)->paginate(5);
         return view('dashboards.clients.z-status', compact('status','type'));
     }
     public function edit_status_dashboard(Request $request)
@@ -183,7 +202,7 @@ class interiorController extends Controller
     }
     public function type_status_dashboard()
     {
-        $type = typestatus::limit(2)->paginate(2);
+        $type = typestatus::limit(5)->paginate(5);
         return view('dashboards.clients.z-status-type', compact('type'));
     }
     public function edit_type_status_dashboard(Request $request)
@@ -195,7 +214,7 @@ class interiorController extends Controller
     public function discount_dashboard()
     {
         $status = status_interior::all()->where('type_status','=','discount');
-        $discount = discount::limit(2)->paginate(2);
+        $discount = discount::limit(5)->paginate(5);
         return view('dashboards.clients.z-discount', compact('status','discount'));
     }
     public function edit_discount_dashboard(Request $request)
@@ -207,9 +226,9 @@ class interiorController extends Controller
 
     public function list_province_dashboard()
     {
-        $province = province::limit(2)->paginate(2);
+        $province = province::limit(8)->paginate(8);
         $select_province = province::all();
-        $city = city::limit(2)->paginate(2);
+        $city = city::limit(8)->paginate(8);
         return view('dashboards.clients.list-province', compact('province','city','select_province'));
     }
     public function edit_province_dashboard(Request $request)
@@ -226,7 +245,7 @@ class interiorController extends Controller
 
     public function color_dashboard()
     {
-        $color = color::limit(2)->paginate(2);
+        $color = color::limit(5)->paginate(5);
         return view('dashboards.clients.z-color', compact('color'));
     }
     public function edit_color_dashboard(Request $request)
