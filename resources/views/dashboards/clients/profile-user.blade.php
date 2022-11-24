@@ -13,7 +13,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
-    <title>Tables - Basic Tables | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>Interior.CS</title>
     <meta name="description" content="" />
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('dashboard/assets/img/favicon/favicon.ico') }}" />
@@ -139,7 +139,7 @@
                         </div>
                         <div class="mb-3 col-md-6">
                           <label class="form-label">Ngày sinh</label>
-                          <input class="form-control" type="text" name="date_user" id="datepiker" value="{{Auth::user()->date_user}}"/>
+                          <input class="form-control" type="text" name="date_user" id="datepiker" value="{{Carbon\Carbon::parse(Auth::user()->date_user)->format('d-m-Y')}}"/>
                         </div>
                         <div class="mb-3 col-md-6">
                           <label class="form-label">Phân quyền</label>
@@ -217,7 +217,7 @@
     <script>
         flatpickr("#datepiker", {
           dateFormat:'d-m-Y',
-          defaultDate: 'today',
+          // defaultDate: 'today',
           allowInput: 'true' //cho phep go
           // locale: "vn"
         });

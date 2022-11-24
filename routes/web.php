@@ -7,6 +7,7 @@ use App\Http\Controllers\statusController;
 use App\Http\Controllers\provinceCityController;
 use App\Http\Controllers\colorController;
 use App\Http\Controllers\userController;
+use App\Http\Controllers\historyController;
 
 //----------------------------------login------------------------------------------------------------
 Route::get('/login-interior', [interiorController::class,'login'])->name('login');
@@ -42,8 +43,18 @@ Route::get('/dashboard-profile-user', [interiorController::class, 'edit_profile_
 Route::get('/dashboard-profile-user-address/{id}', [interiorController::class, 'edit_profile_address_user'])->middleware('auth')->name('edit_profile_address_user');
 Route::post('/dashboard-update-profile-user/{id}', [userController::class, 'update_profile_user'])->middleware('auth')->name('update_profile_user');
 Route::post('/dashboard-update-profile-addess-user/{id}', [userController::class, 'update_profile_adress_user'])->middleware('auth')->name('update_profile_adress_user');
-//
 Route::get('/dashboard-destroy-user/{id}', [userController::class, 'destroy_user'])->middleware('auth')->name('destroy_user');
+//Chức năng xem dữ liệu User
+Route::get('/dashboard-user-roles', [interiorController::class, 'user_name_roles_us'])->middleware('auth')->name('user_name_roles_us');
+Route::get('/dashboard-user-interior', [interiorController::class, 'user_interior'])->middleware('auth')->name('user_interior');
+Route::get('/dashboard-user-city', [interiorController::class, 'user_city'])->middleware('auth')->name('user_city');
+Route::get('/dashboard-user-province', [interiorController::class, 'user_province'])->middleware('auth')->name('user_province');
+Route::get('/dashboard-user-hoatdong', [interiorController::class, 'user_hoatdong'])->middleware('auth')->name('user_hoatdong');
+Route::get('/dashboard-user-ngat', [interiorController::class, 'user_ngat'])->middleware('auth')->name('user_ngat');
+//Reset password dashboard
+Route::get('/dashboard-user-reset-password/{id}', [userController::class,'reset_pw'])->middleware('auth')->name('reset_pw');
+//
+
 
 Route::get('/dashboard-favorite', [interiorController::class, 'favorite_dashboard'])->middleware('auth')->name('favorite_dashboard');
 Route::get('/dashboard-list-favorite', [interiorController::class,'list_favorite_dashboard'])->middleware('auth')->name('list_favorite_dashboard');
@@ -95,6 +106,7 @@ Route::post('/dashboard-update-color/{id}', [colorController::class, 'update_col
 Route::get('/dashboard-destroy-color/{id}', [colorController::class, 'destroy_color'])->middleware('auth')->name('destroy_color');
 
 Route::get('/dashboard-history', [interiorController::class, 'history_dashboard'])->middleware('auth')->name('history_dashboard');
+Route::get('/dashboard-destroy-all-history', [historyController::class, 'destroy_all_history'])->middleware('auth')->name('destroy_all_history');
 
 // ---- user
 Route::get('/index', [interiorController::class,'index'])->name('index');

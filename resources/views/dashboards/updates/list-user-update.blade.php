@@ -13,7 +13,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
-    <title>Horizontal Layouts - Forms | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>Interior.CS</title>
     <meta name="description" content="" />
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('dashboard/assets/img/favicon/favicon.ico') }}" />
@@ -162,7 +162,7 @@
                                 <div class="col-sm-10">
                                   <div class="input-group input-group-merge">
                                     <span class="input-group-text"><i class='bx bx-image'></i></span>
-                                    <input type="text" class="form-control phone-mask" name="date_user" id="datepiker" value="{{$user['date_user']}}"/>
+                                    <input type="text" class="form-control phone-mask" name="date_user" id="datepiker" value="{{Carbon\Carbon::parse($user['date_user'])->format('d-m-Y')}}"/>
                                   </div>
                                 </div>
                             </div>
@@ -211,7 +211,21 @@
                                     <input type="text" class="form-control" name="phone" value="{{$user['phone']}}"/>
                                   </div>
                                 </div>
+                            </div>
+                            <div class="row mb-3">
+                              <label class="col-sm-2 col-form-label">Trạng thái</label>
+                              <div class="col-sm-10">
+                                <div class="input-group input-group-merge">
+                                  <span class="input-group-text"><i class='bx bx-shape-square'></i></span>
+                                  <select class="form-select" name="name_status">
+                                    <option style="color: rgb(164, 164, 164)" selected value="{{$user['name_status']}}">{{$user['name_status']}}</option>
+                                    @foreach ($status as $stt)
+                                        <option value="{{$stt->name_status}}">{{$stt->name_status}}</option>
+                                    @endforeach
+                                  </select>
+                                </div>
                               </div>
+                            </div>
                             <div class="row justify-content-end">
                               <div class="col-sm-10">
                                 <button type="submit" class="btn btn-success">Cập nhật</button>

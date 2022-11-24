@@ -28,7 +28,7 @@ class interiorController extends Controller
 
     public function index_dashboard()
     {
-        // if(Auth::user())
+        
         return view('dashboards.index-dashboard');
     }
 
@@ -98,11 +98,44 @@ class interiorController extends Controller
         $user = User::limit(10)->paginate(10);
         return view('dashboards.clients.list-user',compact('user'));
     }
+    //------ Chức năng xem dữ liệu user
+    public function user_name_roles_us()
+    {
+        $user = User::where('name_roles', 'user')->limit(10)->paginate(10);
+        return view('dashboards.clients.list-user',compact('user'));
+    }
+    public function user_interior()
+    {
+        $user = User::where('name_roles','!=','user')->limit(10)->paginate(10);
+        return view('dashboards.clients.list-user',compact('user'));
+    }
+    public function user_city()
+    {
+        $user = User::where('name_roles','user')->orderBy('city')->limit(10)->paginate(10);
+        return view('dashboards.clients.list-user',compact('user'));
+    }
+    public function user_province()
+    {
+        $user = User::where('name_roles','user')->orderBy('province')->limit(10)->paginate(10);
+        return view('dashboards.clients.list-user',compact('user'));
+    }
+    public function user_hoatdong()
+    {
+        $user = User::where('name_roles','user')->where('name_status','Hoạt động')->limit(10)->paginate(10);
+        return view('dashboards.clients.list-user',compact('user'));
+    }
+    public function user_ngat()
+    {
+        $user = User::where('name_roles','user')->where('name_status','Ngắt')->limit(10)->paginate(10);
+        return view('dashboards.clients.list-user',compact('user'));
+    }
+    //---------------------------------
     public function edit_list_user(Request $request)
     {
         $up_user['user'] = User::find($request->id)->toArray();
         $pro = province::all();
         $cty = city::all();
+        $status = status_interior::where('type_status','user')->get();
         if(Auth::user()->name_roles == 'admin'){
             $rol = roles::where('name_roles','!=','admin')->get();
         }elseif(Auth::user()->name_roles == 'manager'){
@@ -115,7 +148,7 @@ class interiorController extends Controller
                             ->where('name_roles','!=','staff')
                             ->get();
         }
-        return view('dashboards.updates.list-user-update',$up_user,compact('pro','cty','rol'));
+        return view('dashboards.updates.list-user-update',$up_user,compact('pro','cty','rol','status'));
     }
     public function edit_profile_user()
     {

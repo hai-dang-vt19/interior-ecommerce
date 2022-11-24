@@ -48,7 +48,7 @@ class userController extends Controller
             history::create([
                 'name_his'=>'Create',
                 'user_his'=>Auth::user()->email.'-'.Auth::user()->name_roles,
-                'description_his'=>Auth::user()->email.': tạo người dùng :'.$request->email
+                'description_his'=>'tạo người dùng :'.$request->email
             ]);
             session()->flash('user_sc', $email);
             return redirect(route('user_dashboard'));
@@ -86,12 +86,13 @@ class userController extends Controller
         $update->city = $city;
         $update->district = $district;
         $update->phone = $phone;
+        $update->name_status = $request->name_status;
         $update->save();
 
         history::create([
             'name_his'=>'Update',
             'user_his'=>Auth::user()->email.'-'.Auth::user()->name_roles,
-            'description_his'=>Auth::user()->email.': cập nhật người dùng :'.$request->email
+            'description_his'=>'cập nhật người dùng :'.$request->email
         ]);
 
         session()->flash('update_user_sc', $email);
@@ -124,7 +125,7 @@ class userController extends Controller
         history::create([
             'name_his'=>'Update',
             'user_his'=>Auth::user()->email.'-'.Auth::user()->name_roles,
-            'description_his'=>Auth::user()->email.': cập nhật người dùng :'.$request->email
+            'description_his'=>'cập nhật người dùng :'.$request->email
         ]);
         
         session()->flash('update_user_sc', $email);
@@ -162,7 +163,7 @@ class userController extends Controller
         history::create([
             'name_his'=>'Update',
             'user_his'=>Auth::user()->email.'-'.Auth::user()->name_roles,
-            'description_his'=>Auth::user()->email.': cập nhật địa chỉ người dùng :'.$email
+            'description_his'=>'cập nhật địa chỉ người dùng :'.$email
         ]);
 
         session()->flash('update_user_sc', $email);
@@ -174,9 +175,23 @@ class userController extends Controller
         history::create([
             'name_his'=>'Destroy',
             'user_his'=>Auth::user()->email.'-'.Auth::user()->name_roles,
-            'description_his'=>Auth::user()->email.': xóa người dùng :'.$request->email
+            'description_his'=>'xóa người dùng : id-'.$request->id
         ]);
         session()->flash('user_ds', 'Xóa thành công');
+        return back();
+    }
+
+    public function reset_pw(Request $request)
+    {
+        User::where('id',$request->id)->update([
+            'password'=>Hash::make('123456')
+        ]);
+        history::create([
+            'name_his'=>'Reset-PW',
+            'user_his'=>Auth::user()->email.'-'.Auth::user()->name_roles,
+            'description_his'=>'Reset mật khẩu : id-'.$request->id
+        ]);
+        session()->flash('reset_pw', 'Đặt lại mật khẩu thành công');
         return back();
     }
 }

@@ -17,7 +17,7 @@ class colorController extends Controller
         history::create([
             'name_his'=>'Create',
             'user_his'=>Auth::user()->email.'-'.Auth::user()->roles,
-            'description_his'=>Auth::user()->email.': tạo màu :'.$request->color
+            'description_his'=>'tạo màu :'.$request->color
         ]);
         session()->flash('color_sc', $request->color);
         return back();
@@ -30,7 +30,7 @@ class colorController extends Controller
         history::create([
             'name_his'=>'Update',
             'user_his'=>Auth::user()->email.'-'.Auth::user()->roles,
-            'description_his'=>Auth::user()->email.': cập nhật màu :'.$request->color
+            'description_his'=>'cập nhật màu :'.$request->color
         ]);
         session()->flash('update_color_sc', $request->color);
         return redirect(route('color_dashboard'));
@@ -41,7 +41,7 @@ class colorController extends Controller
         history::create([
             'name_his'=>'Destroy',
             'user_his'=>Auth::user()->email.'-'.Auth::user()->roles,
-            'description_his'=>Auth::user()->email.': xóa màu :'.$request->color
+            'description_his'=>'xóa màu: id-'.$request->id
         ]);
         session()->flash('color_ds', 'Xóa thành công');
         return back();

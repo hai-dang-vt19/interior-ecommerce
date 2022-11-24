@@ -4,12 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\typestatus;
-use App\Models\status_interior;
-use App\Models\roles;
-use App\Models\discount;
-use App\Models\province;
-use App\Models\city;
+use App\Models\history;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -86,6 +81,13 @@ class interiorPostController extends Controller
             }
             $us = 'IT'.time().'-KH0'.$sub;
             User::where('id',$sub)->update(['user_id'=>$us]);
+
+            history::create([
+                'name_his'=>'Create',
+                'user_his'=>'New '.$email,
+                'description_his'=>'Người dùng đăng ký thài khoản :'.$email
+            ]);
+
             session()->flash('register-sc','Đăng ký thành công');
             return redirect(route('login'));
         }else{

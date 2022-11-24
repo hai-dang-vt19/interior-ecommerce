@@ -18,7 +18,7 @@ class provinceCityController extends Controller
         history::create([
             'name_his'=>'Create',
             'user_his'=>Auth::user()->email.'-'.Auth::user()->roles,
-            'description_his'=>Auth::user()->email.': tạo tỉnh :'.$request->name_province
+            'description_his'=>'tạo tỉnh :'.$request->name_province
         ]);
         session()->flash('province_sc', 'Tỉnh '.$request->name_province);
         return back();
@@ -31,7 +31,7 @@ class provinceCityController extends Controller
         history::create([
             'name_his'=>'Update',
             'user_his'=>Auth::user()->email.'-'.Auth::user()->roles,
-            'description_his'=>Auth::user()->email.': cập nhật tỉnh :'.$request->name_province
+            'description_his'=>'cập nhật tỉnh :'.$request->name_province
         ]);
         session()->flash('update_province_sc', $request->name_province);
         return redirect(route('list_province_dashboard'));
@@ -43,7 +43,7 @@ class provinceCityController extends Controller
         history::create([
             'name_his'=>'Destroy',
             'user_his'=>Auth::user()->email.'-'.Auth::user()->roles,
-            'description_his'=>Auth::user()->email.': xóa tỉnh :'.$request->name_province
+            'description_his'=>'xóa tỉnh :'.$request->name_province
         ]);
         return back();
     }
@@ -58,7 +58,7 @@ class provinceCityController extends Controller
         history::create([
             'name_his'=>'Create',
             'user_his'=>Auth::user()->email.'-'.Auth::user()->roles,
-            'description_his'=>Auth::user()->email.': tạo thành phố :'.$request->name_city
+            'description_his'=>'tạo thành phố :'.$request->name_city
         ]);
         session()->flash('city_sc', 'Tp.'.$request->name_city);
         return back();
@@ -73,7 +73,7 @@ class provinceCityController extends Controller
         history::create([
             'name_his'=>'Update',
             'user_his'=>Auth::user()->email.'-'.Auth::user()->roles,
-            'description_his'=>Auth::user()->email.': cập nhật thành phố :'.$request->name_city
+            'description_his'=>'cập nhật thành phố :'.$request->name_city
         ]);
         session()->flash('update_city_sc', $request->name_city);
         return redirect(route('list_province_dashboard'));
@@ -84,7 +84,7 @@ class provinceCityController extends Controller
         history::create([
             'name_his'=>'Destroy',
             'user_his'=>Auth::user()->email.'-'.Auth::user()->roles,
-            'description_his'=>Auth::user()->email.': xóa thành phố :'.$request->name_city
+            'description_his'=>'xóa thành phố : id-'.$request->id
         ]);
         session()->flash('city_ds', 'Xóa thành công');
         return back();

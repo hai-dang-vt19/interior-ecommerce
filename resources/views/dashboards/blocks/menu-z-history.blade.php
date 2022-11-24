@@ -202,7 +202,7 @@
     </li>
     <li class="menu-item active">
         <a href="{{ route('history_dashboard') }}" class="menu-link">
-          <i class="menu-icon tf-icons bx bx-cookie"></i>
+          <i class="menu-icon tf-icons bx bx-history"></i>
           <div>History</div>
         </a>
     </li>

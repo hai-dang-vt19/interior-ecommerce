@@ -18,7 +18,7 @@ class statusController extends Controller
         history::create([
             'name_his'=>'Create',
             'user_his'=>Auth::user()->email.'-'.Auth::user()->roles,
-            'description_his'=>Auth::user()->email.': tạo trạng thái :'.$request->name_status
+            'description_his'=>'tạo trạng thái :'.$request->name_status
         ]);
         session()->flash('status_sc', $request->name_status);   
         return back();
@@ -32,7 +32,7 @@ class statusController extends Controller
         history::create([
             'name_his'=>'Update',
             'user_his'=>Auth::user()->email.'-'.Auth::user()->roles,
-            'description_his'=>Auth::user()->email.': cập nhật trạng thái :'.$request->name_status
+            'description_his'=>'cập nhật trạng thái :'.$request->name_status
         ]);
         session()->flash('update_status_sc', $request->name_status);
         return redirect(route('status_dashboard'));
@@ -43,7 +43,7 @@ class statusController extends Controller
         history::create([
             'name_his'=>'Destroy',
             'user_his'=>Auth::user()->email.'-'.Auth::user()->roles,
-            'description_his'=>Auth::user()->email.': xóa trạng thái :'.$request->name_status
+            'description_his'=>'xóa trạng thái :'.$request->name_status
         ]);
         session()->flash('status_ds', 'Xóa thành công');
         return back();
@@ -55,7 +55,7 @@ class statusController extends Controller
         history::create([
             'name_his'=>'Create',
             'user_his'=>Auth::user()->email.'-'.Auth::user()->roles,
-            'description_his'=>Auth::user()->email.': tạo loại trạng thái :'.$request->nametype
+            'description_his'=>'tạo loại trạng thái :'.$request->nametype
         ]);
         session()->flash('type_sc', $request->nametype);
         return back();
@@ -68,7 +68,7 @@ class statusController extends Controller
         history::create([
             'name_his'=>'Update',
             'user_his'=>Auth::user()->email.'-'.Auth::user()->roles,
-            'description_his'=>Auth::user()->email.': cập nhật loại trạng thái :'.$request->nametype
+            'description_his'=>'cập nhật loại trạng thái :'.$request->nametype
         ]);
         session()->flash('update_type_status', $request->nametype);
         return redirect(route('type_status_dashboard'));
@@ -79,7 +79,7 @@ class statusController extends Controller
         history::create([
             'name_his'=>'Destroy',
             'user_his'=>Auth::user()->email.'-'.Auth::user()->roles,
-            'description_his'=>Auth::user()->email.': xóa loại trạng thái :'.$request->nametype
+            'description_his'=>'xóa loại trạng thái :'.$request->nametype
         ]);
         session()->flash('type_ds', 'Xóa thành công');
         return back();
@@ -91,7 +91,7 @@ class statusController extends Controller
         history::create([
             'name_his'=>'Create',
             'user_his'=>Auth::user()->email.'-'.Auth::user()->roles,
-            'description_his'=>Auth::user()->email.': tạo quyền :'.$request->name_roles
+            'description_his'=>'tạo quyền :'.$request->name_roles
         ]);
         session()->flash('roles_sc', $request->name_roles);
         return back();
@@ -104,7 +104,7 @@ class statusController extends Controller
         history::create([
             'name_his'=>'Update',
             'user_his'=>Auth::user()->email.'-'.Auth::user()->roles,
-            'description_his'=>Auth::user()->email.': cập nhật quyền :'.$request->name_roles
+            'description_his'=>'cập nhật quyền :'.$request->name_roles
         ]);
         session()->flash('update_roles_sc', $request->name_roles);
         return redirect(route('roles_dashboard'));
@@ -115,7 +115,7 @@ class statusController extends Controller
         history::create([
             'name_his'=>'Destroy',
             'user_his'=>Auth::user()->email.'-'.Auth::user()->roles,
-            'description_his'=>Auth::user()->email.': xóa quyền :'.$request->name_roles
+            'description_his'=>'xóa quyền :'.$request->name_roles
         ]);
         session()->flash('roles_ds', 'Xóa thành công');
         return back();
@@ -131,7 +131,7 @@ class statusController extends Controller
         history::create([
             'name_his'=>'Create',
             'user_his'=>Auth::user()->email.'-'.Auth::user()->roles,
-            'description_his'=>Auth::user()->email.': tạo mã giảm giá :'.$request->name_discount
+            'description_his'=>'tạo mã giảm giá :'.$request->name_discount
         ]);
         session()->flash('discount_sc', $request->name_discount);
         return back();
@@ -146,7 +146,7 @@ class statusController extends Controller
         history::create([
             'name_his'=>'Update',
             'user_his'=>Auth::user()->email.'-'.Auth::user()->roles,
-            'description_his'=>Auth::user()->email.': cập nhật mã giảm giá :'.$request->name_discount
+            'description_his'=>'cập nhật mã giảm giá :'.$request->name_discount
         ]);
         session()->flash('update_discount_sc', $request->name_discount);
         return redirect(route('discount_dashboard'));
@@ -157,7 +157,7 @@ class statusController extends Controller
         history::create([
             'name_his'=>'Destroy',
             'user_his'=>Auth::user()->email.'-'.Auth::user()->roles,
-            'description_his'=>Auth::user()->email.': xóa mã giảm giá :'.$request->name_discount
+            'description_his'=>'xóa mã giảm giá : id-'.$request->id
         ]);
         session()->flash('discount_ds', 'Xóa thành công');
         return back();

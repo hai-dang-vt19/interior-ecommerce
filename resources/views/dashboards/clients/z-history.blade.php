@@ -13,7 +13,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
-    <title>Tables - Basic Tables | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>Interior.CS</title>
     <meta name="description" content="" />
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('dashboard/assets/img/favicon/favicon.ico') }}" />
@@ -83,13 +83,27 @@
           <!-- Content wrapper -->
           <div class="container-xxl flex-grow-1 container-p-y">
             <h4 class="fw-bold py-3 mb-4">Lịch sử</h4>
+            <div class="accordion mt-3 mb-2" id="accordionExample">
+              <div class="card accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                  <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordionTwo" aria-expanded="false" aria-controls="accordionTwo">
+                    <i class='bx bxs-component'></i> &nbsp;&nbsp; Chức năng
+                  </button>
+                </h2>
+                <div id="accordionTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                  <div class="accordion-body d-flex">
+                    <a href="{{route('destroy_all_history')}}" class="btn btn-warning">Làm mới</a>
+                  </div>
+                </div>
+              </div>
+            </div>
             <!-- Responsive Table -->
             <div class="card">
               <div class="table-responsive text-nowrap">
                 <table class="table table-hover">
                   <thead>
                     <tr>
-                      <th style="color: rgb(231, 171, 6);font-size: 14px">ID</th>
+                      <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>
                       <th style="color: rgb(231, 171, 6);font-size: 14px">Người sử dụng</th>
                       <th style="color: rgb(231, 171, 6);font-size: 14px">Nội dung</th>
                       <th style="color: rgb(231, 171, 6);font-size: 14px">Phân loại</th>
@@ -97,19 +111,23 @@
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach ($his as $hi)
+                    @foreach ($his as $key => $hi)
                     <tr>
-                        <td>{{$hi->id}}</td>
+                        <td>{{$key +1}}</td>
                         <td>{{$hi->user_his}}</td>
                         <td>{{$hi->description_his}}</td>
                         <td>{{$hi->name_his}}</td>
-                        <td>{{$hi->created_at}}</td>
+                        <td>{{Carbon\Carbon::parse($hi->created_at)->format('d-m-Y H:i:s')}}</td>
                     </tr>
                     @endforeach
                   </tbody>
                 </table>
               </div>
             </div>
+            <div class="d-flex mt-3">
+              {{$his->links()}}
+            </div>
+            <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
             <!--/ Responsive Table -->
           </div>
           <!-- Content wrapper -->
@@ -135,5 +153,16 @@
     <!-- Page JS -->
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    @if (session()->has('history_ds_all'))
+      <script>
+        swal({
+              title: "{{session()->get('history_ds_all')}}",
+              icon: "warning",
+              button: "OK",
+              timer: 20000,
+            });
+      </script>
+    @endif
   </body>
 </html>

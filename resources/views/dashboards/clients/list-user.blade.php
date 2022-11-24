@@ -13,7 +13,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
-    <title>Tables - Basic Tables | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>Interior.CS</title>
     <meta name="description" content="" />
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('dashboard/assets/img/favicon/favicon.ico') }}" />
@@ -85,6 +85,26 @@
             <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
               <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">User / </span>Danh sách người dùng</h4>
+              <div class="accordion mt-3 mb-2" id="accordionExample">
+                <div class="card accordion-item">
+                  <h2 class="accordion-header" id="headingTwo">
+                    <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordionTwo" aria-expanded="false" aria-controls="accordionTwo">
+                      <i class='bx bxs-component'></i> &nbsp;&nbsp; Chức năng xem thông tin
+                    </button>
+                  </h2>
+                  <div id="accordionTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                    <div class="accordion-body d-flex">
+                      <a href="{{ route('list_user_dashboard') }}" class="nav-link me-1">All</a>
+                      <a href="{{ route('user_interior') }}" class="nav-link me-1">Danh sách nhân viên</a>
+                      <a href="{{ route('user_name_roles_us') }}" class="nav-link me-1">Danh sách khách hàng</a>
+                      <a href="{{ route('user_city') }}" class="nav-link me-1">DS-KH theo Thành Phố</a>
+                      <a href="{{ route('user_province') }}" class="nav-link me-1">DS-KH theo Tỉnh</a>
+                      <a href="{{ route('user_hoatdong') }}" class="nav-link me-1">DS-KH Hoạt động</a>
+                      <a href="{{ route('user_ngat') }}" class="nav-link me-1">DS-KH ngắt kết nối</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <!-- Responsive Table -->
               <div class="card">
                 <div class="table-responsive text-nowrap">
@@ -99,6 +119,7 @@
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Giới tính</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Ngày sinh</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Địa chỉ</th>
+                        <th style="color: rgb(231, 171, 6);font-size: 14px">Trạng thái</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Số điện thoại</th>
                         {{-- <th style="color: rgb(231, 171, 6);font-size: 14px">Trạng thái</th> --}}
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Chức năng</th>
@@ -125,6 +146,16 @@
                         <td>{{$us->sex_user}}</td>
                         <td>{{Carbon\Carbon::parse($us->date_user)->format('d-m-Y')}}</td>
                         <td>{{$us->district}}, {{$us->city}}, {{$us->province}}</td>
+                        <td>
+                          @if ($us->name_status == 'Hoạt động')
+                            <span class="badge rounded bg-success me-1" style="width: 93px; font-size: 12px">{{$us->name_status}}</span>
+                          @else
+                            <span class="badge rounded bg-danger me-1" style="width: 93px; font-size: 12px">{{$us->name_status}}</span>
+                          @endif
+                          @if (Auth::user()->name_roles == 'admin')
+                            <a href="{{ route('reset_pw', ['id'=>$us->id]) }}"><i class="bx bx-key"></i></a>
+                          @endif
+                        </td>
                         <td>{{$us->phone}}</td>
                         {{-- <td>Table cell</td> --}}
                         <td>
@@ -188,6 +219,16 @@
     <script>
       swal({
             title: "{{session()->get('user_ds')}}",
+            icon: "success",
+            button: "OK",
+            timer: 20000,
+          });
+    </script>
+    @endif
+    @if (session()->has('reset_pw'))
+    <script>
+      swal({
+            title: "{{session()->get('reset_pw')}}",
             icon: "success",
             button: "OK",
             timer: 20000,
