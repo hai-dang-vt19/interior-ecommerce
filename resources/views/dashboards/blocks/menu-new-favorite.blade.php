@@ -1,8 +1,7 @@
 <div class="app-brand demo">
   <a href="{{ route('index_dashboard') }}" class="app-brand-link d-flex">
-    <span class="app-brand-text demo menu-text fw-bolder ms-2">Interior </span><span class="menu-text fw-bolder ms-2" style="color: rgb(231, 171, 6)">
-      CS
-    </span>
+    <img class="ms-2 mb-3" src="{{ asset('dashboard\assets\img\favicon\logo_dashboard_int.png') }}" width="64px" height="51px" alt="Interior CS">
+    <span class="app-brand-text demo menu-text fw-bolder ms-2">Interior </span><span class="menu-text fw-bolder ms-2" style="color: rgb(231, 171, 6)">CS</span>
   </a>
   <a href="#" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
     <i class="bx bx-chevron-left bx-sm align-middle"></i>
