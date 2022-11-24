@@ -101,6 +101,43 @@
             <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
               <h4 class="fw-bold py-3 mb-4">Account</h4>
+              <div class="col-lg-4 col-md-6 mb-3">
+                <div class="mt-3">
+                  <button class="btn btn-sm btn-outline-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBoth" aria-controls="offcanvasBoth">
+                    Đổi mật khẩu
+                  </button>
+                  <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasBoth" aria-labelledby="offcanvasBothLabel">
+                    <div class="offcanvas-header">
+                      <h5 id="offcanvasBothLabel" class="offcanvas-title">Nhập những thông tin sau</h5>
+                      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body my-auto mx-0 flex-grow-0">
+                      <div class="app-brand justify-content-center">
+                        <img src="{{ asset('dashboard/assets/img/favicon/logo-interior.png') }}" width="195px" height="164px" alt="Interior CS">
+                      </div>
+                      <form action="{{ route('reset_pass_with_user') }}" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                          <label class="form-label">Mật khẩu hiện tại</label>
+                          <input class="form-control" type="password" name="old_password"/>
+                        </div>
+                        <div class="mb-3">
+                          <label class="form-label">Mật khẩu mới</label>
+                          <input class="form-control" type="password" name="password"/>
+                        </div>
+                        <div class="mb-3">
+                          <label class="form-label">Nhập lại mật khẩu mới</label>
+                          <input class="form-control" type="password" name="check_password"/>
+                        </div>
+                        <button type="submit" class="btn btn-success mb-2 d-grid w-100">Success</button>
+                      </form>
+                      <button type="button" class="btn btn-outline-secondary d-grid w-100" data-bs-dismiss="offcanvas">
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div class="card mb-4">
                 <h5 class="card-header">Profile Details</h5>
                 <!-- Account -->
@@ -115,7 +152,7 @@
                       @endif
                       <div class="button-wrapper">
                         <label class="btn btn-primary me-2 mb-4">
-                          <span class="d-none d-sm-block">Upload new photo</span>
+                          <span class="d-none d-sm-block">Chọn ảnh</span>
                           <i class="bx bx-upload d-block d-sm-none"></i>
                           <input type="file" name="image" onchange="chooseFile(this)" class="account-file-input" hidden/>
                         </label>
@@ -188,7 +225,7 @@
                           </ul>
                         </div>
                         <div class="container-xxl">
-                          <button type="submit" class="btn btn-primary me-2 ">Cập nhật</button>
+                          <button type="submit" class="btn btn-success me-2 ">Cập nhật</button>
                         </div>
                       </div>
                     </div>

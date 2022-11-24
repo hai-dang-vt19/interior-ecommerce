@@ -23,7 +23,7 @@
     <li class="menu-item">
       <a href="#" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons bx bx-dock-top"></i>
-        <div >Product</div>
+        <div>Product</div>
       </a>
       <ul class="menu-sub">
         <li class="menu-item">

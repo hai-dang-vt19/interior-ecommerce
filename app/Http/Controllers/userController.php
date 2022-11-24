@@ -194,4 +194,27 @@ class userController extends Controller
         session()->flash('reset_pw', 'Đặt lại mật khẩu thành công');
         return back();
     }
+    public function reset_pass_with_user(Request $request)
+    {
+        $request->validate([
+            'password' => 'required|min:6',
+            'check_password' =>  'required|same:password',
+        ],[
+            'password.required' => '* Bạn chưa nhập mật khẩu',
+            'password.min' => '* Mật khẩu tối thiểu 6 ký tự',
+            'check_password.required' => '* Bạn chưa nhập mật khẩu',
+            'check_password.same' => '* Nhập lại mật khẩu không chính xác',
+        ]);
+        $id = Auth::user()->id;
+        $old = $request->old_password;
+        $pass = $request->password;
+        $ps = Auth::user()->password;
+        if(Hash::check($old,$ps)){
+            User::where('id', $id)->update(['password'=>Hash::make($pass)]);
+            session()->flash('reset_pw_wu', 'Đổi mật khẩu thành công');
+        }else{
+            session()->flash('reset_pw_wu_er', 'Mật khẩu hiện tại không chính xác');
+        }
+        return back();
+    }
 }

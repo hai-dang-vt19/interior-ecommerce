@@ -53,6 +53,7 @@ Route::get('/dashboard-user-hoatdong', [interiorController::class, 'user_hoatdon
 Route::get('/dashboard-user-ngat', [interiorController::class, 'user_ngat'])->middleware('auth')->name('user_ngat');
 //Reset password dashboard
 Route::get('/dashboard-user-reset-password/{id}', [userController::class,'reset_pw'])->middleware('auth')->name('reset_pw');
+Route::post('/dashboard-user-reset-password-us', [userController::class, 'reset_pass_with_user'])->middleware('auth')->name('reset_pass_with_user');
 //
 
 

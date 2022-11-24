@@ -45,15 +45,17 @@
           <div class="card">
             <div class="card-body">
               <!-- Logo -->
-              <div class="app-brand justify-content-center">
+              <div class="d-flex justify-content-center mb-3">
+                <div>
                   <img src="{{ asset('dashboard/assets/img/favicon/logo-interior.png') }}" width="195px" height="164px" alt="Interior CS">
+                </div>
               </div>
               <!-- /Logo -->
               {{-- <p class="mb-4">Please sign-in to your account and start the adventure</p> --}}
               <form class="mb-3" action="{{route('login_interior')}}" method="POST">
                 @csrf
                 <div class="mb-3">
-                  <label class="form-label">Email or Username</label>
+                  <label class="form-label">Email</label>
                   <input type="text" class="form-control" name="email"/>
                 </div>
                 <div class="mb-3 form-password-toggle">

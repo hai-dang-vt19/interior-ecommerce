@@ -39,8 +39,10 @@
           <div class="card">
             <div class="card-body">
               <!-- Logo -->
-              <div class="app-brand justify-content-center">
-                <img src="{{ asset('dashboard/assets/img/favicon/logo-interior.png') }}" width="195px" height="164px" alt="Interior CS">
+              <div class="d-flex justify-content-center">
+                <div>
+                  <img src="{{ asset('dashboard/assets/img/favicon/logo-interior.png') }}" width="195px" height="164px" alt="Interior CS">
+                </div>
               </div>
               <!-- /Logo -->
 
