@@ -8,6 +8,8 @@ use App\Http\Controllers\provinceCityController;
 use App\Http\Controllers\colorController;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\historyController;
+Use App\Http\Controllers\typeController;
+Use App\Http\Controllers\materialSupplierController;
 
 //----------------------------------login------------------------------------------------------------
 Route::get('/login-interior', [interiorController::class,'login'])->name('login');
@@ -23,13 +25,25 @@ Route::get('/dashboard-product', [interiorController::class, 'product_dashboard'
 Route::get('/dashboard-list-product', [interiorController::class,'list_product_dashboard'])->middleware('auth')->name('list_product_dashboard');
 
 Route::get('/dashboard-type', [interiorController::class, 'type_dashboard'])->middleware('auth')->name('type_dashboard');
+Route::post('/dashboard-type-product', [typeController::class, 'add_type_product'])->middleware('auth')->name('add_type_product');
 Route::get('/dashboard-list-type', [interiorController::class,'list_type_dashboard'])->middleware('auth')->name('list_type_dashboard');
+Route::get('/dashboard-edit-list-type-product/{id}', [interiorController::class, 'edit_type_product'])->middleware('auth')->name('edit_type_product');
+Route::post('/dashboard-update-list-type-product/{id}', [typeController::class, 'update_type_product'])->middleware('auth')->name('update_type_product');
+Route::get('/dashboard-destroy-type-product/{id}', [typeController::class, 'destroy_type_product'])->middleware('auth')->name('destroy_type_product');
 
 Route::get('/dashboard-supplier', [interiorController::class, 'supplier_dashboard'])->middleware('auth')->name('supplier_dashboard');
-Route::get('/dashboard-list-supplier', [interiorController::class,'list_supplier_dashboard'])->middleware('auth')->name('list_supplier_dashboard');
+Route::post('/dashboard-add-supplier', [materialSupplierController::class, 'add_supplier'])->middleware('auth')->name('add_supplier');
+Route::get('/dashboard-edit-supplier/{id}', [interiorController::class, 'edit_supplier'])->middleware('auth')->name('edit_supplier');
+Route::post('/dashboard-update-supplier/{id}', [materialSupplierController::class, 'update_supplier'])->middleware('auth')->name('update_supplier');
+Route::get('/dashboard-destroy-supplier/{id}', [materialSupplierController::class, 'destroy_supplier'])->middleware('auth')->name('destroy_supplier');
+Route::get('/dashboard-list-supplier', [interiorController::class,'list_supplier_dashboard'])->middleware('auth')->name('list_supplier_dashboard'); // Xóa
 
 Route::get('/dashboard-material', [interiorController::class, 'material_dashboard'])->middleware('auth')->name('material_dashboard');
-Route::get('/dashboard-list-material', [interiorController::class,'list_material_dashboard'])->middleware('auth')->name('list_material_dashboard');
+Route::post('/dashboard-add-material', [materialSupplierController::class, 'add_material'])->middleware('auth')->name('add_material');
+Route::get('/dashboard-edit-material/{id}', [interiorController::class, 'edit_material'])->middleware('auth')->name('edit_material');
+Route::post('/dashboard-update-material/{id}', [materialSupplierController::class, 'update_material'])->middleware('auth')->name('update_material');
+Route::get('/dashboard-destroy-material/{id}', [materialSupplierController::class, 'destroy_material'])->middleware('auth')->name('destroy_material');
+Route::get('/dashboard-list-material', [interiorController::class,'list_material_dashboard'])->middleware('auth')->name('list_material_dashboard'); // Xóa
 
 Route::get('/dashboard-warehouse', [interiorController::class, 'warehouse_dashboard'])->middleware('auth')->name('warehouse_dashboard');
 Route::get('/dashboard-list-warehouse', [interiorController::class,'list_warehouse_dashboard'])->middleware('auth')->name('list_warehouse_dashboard');

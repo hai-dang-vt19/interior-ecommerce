@@ -87,28 +87,6 @@
               <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Supplier / </span>Danh sách nhà sản xuất</h4>
               <!-- Responsive Table -->
               <div class="card">
-                <div class="table-responsive text-nowrap">
-                  <table class="table table-hover">
-                    <thead>
-                      <tr>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Mã nhà cung cấp</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Tên nhà cung cấp</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Trạng thái</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Chức năng</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row">key + 1</th>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
               </div>
               <!--/ Responsive Table -->
             </div>

@@ -97,13 +97,14 @@
                     </div>
                     <hr class="my-0">
                     <div class="card-body">
-                      <form action="" method="" enctype="multipart/form-data">
+                      <form action="{{ route('add_type_product') }}" method="POST">
+                        @csrf
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label">Tên loại sản phẩm</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
-                              <input type="text" class="form-control" name="name_product"/>
+                              <input type="text" class="form-control" name="name_type"/>
                             </div>
                           </div>
                         </div>
@@ -112,8 +113,10 @@
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class='bx bx-cube-alt'></i></span>
-                              <select class="form-select" name="type_product">
-                                <option value="">None</option>
+                              <select class="form-select" name="type_status">
+                                @foreach ($status as $stt)
+                                    <option value="{{$stt->name_status}}">{{$stt->name_status}}</option>
+                                @endforeach
                               </select>
                             </div>
                           </div>
@@ -166,5 +169,17 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    @if (session()->has('type_product_sc'))
+      <script>
+        swal({
+              title: "{{session()->get('type_product_sc')}}",
+              text: "Tạo mới thành công",
+              icon: "success",
+              button: "OK",
+              timer: 2000,
+            });
+      </script>
+    @endif
   </body>
 </html>

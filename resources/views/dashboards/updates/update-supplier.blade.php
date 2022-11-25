@@ -39,17 +39,15 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('dashboard/assets/js/config.js') }}"></script>
   </head>
-
   <body>
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
         <!-- Menu -->
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-          @include('dashboards.blocks.menu-list-type');
+          @include('dashboards.blocks.menu-new-supplier')
         </aside>
         <!-- / Menu -->
-
         <!-- Layout container -->
         <div class="layout-page">
           <!-- Navbar -->
@@ -66,75 +64,93 @@
               <div class="navbar-nav align-items-center">
                 <div class="nav-item d-flex align-items-center">
                   <i class="bx bx-search fs-4 lh-0"></i>
-                  <input type="text" class="form-control border-0 shadow-none" placeholder="Search..." aria-label="Search..."/>
+                  <input type="text" class="form-control border-0 shadow-none" placeholder="Search..." aria-label="Search..."
+                  />
                 </div>
               </div>
               <!-- /Search -->
-
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- User -->
-                @include('dashboards.blocks.dropdown-user')
+                <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                  @include('dashboards.blocks.dropdown-user')
+                </li>
                 <!--/ User -->
               </ul>
             </div>
           </nav>
+
           <!-- / Navbar -->
 
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Type / </span>Danh sách loại sản phẩm</h4>
-              <!-- Responsive Table -->
-              <div class="card">
-                <div class="card-header">
-                  <div class="table-responsive text-nowrap">
-                    <table class="table table-hover">
-                      <thead>
-                        <tr>
-                          <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>
-                          <th style="color: rgb(231, 171, 6);font-size: 14px">Tên loại sản phẩm</th>
-                          <th style="color: rgb(231, 171, 6);font-size: 14px">Trạng thái</th>
-                          <th style="color: rgb(231, 171, 6);font-size: 14px">Chức năng</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        @foreach ($type as $key => $tp)
-                        <tr>
-                          <td scope="row">{{$key +1}}</td>
-                          <td>{{$tp->name_type}}</td>
-                          <td>{{$tp->type_status}}</td>
-                          <td>
-                            <a href="{{ route('edit_type_product', ['id'=>$tp->id]) }}" class="btn btn-primary"><i class='bx bxs-edit'></i></a>
-                            <a href="{{ route('destroy_type_product', ['id'=>$tp->id]) }}" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn xóa không?')"><i class='bx bx-trash-alt'></i></a>
-                          </td>
-                        </tr>
-                        @endforeach
-                      </tbody>
-                    </table>
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Supplier/</span> Thêm mới nhà sản xuất</h4>
+              <!-- Basic Layout & Basic with Icons -->
+              <div class="row">
+                <!-- Basic with Icons -->
+                <div class="col-xxl">
+                  <div class="card mb-4">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                      <h5 class="mb-0" style="color: #696cff">Quản lý sản phẩm</h5>
+                      <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
+                    </div>
+                    <hr class="my-0">
+                    <div class="card-body">
+                      <form action="{{ route('update_supplier', ['id'=>$supplier['id']]) }}" method="POST">
+                        @csrf
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label">Tên sản phẩm</label>
+                          <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                              <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
+                              <input type="text" class="form-control" name="name_supplier" value="{{$supplier['name_supplier']}}"/>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label">Loại sản phẩm</label>
+                          <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                              <span class="input-group-text"><i class='bx bx-cube-alt'></i></span>
+                              <select class="form-select" name="status_supplier">
+                                <option selected value="{{$supplier['status_supplier']}}">{{$supplier['status_supplier']}}</option>
+                                @foreach ($status as $stt)
+                                    <option value="{{$stt->name_status}}">{{$stt->name_status}}</option>
+                                @endforeach
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row justify-content-end">
+                          <div class="col-sm-10">
+                            <button type="submit" class="btn btn-success">Cập nhật</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
                   </div>
-                  <div class="d-flex mt-3">
-                    {{$type->links()}}
-                  </div>
-                  <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
                 </div>
               </div>
-              <!--/ Responsive Table -->
             </div>
             <!-- / Content -->
+
             <!-- Footer -->
             @include('dashboards.blocks.footer')
             <!-- / Footer -->
+
             <div class="content-backdrop fade"></div>
           </div>
           <!-- Content wrapper -->
         </div>
         <!-- / Layout page -->
       </div>
+
       <!-- Overlay -->
       <div class="layout-overlay layout-menu-toggle"></div>
     </div>
     <!-- / Layout wrapper -->
+
     <!-- Core JS -->
     <!-- build:js dashboard/assets/vendor/js/core.js -->
     <script src="{{ asset('dashboard/assets/vendor/libs/jquery/jquery.js') }}"></script>
@@ -144,33 +160,15 @@
 
     <script src="{{ asset('dashboard/assets/vendor/js/menu.js') }}"></script>
     <!-- endbuild -->
+
     <!-- Vendors JS -->
+
     <!-- Main JS -->
     <script src="{{ asset('dashboard/assets/js/main.js') }}"></script>
+
     <!-- Page JS -->
+
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    @if (session()->has('type_product_ds'))
-      <script>
-        swal({
-              title: "{{session()->get('type_product_ds')}}",
-              icon: "success",
-              button: "OK",
-              timer: 2000,
-            });
-      </script>
-    @endif
-    @if (session()->has('type_product_update_sc'))
-      <script>
-        swal({
-              title: "{{session()->get('type_product_update_sc')}}",
-              text: "Cập nhật thành công",
-              icon: "success",
-              button: "OK",
-              timer: 2000,
-            });
-      </script>
-    @endif
   </body>
 </html>

@@ -12,6 +12,10 @@ use App\Models\province;
 use App\Models\city;
 use App\Models\color;
 use App\Models\history;
+use App\Models\supplier;
+use App\Models\type_product;
+use App\Models\typeproduct;
+use App\Models\material;
 use Illuminate\Support\Facades\Auth;
 
 class interiorController extends Controller
@@ -43,29 +47,47 @@ class interiorController extends Controller
 
     public function type_dashboard()
     {
-        return view('dashboards.clients.new-type');
+        $status = status_interior::where('type_status','type_product')->get();
+        return view('dashboards.clients.new-type', compact('status'));
     }
     public function list_type_dashboard()
     {
-        return view('dashboards.clients.list-type');
+        $type = typeproduct::limit(10)->paginate(10);
+        return view('dashboards.clients.list-type', compact('type'));
+    }
+    public function edit_type_product(Request $request)
+    {
+        $data['type'] = typeproduct::find($request->id)->toArray();
+        $status = status_interior::where('type_status','type_product')->get();
+        return view('dashboards.updates.list-type-update',compact('status'),$data);
     }
 
     public function supplier_dashboard()
     {
-        return view('dashboards.clients.new-supplier');
+        $status = status_interior::where('type_status', 'supplier')->get();
+        $supplier = supplier::all();
+        return view('dashboards.clients.new-supplier', compact('status','supplier'));
     }
-    public function list_supplier_dashboard()
+    public function edit_supplier(Request $request)
     {
-        return view('dashboards.clients.list-supplier');
+        $status = status_interior::where('type_status', 'supplier')->get();
+        $data['supplier'] = supplier::find($request->id)->toArray();
+        return view('dashboards.updates.update-supplier', compact('status'),$data);
     }
 
     public function material_dashboard()
     {
-        return view('dashboards.clients.new-material');
+        $material = material::limit(10)->paginate(10);
+        $supplier = supplier::all();
+        $status = status_interior::where('type_status', 'material')->get();
+        return view('dashboards.clients.new-material',compact('status','material','supplier'));
     }
-    public function list_material_dashboard()
+    public function edit_material(Request $request)
     {
-        return view('dashboards.clients.list-material');
+        $data['material'] = material::find($request->id)->toArray();
+        $supplier = supplier::all();
+        $status = status_interior::where('type_status', 'material')->get();
+        return view('dashboards.updates.update-material',compact('supplier','status'),$data );
     }
 
     public function warehouse_dashboard()

@@ -152,7 +152,7 @@
                       @endif
                       <div class="button-wrapper">
                         <label class="btn btn-primary me-2 mb-4">
-                          <span class="d-none d-sm-block">Chọn ảnh</span>
+                          <span class="d-none d-sm-block"><i class='bx bxs-camera'></i></span>
                           <i class="bx bx-upload d-block d-sm-none"></i>
                           <input type="file" name="image" onchange="chooseFile(this)" class="account-file-input" hidden/>
                         </label>

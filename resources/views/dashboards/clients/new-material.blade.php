@@ -92,107 +92,97 @@
                 <div class="col-xxl">
                   <div class="card mb-4">
                     <div class="card-header d-flex align-items-center justify-content-between">
-                      <h5 class="mb-0" style="color: #696cff">Quản lý sản phẩm</h5>
+                      <h5 class="mb-0" style="color: #696cff">Quản lý nhà cung cấp</h5>
                       <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
                     </div>
                     <hr class="my-0">
                     <div class="card-body">
-                      <form action="" method="" enctype="multipart/form-data">
+                      <form action="{{ route('add_material') }}" method="POST">
+                        @csrf
                         <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Tên sản phẩm</label>
+                          <label class="col-sm-2 col-form-label">Tên chất liệu</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
-                              <input type="text" class="form-control" name="name_product"/>
+                              <input type="text" class="form-control" name="name_material"/>
                             </div>
                           </div>
                         </div>
                         <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Loại sản phẩm</label>
+                          <label class="col-sm-2 col-form-label">Giá nhập</label>
+                          <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                              <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
+                              <input type="text" class="form-control" name="price"/>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label">Nhà cung cấp</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class='bx bx-cube-alt'></i></span>
-                              <select class="form-select" name="type_product">
-                                <option value="">None</option>
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Số lượng</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class='bx bx-archive'></i></span>
-                              <input type="text" class="form-control" name="amount"/>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label class="col-sm-2 form-label">Màu sắc</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class='bx bx-brush'></i></span>
-                              <select class="form-select" name="color">
-                                <option value="">None</option>
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label class="col-sm-2 form-label">Giá tiền</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class='bx bx-money'></i></span>
-                              <input type="text" class="form-control phone-mask" name="price"/>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label class="col-sm-2 form-label">Hình ảnh</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class='bx bx-image'></i></span>
-                              <input type="file" class="form-control phone-mask" name="images"/>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label class="col-sm-2 form-label">Chất liệu</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class='bx bx-shape-square'></i></span>
-                              <select class="form-select" name="material">
-                                <option value="">None</option>
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label class="col-sm-2 form-label">Nhà sản xuất</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class="bx bx-crown"></i></span>
                               <select class="form-select" name="supplier">
-                                <option value="">None</option>
+                                @foreach ($supplier as $sup)
+                                    <option value="{{$sup->name_supplier}}">{{$sup->name_supplier}}</option>
+                                @endforeach
                               </select>
                             </div>
                           </div>
                         </div>
                         <div class="row mb-3">
-                          <label class="col-sm-2 form-label">Mô tả</label>
+                          <label class="col-sm-2 col-form-label">Trạng thái</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class="bx bx-comment"></i></span>
-                              <textarea class="form-control" row="1"name="descriptions"></textarea>
+                              <span class="input-group-text"><i class='bx bx-cube-alt'></i></span>
+                              <select class="form-select" name="status_material">
+                                @foreach ($status as $stt)
+                                    <option value="{{$stt->name_status}}">{{$stt->name_status}}</option>
+                                @endforeach
+                              </select>
                             </div>
                           </div>
                         </div>
                         <div class="row justify-content-end">
                           <div class="col-sm-10">
-                            <button type="submit" class="btn btn-success">Thêm sản phẩm</button>
+                            <button type="submit" class="btn btn-success">Thêm nhà cung cấp</button>
                           </div>
                         </div>
                       </form>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive text-nowrap">
+                        <table class="table table-dark table-hover">
+                          <thead>
+                            <tr>
+                              <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>
+                              <th style="color: rgb(231, 171, 6);font-size: 14px">Tên chất liệu</th>
+                              <th style="color: rgb(231, 171, 6);font-size: 14px">Giá nhập</th>
+                              <th style="color: rgb(231, 171, 6);font-size: 14px">Trạng thái</th>
+                              <th style="color: rgb(231, 171, 6);font-size: 14px">Nhà cung cấp</th>
+                              <th style="color: rgb(231, 171, 6);font-size: 14px">Chức năng</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            @foreach ($material as $key => $ma)
+                            <tr>
+                              <td>{{$key +1}}</td>
+                              <td>{{$ma->name_material}}</td>
+                              <td>{{$ma->price}}</td>
+                              <td>{{$ma->status_material}}</td>
+                              <td>{{$ma->supplier}}</td>
+                              <td>
+                                <a href="{{ route('edit_material', ['id'=>$ma->id]) }}" class="btn btn-primary"><i class='bx bxs-edit'></i></a>
+                                <a href="{{ route('destroy_material', ['id'=>$ma->id]) }}"onclick="return confirm('Bạn có chắc chắn xóa không?')" class="btn btn-danger"><i class='bx bx-trash-alt'></i></a>
+                              </td>
+                            </tr>
+                            @endforeach
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="d-flex mt-3">
+                      {{$material->links()}}
                     </div>
                   </div>
                 </div>
@@ -235,5 +225,38 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    @if (session()->has('material_sc'))
+      <script>
+        swal({
+              title: "{{session()->get('material_sc')}}",
+              text: "Tạo mới thành công",
+              icon: "success",
+              button: "OK",
+              timer: 2000,
+            });
+      </script>
+    @endif
+    @if (session()->has('material_update_sc'))
+      <script>
+        swal({
+              title: "{{session()->get('material_update_sc')}}",
+              text: "Cập nhật thành công",
+              icon: "success",
+              button: "OK",
+              timer: 2000,
+            });
+      </script>
+    @endif
+    @if (session()->has('material_ds'))
+      <script>
+        swal({
+              title: "{{session()->get('material_ds')}}",
+              icon: "success",
+              button: "OK",
+              timer: 2000,
+            });
+      </script>
+    @endif
   </body>
 </html>

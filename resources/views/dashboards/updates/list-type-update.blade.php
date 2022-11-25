@@ -87,36 +87,38 @@
               <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Type / </span>Danh sách loại sản phẩm</h4>
               <!-- Responsive Table -->
               <div class="card">
-                <div class="card-header">
-                  <div class="table-responsive text-nowrap">
-                    <table class="table table-hover">
-                      <thead>
-                        <tr>
-                          <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>
-                          <th style="color: rgb(231, 171, 6);font-size: 14px">Tên loại sản phẩm</th>
-                          <th style="color: rgb(231, 171, 6);font-size: 14px">Trạng thái</th>
-                          <th style="color: rgb(231, 171, 6);font-size: 14px">Chức năng</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        @foreach ($type as $key => $tp)
-                        <tr>
-                          <td scope="row">{{$key +1}}</td>
-                          <td>{{$tp->name_type}}</td>
-                          <td>{{$tp->type_status}}</td>
-                          <td>
-                            <a href="{{ route('edit_type_product', ['id'=>$tp->id]) }}" class="btn btn-primary"><i class='bx bxs-edit'></i></a>
-                            <a href="{{ route('destroy_type_product', ['id'=>$tp->id]) }}" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn xóa không?')"><i class='bx bx-trash-alt'></i></a>
-                          </td>
-                        </tr>
-                        @endforeach
-                      </tbody>
-                    </table>
-                  </div>
-                  <div class="d-flex mt-3">
-                    {{$type->links()}}
-                  </div>
-                  <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
+                <div class="card-body">
+                    <form action="{{ route('update_type_product', ['id'=>$type['id']]) }}" method="POST">
+                        @csrf
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label">Tên loại sản phẩm</label>
+                          <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                              <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
+                              <input type="text" class="form-control" name="name_type" value="{{$type['name_type']}}"/>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label">Trạng thái</label>
+                          <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                              <span class="input-group-text"><i class='bx bx-cube-alt'></i></span>
+                              <select class="form-select" name="type_status">
+                                <option selected value="{{$type['type_status']}}">{{$type['type_status']}}</option>
+                                @foreach ($status as $stt)
+                                    <option value="{{$stt->name_status}}">{{$stt->name_status}}</option>
+                                @endforeach
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row justify-content-end">
+                          <div class="col-sm-10">
+                            <button type="submit" class="btn btn-success">Thêm loại sản phẩm</button>
+                          </div>
+                        </div>
+                      </form>
                 </div>
               </div>
               <!--/ Responsive Table -->
@@ -155,17 +157,6 @@
       <script>
         swal({
               title: "{{session()->get('type_product_ds')}}",
-              icon: "success",
-              button: "OK",
-              timer: 2000,
-            });
-      </script>
-    @endif
-    @if (session()->has('type_product_update_sc'))
-      <script>
-        swal({
-              title: "{{session()->get('type_product_update_sc')}}",
-              text: "Cập nhật thành công",
               icon: "success",
               button: "OK",
               timer: 2000,
