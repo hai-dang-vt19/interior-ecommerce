@@ -10,6 +10,7 @@ use App\Http\Controllers\userController;
 use App\Http\Controllers\historyController;
 Use App\Http\Controllers\typeController;
 Use App\Http\Controllers\materialSupplierController;
+Use App\Http\Controllers\calendarController;
 
 //----------------------------------login------------------------------------------------------------
 Route::get('/login-interior', [interiorController::class,'login'])->name('login');
@@ -36,16 +37,15 @@ Route::post('/dashboard-add-supplier', [materialSupplierController::class, 'add_
 Route::get('/dashboard-edit-supplier/{id}', [interiorController::class, 'edit_supplier'])->middleware('auth')->name('edit_supplier');
 Route::post('/dashboard-update-supplier/{id}', [materialSupplierController::class, 'update_supplier'])->middleware('auth')->name('update_supplier');
 Route::get('/dashboard-destroy-supplier/{id}', [materialSupplierController::class, 'destroy_supplier'])->middleware('auth')->name('destroy_supplier');
-Route::get('/dashboard-list-supplier', [interiorController::class,'list_supplier_dashboard'])->middleware('auth')->name('list_supplier_dashboard'); // Xóa
 
 Route::get('/dashboard-material', [interiorController::class, 'material_dashboard'])->middleware('auth')->name('material_dashboard');
 Route::post('/dashboard-add-material', [materialSupplierController::class, 'add_material'])->middleware('auth')->name('add_material');
 Route::get('/dashboard-edit-material/{id}', [interiorController::class, 'edit_material'])->middleware('auth')->name('edit_material');
 Route::post('/dashboard-update-material/{id}', [materialSupplierController::class, 'update_material'])->middleware('auth')->name('update_material');
 Route::get('/dashboard-destroy-material/{id}', [materialSupplierController::class, 'destroy_material'])->middleware('auth')->name('destroy_material');
-Route::get('/dashboard-list-material', [interiorController::class,'list_material_dashboard'])->middleware('auth')->name('list_material_dashboard'); // Xóa
 
 Route::get('/dashboard-warehouse', [interiorController::class, 'warehouse_dashboard'])->middleware('auth')->name('warehouse_dashboard');
+Route::get('/dashboard-warehouse/{id}', [interiorController::class, 'warehouse_dashboard2'])->middleware('auth')->name('warehouse_dashboard2');
 Route::get('/dashboard-list-warehouse', [interiorController::class,'list_warehouse_dashboard'])->middleware('auth')->name('list_warehouse_dashboard');
 
 Route::get('/dashboard-user', [interiorController::class, 'user_dashboard'])->middleware('auth')->name('user_dashboard');
@@ -123,6 +123,11 @@ Route::get('/dashboard-destroy-color/{id}', [colorController::class, 'destroy_co
 Route::get('/dashboard-history', [interiorController::class, 'history_dashboard'])->middleware('auth')->name('history_dashboard');
 Route::get('/dashboard-destroy-all-history', [historyController::class, 'destroy_all_history'])->middleware('auth')->name('destroy_all_history');
 
+Route::get('/dashboard-calendar', [interiorController::class, 'calendar'])->middleware('auth')->name('calendar');
+Route::post('/dashboard-add-calender', [calendarController::class, 'add_calender'])->middleware('auth')->name('add_calender');
+Route::get('/dashboard-reset-calender', [calendarController::class, 'reset_calendar'])->middleware('auth')->name('reset_calendar');
+
+Route::get('/dashboard-salary', [interiorController::class, 'salary'])->middleware('auth')->name('salary');
 // ---- user
 Route::get('/index', [interiorController::class,'index'])->name('index');
 Route::get('/product', [interiorController::class,'product'])->name('product');

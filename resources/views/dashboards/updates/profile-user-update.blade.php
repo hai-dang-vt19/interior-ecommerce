@@ -139,7 +139,7 @@
                 </div>
               </div>
               <div class="card mb-4">
-                <h5 class="card-header">Profile Details</h5>
+                {{-- <h5 class="card-header">Profile Details</h5> --}}
                 <!-- Account -->
                 <form action="{{ route('update_profile_adress_user', ['id'=>Auth::user()->id]) }}" method="POST" enctype="multipart/form-data">
                   @csrf
@@ -151,7 +151,7 @@
                         <img src="{{ asset('dashboard/upload_img/user/'.Auth::user()->image.'') }}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="display_image"/>
                       @endif
                       <div class="button-wrapper">
-                        <label class="btn btn-primary me-2 mb-4">
+                        <label class="btn btn-sm btn-primary me-2 mb-4">
                           <span class="d-none d-sm-block"><i class='bx bxs-camera'></i></span>
                           <i class="bx bx-upload d-block d-sm-none"></i>
                           <input type="file" name="image" onchange="chooseFile(this)" class="account-file-input" hidden/>

@@ -92,17 +92,17 @@
                     <thead>
                       <tr>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Mã kho</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Tên kho</th>
+                        <th style="color: rgb(231, 171, 6);font-size: 14px">Tên sản phẩm</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Số lượng</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Trạng thái</th>
+                        <th style="color: rgb(231, 171, 6);font-size: 14px">Chất liệu</th>
+                        <th style="color: rgb(231, 171, 6);font-size: 14px">Nhà sản xuất</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Chức năng</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
                         <th scope="row">key + 1</th>
-                        <td>Table cell</td>
                         <td>Table cell</td>
                         <td>Table cell</td>
                         <td>Table cell</td>

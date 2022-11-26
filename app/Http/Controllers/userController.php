@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\city;
 use App\Models\User;
 use App\Models\history;
+use App\Models\luong;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -34,15 +35,24 @@ class userController extends Controller
             $get = User::where('user_id', 'IT-KH00');
             $id = $get->get('id');
             $str = strlen($id);
-            if($str == 10){ $sub = substr($id,7,1); }
-            elseif($str == 11){ $sub = substr($id,7,2); }
-            elseif($str == 12){ $sub = substr($id,7,3); }
-            elseif($str == 13){ $sub = substr($id,7,4); }
-            else{ $sub = substr($id,7,5); }
+            if($str == 10){ 
+                $sub = substr($id,7,1); 
+            }elseif($str == 11){ 
+                $sub = substr($id,7,2); 
+            }elseif($str == 12){ 
+                $sub = substr($id,7,3); 
+            }elseif($str == 13){ 
+                $sub = substr($id,7,4); 
+            }else{ 
+                $sub = substr($id,7,5); 
+            }
 
-            if($name_roles == 'manager'){ $us = 'IT-MANAGER0'.$sub; }
-            elseif($name_roles == 'staff'){ $us = 'IT-STAFF0'.$sub; }
-            else{ $us = 'IT'.time().'-KH0'.$sub; }
+            if($name_roles == 'manager'){ 
+                $us = 'IT-MANAGER0'.$sub; }
+            elseif($name_roles == 'staff'){ 
+                $us = 'IT-STAFF0'.$sub; }
+            else{ 
+                $us = 'IT'.time().'-KH0'.$sub; }
 
             User::where('id',$sub)->update(['user_id'=>$us]);
             history::create([
@@ -50,6 +60,18 @@ class userController extends Controller
                 'user_his'=>Auth::user()->email.'-'.Auth::user()->name_roles,
                 'description_his'=>'tạo người dùng :'.$request->email
             ]);
+            if($name_roles == 'staff' or $name_roles == 'manager'){
+                $luong = new luong();
+                $luong->user_id = $us;
+                $luong->user_name = $name;
+                $luong->name_roles = $name_roles;
+                if($name_roles == 'manager'){
+                    $luong->salary = '35000';
+                }else{
+                    $luong->salary = '23000';
+                }
+                $luong->save();
+            }
             session()->flash('user_sc', $email);
             return redirect(route('user_dashboard'));
         }else{

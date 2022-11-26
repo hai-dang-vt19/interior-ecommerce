@@ -151,10 +151,10 @@
                         <img src="{{ asset('dashboard/upload_img/user/'.Auth::user()->image.'') }}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="display_image"/>
                       @endif
                       <div class="button-wrapper">
-                        <label class="btn btn-primary me-2 mb-4">
+                        <label class="btn btn-sm btn-primary me-2 mb-4">
                           <span class="d-none d-sm-block"><i class='bx bxs-camera'></i></span>
                           <i class="bx bx-upload d-block d-sm-none"></i>
-                          <input type="file" name="image" onchange="chooseFile(this)" class="account-file-input" hidden/>
+                          <input type="file" name="image" onchange="chooseFile(this)" class="account-file-inputx" hidden/>
                         </label>
                         @if (Auth::user()->district == null || Auth::user()->province == null)
                           <p class="text-muted mb-0">D/c: Chưa cập nhật đủ thông tin.</p>  

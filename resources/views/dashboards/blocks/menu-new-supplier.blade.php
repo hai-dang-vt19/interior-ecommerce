@@ -65,23 +65,12 @@
     <ul class="menu-sub">
       <li class="menu-item active">
         <a href=" {{ route('supplier_dashboard') }}" class="menu-link">
-          <div >New Supplier </div>
+          <div >Supplier </div>
         </a>
       </li>
-      <li class="menu-item">
-        <a href="{{ route('list_supplier_dashboard') }}" class="menu-link">
-          <div >List Supplier </div>
-        </a>
-      </li> 
-
       <li class="menu-item">
         <a href="{{ route('material_dashboard') }}" class="menu-link">
-          <div >New Material</div>
-        </a>
-      </li>
-      <li class="menu-item ">
-        <a href="{{ route('list_material_dashboard') }}" class="menu-link">
-          <div >List Material</div>
+          <div >Material</div>
         </a>
       </li>
     </ul>

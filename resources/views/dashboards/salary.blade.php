@@ -38,6 +38,9 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('dashboard/assets/js/config.js') }}"></script>
+    {{-- flat picker --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
   </head>
 
   <body>
@@ -46,7 +49,7 @@
       <div class="layout-container">
         <!-- Menu -->
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-          @include('dashboards.blocks.menu-list-supplier');
+          @include('dashboards.blocks.menu-profile-user');
         </aside>
         <!-- / Menu -->
 
@@ -84,11 +87,37 @@
           <div class="content-wrapper">
             <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Supplier / </span>Danh sách nhà sản xuất</h4>
-              <!-- Responsive Table -->
+              <h4 class="fw-bold py-3 mb-4">Bảng lương nhân viên</h4>
               <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive text-nowrap">
+                        <table class="table table-hover table-bordered">
+                          <thead>
+                            <tr>
+                              <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>
+                              <th style="color: rgb(231, 171, 6);font-size: 14px">Mã nhân viên</th>
+                              <th style="color: rgb(231, 171, 6);font-size: 14px">Họ tên</th>
+                              <th style="color: rgb(231, 171, 6);font-size: 14px">Chức vụ</th>
+                              <th style="color: rgb(231, 171, 6);font-size: 14px">Lương / 1h</th>
+                              <th style="color: rgb(231, 171, 6);font-size: 14px">Số tiền nhận</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            @foreach ($luong as $key => $salary)
+                            <tr>
+                                <td>{{$key +1}}</td>
+                                <td>{{$salary->user_id}}</td>
+                                <td>{{$salary->user_name}}</td>
+                                <td>{{$salary->name_roles}}</td>
+                                <td>{{$salary->salary}}</td>
+                                <td>Tạo công thức</td>
+                            </tr>
+                            @endforeach
+                          </tbody>
+                        </table>
+                    </div>
+                </div>
               </div>
-              <!--/ Responsive Table -->
             </div>
             <!-- / Content -->
             <!-- Footer -->
@@ -119,5 +148,47 @@
     <!-- Page JS -->
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/flatpickr.min.js"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/vn.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    @if (session()->has('update_user_sc'))
+    <script>
+      swal({
+            title: "{{session()->get('update_user_sc')}}",
+            text: "Cập nhật thành công",
+            icon: "success",
+            button: "OK",
+            timer: 20000,
+          });
+    </script>
+    @endif
+    @if (session()->has('reset_pw_wu'))
+    <script>
+      swal({
+            title: "{{session()->get('reset_pw_wu')}}",
+            icon: "success",
+            button: "OK",
+            timer: 20000,
+          });
+    </script>
+    @endif
+    @if (session()->has('reset_pw_wu_er'))
+    <script>
+      swal({
+            title: "{{session()->get('reset_pw_wu_er')}}",
+            icon: "error",
+            button: "OK",
+            timer: 20000,
+          });
+    </script>
+    @endif
+    <script>
+        flatpickr("#datepiker", {
+          dateFormat:'d-m-Y',
+          // defaultDate: 'today',
+          allowInput: 'true' //cho phep go
+          // locale: "vn"
+        });
+      </script>
   </body>
 </html>

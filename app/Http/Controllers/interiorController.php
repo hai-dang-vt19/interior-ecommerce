@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\calendar;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\typestatus;
@@ -15,6 +16,7 @@ use App\Models\history;
 use App\Models\supplier;
 use App\Models\type_product;
 use App\Models\typeproduct;
+use App\Models\luong;
 use App\Models\material;
 use Illuminate\Support\Facades\Auth;
 
@@ -38,6 +40,8 @@ class interiorController extends Controller
 
     public function product_dashboard()
     {
+        $type = typeproduct::all();
+        
         return view('dashboards.clients.new-product');
     }
     public function list_product_dashboard()
@@ -65,7 +69,7 @@ class interiorController extends Controller
     public function supplier_dashboard()
     {
         $status = status_interior::where('type_status', 'supplier')->get();
-        $supplier = supplier::all();
+        $supplier = supplier::limit(10)->paginate(10);
         return view('dashboards.clients.new-supplier', compact('status','supplier'));
     }
     public function edit_supplier(Request $request)
@@ -92,7 +96,15 @@ class interiorController extends Controller
 
     public function warehouse_dashboard()
     {
-        return view('dashboards.clients.new-warehouse');
+        $material = material::all();
+        return view('dashboards.clients.new-warehouse',compact('material'));
+    }
+    public function warehouse_dashboard2(Request $request)
+    {
+        $type = typeproduct::all();
+        $material = material::where('id',$request->id)->get();
+        $materialAll = material::all();
+        return view('dashboards.clients.new-warehouse2',compact('type','material','materialAll'));
     }
     public function list_warehouse_dashboard()
     {
@@ -313,6 +325,16 @@ class interiorController extends Controller
     {
         $his = history::orderbyDESC('id')->limit(10)->paginate(10);
         return view('dashboards.clients.z-history', compact('his'));
+    }
+    public function calendar()
+    {
+        $calendar = calendar::all();
+        return view('dashboards.calendar', compact('calendar'));
+    }
+    public function salary()
+    {
+        $luong = luong::limit(10)->paginate(10);
+        return view('dashboards.salary', compact('luong'));
     }
     //------------------------------------------   client   -----------------------------------------
     public function blog()

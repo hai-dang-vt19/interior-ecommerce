@@ -145,7 +145,7 @@
                         </div>
                         <div class="row justify-content-end">
                           <div class="col-sm-10">
-                            <button type="submit" class="btn btn-success">Thêm nhà cung cấp</button>
+                            <button type="submit" class="btn btn-success">Thêm chất liệu</button>
                           </div>
                         </div>
                       </form>
