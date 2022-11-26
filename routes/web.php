@@ -11,6 +11,7 @@ use App\Http\Controllers\historyController;
 Use App\Http\Controllers\typeController;
 Use App\Http\Controllers\materialSupplierController;
 Use App\Http\Controllers\calendarController;
+use App\Http\Controllers\warehouseController;
 
 //----------------------------------login------------------------------------------------------------
 Route::get('/login-interior', [interiorController::class,'login'])->name('login');
@@ -46,6 +47,10 @@ Route::get('/dashboard-destroy-material/{id}', [materialSupplierController::clas
 
 Route::get('/dashboard-warehouse', [interiorController::class, 'warehouse_dashboard'])->middleware('auth')->name('warehouse_dashboard');
 Route::get('/dashboard-warehouse/{id}', [interiorController::class, 'warehouse_dashboard2'])->middleware('auth')->name('warehouse_dashboard2');
+Route::post('/dashboard-add-warehouse', [warehouseController::class, 'add_warehouse'])->middleware('auth')->name('add_warehouse');
+Route::get('/dashboard-edit-warehouse/{id}', [interiorController::class, 'edit_warehouse'])->middleware('auth')->name('edit_warehouse');
+Route::post('/dasboard-update-warehouse/{id}', [warehouseController::class, 'update_warehouse'])->middleware('auth')->name('update_warehouse');
+Route::get('/dashboard-destroy-warehouse/{id}', [warehouseController::class, 'destroy_warehouse'])->middleware('auth')->name('destroy_warehouse');
 Route::get('/dashboard-list-warehouse', [interiorController::class,'list_warehouse_dashboard'])->middleware('auth')->name('list_warehouse_dashboard');
 
 Route::get('/dashboard-user', [interiorController::class, 'user_dashboard'])->middleware('auth')->name('user_dashboard');

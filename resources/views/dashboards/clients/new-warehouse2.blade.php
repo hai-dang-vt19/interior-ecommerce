@@ -97,13 +97,14 @@
                     </div>
                     <hr class="my-0">
                     <div class="card-body">
-                      <form action="" method="" enctype="multipart/form-data">
+                      <form action="{{ route('add_warehouse') }}" method="POST">
+                        @csrf
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label">Tên kho</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class='bx bx-cube-alt'></i></span>
-                              <select class="form-select" name="type_product">
+                              <select class="form-select" name="name">
                                 @foreach ($type as $types)
                                 <option value="{{$types->name_type}}">{{$types->name_type}}</option>
                                 @endforeach
@@ -117,15 +118,6 @@
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
                               <input type="text" class="form-control" name="name_product"/>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Số lượng</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class='bx bx-archive'></i></span>
-                              <input type="text" class="form-control" name="amount"/>
                             </div>
                           </div>
                         </div>
@@ -150,7 +142,7 @@
                                 </button>
                                 <ul class="dropdown-menu">
                                   @foreach ($materialAll as $mateaAll)
-                                    <li><a class="dropdown-item" href="{{ route('edit_profile_address_user', ['id'=>$mateaAll->id]) }}">{{$mateaAll->name_material}}</a></li>   
+                                    <li><a class="dropdown-item" href="{{ route('warehouse_dashboard2', ['id'=>$mateaAll->id]) }}">{{$mateaAll->name_material}}</a></li>   
                                   @endforeach
                                 </ul>
                             </div>

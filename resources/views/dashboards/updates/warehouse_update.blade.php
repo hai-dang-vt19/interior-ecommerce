@@ -39,17 +39,15 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('dashboard/assets/js/config.js') }}"></script>
   </head>
-
   <body>
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
         <!-- Menu -->
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-          @include('dashboards.blocks.menu-list-warehouse');
+          @include('dashboards.blocks.menu-list-warehouse')
         </aside>
         <!-- / Menu -->
-
         <!-- Layout container -->
         <div class="layout-page">
           <!-- Navbar -->
@@ -66,76 +64,119 @@
               <div class="navbar-nav align-items-center">
                 <div class="nav-item d-flex align-items-center">
                   <i class="bx bx-search fs-4 lh-0"></i>
-                  <input type="text" class="form-control border-0 shadow-none" placeholder="Search..." aria-label="Search..."/>
+                  <input type="text" class="form-control border-0 shadow-none" placeholder="Search..." aria-label="Search..."
+                  />
                 </div>
               </div>
               <!-- /Search -->
-
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- User -->
-                @include('dashboards.blocks.dropdown-user')
+                <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                  @include('dashboards.blocks.dropdown-user')
+                </li>
                 <!--/ User -->
               </ul>
             </div>
           </nav>
           <!-- / Navbar -->
-
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Warehouse / </span>Danh sách kho hàng</h4>
-              <!-- Responsive Table -->
-              <div class="card">
-                <div class="table-responsive text-nowrap">
-                  <table class="table table-hover">
-                    <thead>
-                      <tr>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Tên kho</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Tên sản phẩm</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Số lượng</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Chất liệu - NSX</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Chức năng</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      @foreach ($ware as $key=> $wr)
-                      <tr>
-                        <th scope="row">{{$key+1}}</th>
-                        <td>{{$wr->name}}</td>
-                        <td>{{$wr->name_product}}</td>
-                        <td>{{$wr->amount}}</td>
-                        <td>{{$wr->material}}, {{$wr->supplier}}</td>
-                        <td>
-                          <a href="{{ route('edit_warehouse', ['id'=>$wr->id]) }}" class="btn btn-primary"><i class='bx bxs-edit'></i></a>
-                          <a href="{{ route('destroy_warehouse', ['id'=>$wr->id]) }}" onclick="return confirm('Bạn có chắc chắn xóa không?')"  class="btn btn-danger"><i class='bx bx-trash-alt'></i></a>
-                        </td>
-                      </tr>
-                      @endforeach
-                    </tbody>
-                  </table>
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Warehouse/</span> Thêm mới kho hàng</h4>
+              <!-- Basic Layout & Basic with Icons -->
+              <div class="row">
+                <!-- Basic with Icons -->
+                <div class="col-xxl">
+                  <div class="card mb-4">
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                      <h5 class="mb-0" style="color: #696cff">Quản lý sản phẩm</h5>
+                      <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
+                    </div>
+                    <hr class="my-0">
+                    <div class="card-body">
+                      <form action="{{ route('update_warehouse', ['id'=>$warehouse['id']]) }}" method="POST">
+                        @csrf
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label">Tên kho</label>
+                          <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                              <span class="input-group-text"><i class='bx bx-cube-alt'></i></span>
+                              <select class="form-select" name="name">
+                                <option value="{{$warehouse['name']}}" selected>{{$warehouse['name']}}</option>
+                                @foreach ($type as $types)
+                                <option value="{{$types->name_type}}">{{$types->name_type}}</option>
+                                @endforeach
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label">Tên sản phẩm</label>
+                          <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                              <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
+                              <input type="text" class="form-control" name="name_product" value="{{$warehouse['name_product']}}"/>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label">Chất liệu</label>
+                          <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                              <span class="input-group-text"><i class='bx bx-cube-alt'></i></span>
+                              <select class="form-select" name="material">
+                                <option value="{{$warehouse['material']}}" selected>{{$warehouse['material']}}</option>
+                                @foreach ($mate as $material)
+                                <option value="{{$material->name_material}}">{{$material->name_material}}</option>
+                                @endforeach
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label">Nhà sản xuất</label>
+                          <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                              <span class="input-group-text"><i class='bx bx-cube-alt'></i></span>
+                              <select class="form-select" name="supplier">
+                                <option value="{{$warehouse['supplier']}}" selected>{{$warehouse['supplier']}}</option>
+                                @foreach ($mate as $supplier)
+                                <option value="{{$supplier->supplier}}">{{$supplier->supplier}}</option>
+                                @endforeach
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row justify-content-end">
+                          <div class="col-sm-10">
+                            <button type="submit" class="btn btn-success">Cập nhật</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="d-flex mt-3">
-                {{$ware->links()}}
-              </div>
-              <!--/ Responsive Table -->
             </div>
             <!-- / Content -->
+
             <!-- Footer -->
             @include('dashboards.blocks.footer')
             <!-- / Footer -->
+
             <div class="content-backdrop fade"></div>
           </div>
           <!-- Content wrapper -->
         </div>
         <!-- / Layout page -->
       </div>
+
       <!-- Overlay -->
       <div class="layout-overlay layout-menu-toggle"></div>
     </div>
     <!-- / Layout wrapper -->
+
     <!-- Core JS -->
     <!-- build:js dashboard/assets/vendor/js/core.js -->
     <script src="{{ asset('dashboard/assets/vendor/libs/jquery/jquery.js') }}"></script>
@@ -145,23 +186,15 @@
 
     <script src="{{ asset('dashboard/assets/vendor/js/menu.js') }}"></script>
     <!-- endbuild -->
+
     <!-- Vendors JS -->
+
     <!-- Main JS -->
     <script src="{{ asset('dashboard/assets/js/main.js') }}"></script>
+
     <!-- Page JS -->
+
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    @if (session()->has('warehouse_update_sc'))
-      <script>
-        swal({
-              title: "{{session()->get('warehouse_update_sc')}}",
-              text: "Cập nhật thành công",
-              icon: "success",
-              button: "OK",
-              timer: 2000,
-            });
-      </script>
-    @endif
   </body>
 </html>

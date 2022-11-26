@@ -18,6 +18,7 @@ use App\Models\type_product;
 use App\Models\typeproduct;
 use App\Models\luong;
 use App\Models\material;
+use App\Models\warehouse;
 use Illuminate\Support\Facades\Auth;
 
 class interiorController extends Controller
@@ -108,7 +109,15 @@ class interiorController extends Controller
     }
     public function list_warehouse_dashboard()
     {
-        return view('dashboards.clients.list-warehouse');
+        $ware = warehouse::orderbydesc('name')->limit(10)->paginate(10);
+        return view('dashboards.clients.list-warehouse', compact('ware'));
+    }
+    public function edit_warehouse(Request $request)
+    {
+        $data['warehouse'] = warehouse::find($request->id)->toArray();
+        $type = typeproduct::all();
+        $mate = material::all();
+        return view('dashboards.updates.warehouse_update',$data,compact('type','mate'));
     }
 
     public function user_dashboard()
