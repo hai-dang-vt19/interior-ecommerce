@@ -18,6 +18,7 @@ use App\Models\type_product;
 use App\Models\typeproduct;
 use App\Models\luong;
 use App\Models\material;
+use App\Models\product;
 use App\Models\warehouse;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,13 +42,22 @@ class interiorController extends Controller
 
     public function product_dashboard()
     {
-        $type = typeproduct::all();
-        
-        return view('dashboards.clients.new-product');
+        $ware = warehouse::orderbydesc('id')->get();
+        // $color = color::all();        
+        return view('dashboards.clients.new-product', compact('ware'));
+    }
+    public function product_dashboard2(Request $request)
+    {
+        // $ware = warehouse::where('id',$request->id)->get();
+        $data['ware'] = warehouse::find($request->id)->toArray();
+        $wareAll = warehouse::orderbydesc('id')->get();
+        $color = color::all();        
+        return view('dashboards.clients.new-product2', $data, compact('color','wareAll'));
     }
     public function list_product_dashboard()
     {
-        return view('dashboards.clients.list-product');
+        $product = product::limit(10)->paginate(10);
+        return view('dashboards.clients.list-product', compact('product'));
     }
 
     public function type_dashboard()
@@ -109,7 +119,7 @@ class interiorController extends Controller
     }
     public function list_warehouse_dashboard()
     {
-        $ware = warehouse::orderbydesc('name')->limit(10)->paginate(10);
+        $ware = warehouse::orderby('name')->limit(10)->paginate(10);
         return view('dashboards.clients.list-warehouse', compact('ware'));
     }
     public function edit_warehouse(Request $request)

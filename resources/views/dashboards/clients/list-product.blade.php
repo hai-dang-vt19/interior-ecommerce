@@ -92,6 +92,7 @@
                     <thead>
                       <tr>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>
+                        <th style="color: rgb(231, 171, 6);font-size: 14px">MSP</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Tên sản phẩm</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Loại sản phẩm</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Số lượng</th>
@@ -99,31 +100,40 @@
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Giá tiền</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Chất liệu</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Nhà sản xuất</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Mô tả</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Hình ảnh</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">trạng thái</th>
+                        <th style="color: rgb(231, 171, 6);font-size: 14px">Mô tả</th>
+                        <th style="color: rgb(231, 171, 6);font-size: 14px">Trạng thái</th>
+                        <th style="color: rgb(231, 171, 6);font-size: 14px">Ngày tạo</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Chức năng</th>
                       </tr>
                     </thead>
                     <tbody>
+                      @foreach ($product as $key => $pro)
                       <tr>
-                        <th scope="row">key + 1</th>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
+                        <td scope="row">{{$key+1}}</td>
+                        <td>{{$pro->id_product}}</td>
+                        <td>{{$pro->name_product}}</td>
+                        <td>{{$pro->type_product}}</td>
+                        <td>{{$pro->amount}}</td>
+                        <td>{{$pro->color}}</td>
+                        <td>{{$pro->price}}</td>
+                        <td>{{$pro->metarial}}</td>
+                        <td>{{$pro->supplier}}</td>
+                        <td>{{$pro->images}}, {{$pro->images2}}</td>
+                        <td>{{$pro->descriptions}}</td>
+                        <td>{{$pro->status}}</td>
+                        <td>{{$pro->date}}</td>
                         <td>Table cell</td>
                       </tr>
+                      @endforeach
                     </tbody>
                   </table>
                 </div>
               </div>
+              <div class="d-flex mt-3">
+                {{ $product->links() }}
+              </div>
+              <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>    
               <!--/ Responsive Table -->
             </div>
             <!-- / Content -->

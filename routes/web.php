@@ -11,6 +11,7 @@ use App\Http\Controllers\historyController;
 Use App\Http\Controllers\typeController;
 Use App\Http\Controllers\materialSupplierController;
 Use App\Http\Controllers\calendarController;
+use App\Http\Controllers\productController;
 use App\Http\Controllers\warehouseController;
 
 //----------------------------------login------------------------------------------------------------
@@ -24,6 +25,8 @@ Route::get('/logout/interior',[interiorPostController::class, 'logout'])->name('
 Route::get('/dashboard-interior', [interiorController::class,'index_dashboard'])->middleware('auth')->name('index_dashboard');
 
 Route::get('/dashboard-product', [interiorController::class, 'product_dashboard'])->middleware('auth')->name('product_dashboard');
+Route::get('/dashboard-product/{id}', [interiorController::class, 'product_dashboard2'])->middleware('auth')->name('product_dashboard2');
+Route::post('/dashboard-add-product', [productController::class, 'add_product'])->middleware('auth')->name('add_product');
 Route::get('/dashboard-list-product', [interiorController::class,'list_product_dashboard'])->middleware('auth')->name('list_product_dashboard');
 
 Route::get('/dashboard-type', [interiorController::class, 'type_dashboard'])->middleware('auth')->name('type_dashboard');
