@@ -168,7 +168,7 @@
                             <tr>
                               <td>{{$key +1}}</td>
                               <td>{{$ma->name_material}}</td>
-                              <td>{{$ma->price}}</td>
+                              <td>{{number_format($ma->price)}} &#8363;</td>
                               <td>{{$ma->status_material}}</td>
                               <td>{{$ma->supplier}}</td>
                               <td>

@@ -28,6 +28,10 @@ Route::get('/dashboard-product', [interiorController::class, 'product_dashboard'
 Route::get('/dashboard-product/{id}', [interiorController::class, 'product_dashboard2'])->middleware('auth')->name('product_dashboard2');
 Route::post('/dashboard-add-product', [productController::class, 'add_product'])->middleware('auth')->name('add_product');
 Route::get('/dashboard-list-product', [interiorController::class,'list_product_dashboard'])->middleware('auth')->name('list_product_dashboard');
+Route::get('/dashboard-edit-list-product/{id}', [interiorController::class, 'edit_product'])->middleware('auth')->name('edit_product');
+Route::post('/dashboard-update-list-product/{id}', [productController::class, 'udpate_product'])->middleware('auth')->name('udpate_product');
+Route::get('/dashboard-destroy-product/{id}', [productController::class, 'destroy_product'])->middleware('auth')->name('destroy_product');
+
 
 Route::get('/dashboard-type', [interiorController::class, 'type_dashboard'])->middleware('auth')->name('type_dashboard');
 Route::post('/dashboard-type-product', [typeController::class, 'add_type_product'])->middleware('auth')->name('add_type_product');

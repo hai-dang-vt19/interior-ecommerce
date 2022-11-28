@@ -14,7 +14,9 @@ class luong extends Model
         'user_id',
         'user_name',
         'name_roles',
-        'salary'
+        'timework',
+        'salary',
+        'total_salary'
     ];
     public $timestamps = false;
 }

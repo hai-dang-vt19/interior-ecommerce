@@ -59,6 +59,12 @@ class interiorController extends Controller
         $product = product::limit(10)->paginate(10);
         return view('dashboards.clients.list-product', compact('product'));
     }
+    public function edit_product(Request $request)
+    {
+        $data['product'] = product::find($request->id)->toArray();
+        $color = color::all();
+        return view('dashboards.updates.list-product-update', $data, compact('color'));
+    }
 
     public function type_dashboard()
     {

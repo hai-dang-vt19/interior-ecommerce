@@ -93,29 +93,20 @@
                 <div class="col-xxl">
                   <div class="card mb-4">
                     <div class="card-header d-flex align-items-center justify-content-between mb-3" style="border-bottom: 3px dashed #F5F5F9">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                              Chọn sản phẩm
-                            </button>
-                            <ul class="dropdown-menu">
-                              @foreach ($wareAll as $wall)
-                                <li><a class="dropdown-item" href="{{ route('product_dashboard2', ['id'=>$wall->id]) }}">{{$wall->name_product}}</a></li>   
-                              @endforeach
-                            </ul>
-                        </div>
+                      <small class="text-muted float-start">Mã sản phẩm: <span style="color: rgb(231, 171, 6)">{{$product['id_product']}}</span></small>
                       <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
                     </div>
                     {{-- <hr class="my-0 mb-3"> --}}
                     <div class="card-body mt-3 mb-3">
-                      <form action="{{ route('add_product') }}" method="POST" enctype="multipart/form-data">
+                      <form action="{{ route('udpate_product', ['id'=>$product['id']]) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label">Tên sản phẩm</label> {{--Lấy tên sản phẩm sẽ hiển thị ra tất cả dữ liệu--}}
                           <div class="col-sm-10">
                             <div class="col-sm-10">
-                                <input type="hidden" class="form-control" value="{{$ware['name_product']}}" name="name_product">
+                                <input type="hidden" class="form-control" value="{{$product['name_product']}}" name="name_product">
                                 <h5 class=" fw-lighter text-decoration-underline ps-2" style="font-style: oblique; color: #8284FF">
-                                    {{$ware['name_product']}}</h5>
+                                    {{$product['name_product']}}</h5>
                               </div>
                             </div>
                         </div>
@@ -123,9 +114,9 @@
                           <label class="col-sm-2 col-form-label">Loại sản phẩm</label>
                           <div class="col-sm-10">
                             <div class="col-sm-10">
-                                <input type="hidden" class="form-control" value="{{$ware['name']}}" name="type_product">
+                                <input type="hidden" class="form-control" value="{{$product['type_product']}}" name="type_product">
                                 <h5 class=" fw-lighter text-decoration-underline ps-2" style="font-style: oblique; color: #8284FF">
-                                    {{$ware['name']}}</h5>
+                                    {{$product['type_product']}}</h5>
                               </div>
                           </div>
                         </div>
@@ -133,9 +124,9 @@
                           <label class="col-sm-2 form-label">Chất liệu</label>
                           <div class="col-sm-10">
                             <div class="col-sm-10">
-                                <input type="hidden" class="form-control" value="{{$ware['material']}}" name="material">
+                                <input type="hidden" class="form-control" value="{{$product['material']}}" name="material">
                                 <h5 class=" fw-lighter text-decoration-underline ps-2" style="font-style: oblique; color: #8284FF">
-                                    {{$ware['material']}}</h5>
+                                    {{$product['material']}}</h5>
                               </div>
                           </div>
                         </div>
@@ -143,9 +134,9 @@
                           <label class="col-sm-2 form-label">Nhà sản xuất</label>
                           <div class="col-sm-10">
                             <div class="col-sm-10">
-                                <input type="hidden" class="form-control" value="{{$ware['supplier']}}" name="supplier">
+                                <input type="hidden" class="form-control" value="{{$product['supplier']}}" name="supplier">
                                 <h5 class=" fw-lighter text-decoration-underline ps-2" style="font-style: oblique; color: #8284FF">
-                                    {{$ware['supplier']}}</h5>
+                                    {{$product['supplier']}}</h5>
                             </div>
                           </div>
                         </div>
@@ -154,11 +145,11 @@
                           <div class="col-sm-10 d-flex">
                             <div class="input-group input-group-merge me-2">
                               <span class="input-group-text"><i class='bx bx-image'></i></span>
-                              <input type="file" class="form-control"  name="images"/>
+                              <input type="file" class="form-control phone-mask"  name="images"/>
                             </div>
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class='bx bx-image'></i></span>
-                              <input type="file" class="form-control"  name="images2"/>
+                              <input type="file" class="form-control phone-mask"  name="images2"/>
                             </div>
                           </div>
                         </div>
@@ -168,6 +159,7 @@
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class='bx bx-brush'></i></span>
                               <select class="form-select" name="color">
+                                <option selected value="{{$product['color']}}">{{$product['color']}}</option>
                                 @foreach ($color as $cl)
                                     <option value="{{$cl->color}}">{{$cl->color}}</option>
                                 @endforeach
@@ -180,8 +172,7 @@
                             <div class="col-sm-10">
                               <div class="input-group input-group-merge">
                                 <span class="input-group-text"><i class='bx bx-money'></i></span>
-                                {{-- <input type="text" class="form-control" placeholder="Nhập giá tiền sản phẩm" name="price" id="currency-field"  data-type="currency"/> --}}
-                                <input type="text" class="form-control" placeholder="Nhập giá tiền sản phẩm" name="price"/>
+                                <input type="text" class="form-control phone-mask" value="{{$product['price']}}" name="price"/>
                               </div>
                             </div>
                         </div>
@@ -190,7 +181,7 @@
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class='bx bx-archive'></i></span>
-                              <input type="text" class="form-control" name="amount" placeholder="Nhập số lượng"/>
+                              <input type="text" class="form-control" name="amount" value="{{$product['amount']}}"/>
                             </div>
                           </div>
                         </div>
@@ -199,7 +190,7 @@
                             <div class="col-sm-10">
                               <div class="input-group input-group-merge">
                                 <span class="input-group-text"><i class="bx bx-comment"></i></span>
-                                <textarea class="form-control" row="1"name="descriptions"></textarea>
+                                <textarea class="form-control" row="1"name="descriptions">{{$product['descriptions']}}</textarea>
                               </div>
                             </div>
                         </div>
@@ -207,10 +198,10 @@
                             use Carbon\Carbon;
                             $timeNow = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
                         @endphp
-                        <input type="hidden" name="date" value="{{$timeNow}}">
+                        <input type="hidden" name="date" value="{{$product['date']}}">
                         <div class="row justify-content-end">
                           <div class="col-sm-10">
-                            <button type="submit" class="btn btn-success">Thêm sản phẩm</button>
+                            <button type="submit" class="btn btn-success">Cập nhật</button>
                           </div>
                         </div>
                       </form>
@@ -256,18 +247,5 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-    {{-- <script src="{{ asset('dashboard\js\formatCurrence.js') }}"></script> --}}
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-      @if (session()->has('product_sc'))
-        <script>
-          swal({
-                title: "Mã SP: {{session()->get('product_sc')}}",
-                text: "Thêm sản phẩm thành công",
-                icon: "success",
-                button: "OK",
-                timer: 2000,
-              });
-        </script>
-      @endif
   </body>
 </html>

@@ -99,6 +99,7 @@
                               <th style="color: rgb(231, 171, 6);font-size: 14px">Họ tên</th>
                               <th style="color: rgb(231, 171, 6);font-size: 14px">Chức vụ</th>
                               <th style="color: rgb(231, 171, 6);font-size: 14px">Lương / 1h</th>
+                              <th style="color: rgb(231, 171, 6);font-size: 14px">Số giờ làm</th>
                               <th style="color: rgb(231, 171, 6);font-size: 14px">Số tiền nhận</th>
                             </tr>
                           </thead>
@@ -109,8 +110,9 @@
                                 <td>{{$salary->user_id}}</td>
                                 <td>{{$salary->user_name}}</td>
                                 <td>{{$salary->name_roles}}</td>
-                                <td>{{$salary->salary}}</td>
-                                <td>Tạo công thức</td>
+                                <td>{{number_format($salary->salary)}} &#8363;</td>
+                                <td>{{$salary->timework}}h</td>
+                                <td>{{number_format($salary->total_salary)}} &#8363;</td>
                             </tr>
                             @endforeach
                           </tbody>

@@ -124,7 +124,7 @@
                               <td>{{$role->name_roles}}</td>
                               <td>
                                 <a href="{{ route('edit_roles_dashboard', ['id'=>$role->id]) }}" class="btn btn-primary"><i class='bx bxs-edit'></i></a>
-                                <a onclick="return confirm('Bạn có chắc chắn xóa không?')"  href="{{ route('destroy_roles', ['id'=>$role->id]) }}" class="btn btn-danger"><i class='bx bx-x'></i></a>
+                                <a onclick="return confirm('Bạn có chắc chắn xóa không?')"  href="{{ route('destroy_roles', ['id'=>$role->id]) }}" class="btn btn-danger"><i class='bx bx-trash-alt'></i></a>
                               </td>
                             </tr>
                             @endforeach

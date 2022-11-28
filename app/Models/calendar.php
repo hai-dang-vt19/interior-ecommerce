@@ -19,7 +19,15 @@ class calendar extends Model
         't5',       
         't6',       
         't7',       
-        'cn'       
+        'cn',
+        's2',       
+        's3',       
+        's4',       
+        's5',       
+        's6',       
+        's7',       
+        'scn',
+        'timework'   
     ];
     public $timestamps = false;
 }

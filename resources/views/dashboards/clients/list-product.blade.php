@@ -116,14 +116,17 @@
                         <td>{{$pro->type_product}}</td>
                         <td>{{$pro->amount}}</td>
                         <td>{{$pro->color}}</td>
-                        <td>{{$pro->price}}</td>
+                        <td>{{number_format($pro->price)}} &#8363;</td>
                         <td>{{$pro->metarial}}</td>
                         <td>{{$pro->supplier}}</td>
                         <td>{{$pro->images}}, {{$pro->images2}}</td>
                         <td>{{$pro->descriptions}}</td>
                         <td>{{$pro->status}}</td>
                         <td>{{$pro->date}}</td>
-                        <td>Table cell</td>
+                        <td>
+                          <a href="{{ route('edit_product', ['id'=>$pro->id]) }}" class="btn btn-primary"><i class='bx bxs-edit'></i></a>
+                          <a href="{{ route('destroy_product', ['id'=>$pro->id]) }}" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn xóa không?')"><i class='bx bx-trash-alt'></i></a>
+                        </td>
                       </tr>
                       @endforeach
                     </tbody>
@@ -165,5 +168,26 @@
     <!-- Page JS -->
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+      @if (session()->has('product_update_sc'))
+        <script>
+          swal({
+                title: "Mã SP: {{session()->get('product_update_sc')}}",
+                icon: "success",
+                button: "OK",
+                timer: 2000,
+              });
+        </script>
+      @endif
+      @if (session()->has('product_ds'))
+        <script>
+          swal({
+                title: "Mã SP: {{session()->get('product_ds')}}",
+                icon: "success",
+                button: "OK",
+                timer: 2000,
+              });
+        </script>
+      @endif
   </body>
 </html>

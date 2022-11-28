@@ -165,16 +165,23 @@
                   <a href="{{ route('reset_calendar') }}" onclick="return confirm('Bạn có chắc chắn làm mới lịch không?')" class="btn btn-sm btn-warning">Làm mới</a>
                 </div>
               </div>
-              <div class="card mb-3">
-                <div class="d-flex justify-content-end m-1">
+              <div class="card mb-3 d-flex">
+                <div class="d-flex justify-content-center m-1">
+                  @php
+                      use Carbon\Carbon;
+                      $timeNow = Carbon::now('Asia/Ho_Chi_Minh');
+                  @endphp
                   <div class="me-5">
-                    <span class="badge rounded-pill bg-warning" title="C1">7&nbsp;-&nbsp;15h</span>
+                    <span class="">Ngày: {{$timeNow->format('d-m-Y')}}</span>
+                  </div>
+                  <div class="me-5">
+                    <span class="badge rounded-pill bg-warning" title="Fulltime">8&nbsp;-&nbsp;15h</span>
                   </div>
                   <div class="me-5">
                     <span class="badge rounded-pill bg-dark" title="C1">15&nbsp;-&nbsp;22h</span>
                   </div>
                   <div class="me-5">
-                    <span class="badge rounded-pill bg-secondary" title="C1">7&nbsp;-&nbsp;22h</span>
+                    <span class="badge rounded-pill bg-secondary" title="C2">8&nbsp;-&nbsp;22h</span>
                   </div>
                 </div>
               </div>
@@ -192,6 +199,7 @@
                               <th style="color: rgb(231, 171, 6);font-size: 14px">Thứ 6</th>
                               <th style="color: rgb(231, 171, 6);font-size: 14px">Thứ 7</th>
                               <th style="color: rgb(231, 171, 6);font-size: 14px">Chủ nhật</th>
+                              <th style="color: rgb(231, 171, 6);font-size: 14px">Số giờ làm</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -261,6 +269,7 @@
                                   <span class="badge rounded-pill bg-secondary">{{$cal->cn}}</span>
                                 @endif  
                               </td>
+                              <td>{{$cal->timework}}h</td>
                             </tr>
                             @endforeach
                           </tbody>
