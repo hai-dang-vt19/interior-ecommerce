@@ -12,11 +12,12 @@ Use App\Http\Controllers\typeController;
 Use App\Http\Controllers\materialSupplierController;
 Use App\Http\Controllers\calendarController;
 use App\Http\Controllers\productController;
+use App\Http\Controllers\slideController;
 use App\Http\Controllers\warehouseController;
 
 //----------------------------------login------------------------------------------------------------
 Route::get('/login-interior', [interiorController::class,'login'])->name('login');
-Route::post('/dashboard-login', [interiorPostController::class,'login_interior'])->name('login_interior');
+Route::post('/interior-login', [interiorPostController::class,'login_interior'])->name('login_interior');
 Route::get('/register-interior', [interiorController::class,'register'])->name('register');
 Route::post('/register', [interiorPostController::class, 'register_interior'])->name('register_interior');
 Route::get('/logout/interior',[interiorPostController::class, 'logout'])->name('logout');
@@ -138,6 +139,11 @@ Route::get('/dashboard-destroy-all-history', [historyController::class, 'destroy
 Route::get('/dashboard-calendar', [interiorController::class, 'calendar'])->middleware('auth')->name('calendar');
 Route::post('/dashboard-add-calender', [calendarController::class, 'add_calender'])->middleware('auth')->name('add_calender');
 Route::get('/dashboard-reset-calender', [calendarController::class, 'reset_calendar'])->middleware('auth')->name('reset_calendar');
+Route::get('/dashboard-reset-salary', [calendarController::class, 'reset_salary'])->middleware('auth')->name('reset_salary');
+
+Route::get('/dashboard-slide', [interiorController::class, 'slide'])->middleware('auth')->name('slide');
+Route::get('/dashboard-slide/{id}', [interiorController::class, 'slide2'])->middleware('auth')->name('slide2');
+Route::post('/dashboard-add-slide', [slideController::class, 'add_slide'])->middleware('auth')->name('add_slide');
 
 Route::get('/dashboard-salary', [interiorController::class, 'salary'])->middleware('auth')->name('salary');
 // ---- user

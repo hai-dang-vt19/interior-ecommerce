@@ -13,7 +13,7 @@
         <!-- title of site -->
         <title>Interior Design - CHUNG SI</title>
         <!-- For favicon png -->
-		<link rel="shortcut icon" type="image/icon" href="{{ asset('interior/logo/favicon.png') }} "/>
+		<link rel="shortcut icon" type="image/icon" href="{{ asset('dashboard\assets\img\favicon\logo-interior.png') }} "/>
         <!--font-awesome.min.css-->
         <link rel="stylesheet" href="{{ asset('interior/css/font-awesome.min.css') }} ">
         <!--linear icon css-->
@@ -56,7 +56,7 @@
 				<!--/.carousel-indicator -->
 
 				<!--/.carousel-inner -->
-				<div class="carousel-inner" role="listbox"> <!--Lấy từ bộ sưu tập nổi bật (3 sản phẩm)-->
+				<div class="carousel-inner" role="listbox">
 					<!-- .item -->
 					<div class="item active">
 						<div class="single-slide-item slide1">
@@ -65,16 +65,18 @@
 									<div class="row">
 										<div class="col-sm-7">
 											<div class="single-welcome-hero">
+												@foreach ($slide_1 as $sl1)
 												<div class="welcome-hero-txt">
-													<h4>great design collection (3 sản phẩm)</h4>
-													<h2>cloth covered accent chair</h2>
+													<input type="hidden" value="{{$sl1->id_product}}">
+													<h4>{{$sl1->type_product}}</h4>
+													<h2>{{$sl1->name_product}}</h2>
 													<p>
-														Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiuiana smod tempor  ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip. 
+														{{$sl1->descriptions}}
 													</p>
 													<div class="packages-price">
 														<p>
-															$ 399.00
-															<del>$ 499.00</del>
+															{{number_format($sl1->price)}} &#8363;
+															<del>{{number_format($sl1->price)}} &#8363;</del>
 														</p>
 													</div>
 													<button class="btn-cart welcome-add-cart" onclick="window.location.href='#'">
@@ -85,12 +87,13 @@
 														more info
 													</button>
 												</div><!--/.welcome-hero-txt-->
+												@endforeach
 											</div><!--/.single-welcome-hero-->
 										</div><!--/.col-->
 										<div class="col-sm-5">
 											<div class="single-welcome-hero">
 												<div class="welcome-hero-img">
-													<img src="{{ asset('interior/images/slider/slider1.png') }}" alt="slider image">
+													<img src="{{ asset('dashboard\upload_img\product/'.$sl1->images) }}" alt="slider image">
 												</div><!--/.welcome-hero-txt-->
 											</div><!--/.single-welcome-hero-->
 										</div><!--/.col-->
@@ -98,6 +101,99 @@
 								</div><!--/.welcome-hero-content-->
 							</div><!-- /.container-->
 						</div><!-- /.single-slide-item-->
+
+					</div><!-- /.item .active-->
+
+					<div class="item">
+						<div class="single-slide-item slide2">
+							<div class="container">
+								<div class="welcome-hero-content">
+									<div class="row">
+										<div class="col-sm-7">
+											<div class="single-welcome-hero">
+												@foreach ($slide_2 as $sl2)
+												<div class="welcome-hero-txt">
+													<input type="hidden" value="{{$sl2->id_product}}">
+													<h4>{{$sl2->type_product}}</h4>
+													<h2>{{$sl2->name_product}}</h2>
+													<p>
+														{{$sl2->descriptions}} 
+													</p>
+													<div class="packages-price">
+														<p>
+															{{number_format($sl2->price)}} &#8363;
+															<del>{{number_format($sl2->price)}} &#8363;</del>
+														</p>
+													</div>
+													<button class="btn-cart welcome-add-cart" onclick="window.location.href='#'">
+														<span class="lnr lnr-plus-circle"></span>
+														add <span>to</span> cart
+													</button>
+													<button class="btn-cart welcome-add-cart welcome-more-info" onclick="window.location.href='#'">
+														more info
+													</button>
+												</div><!--/.welcome-hero-txt-->
+												@endforeach
+											</div><!--/.single-welcome-hero-->
+										</div><!--/.col-->
+										<div class="col-sm-5">
+											<div class="single-welcome-hero">
+												<div class="welcome-hero-img">
+													<img src="{{ asset('dashboard\upload_img\product/'.$sl2->images) }}" alt="slider image">
+												</div><!--/.welcome-hero-txt-->
+											</div><!--/.single-welcome-hero-->
+										</div><!--/.col-->
+									</div><!--/.row-->
+								</div><!--/.welcome-hero-content-->
+							</div><!-- /.container-->
+						</div><!-- /.single-slide-item-->
+
+					</div><!-- /.item .active-->
+
+					<div class="item">
+						<div class="single-slide-item slide3">
+							<div class="container">
+								<div class="welcome-hero-content">
+									<div class="row">
+										<div class="col-sm-7">
+											<div class="single-welcome-hero">
+												@foreach ($slide_3 as $sl3)
+												<div class="welcome-hero-txt">
+													<input type="hidden" value="{{$sl3->id_product}}">
+													<h4>{{$sl3->type_product}}</h4>
+													<h2>{{$sl3->name_product}}</h2>
+													<p>
+														{{$sl3->descriptions}} 
+													</p>
+													<div class="packages-price">
+														<p>
+															{{number_format($sl3->price)}} &#8363;
+															<del>{{number_format($sl3->price)}} &#8363;</del>
+														</p>
+													</div>
+													<button class="btn-cart welcome-add-cart" onclick="window.location.href='#'">
+														<span class="lnr lnr-plus-circle"></span>
+														add <span>to</span> cart
+													</button>
+													<button class="btn-cart welcome-add-cart welcome-more-info" onclick="window.location.href='#'">
+														more info
+													</button>
+												</div><!--/.welcome-hero-txt-->
+												@endforeach
+											</div><!--/.single-welcome-hero-->
+										</div><!--/.col-->
+										<div class="col-sm-5">
+											<div class="single-welcome-hero">
+												<div class="welcome-hero-img">
+													<img src="{{ asset('dashboard\upload_img\product/'.$sl3->images) }}" alt="slider image">
+												</div><!--/.welcome-hero-txt-->
+											</div><!--/.single-welcome-hero-->
+										</div><!--/.col-->
+									</div><!--/.row-->
+								</div><!--/.welcome-hero-content-->
+							</div><!-- /.container-->
+						</div><!-- /.single-slide-item-->
+						
 					</div><!-- /.item .active-->
 				</div><!-- /.carousel-inner-->
 
@@ -133,8 +229,7 @@
 				                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
 				                    <i class="fa fa-bars"></i>
 				                </button>
-				                <a class="navbar-brand" href="{{route('index')}}">Interior<span>CS</span>.</a>
-
+								<a class="navbar-brand" href="{{route('index')}}">Interior<span>CS</span>.</a>
 				            </div><!--/.navbar-header-->
 				            <!-- End Header Navigation -->
 
@@ -234,10 +329,11 @@
 				</div><!--/.section-header-->
 				<div class="new-arrivals-content">
 					<div class="row">
+						@foreach ($product as $products)
 						<div class="col-md-3 col-sm-4">
 							<div class="single-new-arrival">
 								<div class="single-new-arrival-bg">
-									<img src="{{ asset('interior/images/collection/arrivals1.png') }}" alt="new-arrivals images">
+									<img src="{{ asset('dashboard\upload_img\product/'.$products->images) }}" alt="new-arrivals images">
 									<div class="single-new-arrival-bg-overlay"></div>
 									<div class="sale bg-1">
 										<p>sale</p>
@@ -253,10 +349,11 @@
 										</p>
 									</div>
 								</div>
-								<h4><a href="#">wooden chair</a></h4>
-								<p class="arrival-product-price">$65.00</p>
+								<h4><a href="#">{{'['.$products->id_product.']'}} {{$products->name_product}}</a></h4>
+								<p class="arrival-product-price">{{number_format($products->price)}} &#8363;</p>
 							</div>
 						</div>
+						@endforeach
 					</div>
 				</div>
 			</div><!--/.container-->

@@ -60,18 +60,18 @@ class userController extends Controller
                 'user_his'=>Auth::user()->email.'-'.Auth::user()->name_roles,
                 'description_his'=>'tạo người dùng :'.$request->email
             ]);
-            if($name_roles == 'staff' or $name_roles == 'manager'){
-                $luong = new luong();
-                $luong->user_id = $us;
-                $luong->user_name = $name;
-                $luong->name_roles = $name_roles;
-                if($name_roles == 'manager'){
-                    $luong->salary = '35000';
-                }else{
-                    $luong->salary = '23000';
-                }
-                $luong->save();
-            }
+            // if($name_roles == 'staff' or $name_roles == 'manager'){
+            //     $luong = new luong();
+            //     $luong->user_id = $us;
+            //     $luong->user_name = $name;
+            //     $luong->name_roles = $name_roles;
+            //     if($name_roles == 'manager'){
+            //         $luong->salary = '35000';
+            //     }else{
+            //         $luong->salary = '23000';
+            //     }
+            //     $luong->save();
+            // }
             session()->flash('user_sc', $email);
             return redirect(route('user_dashboard'));
         }else{

@@ -1,13 +1,12 @@
-<div class="app-brand demo">
+<div class="app-brand demo justify-content-center">
     <a href="{{ route('index_dashboard') }}" class="app-brand-link d-flex">
       <img class="ms-2 mb-3" src="{{ asset('dashboard\assets\img\favicon\logo_dashboard_int.png') }}" width="64px" height="51px" alt="Interior CS">
-    <span class="app-brand-text demo menu-text fw-bolder ms-2">Interior </span><span class="menu-text fw-bolder ms-2" style="color: rgb(231, 171, 6)">CS</span>
+      <span class="app-brand-text demo menu-text fw-bolder ms-2">Interior </span><span class="menu-text fw-bolder ms-2" style="color: rgb(231, 171, 6)">CS</span>
     </a>
     <a href="#" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
       <i class="bx bx-chevron-left bx-sm align-middle"></i>
     </a>
   </div>
-  
   <div class="menu-inner-shadow"></div>
   <ul class="menu-inner py-1">
     <!-- Dashboard -->
@@ -17,19 +16,19 @@
         <div >Dashboard</div>
       </a>
     </li>
-  
+
     <li class="menu-header small text-uppercase">
       <span class="menu-header-text">Product</span>
     </li>
     <li class="menu-item">
       <a href="#" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons bx bx-dock-top"></i>
-        <div >Product</div>
+        <div>Product</div>
       </a>
       <ul class="menu-sub">
         <li class="menu-item">
           <a href="{{ route('product_dashboard') }}" class="menu-link">
-            <div  >New Product</div>
+            <div >New Product</div>
           </a>
         </li>
         <li class="menu-item">
@@ -63,14 +62,14 @@
         <div >Supplier  - Material</div>
       </a>
       <ul class="menu-sub">
-        <li class="menu-item">
+         <li class="menu-item">
           <a href=" {{ route('supplier_dashboard') }}" class="menu-link">
-            <div >Supplier </div>
+            <div>Supplier </div>
           </a>
         </li>
         <li class="menu-item">
           <a href="{{ route('material_dashboard') }}" class="menu-link">
-            <div >Material</div>
+            <div>Material</div>
           </a>
         </li>
       </ul>
@@ -99,17 +98,17 @@
     <li class="menu-item">
       <a href="javascript:void(0)" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons bx bx-user"></i>
-        <div >User</div>
+        <div>User</div>
       </a>
       <ul class="menu-sub">
         <li class="menu-item">
           <a href="{{ route('user_dashboard') }}" class="menu-link">
-            <div >New User</div>
+            <div>New User</div>
           </a>
         </li>
         <li class="menu-item">
           <a href="{{ route('list_user_dashboard') }}" class="menu-link">
-            <div >List User</div>
+            <div>List User</div>
           </a>
         </li>
       </ul>
@@ -117,17 +116,17 @@
     <li class="menu-item">
       <a href="javascript:void(0)" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons bx bx-heart"></i>
-        <div >Favorite</div>
+        <div>Favorite</div>
       </a>
       <ul class="menu-sub">
         <li class="menu-item">
           <a href="{{ route('favorite_dashboard') }}" class="menu-link">
-            <div >New Favorite</div>
+            <div>New Favorite</div>
           </a>
         </li>
         <li class="menu-item">
           <a href="{{ route('list_favorite_dashboard') }}" class="menu-link">
-            <div >List Favorite</div>
+            <div>List Favorite</div>
           </a>
         </li>
       </ul>
@@ -140,7 +139,7 @@
       <ul class="menu-sub">
         <li class="menu-item">
           <a href="{{ route('cart_dashboard') }}" class="menu-link">
-            <div >New Cart</div>
+            <div>New Cart</div>
           </a>
         </li>
         <li class="menu-item">
@@ -153,53 +152,53 @@
     <li class="menu-item">
       <a href="{{ route('comment_dashboard') }}" class="menu-link">
         <i class="menu-icon tf-icons bx bx-comment-dots"></i>
-        <div>Comment</div>
+        <div data-i18n="Boxicons">Comment</div>
       </a>
     </li>
-  
+
     <!-- Forms & Tables -->
     <li class="menu-header small text-uppercase"><span class="menu-header-text">Quản lý thông tin khác</span></li>
     <!-- Forms -->
     <li class="menu-item">
       <a href="{{ route('roles_dashboard') }}" class="menu-link">
         <i class="menu-icon tf-icons bx bx-lock-alt"></i>
-        <div>Roles</div>
+        <div data-i18n="Form Elements">Roles</div>
       </a>
     </li>
     <li class="menu-item">
       <a href="{{ route('status_dashboard') }}" class="menu-link">
         <i class="menu-icon tf-icons bx bx-check-shield"></i>
-        <div>Status Interior</div>
+        <div data-i18n="Form Layouts">Status Interior</div>
       </a>
     </li>
     <li class="menu-item">
       <a href="{{ route('discount_dashboard') }}" class="menu-link">
         <i class="menu-icon tf-icons bx bx-purchase-tag-alt"></i>
-        <div>Discount</div>
+        <div data-i18n="Form Layouts">Discount</div>
       </a>
     </li>
     <li class="menu-item">
-        <a href="{{route('list_province_dashboard')}}" class="menu-link">
-          <i class="menu-icon tf-icons bx bx-building-house"></i>
-          <div data-i18n="Form Layouts">Province - City</div>
-        </a>
-      </li>
+      <a href="{{route('list_province_dashboard')}}" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-building-house"></i>
+        <div data-i18n="Form Layouts">Province - City</div>
+      </a>
+    </li>
     <li class="menu-item">
       <a href="{{ route('color_dashboard') }}" class="menu-link">
         <i class="menu-icon tf-icons bx bx-cookie"></i>
-        <div>Color Product</div>
+        <div data-i18n="Form Layouts">Color Product</div>
       </a>
     </li>
-    <li class="menu-item">
+    <li class="menu-item active">
       <a href="{{ route('slide') }}" class="menu-link">
         <i class="menu-icon tf-icons bx bx-outline"></i>
         <div data-i18n="Form Layouts">Slide</div>
       </a>
     </li>
-    <li class="menu-item active">
-        <a href="{{ route('history_dashboard') }}" class="menu-link">
-          <i class="menu-icon tf-icons bx bx-history"></i>
-          <div>History</div>
-        </a>
-    </li>
+    <li class="menu-item">
+      <a href="{{ route('history_dashboard') }}" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-history"></i>
+        <div>History</div>
+      </a>
+  </li>
   </ul>

@@ -191,6 +191,12 @@
     </a>
   </li>
   <li class="menu-item">
+    <a href="{{ route('slide') }}" class="menu-link">
+      <i class="menu-icon tf-icons bx bx-outline"></i>
+      <div data-i18n="Form Layouts">Slide</div>
+    </a>
+  </li>
+  <li class="menu-item">
     <a href="{{ route('history_dashboard') }}" class="menu-link">
       <i class="menu-icon tf-icons bx bx-history"></i>
       <div>History</div>

@@ -19,6 +19,7 @@ use App\Models\typeproduct;
 use App\Models\luong;
 use App\Models\material;
 use App\Models\product;
+use App\Models\slide;
 use App\Models\warehouse;
 use Illuminate\Support\Facades\Auth;
 
@@ -361,14 +362,31 @@ class interiorController extends Controller
         $luong = luong::limit(10)->paginate(10);
         return view('dashboards.salary', compact('luong'));
     }
+    public function slide()
+    {
+        $product = product::where('status','Còn hàng')->get();
+        $slide = slide::all();
+        return view('dashboards.slide',compact('product','slide'));
+    }
+    public function slide2(Request $request)
+    {
+        $data['product'] = product::find($request->id)->toArray();
+        $allProduct = product::where('status','Còn hàng')->get();
+        $slide = slide::all();
+        return view('dashboards.slide2',$data, compact('slide','allProduct'));
+    }
     //------------------------------------------   client   -----------------------------------------
+    public function index()
+    {
+        $product = product::where('status','Còn hàng')->orderby('id','desc')->limit(8)->get();
+        $slide_1 = slide::where('position','1')->get();
+        $slide_2 = slide::where('position','2')->get();
+        $slide_3 = slide::where('position','3')->get();
+        return view('interiors.index',compact('product','slide_1','slide_2','slide_3'));
+    }
     public function blog()
     {
         return view('interiors.blog');
-    }
-    public function index()
-    {
-        return view('interiors.index');
     }
     public function product()
     {

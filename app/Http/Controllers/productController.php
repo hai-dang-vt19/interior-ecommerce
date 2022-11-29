@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\history;
+use App\Models\material;
 use App\Models\product;
 use App\Models\warehouse;
 use Illuminate\Http\Request;
@@ -20,6 +21,14 @@ class productController extends Controller
         $amount = $request->amount;
         $pri = $request->price;
         
+        $get_price_material = material::where('name_material',$request->material)
+                                    ->where('supplier',$request->supplier)
+                                    ->get();
+        foreach($get_price_material as $gpm){
+            $get_pm = $gpm->price;
+        }
+        $sum_price = $get_pm+$pri;
+
         $pro = new product();
         $pro->id_product = 'ICS';
         $pro->name_product = $name_product;
@@ -27,7 +36,7 @@ class productController extends Controller
         $pro->material = $request->material;
         $pro->supplier = $request->supplier;
         $pro->color = $request->color;
-        $pro->price = $request->price;
+        $pro->price = $sum_price;
         $pro->amount = $amount;
         $pro->descriptions = $request->descriptions;
         $pro->date = $request->date;

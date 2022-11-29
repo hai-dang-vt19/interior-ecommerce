@@ -23,10 +23,10 @@ class interiorPostController extends Controller
             if (Auth::check()) {
                 if(Auth::user()->name_roles == 'user'){
                     session()->flash('login-sc', 'Đăng nhập thành công')    ;
-                    return view('interiors.index');
+                    return redirect(route('index'));
                 }else{
                     session()->flash('login-sc', 'Đăng nhập thành công');
-                    return view('dashboards.index-dashboard');
+                    return redirect(route('index_dashboard'));
                 }
             } else {
                 return false;

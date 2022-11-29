@@ -103,7 +103,7 @@
                       <form action="{{ route('add_calender') }}" method="post">
                         @csrf
                         <div class="mb-3 d-flex justify-content-center">
-                          <input type="hidden" name="id_user" value="{{Auth::user()->id}}">
+                          {{-- <input type="hidden" name="idu" value="{{Auth::user()->id}}"> --}}
                           <select name="t2" class="btn rounded-pill btn-outline-warning ms-2">
                             <option selected disabled>Thứ 2</option>
                             <option value="c1">C1</option>
