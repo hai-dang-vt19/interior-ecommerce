@@ -113,7 +113,7 @@
                     </div>
                     <div class="offcanvas-body my-auto mx-0 flex-grow-0">
                       <div class="app-brand justify-content-center">
-                        <img src="{{ asset('dashboard/assets/img/favicon/logo-interior.png') }}" width="195px" height="164px" alt="Interior CS">
+                        <img class="mt-2 ms-2 mb-5" src="{{ asset('interior\img\core-img\logo.png') }}" width="150px" height="61px" alt="Interior CS">
                       </div>
                       <form action="{{ route('reset_pass_with_user') }}" method="POST">
                         @csrf

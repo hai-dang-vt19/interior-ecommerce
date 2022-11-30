@@ -16,6 +16,8 @@ class product extends Model
         'type_product',
         'amount',
         'color',
+        'color2',
+        'color3',
         'price',
         'images',
         'images2',
@@ -23,7 +25,8 @@ class product extends Model
         'metarial',
         'supplier',
         'status',
-        'date'      
+        'date',  
+        'size'  
     ];
     public $timestamps = false;
 }

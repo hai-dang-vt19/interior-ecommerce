@@ -112,7 +112,7 @@
                           <label class="col-sm-2 col-form-label">Giá nhập</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
+                              <span class="input-group-text"><i class='bx bx-money'></i></span>
                               <input type="text" class="form-control" name="price"/>
                             </div>
                           </div>
@@ -121,7 +121,7 @@
                           <label class="col-sm-2 col-form-label">Nhà cung cấp</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class='bx bx-cube-alt'></i></span>
+                              <span class="input-group-text"><i class='bx bx-crown'></i></span>
                               <select class="form-select" name="supplier">
                                 @foreach ($supplier as $sup)
                                     <option value="{{$sup->name_supplier}}">{{$sup->name_supplier}}</option>

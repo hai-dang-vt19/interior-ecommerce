@@ -1,7 +1,6 @@
   <div class="app-brand demo justify-content-center">
     <a href="{{ route('index_dashboard') }}" class="app-brand-link d-flex">
-      <img class="ms-2 mb-3" src="{{ asset('dashboard\assets\img\favicon\logo_dashboard_int.png') }}" width="64px" height="51px" alt="Interior CS">
-      <span class="app-brand-text demo menu-text fw-bolder ms-2">Interior </span><span class="menu-text fw-bolder ms-2" style="color: rgb(231, 171, 6)">CS</span>
+      <img class="mt-2 ms-2 mb-3" src="{{ asset('interior\img\core-img\logo.png') }}" width="140px" height="51px" alt="Interior CS">
     </a>
     <a href="#" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
       <i class="bx bx-chevron-left bx-sm align-middle"></i>

@@ -147,19 +147,50 @@
                               <span class="input-group-text"><i class='bx bx-image'></i></span>
                               <input type="file" class="form-control phone-mask"  name="images"/>
                             </div>
-                            <div class="input-group input-group-merge">
+                            <input type="hidden" value="{{$product['images']}}" name="images_c"/>
+                            <div class="input-group input-group-merge me-2">
                               <span class="input-group-text"><i class='bx bx-image'></i></span>
                               <input type="file" class="form-control phone-mask"  name="images2"/>
+                            </div>
+                            <input type="hidden" value="{{$product['images2']}}"  name="images2_c"/>
+                            <div class="input-group input-group-merge">
+                              <span class="input-group-text"><i class='bx bx-screenshot'></i></span>
+                              <select name="size" class="form-select">
+                                <option value="{{$product['size']}}">{{$product['size']}}</option>
+                                <option value="533x533">533 x 533</option>
+                                <option value="533x757">533 x 757</option>
+                                <option value="533x475">533 x 475</option>
+                                <option value="533x641">533 x 641</option>
+                                <option value="489x435">489 x 435</option>
+                              </select>
                             </div>
                           </div>
                         </div>
                         <div class="row mb-3">
                           <label class="col-sm-2 form-label">Màu sắc</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
+                          <div class="col-sm-10 d-flex">
+                            <div class="input-group input-group-merge me-2">
                               <span class="input-group-text"><i class='bx bx-brush'></i></span>
                               <select class="form-select" name="color">
                                 <option selected value="{{$product['color']}}">{{$product['color']}}</option>
+                                @foreach ($color as $cl)
+                                    <option value="{{$cl->color}}">{{$cl->color}}</option>
+                                @endforeach
+                              </select>
+                            </div>
+                            <div class="input-group input-group-merge me-2">
+                              <span class="input-group-text"><i class='bx bx-brush'></i></span>
+                              <select class="form-select" name="color2">
+                                <option selected value="{{$product['color2']}}">{{$product['color2']}}</option>
+                                @foreach ($color as $cl)
+                                    <option value="{{$cl->color}}">{{$cl->color}}</option>
+                                @endforeach
+                              </select>
+                            </div>
+                            <div class="input-group input-group-merge">
+                              <span class="input-group-text"><i class='bx bx-brush'></i></span>
+                              <select class="form-select" name="color3">
+                                <option selected value="{{$product['color3']}}">{{$product['color3']}}</option>
                                 @foreach ($color as $cl)
                                     <option value="{{$cl->color}}">{{$cl->color}}</option>
                                 @endforeach

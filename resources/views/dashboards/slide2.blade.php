@@ -95,11 +95,11 @@
                     <div class="card-header d-flex align-items-center justify-content-between mb-3" style="border-bottom: 3px dashed #F5F5F9">
                         <div class="btn-group">
                             <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                              Chọn sản phẩm
+                              Chọn lại sản phẩm
                             </button>
                             <ul class="dropdown-menu">
                                 @foreach ($allProduct as $allp)
-                                <li><a class="dropdown-item" href="{{ route('slide2', ['id'=>$allp->id]) }}">{{$allp->name_product}}</a></li>   
+                                <li><a class="dropdown-item" href="{{ route('slide2', ['id'=>$allp->id, 'position'=>$get_pst]) }}">{{$allp->id_product}} _{{$allp->size}}</a></li>   
                                 @endforeach
                             </ul>
                         </div>
@@ -147,11 +147,8 @@
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label">Vị trí</label>
                             <div class="col-sm-10">
-                                <select name="position" class="select form-select">
-                                    <option value="1">Slide 1</option>
-                                    <option value="2">Slide 2</option>
-                                    <option value="3">Slide 3</option>
-                                </select>
+                                <input type="text" class="form-control" disabled value="Position {{$get_pst}}">
+                                <input type="hidden" value="{{$get_pst}}" name="position">
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -168,38 +165,6 @@
                           </div>
                         </div>
                       </form>
-                    </div>
-                  </div>
-                  <div class="card">
-                    <div class="table-responsive text-nowrap">
-                      <table class="table table-hover">
-                        <thead>
-                          <tr>
-                            <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>
-                            <th style="color: rgb(231, 171, 6);font-size: 14px">MSP</th>
-                            <th style="color: rgb(231, 171, 6);font-size: 14px">Tên sản phẩm</th>
-                            <th style="color: rgb(231, 171, 6);font-size: 14px">Loại sản phẩm</th>
-                            <th style="color: rgb(231, 171, 6);font-size: 14px">Giá tiền</th>
-                            <th style="color: rgb(231, 171, 6);font-size: 14px">Hình ảnh</th>
-                            <th style="color: rgb(231, 171, 6);font-size: 14px">Vị trí</th>
-                            <th style="color: rgb(231, 171, 6);font-size: 14px">Ghi chú</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          @foreach ($slide as $key => $slides)
-                          <tr>
-                            <td scope="row">{{$key+1}}</td>
-                            <td>{{$slides->id_product}}</td>
-                            <td>{{$slides->name_product}}</td>
-                            <td>{{$slides->type_product}}</td>
-                            <td>{{number_format($slides->price)}} &#8363;</td>
-                            <td>{{$slides->images}}</td>
-                            <td>{{$slides->position}}</td>
-                            <td>{{$slides->descriptions}}</td>
-                          </tr>
-                          @endforeach
-                        </tbody>
-                      </table>
                     </div>
                   </div>
                 </div>
@@ -243,16 +208,5 @@
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     {{-- <script src="{{ asset('dashboard\js\formatCurrence.js') }}"></script> --}}
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-      @if (session()->has('slide_sc'))
-        <script>
-          swal({
-                title: "{{session()->get('slide_sc')}}",
-                icon: "success",
-                button: "OK",
-                timer: 2000,
-              });
-        </script>
-      @endif
   </body>
 </html>

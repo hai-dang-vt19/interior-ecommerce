@@ -36,10 +36,13 @@ class productController extends Controller
         $pro->material = $request->material;
         $pro->supplier = $request->supplier;
         $pro->color = $request->color;
+        $pro->color2 = $request->color2;
+        $pro->color3 = $request->color3;
         $pro->price = $sum_price;
         $pro->amount = $amount;
         $pro->descriptions = $request->descriptions;
         $pro->date = $request->date;
+        $pro->size = $request->size;
         $pro->save();
 
         $update = product::where('id_product','ICS')->where('name_product',$name_product)->get();
@@ -49,14 +52,14 @@ class productController extends Controller
             if($request->hasFile('images')){
                 $file = $request -> file('images');
                 $name_file = $file -> getClientOriginalName();
-                $filename = 'Images_1_ICS00'.$up->id.'_'.$name_file;
+                $filename = 'Images_1_ICS00'.$up->id.'_'.$up->size.'_'.$name_file;
                 $file -> move('dashboard/upload_img/product/',$filename);
                 $upro->images = $filename;
             }
             if($request->hasFile('images2')){
                 $file2 = $request -> file('images2');
                 $name_file2 = $file2 -> getClientOriginalName();
-                $filename2 = 'Images_2_ICS00'.$up->id.'_'.$name_file2;
+                $filename2 = 'Images_2_ICS00'.$up->id.'_'.$up->size.'_'.$name_file2;
                 $file2 -> move('dashboard/upload_img/product/',$filename2);
                 $upro->images2 = $filename2;
             }
@@ -96,25 +99,37 @@ class productController extends Controller
             $product->type_product = $type_product;
             $product->material = $request->material;
             $product->supplier = $request->supplier;
-            if($request->hasFile('images')){
-                $file = $request -> file('images');
-                $name_file = $file -> getClientOriginalName();
-                $filename = 'Images_1_ICS00'.$request->id.'_'.$name_file;
-                $file -> move('dashboard/upload_img/product/',$filename);
-                $product->images = $filename;
+            if($request->images != null){
+                if($request->hasFile('images')){
+                    $file = $request -> file('images');
+                    $name_file = $file -> getClientOriginalName();
+                    $filename = 'Images_1_ICS00'.$request->id.'_'.$request->size.'_'.$name_file;
+                    $file -> move('dashboard/upload_img/product/',$filename);
+                    $product->images = $filename;
+                }
+            }else{
+                $product->images = $request->images_c;
             }
-            if($request->hasFile('images2')){
-                $file2 = $request -> file('images2');
-                $name_file2 = $file2 -> getClientOriginalName();
-                $filename2 = 'Images_2_ICS00'.$request->id.'_'.$name_file2;
-                $file2 -> move('dashboard/upload_img/product/',$filename2);
-                $product->images2 = $filename2;
+            if($request->images2 != null){
+                if($request->hasFile('images2')){
+                    $file2 = $request -> file('images2');
+                    $name_file2 = $file2 -> getClientOriginalName();
+                    $filename2 = 'Images_2_ICS00'.$request->id.'_'.$request->size.'_'.$name_file2;
+                    $file2 -> move('dashboard/upload_img/product/',$filename2);
+                    $product->images2 = $filename2;
+                }
+            }else{
+                $product->images2 = $request->images2_c;
             }
+            
             $product->color = $request->color;
+            $product->color2 = $request->color2;
+            $product->color3 = $request->color3;
             $product->price = $request->price;
             $product->amount = $amount;
             $product->descriptions = $request->descriptions;
             $product->date = $request->date;
+            $product->size = $request->size;
         $product->save();
 
         $get_warehouse = warehouse::where('name_product',$name_product)->where('name',$type_product)->update(['amount'=>$amount]);

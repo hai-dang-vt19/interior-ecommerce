@@ -100,7 +100,7 @@
                       <form action="{{ route('add_type_product') }}" method="POST">
                         @csrf
                         <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Tên loại sản phẩm</label>
+                          <label class="col-sm-2 col-form-label">Loại sản phẩm</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class='bx bxl-codepen'></i></span>

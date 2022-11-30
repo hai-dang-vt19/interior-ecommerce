@@ -101,7 +101,8 @@
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Chất liệu</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Nhà sản xuất</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Hình ảnh</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Mô tả</th>
+                        <th style="color: rgb(231, 171, 6);font-size: 14px">Kích cỡ</th>
+                        {{-- <th style="color: rgb(231, 171, 6);font-size: 14px">Mô tả</th> --}}
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Trạng thái</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Ngày tạo</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Chức năng</th>
@@ -115,12 +116,13 @@
                         <td>{{$pro->name_product}}</td>
                         <td>{{$pro->type_product}}</td>
                         <td>{{$pro->amount}}</td>
-                        <td>{{$pro->color}}</td>
+                        <td>{{$pro->color}} {{$pro->color2}} {{$pro->color3}}</td>
                         <td>{{number_format($pro->price)}} &#8363;</td>
                         <td>{{$pro->metarial}}</td>
                         <td>{{$pro->supplier}}</td>
                         <td>{{$pro->images}}, {{$pro->images2}}</td>
-                        <td>{{$pro->descriptions}}</td>
+                        <td>{{$pro->size}}</td>
+                        {{-- <td>{{$pro->descriptions}}</td> --}}
                         <td>{{$pro->status}}</td>
                         <td>{{$pro->date}}</td>
                         <td>
@@ -172,7 +174,7 @@
       @if (session()->has('product_update_sc'))
         <script>
           swal({
-                title: "Mã SP: {{session()->get('product_update_sc')}}",
+                title: "{{session()->get('product_update_sc')}}",
                 icon: "success",
                 button: "OK",
                 timer: 2000,

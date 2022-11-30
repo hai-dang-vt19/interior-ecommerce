@@ -47,7 +47,7 @@
               <!-- Logo -->
               <div class="d-flex justify-content-center mb-3">
                 <div>
-                  <img src="{{ asset('dashboard/assets/img/favicon/logo-interior.png') }}" width="195px" height="164px" alt="Interior CS">
+                  <img class="mt-4 ms-2 mb-3" src="{{ asset('interior\img\core-img\logo.png') }}" width="150px" height="61px" alt="Interior CS">
                 </div>
               </div>
               <!-- /Logo -->
@@ -68,7 +68,7 @@
                   </div>
                 </div>
                 <div class="mb-3">
-                  <button class="btn btn-primary d-grid w-100" type="submit">Đăng nhâp</button>
+                  <button class="btn btn-warning d-grid w-100" type="submit">Đăng nhâp</button>
                 </div>
               </form>
 

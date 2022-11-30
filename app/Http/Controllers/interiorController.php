@@ -364,32 +364,42 @@ class interiorController extends Controller
     }
     public function slide()
     {
-        $product = product::where('status','Còn hàng')->get();
+        $p1 = product::where('status','Còn hàng')->where('size','533x533')->get();
+        $p2 = product::where('status','Còn hàng')->where('size','533x757')->get();
+        $p3 = product::where('status','Còn hàng')->where('size','489x435')->get();
+        $p4 = product::where('status','Còn hàng')->where('size','489x435')->get();
+        $p5 = product::where('status','Còn hàng')->where('size','533x533')->get();
+        $p6 = product::where('status','Còn hàng')->where('size','533x475')->get();
+        $p7 = product::where('status','Còn hàng')->where('size','533x757')->get();
+        $p8 = product::where('status','Còn hàng')->where('size','533x641')->get();
+        $p9 = product::where('status','Còn hàng')->where('size','533x475')->get();
+
         $slide = slide::all();
-        return view('dashboards.slide',compact('product','slide'));
+        return view('dashboards.slide',compact('p1','p2','p3','p4','p5','p6','p7','p8','p9','slide'));
     }
     public function slide2(Request $request)
     {
+        $get_pst = $request->position;
         $data['product'] = product::find($request->id)->toArray();
-        $allProduct = product::where('status','Còn hàng')->get();
-        $slide = slide::all();
-        return view('dashboards.slide2',$data, compact('slide','allProduct'));
+        $get_size = product::where('id',$request->id)->get();
+        foreach($get_size as $s){
+            $allProduct = product::where('status','Còn hàng')->where('size',$s->size)->get();
+            return view('dashboards.slide2',$data, compact('allProduct','get_pst'));
+        }
     }
     //------------------------------------------   client   -----------------------------------------
     public function index()
     {
-        $product = product::where('status','Còn hàng')->orderby('id','desc')->limit(8)->get();
-        $slide_1 = slide::where('position','1')->get();
-        $slide_2 = slide::where('position','2')->get();
-        $slide_3 = slide::where('position','3')->get();
-        return view('interiors.index',compact('product','slide_1','slide_2','slide_3'));
-    }
-    public function blog()
-    {
-        return view('interiors.blog');
+        // $product = product::where('status','Còn hàng')->orderby('id','desc')->limit(4)->get();
+        $slide = slide::orderby('position')->get();
+        return view('interiors.index', compact('slide'));
     }
     public function product()
     {
         return view('interiors.product');
+    }
+    public function blog()
+    {
+        return view('interiors.blog');
     }
 }

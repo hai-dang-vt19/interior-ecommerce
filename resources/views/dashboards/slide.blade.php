@@ -99,14 +99,103 @@
                     <hr class="my-0">
                     <div class="card-body">
                         <div class="row mb-3">{{--Lấy tên sản phẩm sẽ hiển thị ra tất cả dữ liệu--}}
-                          <div class="col-sm-10">
+                          <div class="col-sm-10 d-flex ms-5">
                             <div class="btn-group">
-                              <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                Chọn sản phẩm
+                              <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle me-4" data-bs-toggle="dropdown" aria-expanded="false">
+                                Position 1
                               </button>
                               <ul class="dropdown-menu">
-                                @foreach ($product as $products)
-                                  <li><a class="dropdown-item d-flex" href="{{ route('slide2', ['id'=>$products->id]) }}"><p class="fst-italic">{{$products->name_product}}&nbsp;</p><span class="fw-lighter">&nbsp;_{{$products->type_product}}</span></a></li>   
+                                
+                                @foreach ($p1 as $products)
+                                  <li><a class="dropdown-item d-flex" href="{{ route('slide2', ['id'=>$products->id, 'size'=>$products->size, 'position'=>1]) }}"><p>{{$products->id_product}}&nbsp;</p><span class="fst-italic fw-lighter">&nbsp;_{{$products->size}}</span></a></li>   
+                                @endforeach
+                              </ul>
+                            </div>
+                            <div class="btn-group">
+                              <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle me-4" data-bs-toggle="dropdown" aria-expanded="false">
+                                Position 2
+                              </button>
+                              <ul class="dropdown-menu">
+                                
+                                @foreach ($p2 as $products)
+                                  <li><a class="dropdown-item d-flex" href="{{ route('slide2', ['id'=>$products->id, 'size'=>$products->size, 'position'=>2]) }}"><p>{{$products->id_product}}&nbsp;</p><span class="fst-italic fw-lighter">&nbsp;_{{$products->size}}</span></a></li>   
+                                @endforeach
+                              </ul>
+                            </div>
+                            <div class="btn-group">
+                              <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle me-4" data-bs-toggle="dropdown" aria-expanded="false">
+                                Position 3
+                              </button>
+                              <ul class="dropdown-menu">
+                                
+                                @foreach ($p3 as $products)
+                                  <li><a class="dropdown-item d-flex" href="{{ route('slide2', ['id'=>$products->id, 'size'=>$products->size, 'position'=>3]) }}"><p>{{$products->id_product}}&nbsp;</p><span class="fst-italic fw-lighter">&nbsp;_{{$products->size}}</span></a></li>   
+                                @endforeach
+                              </ul>
+                            </div>
+                            <div class="btn-group">
+                              <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle me-4" data-bs-toggle="dropdown" aria-expanded="false">
+                                Position 4
+                              </button>
+                              <ul class="dropdown-menu">
+                                
+                                @foreach ($p4 as $products)
+                                  <li><a class="dropdown-item d-flex" href="{{ route('slide2', ['id'=>$products->id, 'size'=>$products->size, 'position'=>4]) }}"><p>{{$products->id_product}}&nbsp;</p><span class="fst-italic fw-lighter">&nbsp;_{{$products->size}}</span></a></li>   
+                                @endforeach
+                              </ul>
+                            </div>
+                            <div class="btn-group">
+                              <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle me-4" data-bs-toggle="dropdown" aria-expanded="false">
+                                Position 5
+                              </button>
+                              <ul class="dropdown-menu">
+                                
+                                @foreach ($p5 as $products)
+                                  <li><a class="dropdown-item d-flex" href="{{ route('slide2', ['id'=>$products->id, 'size'=>$products->size, 'position'=>5]) }}"><p>{{$products->id_product}}&nbsp;</p><span class="fst-italic fw-lighter">&nbsp;_{{$products->size}}</span></a></li>   
+                                @endforeach
+                              </ul>
+                            </div>
+                            <div class="btn-group">
+                              <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle me-4" data-bs-toggle="dropdown" aria-expanded="false">
+                                Position 6
+                              </button>
+                              <ul class="dropdown-menu">
+                                
+                                @foreach ($p6 as $products)
+                                  <li><a class="dropdown-item d-flex" href="{{ route('slide2', ['id'=>$products->id, 'size'=>$products->size, 'position'=>6]) }}"><p>{{$products->id_product}}&nbsp;</p><span class="fst-italic fw-lighter">&nbsp;_{{$products->size}}</span></a></li>   
+                                @endforeach
+                              </ul>
+                            </div>
+                            <div class="btn-group">
+                              <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle me-4" data-bs-toggle="dropdown" aria-expanded="false">
+                                Position 7
+                              </button>
+                              <ul class="dropdown-menu">
+                                
+                                @foreach ($p7 as $products)
+                                  <li><a class="dropdown-item d-flex" href="{{ route('slide2', ['id'=>$products->id, 'size'=>$products->size, 'position'=>7]) }}"><p>{{$products->id_product}}&nbsp;</p><span class="fst-italic fw-lighter">&nbsp;_{{$products->size}}</span></a></li>   
+                                @endforeach
+                              </ul>
+                            </div>
+                            <div class="btn-group">
+                              <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle me-4" data-bs-toggle="dropdown" aria-expanded="false">
+                                Position 8
+                              </button>
+                              <ul class="dropdown-menu">
+                                
+                                @foreach ($p8 as $products)
+                                  <li><a class="dropdown-item d-flex" href="{{ route('slide2', ['id'=>$products->id, 'size'=>$products->size, 'position'=>8]) }}"><p>{{$products->id_product}}&nbsp;</p><span class="fst-italic fw-lighter">&nbsp;_{{$products->size}}</span></a></li>   
+                                @endforeach
+                              </ul>
+                            </div>
+                            <div class="btn-group">
+                              <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle me-4" data-bs-toggle="dropdown" aria-expanded="false">
+                                Position 9
+                              </button>
+                              <ul class="dropdown-menu">
+                                
+                                @foreach ($p9 as $products)
+                                  <li><a class="dropdown-item d-flex" href="{{ route('slide2', ['id'=>$products->id, 'size'=>$products->size, 'position'=>9]) }}"><p>{{$products->id_product}}&nbsp;</p><span class="fst-italic fw-lighter">&nbsp;_{{$products->size}}</span></a></li>   
                                 @endforeach
                               </ul>
                             </div>
@@ -119,27 +208,25 @@
                       <table class="table table-hover">
                         <thead>
                           <tr>
-                            <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>
                             <th style="color: rgb(231, 171, 6);font-size: 14px">MSP</th>
                             <th style="color: rgb(231, 171, 6);font-size: 14px">Tên sản phẩm</th>
                             <th style="color: rgb(231, 171, 6);font-size: 14px">Loại sản phẩm</th>
                             <th style="color: rgb(231, 171, 6);font-size: 14px">Giá tiền</th>
                             <th style="color: rgb(231, 171, 6);font-size: 14px">Hình ảnh</th>
                             <th style="color: rgb(231, 171, 6);font-size: 14px">Vị trí</th>
-                            <th style="color: rgb(231, 171, 6);font-size: 14px">Ghi chú</th>
+                            {{-- <th style="color: rgb(231, 171, 6);font-size: 14px">Ghi chú</th> --}}
                           </tr>
                         </thead>
                         <tbody>
-                          @foreach ($slide as $key => $slides)
+                          @foreach ($slide as $slides)
                           <tr>
-                            <td scope="row">{{$key+1}}</td>
                             <td>{{$slides->id_product}}</td>
                             <td>{{$slides->name_product}}</td>
                             <td>{{$slides->type_product}}</td>
                             <td>{{number_format($slides->price)}} &#8363;</td>
                             <td>{{$slides->images}}</td>
                             <td>{{$slides->position}}</td>
-                            <td>{{$slides->descriptions}}</td>
+                            {{-- <td>{{$slides->descriptions}}</td> --}}
                           </tr>
                           @endforeach
                         </tbody>
@@ -186,5 +273,16 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+      @if (session()->has('slide_sc'))
+        <script>
+          swal({
+                title: "{{session()->get('slide_sc')}}",
+                icon: "success",
+                button: "OK",
+                timer: 2000,
+              });
+        </script>
+      @endif
   </body>
 </html>

@@ -100,7 +100,7 @@
                       <form action="{{ route('add_supplier') }}" method="POST">
                         @csrf
                         <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Tên sản phẩm</label>
+                          <label class="col-sm-2 col-form-label">Nhà cung cấp</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
@@ -109,7 +109,7 @@
                           </div>
                         </div>
                         <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Loại sản phẩm</label>
+                          <label class="col-sm-2 col-form-label">Trạng thái</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class='bx bx-cube-alt'></i></span>
