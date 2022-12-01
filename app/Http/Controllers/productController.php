@@ -86,20 +86,18 @@ class productController extends Controller
         $amount = $request->amount;
 
         $get = product::where('id',$request->id)->get();
-        foreach($get as $pro){
-            if($pro->images != null){
-                File::delete('dashboard/upload_img/product/'.$pro->images);
-            }
-            if($pro->images2 != null){
-                File::delete('dashboard/upload_img/product/'.$pro->images2);
-            }
-        }
+        
         $product = product::find($request->id);
             $product->name_product = $name_product;
             $product->type_product = $type_product;
             $product->material = $request->material;
             $product->supplier = $request->supplier;
             if($request->images != null){
+                foreach($get as $pro){
+                    if($pro->images != null){
+                        File::delete('dashboard/upload_img/product/'.$pro->images);
+                    }
+                }
                 if($request->hasFile('images')){
                     $file = $request -> file('images');
                     $name_file = $file -> getClientOriginalName();
@@ -111,6 +109,11 @@ class productController extends Controller
                 $product->images = $request->images_c;
             }
             if($request->images2 != null){
+                foreach($get as $pro){
+                    if($pro->images2 != null){
+                        File::delete('dashboard/upload_img/product/'.$pro->images2);
+                    }
+                }
                 if($request->hasFile('images2')){
                     $file2 = $request -> file('images2');
                     $name_file2 = $file2 -> getClientOriginalName();

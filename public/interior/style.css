@@ -1,13 +1,68 @@
-    /* ####################################################
-    :: Template Name: Essence - Fashion Ecommerce Template
-    :: Author: Colorlib
-    :: Author URL: https://colorlib.com
-    :: Description: Essence is smart & elegant fashion e-commerce Template. It's suitable for all e-commerce business platform.
-    :: Version: 1.0.0
-    :: Created: April 27, 2018
-    :: Last Updated: May 2, 2018
-    #################################################### */
+  .containerinte
+  {
+    /* font-family: 'Times'; */
+    font-family: 'Dancing Script', cursive;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    /* padding-left: 5px;
+    padding-right: 5px; */
+  }
 
-    /* ---------------------------------------
-    ##### - PLACE YOUR CUSTOM CSS HERE - #####
-    --------------------------------------- */
+  .textinte
+  {
+    font-size: 26px;
+    /* text-transform: uppercase; */
+    position: relative;
+    color: #8d8c8c;
+    /* color: #6D6D6D; */
+    padding: 3px;
+  }
+
+  .textinte::before
+  {
+    content: attr(data-text);
+    position: absolute;
+    /* color: #ffffff; */
+    color: #FBB710;
+    width: 0;
+    overflow: hidden;
+    transition: 0.6s;
+  }
+
+  .containerinte::before
+  {
+    content: "";
+    width: 0;
+    height: 100%;
+    position: absolute;
+    /* background: #FBB710; */
+    border-bottom: 3px solid #FBB710;
+    transition: 0.6s;
+  }
+
+  .containerinte:hover .textinte::before,.containerinte:hover::before
+  {
+    width: 100%;
+    font-weight: bold;
+  }
+  
+.interior_color{
+  
+  width: 30px;
+  height: 30px;
+  transition: 0.3s;
+  border: #8d8c8c 1px solid;
+  border-radius: 50%;
+}
+.interior_color:hover{
+  width: 100px;
+  height: 30px;
+  box-shadow: 3px 3px;
+  border: none;
+  border-radius: 0%;
+}
+
+.inte_search{
+  font-family: 'Times New Roman', Times, serif;
+}

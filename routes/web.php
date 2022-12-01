@@ -147,6 +147,10 @@ Route::post('/dashboard-add-slide', [slideController::class, 'add_slide'])->midd
 
 Route::get('/dashboard-salary', [interiorController::class, 'salary'])->middleware('auth')->name('salary');
 // ---- user
-Route::get('/index', [interiorController::class,'index'])->name('index');
-Route::get('/product', [interiorController::class,'product'])->name('product');
-Route::get('/blog', [interiorController::class,'blog'])->name('blog');
+Route::get('/interior-index', [interiorController::class,'index'])->name('index');
+Route::get('/interior-product', [interiorController::class,'product'])->name('product');
+Route::get('/interior-product-details/{id}', [interiorController::class,'product_detail'])->name('product_detail');
+Route::get('/inteiror-product-cat', [interiorController::class, 'get_with_type'])->name('get_with_type');
+Route::get('/inteiror-product-supp', [interiorController::class, 'get_with_brand'])->name('get_with_brand');
+Route::get('/inteiror-product-col', [interiorController::class, 'get_with_color'])->name('get_with_color');
+Route::get('/interior-product-srh', [interiorController::class, 'search_interior_client'])->name('search_interior_client');

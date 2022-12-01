@@ -8,7 +8,7 @@
 /* :: :: 1.0 Import Fonts */
 
 @font-face {
-    font-family: 'helveticaneuebold';
+    font-family: 'Times';
     src: url('../fonts/helvetica_neu_bold-webfont.woff2') format('woff2'),
     url('../fonts/helvetica_neu_bold-webfont.woff') format('woff');
     font-weight: normal;
@@ -16,7 +16,7 @@
 }
 
 @font-face {
-    font-family: 'helveticaneuemedium';
+    font-family: 'Times';
     src: url('../fonts/helveticaneue_medium-webfont.woff2') format('woff2'),
     url('../fonts/helveticaneue_medium-webfont.woff') format('woff');
     font-weight: normal;
@@ -88,6 +88,7 @@ ol {
     margin: 0;
     li {
         list-style: none;
+        font-size: 15px;
     }
 }
 
@@ -1493,19 +1494,19 @@ img {
                         background-color: #030303;
                     }
                     &.color4 {
-                        background-color: #0315ff;
+                        background-color: #8B4513;
                     }
                     &.color5 {
-                        background-color: #dc0647;
+                        background-color: #ff0000;
                     }
                     &.color6 {
                         background-color: #fff56a;
                     }
                     &.color7 {
-                        background-color: #f26e51;
+                        background-color: #0315ff;
                     }
                     &.color8 {
-                        background-color: #9a8777;
+                        background-color: #0ab51e;
                     }
                 }
             }

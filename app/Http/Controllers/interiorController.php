@@ -396,10 +396,49 @@ class interiorController extends Controller
     }
     public function product()
     {
-        return view('interiors.product');
+        $type = typeproduct::all();
+        $product = product::where('status','Còn hàng')->limit(6)->paginate(6);
+        return view('interiors.product', compact('type','product'));
     }
-    public function blog()
+    public function get_with_type(Request $request)
     {
-        return view('interiors.blog');
+        $type = typeproduct::all();
+        $product = product::where('status','Còn hàng')->where('type_product',$request->type)->limit(6)->paginate(6);
+        return view('interiors.product', compact('type','product'));
+    }
+    public function get_with_brand(Request $request)
+    {
+        $type = typeproduct::all();
+        $product = product::where('status','Còn hàng')->where('supplier',$request->supp)->limit(6)->paginate(6);
+        return view('interiors.product', compact('type','product'));
+    }
+    public function get_with_color(Request $request)
+    {
+        $type = typeproduct::all();
+        $product = product::where('status','Còn hàng')->where('color',$request->col)->limit(6)->paginate(6);
+        return view('interiors.product', compact('type','product'));
+    }
+
+    public function product_detail(Request $request)
+    {
+        $data['pro_detail'] = product::find($request->id)->toArray();
+        return view('interiors.product-details',$data);
+    }
+
+    public function search_interior_client(Request $request)
+    {
+        $search_inter = $request['search'] ?? "";
+        if($search_inter != ""){
+                $product = product::where('status','Còn hàng')
+                                ->where('id_product','LIKE',"%$search_inter%")
+                                ->orWhere('name_product','LIKE',"%$search_inter%")
+                                ->paginate(6);
+                // dd($product);
+        }else{
+                $product = product::where('status','Còn hàng')->limit(6)->paginate(6);
+                // dd($product);
+        }
+        $type = typeproduct::all();
+        return view('interiors.product', compact('type','product','search_inter'));
     }
 }
