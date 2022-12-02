@@ -120,7 +120,14 @@
                         <td>{{number_format($pro->price)}} &#8363;</td>
                         <td>{{$pro->metarial}}</td>
                         <td>{{$pro->supplier}}</td>
-                        <td>{{$pro->images}}, {{$pro->images2}}</td>
+                        <td>
+                          <div class="d-flex">
+                            <img src="{{ asset('dashboard\upload_img\product/'.$pro->images) }}" alt=""  style="max-width: 55px;max-height: 47px">
+                            @if ($pro->images2 != null)
+                              <img class="ms-1" src="{{ asset('dashboard\upload_img\product/'.$pro->images2) }}" alt=""  style="max-width: 55px;max-height: 47px">
+                            @endif  
+                          </div>
+                        </td>
                         <td>{{$pro->size}}</td>
                         {{-- <td>{{$pro->descriptions}}</td> --}}
                         <td>{{$pro->status}}</td>

@@ -11,6 +11,7 @@ use App\Http\Controllers\historyController;
 Use App\Http\Controllers\typeController;
 Use App\Http\Controllers\materialSupplierController;
 Use App\Http\Controllers\calendarController;
+use App\Http\Controllers\cartController;
 use App\Http\Controllers\productController;
 use App\Http\Controllers\slideController;
 use App\Http\Controllers\warehouseController;
@@ -154,3 +155,9 @@ Route::get('/inteiror-product-cat', [interiorController::class, 'get_with_type']
 Route::get('/inteiror-product-supp', [interiorController::class, 'get_with_brand'])->name('get_with_brand');
 Route::get('/inteiror-product-col', [interiorController::class, 'get_with_color'])->name('get_with_color');
 Route::get('/interior-product-srh', [interiorController::class, 'search_interior_client'])->name('search_interior_client');
+
+Route::get('/interior-contact', [interiorController::class, 'contact'])->name('contact');
+
+Route::get('/interior-cart', [interiorController::class, 'cart'])->middleware('auth')->name('cart');
+Route::post('/indeior-add-cart/{id}', [cartController::class,'add_cart'])->middleware('auth')->name('add_cart');
+Route::get('/interior-review', [interiorController::class, 'review'])->name('review');

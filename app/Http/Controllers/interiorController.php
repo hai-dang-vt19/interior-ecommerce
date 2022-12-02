@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\calendar;
+use App\Models\cart;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\typestatus;
@@ -440,5 +441,19 @@ class interiorController extends Controller
         }
         $type = typeproduct::all();
         return view('interiors.product', compact('type','product','search_inter'));
+    }
+
+    public function review()
+    {
+        return view('interiors.review');
+    }
+    public function cart(Request $request)
+    {
+        $id_cart_user = 'CART_'.Auth::user()->user_id;
+        $data_cart = cart::where('id_cart_user',$id_cart_user)->get();
+        $sum = cart::where('id_cart_user',$id_cart_user)->sum('total');
+        
+        // dd($sum);
+        return view('interiors.cart', compact('data_cart','sum'));
     }
 }

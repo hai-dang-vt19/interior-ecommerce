@@ -27,11 +27,11 @@
             <!-- Amado Nav -->
             <nav class="amado-nav">
                 <ul>
-                    <li class="active"><a href="{{ route('index') }}">Home</a></li>
+                    <li><a href="{{ route('index') }}">Home</a></li>
                     <li><a href="{{ route('product') }}">Product</a></li>
                     <li><a href="{{ route('contact') }}">Contact</a></li>
                     <li><a href="{{ route('cart') }}">Cart</a></li>
-                    <li><a href="{{ route('review') }}">Review</a></li>
+                    <li class="active"><a href="{{ route('review') }}">Review</a></li>
                 </ul>
             </nav>
             <!-- Button Group -->
@@ -57,22 +57,29 @@
 
         <!-- Product Catagories Area Start -->
         <div class="products-catagories-area clearfix">
-            <div class="amado-pro-catagory clearfix">
-
-                <!-- Single Catagory -->
-                @foreach ($slide as $sld)
-                <div class="single-products-catagory clearfix">
-                    <a href="{{ route('product_detail', ['id'=>$sld->id]) }}">
-                        <img src="{{ asset('dashboard\upload_img\product/'.$sld->images) }}" class="index1" alt="">
-                        <!-- Hover Content -->
-                        <div class="hover-content">
-                            <div class="line"></div>
-                            <p style="font-family: Lucida Grande">{{number_format($sld->price)}} &#8363;</p>
-                            <h4 style="font-family: 'Dancing Script', cursive;">{{$sld->name_product}}</h4>
+            <div class="amado-pro-catagory clearfix mb-100">
+                <h2 class="mt-50"></h2>
+                <section class="hero-section">
+                    <div class="card-grid">
+                      <a class="card_interior" href="#">
+                        @php
+                            $bg = 'https://images.unsplash.com/photo-1557177324-56c542165309?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80';
+                        @endphp
+                        <div class="card__background" style="background-image: url({{$bg}})"></div>
+                        <div class="card__content">
+                          <p class="card__category">Mã sản phẩm</p>
+                          <h3 class="card__heading">Tên người Dùng</h3>
                         </div>
-                    </a>
-                </div>
-                @endforeach
+                      </a>
+                      <a class="card_interior" href="#">
+                        <div class="card__background" style="background-image: url(https://images.unsplash.com/photo-1557187666-4fd70cf76254?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60)"></div>
+                        <div class="card__content">
+                          <p class="card__category">Category</p>
+                          <h3 class="card__heading">Example card_interior Heading</h3>
+                        </div>
+                      </a>
+                    <div>
+                </section>
             </div>
         </div>
         <!-- Product Catagories Area End -->

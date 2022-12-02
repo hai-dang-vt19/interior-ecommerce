@@ -28,9 +28,9 @@
                 <ul>
                     <li><a href="{{ route('index') }}">Home</a></li>
                     <li class="active"><a href="{{ route('product') }}">Product</a></li>
-                    <li><a href="product-details.html">Thay thế</a></li>
-                    <li><a href="cart.html">Cart</a></li>
-                    <li><a href="checkout.html">Checkout</a></li>
+                    <li><a href="{{ route('contact') }}">Contact</a></li>
+                    <li><a href="{{ route('cart') }}">Cart</a></li>
+                    <li><a href="{{ route('review') }}">Review</a></li>
                 </ul>
             </nav>
             <!-- Button Group -->

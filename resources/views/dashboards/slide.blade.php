@@ -224,7 +224,9 @@
                             <td>{{$slides->name_product}}</td>
                             <td>{{$slides->type_product}}</td>
                             <td>{{number_format($slides->price)}} &#8363;</td>
-                            <td>{{$slides->images}}</td>
+                            <td>
+                              <img src="{{ asset('dashboard\upload_img\product/'.$slides->images) }}" alt="" style="max-width: 55px;max-height: 47px">
+                            </td>
                             <td>{{$slides->position}}</td>
                             {{-- <td>{{$slides->descriptions}}</td> --}}
                           </tr>

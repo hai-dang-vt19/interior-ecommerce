@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     @include('interiors.blocks.header')
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
 </head>
 
@@ -27,9 +28,9 @@
                 <ul>
                     <li><a href="{{route('index')}}">Home</a></li>
                     <li><a href="{{ route('product') }}">Product</a></li>
-                    <li><a href="product-details.html">Thay thế</a></li>
-                    <li><a href="cart.html">Cart</a></li>
-                    <li><a href="checkout.html">Checkout</a></li>
+                    <li><a href="{{ route('contact') }}">Contact</a></li>
+                    <li><a href="{{ route('cart') }}">Cart</a></li>
+                    <li><a href="{{ route('review') }}">Review</a></li>
                 </ul>
             </nav>
             <!-- Button Group -->
@@ -42,6 +43,7 @@
                 <a href="cart.html" class="cart-nav"><img src="{{ asset('interior/img/core-img/cart.png') }}" alt=""> Cart <span>(0)</span></a>
                 <a href="#" class="fav-nav"><img src="{{ asset('interior/img/core-img/favorites.png') }}" alt=""> Favourite</a>
                 <a href="#" class="search-nav"><img src="{{ asset('interior/img/core-img/search.png') }}" alt=""> Search</a>
+                <a href="{{ route('logout') }}">Đăng xuất</a>
             </div>
             <!-- Social Button -->
             <div class="social-info d-flex justify-content-between">
@@ -54,9 +56,8 @@
         <!-- Header Area End -->
 
         <!-- Product Details Area Start -->
-        <div class="single-product-area section-padding-100 clearfix">
+        <div class="single-product-area section-padding-0-100 clearfix">
             <div class="container-fluid">
-
                 <div class="row">
                     <div class="col-12">
                         <nav aria-label="breadcrumb">
@@ -72,25 +73,29 @@
                 <div class="row">
                     <div class="col-12 col-lg-7">
                         <div class="single_product_thumb">
+                            @php
+                                $sl1= 'dashboard/upload_img/product/'.$pro_detail['images'];
+                                $sl2= 'dashboard/upload_img/product/'.$pro_detail['images2'];
+                            @endphp
                             @if ($pro_detail['images2'] != null)
                             <div id="product_details_slider" class="carousel slide" data-ride="carousel">
                                 <ol class="carousel-indicators">
-                                    <li class="active" data-target="#product_details_slider" data-slide-to="0">
-                                        <img src="{{ asset('dashboard\upload_img\product/'.$pro_detail['images']) }}" alt=""> 
+                                    <li class="active" data-target="#product_details_slider" data-slide-to="0" style="background-image: url({{$sl1}})">
+                                        <img src="{{ asset($sl1) }}" alt=""> 
                                     </li>
-                                    <li data-target="#product_details_slider" data-slide-to="1">
-                                        <img src="{{ asset('dashboard\upload_img\product/'.$pro_detail['images2']) }}" alt="">
+                                    <li data-target="#product_details_slider" data-slide-to="1" style="background-image: url({{$sl2}})">
+                                        <img src="{{ asset($sl1) }}" alt="">
                                     </li>
                                 </ol>
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
-                                        <a class="gallery_img" href="{{ asset('dashboard\upload_img\product/'.$pro_detail['images']) }}">
-                                            <img class="d-block w-100" src="{{ asset('dashboard\upload_img\product/'.$pro_detail['images']) }}" alt="First slide">
+                                        <a class="gallery_img" href="{{ asset($sl1) }}">
+                                            <img class="d-block w-100" src="{{ asset($sl1) }}" alt="First slide">
                                         </a>
                                     </div>
                                     <div class="carousel-item">
-                                        <a class="gallery_img" href="{{ asset('dashboard\upload_img\product/'.$pro_detail['images2']) }}">
-                                            <img class="d-block w-100" src="{{ asset('dashboard\upload_img\product/'.$pro_detail['images2']) }}" alt="Second slide">
+                                        <a class="gallery_img" href="{{ asset($sl2) }}">
+                                            <img class="d-block w-100" src="{{ asset($sl2) }}" alt="Second slide">
                                         </a>
                                     </div>
                                 </div>
@@ -99,7 +104,7 @@
                             <div id="product_details_slider" class="carousel slide" data-ride="carousel">
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
-                                        <a class="gallery_img" href="{{ asset('dashboard\upload_img\product/'.$pro_detail['images']) }}">
+                                        <a class="gallery_img" href="{{ asset($sl1) }}">
                                             <img class="d-block w-100" src="{{ asset('dashboard\upload_img\product/'.$pro_detail['images']) }}" alt="First slide">
                                         </a>
                                     </div>
@@ -114,9 +119,7 @@
                             <div class="product-meta-data">
                                 <div class="line"></div>
                                 <p class="product-price" style="font-family: Lucida Grande">{{number_format($pro_detail['price'])}} &#8363;</p>
-                                <a href="#">
-                                    <h6 style="font-family: 'Dancing Script', cursive;">{{$pro_detail['name_product']}}</h6>
-                                </a>
+                                <h6 class="mb-20" style="font-family: 'Dancing Script', cursive; font-size: 25px">{{$pro_detail['name_product']}} - {{$pro_detail['id_product']}}</h6>
                                 <!-- Ratings & Review -->
                                 <div class="ratings-review mb-15 d-flex align-items-center justify-content-between">
                                     <div class="ratings">
@@ -127,7 +130,7 @@
                                         <i class="fa fa-star" aria-hidden="true"></i>
                                     </div>
                                     <div class="review">
-                                        <a href="#">Write A Review</a>
+                                        <a href="{{ route('review') }}">Write A Review</a>
                                     </div>
                                 </div>
                                 <!-- Avaiable -->
@@ -139,18 +142,21 @@
                             </div>
 
                             <!-- Add to Cart Form -->
-                            <form class="cart clearfix" method="post">
+                            <form class="cart clearfix" action="{{ route('add_cart', ['id'=>$pro_detail['id']]) }}" method="post">
+                                @csrf
                                 <div class="cart-btn d-flex mb-50">
-                                    <p>Qty</p>
-                                    <div class="quantity">
-                                        <span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
-                                        <input type="number" class="qty-text" id="qty" step="1" min="1" max="2" name="quantity" value="1">
-                                        <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-caret-up" aria-hidden="true"></i></span>
+                                    <div class="d-flex mr-3">
+                                        <p>Qty</p>
+                                        <div class="quantity">
+                                            <span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
+                                            <input type="number" class="qty-text" id="qty" step="1" min="1" max="{{$pro_detail['amount']}}" name="quantity" value="1">
+                                            <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-caret-up" aria-hidden="true"></i></span>
+                                        </div>
                                     </div>
+                                    <button type="submit" class="btncart"><i class='bx bxs-cart-add bx-sm mr-1 mt-1'></i></button>
                                 </div>
-                                <button type="submit" name="addtocart" value="5" class="btn amado-btn">Add to cart</button>
                             </form>
-
+                            <button type="submit" class="btntotal">Đặt hàng</button>
                         </div>
                     </div>
                 </div>
@@ -196,7 +202,17 @@
     <script src="{{ asset('interior/js/plugins.js') }}"></script>
     <!-- Active js -->
     <script src="{{ asset('interior/js/active.js') }}"></script>
-
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    @if (session()->has('cart_sc'))
+      <script>
+        swal({
+              title: "{{session()->get('cart_sc')}}",
+              icon: "success",
+              button: "OK",
+              timer: 2000,
+            });
+      </script>
+    @endif
 </body>
 
 </html>
