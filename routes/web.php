@@ -161,3 +161,5 @@ Route::get('/interior-contact', [interiorController::class, 'contact'])->name('c
 Route::get('/interior-cart', [interiorController::class, 'cart'])->middleware('auth')->name('cart');
 Route::post('/indeior-add-cart/{id}', [cartController::class,'add_cart'])->middleware('auth')->name('add_cart');
 Route::get('/interior-review', [interiorController::class, 'review'])->name('review');
+
+Route::post('/interior-checkout', [interiorController::class, 'checkout'])->middleware('auth')->name('checkout');

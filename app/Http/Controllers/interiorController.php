@@ -452,8 +452,29 @@ class interiorController extends Controller
         $id_cart_user = 'CART_'.Auth::user()->user_id;
         $data_cart = cart::where('id_cart_user',$id_cart_user)->get();
         $sum = cart::where('id_cart_user',$id_cart_user)->sum('total');
+        $city = city::where('name_city', Auth::user()->city)->where('city_province', Auth::user()->province)->get();
+        foreach($city as $cty){
+            $ct = $cty->price;
+            $sum_product_city = $sum + $ct;
+            return view('interiors.cart', compact('data_cart','sum','ct','sum_product_city'));
+        }
         
         // dd($sum);
-        return view('interiors.cart', compact('data_cart','sum'));
+    }
+    public function checkout(Request $request)
+    {
+        $sum = $request->tongsanpham;
+        $ct = $request->philaprap;
+        $sum_product_city = $request->tongtien;
+        $data['user'] = User::find(Auth::user()->id)->toArray();
+        if($request->customRadioInline1 == 'on'){
+            return view('interiors.checkout-online',$data, compact('sum','ct','sum_product_city'));
+        }elseif($request->customRadioInline1 == 'of'){
+            return view('interiors.checkout',$data, compact('sum','ct','sum_product_city'));
+        }else{
+            echo 'Bạn chưa chọn hình thức thanh toán';
+            return back();
+        }
+        // return view('interiors.checkout');
     }
 }

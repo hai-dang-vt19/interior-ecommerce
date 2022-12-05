@@ -17,6 +17,7 @@
     @include('interiors.blocks.search')
     <!-- ##### Main Content Wrapper Start ##### -->
     <div class="main-content-wrapper d-flex clearfix">
+
         @include('interiors.blocks.mobile-nav')
         <!-- Header Area Start -->
         <header class="header-area clearfix">
@@ -29,7 +30,7 @@
                     <li><a href="{{route('index')}}">Home</a></li>
                     <li><a href="{{ route('product') }}">Product</a></li>
                     <li><a href="{{ route('contact') }}">Contact</a></li>
-                    <li class="active"><a href="{{ route('cart') }}">Cart</a></li>
+                    <li><a href="{{ route('cart') }}">Cart</a></li>
                     <li><a href="{{ route('review') }}">Review</a></li>
                 </ul>
             </nav>
@@ -55,29 +56,61 @@
         </header>
         <!-- Header Area End -->
 
-        <div class="cart-table-area" style="background-color: rgb(255, 255, 255); padding-top: 40px">
+        <div class="cart-table-area section-padding-100">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12 col-lg-8">
-                        <h2 class="mt-30 d-flex" style="font-family: 'Times New Roman', Times, serif">Giỏ hàng của bạn <p class="font-weight-light">({{count($data_cart)}})</p></h2>
-                        @foreach ($data_cart as $cart)
-                        <div class="row mb-30 border-top border-warning" style="background-color: rgb(254, 254, 254)">
-                            <div style="padding-top: 10px">
-                                <div class="d-flex ">
-                                    <div class="single_product_thumb ml-30"  style="max-width: 245px; max-height: 272px">
-                                        <img class="d-block w-100 shadow" src="{{ asset('dashboard\upload_img\product/'.$cart->image_product) }}">
+                        <div class=" mt-50 clearfix">
+                            @php
+                                use Carbon\Carbon;
+                                $timeNow = Carbon::now('Asia/Ho_Chi_Minh')->format('d-m-Y');
+                            @endphp
+                            <div class="cart-title">
+                                <h2>Thanh toán Online</h2>
+                            </div>
+                            <form action="#" method="post">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text" id="basic-addon1"><i class='bx bx-user'></i></span>
                                     </div>
-                                    <div class="ml-50 mt-50">
-                                        <div class="line"></div>
-                                        <h6 class="mb-20" style="font-family: 'Dancing Script', cursive; font-size: 23px">{{$cart->name_product}} - {{$cart->id_product}}</h6>
-                                        <p class="product-price" style="font-family: Lucida Grande"> Giá sản phẩm: {{number_format($cart->price_product)}} &#8363;</p>
-                                        <p style="font-family: 'Times;"> Số lượng mua: {{$cart->amount_product}}</p>
-                                        <p style="font-family: 'Dancing Script', cursive; font-size: 20px; color: #FBB710"> Tổng tiền: {{number_format($cart->total)}} &#8363;</p>
+                                    <input type="text" class="form-control" value="{{$user['name']}}">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text" id="basic-addon1"><i class='bx bx-envelope' ></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" value="{{$user['email']}}">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text" id="basic-addon1"><i class='bx bx-buildings' ></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" value="{{$user['district']}} - {{$user['city']}} - {{$user['province']}}">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1"><i class='bx bx-phone' ></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" value="{{$user['phone']}}">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text" id="basic-addon1"><i class='bx bx-history' ></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" value="{{$timeNow}}">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="d-flex">
+                                        <div>
+                                            MOMO
+                                        </div>
+                                        <div>
+                                            VNPAY
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
-                        @endforeach
                     </div>
                     <div class="col-12 col-lg-4">
                         <div class="cart-summary">
@@ -89,25 +122,9 @@
                                 </li>
                                 <li><span>Tổng tiên:</span> <span>{{number_format($sum_product_city)}} &#8363;</span></li>
                             </ul>
-                            <form action="{{ route('checkout') }}" method="POST">
-                                @csrf
-                                <div>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input" value="on">
-                                        <label class="custom-control-label" for="customRadioInline2">Thanh toán online</label>
-                                    </div>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input" value="of">
-                                        <label class="custom-control-label" for="customRadioInline1">Thanh toán khi nhận hàng</label>
-                                    </div>
-                                    <input type="hidden" value="{{$sum}}" name="tongsanpham">
-                                    <input type="hidden" value="{{$ct}}" name="philaprap">
-                                    <input type="hidden" value="{{$sum_product_city}}" name="tongtien">
-                                </div>
-                                <div class="cart-btn mt-100">
-                                    <button class="btn amado-btn w-100" type="submit">Checkout</button>
-                                </div>
-                            </form>
+                            {{-- <div class="cart-btn mt-100">
+                                <a href="#" class="btn amado-btn w-100">Checkout</a>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
