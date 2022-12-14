@@ -96,7 +96,7 @@
 
 .card-grid{
   display: grid;
-  grid-template-columns: repeat(1, 1fr);
+  grid-template-columns: repeat(21fr);
   grid-column-gap: var(--spacing-l);
   grid-row-gap: var(--spacing-l);
   max-width: var(--width-container);
@@ -132,7 +132,7 @@
   background-position: center;
   border-radius: var(--spacing-l);
   bottom: 0;
-  filter: brightness(0.75) saturate(1.2) contrast(0.85);
+  filter: brightness(0.75) saturate(2) contrast(0.85);
   left: 0;
   position: absolute;
   right: 0;
@@ -237,3 +237,154 @@
 .btntotal:focus{
   outline:0 !important;
 }
+
+.btn_total_momo{
+  width: 100%;
+  /* padding-left: 20px;
+  padding-right: 20px; */
+  /* padding-top: 3px;
+  padding-bottom: 1px; */
+  background-color: #ffffff;
+  color: #fff;
+  border: none;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  /* font-family: Arial;
+  font-weight: bold;
+  font-size: 15px; */
+}
+/* .btn_total_momo::before{
+  width: 0;
+  height: 100%;
+  position: absolute;
+}
+.btn_total_momo:hover,.btn_total_momo::before{
+  width: 100%;
+  background-color: #fff;
+  color: #AF1A71;
+  transition: 0.5s;
+  font-weight: bold;
+} */
+.btn_total_momo:focus{
+  outline:0 !important;
+}
+
+.btn_total_vnpay{
+  width: 100%;
+  /* padding-left: 20px;
+  padding-right: 20px; */
+  /* padding-top: 3px;
+  padding-bottom: 1px; */
+  background-color: #ffffff;
+  /* color: #fff; */
+  border: none;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  /* font-family: Arial;
+  font-weight: bold;
+  font-size: 15px; */
+  max-width: 268px;
+}
+/* .btn_total_vnpay::before{
+  width: 0;
+  height: 100%;
+  position: absolute;
+}
+.btn_total_vnpay:hover,.btn_total_vnpay::before{
+  width: 100%;
+  background-color: #fff;
+  color: #ED1C24;
+  font-weight: bold;
+  transition: 0.5s;
+} */
+.btn_total_vnpay:focus{
+  outline:0 !important;
+}
+
+.wrap {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button {
+  min-width: 100px;
+  min-height: 40px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  text-transform: uppercase;
+  /* letter-spacing: 1.3px; */
+  letter-spacing: 1.3px;
+  font-weight: 700;
+  color: #ededed;
+  background: #FBB710;
+  background: linear-gradient(90deg, rgb(230, 220, 129) 0%, rgb(209, 157, 79) 100%);
+  border: none;
+  border-radius: 1000px;
+  box-shadow: 12px 12px 24px rgba(209, 190, 79, 0.64);
+  transition: all 0.3s ease-in-out 0s;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  padding: 10px;
+  }
+
+.button::before {
+content: '';
+  border-radius: 1000px;
+  min-width: calc(100px + 16px);
+  min-height: calc(40px + 16px);
+  /* border: 3px solid #FBB710; */
+  box-shadow: 0 0 60px rgba(209, 190, 79, 0.64);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: all .1s ease-in-out 0s;
+}
+
+.button:hover, .button:focus {
+  color: rgb(255, 255, 255);
+  transform: translateY(-3px);
+}
+.button:hover::before, .button:focus::before {
+  opacity: 1;
+}
+
+.button::after {
+  content: '';
+  width: 30px; height: 30px;
+  border-radius: 100%;
+  /* border: 6px solid #FBB710; */
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* animation: ring 1.5s infinite; */
+}
+
+.button:hover::after, .button:focus::after {
+  animation: none;
+  display: none;
+}
+
+.button:focus{
+  outline:0 !important;
+}
+/* @keyframes ring {
+  0% {
+    width: 30px;
+    height: 30px;
+    opacity: 1;
+  }
+  100% {
+    width: 120px;
+    height: 120px;
+    opacity: 0;
+  }
+} */

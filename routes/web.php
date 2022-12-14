@@ -12,6 +12,7 @@ Use App\Http\Controllers\typeController;
 Use App\Http\Controllers\materialSupplierController;
 Use App\Http\Controllers\calendarController;
 use App\Http\Controllers\cartController;
+use App\Http\Controllers\checkoutContorller;
 use App\Http\Controllers\productController;
 use App\Http\Controllers\slideController;
 use App\Http\Controllers\warehouseController;
@@ -162,4 +163,6 @@ Route::get('/interior-cart', [interiorController::class, 'cart'])->middleware('a
 Route::post('/indeior-add-cart/{id}', [cartController::class,'add_cart'])->middleware('auth')->name('add_cart');
 Route::get('/interior-review', [interiorController::class, 'review'])->name('review');
 
-Route::post('/interior-checkout', [interiorController::class, 'checkout'])->middleware('auth')->name('checkout');
+Route::post('/interior/checkout', [interiorController::class, 'checkout'])->middleware('auth')->name('checkout');
+Route::post('/checkout/momo', [checkoutContorller::class, 'momo_payment'])->middleware('auth')->name('momo_payment');
+Route::post('/checkout-vnpay', [checkoutContorller::class, 'vnpay_payment'])->middleware('auth')->name('vnpay_payment');

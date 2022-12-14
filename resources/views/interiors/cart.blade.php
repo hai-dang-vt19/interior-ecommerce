@@ -61,18 +61,30 @@
                     <div class="col-12 col-lg-8">
                         <h2 class="mt-30 d-flex" style="font-family: 'Times New Roman', Times, serif">Giỏ hàng của bạn <p class="font-weight-light">({{count($data_cart)}})</p></h2>
                         @foreach ($data_cart as $cart)
-                        <div class="row mb-30 border-top border-warning" style="background-color: rgb(254, 254, 254)">
+                        <div class="row mb-70 border-top border-warning" style="background-color: rgb(254, 254, 254)">
                             <div style="padding-top: 10px">
                                 <div class="d-flex ">
                                     <div class="single_product_thumb ml-30"  style="max-width: 245px; max-height: 272px">
                                         <img class="d-block w-100 shadow" src="{{ asset('dashboard\upload_img\product/'.$cart->image_product) }}">
                                     </div>
-                                    <div class="ml-50 mt-50">
+                                    <div class="ml-50 mt-30">
                                         <div class="line"></div>
                                         <h6 class="mb-20" style="font-family: 'Dancing Script', cursive; font-size: 23px">{{$cart->name_product}} - {{$cart->id_product}}</h6>
                                         <p class="product-price" style="font-family: Lucida Grande"> Giá sản phẩm: {{number_format($cart->price_product)}} &#8363;</p>
                                         <p style="font-family: 'Times;"> Số lượng mua: {{$cart->amount_product}}</p>
                                         <p style="font-family: 'Dancing Script', cursive; font-size: 20px; color: #FBB710"> Tổng tiền: {{number_format($cart->total)}} &#8363;</p>
+                                        <div class="d-flex">
+                                            <div class="wrap mr-3">
+                                                {{-- <button class="button">VNPAY</button> --}}
+                                                <button class="button">VNPAY</button>
+                                            </div>
+                                            <div class="wrap mr-3">
+                                                <button class="button">Momo</button>
+                                            </div>
+                                            <div class="wrap mr-3">
+                                                <button class="button">COD</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -89,7 +101,7 @@
                                 </li>
                                 <li><span>Tổng tiên:</span> <span>{{number_format($sum_product_city)}} &#8363;</span></li>
                             </ul>
-                            <form action="{{ route('checkout') }}" method="POST">
+                            {{-- <form action="{{ route('checkout') }}" method="POST">
                                 @csrf
                                 <div>
                                     <div class="custom-control custom-radio custom-control-inline">
@@ -107,8 +119,46 @@
                                 <div class="cart-btn mt-100">
                                     <button class="btn amado-btn w-100" type="submit">Checkout</button>
                                 </div>
-                            </form>
+                            </form> --}}
+                            <div class="container mb-2">
+                                <div class="justify-content-center">
+                                    <form action="{{ route('vnpay_payment') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" value="{{$sum_product_city}}" name="total_vnpay">
+                                        <button type="submit" class="btn_total_vnpay" name="redirect">
+                                            <i class='bx bx-credit-card bx-tada mr-2' ></i>
+                                            Ví VNPAY
+                                            <i class='bx bx-qr-scan bx-tada bx-flip-horizontal ml-2' ></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="container mb-2">
+                                <div class="justify-content-center">
+                                    <form action="{{ route('momo_payment', ['total_qr_momo'=>$sum_product_city]) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" name="payUrl" class="btn_total_vnpay">
+                                            <i class='bx bx-credit-card bx-tada mr-2' ></i>
+                                            Ví Momo
+                                            <i class='bx bx-qr-scan bx-tada bx-flip-horizontal ml-2' ></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="container mb-2">
+                                <div class="justify-content-center">
+                                    <form action="" method="POST">
+                                        @csrf
+                                        <button type="submit" name="payUrl" class="btn_total_vnpay">
+                                            COD
+                                            <i class='bx bx-package bx-fade-right' ></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
+                        {{-- <img src="{{ asset('interior\img\core-img\logo-vnpay.55e9c8c.svg') }}" alt="">
+                        <img src="{{ asset('interior\img\core-img\logo_momo.png') }}" alt=""> --}}
                     </div>
                 </div>
             </div>

@@ -355,8 +355,20 @@ class interiorController extends Controller
     }
     public function calendar()
     {
-        $calendar = calendar::all();
-        return view('dashboards.calendar', compact('calendar'));
+        // $calendar = calendar::all();
+            $calendar = calendar::all()->where('idu','!=','1');
+            foreach($calendar as $cld){
+                $check_t2 = $cld->where('t2','!=',null)->count('t2');
+                $check_t3 = $cld->where('t3','!=',null)->count('t3');
+                $check_t4 = $cld->where('t4','!=',null)->count('t4');
+                $check_t5 = $cld->where('t5','!=',null)->count('t5');
+                $check_t6 = $cld->where('t6','!=',null)->count('t6');
+                $check_t7 = $cld->where('t7','!=',null)->count('t7');
+                $check_cn = $cld->where('cn','!=',null)->count('cn');
+                // dd($check_t2);
+                return view('dashboards.calendar', compact('calendar','check_t2','check_t3','check_t4','check_t5','check_t6','check_t7','check_cn'));
+            }
+        // return view('dashboards.calendar', compact('calendar'));
     }
     public function salary()
     {

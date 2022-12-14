@@ -99,20 +99,44 @@
                                     </div>
                                     <input type="text" class="form-control" value="{{$timeNow}}">
                                 </div>
-                                <div class="input-group mb-3">
+                                <div class="input-group mb-3 mt-50 justify-content-center">
                                     <div class="d-flex">
-                                        <div>
-                                            MOMO
+                                        <div class="mr-3">
+                                            <form action="{{ route('momo_payment', ['total_qr_momo'=>$sum_product_city]) }}" method="POST">
+                                                @csrf
+                                                <button type="submit" name="payUrl" class="btn_total_momo">
+                                                    <i class='bx bxs-credit-card-front bx-fade-left bx-flip-horizontal mr-2' >
+                                                    </i>Momo ATM
+                                                </button>
+                                            </form>
                                         </div>
-                                        <div>
-                                            VNPAY
+                                        {{-- <div class="mr-3">
+                                            <form action="{{ route('momo_payment') }}" method="post">
+                                                @csrf
+                                                <input type="hidden" value="{{$sum_product_city}}" name="total_momo">
+                                                <button type="submit" class="btn_total_momo"><i class='bx bx-qr-scan bx-flip-horizontal bx-tada mr-2' ></i> Momo QR</button>
+                                            </form>
+                                        </div> --}}
+                                        <div class="mr-3">
+                                            <form action="{{ route('vnpay_payment') }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" value="{{$sum_product_city}}" name="total_vnpay">
+                                                <button type="submit" class="btn_total_vnpay" name="redirect"><i class='bx bxs-credit-card-front bx-fade-left bx-flip-horizontal mr-2' ></i>VNPAY ATM</button>
+                                            </form>
                                         </div>
+                                        {{-- <div>
+                                            <form action="{{ route('vnpay_payment') }}" method="post">
+                                                @csrf
+                                                <input type="hidden" value="{{$sum_product_city}}" name="total_vnpay">
+                                                <button type="submit" class="btn_total_vnpay"><i class='bx bx-qr-scan bx-flip-horizontal bx-tada mr-2' ></i> VNPAY QR</button>
+                                            </form>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </form>
                         </div>
                     </div>
-                    <div class="col-12 col-lg-4">
+                    <div class="col-12 col-lg-4 mt-3">
                         <div class="cart-summary">
                             <h5>Cart Total</h5>
                             <ul class="summary-table">

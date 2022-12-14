@@ -41,6 +41,7 @@
     {{-- flat picker --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
+    {{-- <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'> --}}
   </head>
 
   <body>
@@ -87,7 +88,7 @@
           <div class="content-wrapper">
             <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4">Lịch làm việc</h4>
+              <h4 class="fw-bold py-3 mb-4">Lịch làm việc (Tối đa 1 manager -3 nhân viên)</h4>
               <!-- Bottom Offcanvas -->
               <div class="col-lg-3 col-md-6 mb-3 d-flex">
                 <div class="mt-3">
@@ -103,57 +104,136 @@
                       <form action="{{ route('add_calender') }}" method="post">
                         @csrf
                         <div class="mb-3 d-flex justify-content-center">
-                          {{-- <input type="hidden" name="idu" value="{{Auth::user()->id}}"> --}}
-                          <select name="t2" class="btn rounded-pill btn-outline-warning ms-2">
-                            <option selected disabled>Thứ 2</option>
-                            <option value="c1">C1</option>
-                            <option value="c2">C2</option>
-                            <option value="Fulltime">Fulltime</option>
-                            <option value="">Nghỉ</option>
-                          </select>
-                          <select name="t3" class="btn rounded-pill btn-outline-warning ms-2">
-                            <option selected disabled>Thứ 3</option>
-                            <option value="c1">C1</option>
-                            <option value="c2">C2</option>
-                            <option value="Fulltime">Fulltime</option>
-                            <option value="">Nghỉ</option>
-                          </select>
-                          <select name="t4" class="btn rounded-pill btn-outline-warning ms-2">
-                            <option selected disabled>Thứ 4</option>
-                            <option value="c1">C1</option>
-                            <option value="c2">C2</option>
-                            <option value="Fulltime">Fulltime</option>
-                            <option value="">Nghỉ</option>
-                          </select>
-                          <select name="t5" class="btn rounded-pill btn-outline-warning ms-2">
-                            <option selected disabled>Thứ 5</option>
-                            <option value="c1">C1</option>
-                            <option value="c2">C2</option>
-                            <option value="Fulltime">Fulltime</option>
-                            <option value="">Nghỉ</option>
-                          </select>
-                          <select name="t6" class="btn rounded-pill btn-outline-warning ms-2">
-                            <option selected disabled>Thứ 6</option>
-                            <option value="c1">C1</option>
-                            <option value="c2">C2</option>
-                            <option value="Fulltime">Fulltime</option>
-                            <option value="">Nghỉ</option>
-                          </select>
-                          <select name="t7" class="btn rounded-pill btn-outline-warning ms-2">
-                            <option selected disabled>Thứ 7</option>
-                            <option value="c1">C1</option>
-                            <option value="c2">C2</option>
-                            <option value="Fulltime">Fulltime</option>
-                            <option value="">Nghỉ</option>
-                          </select>
-                          <select name="cn" class="btn rounded-pill btn-outline-warning ms-2">
-                            <option selected disabled>Chủ nhật</option>
-                            <option value="c1">C1</option>
-                            <option value="c2">C2</option>
-                            <option value="Fulltime">Fulltime</option>
-                            <option value="">Nghỉ</option>
-                          </select>
+                          @if ($check_t2 == 4)
+                            <div class="btn rounded-pill btn-outline-warning ms-2"><i class='bx bxs-badge-check bx-tada' ></i></div>
+                            @else
+                            <select name="t2" class="btn rounded-pill btn-outline-warning ms-2">
+                                <option selected disabled>Thứ 2</option>
+                                <option value="c1">C1</option>
+                                <option value="c2">C2</option>
+                                <option value="Fulltime">Fulltime</option>
+                                <option value="">Nghỉ</option>
+                              </select>
+                          @endif
+                          @if ($check_t3 == 4)
+                            <div class="btn rounded-pill btn-outline-warning ms-2"><i class='bx bxs-badge-check bx-tada' ></i></div>
+                            @else
+                            <select name="t3" class="btn rounded-pill btn-outline-warning ms-2">
+                                <option selected disabled>Thứ 3</option>
+                                <option value="c1">C1</option>
+                                <option value="c2">C2</option>
+                                <option value="Fulltime">Fulltime</option>
+                                <option value="">Nghỉ</option>
+                              </select>
+                          @endif
+                          @if ($check_t4 == 4)
+                            <div class="btn rounded-pill btn-outline-warning ms-2"><i class='bx bxs-badge-check bx-tada' ></i></div>
+                            @else
+                            <select name="t4" class="btn rounded-pill btn-outline-warning ms-2">
+                                <option selected disabled>Thứ 4</option>
+                                <option value="c1">C1</option>
+                                <option value="c2">C2</option>
+                                <option value="Fulltime">Fulltime</option>
+                                <option value="">Nghỉ</option>
+                              </select>
+                          @endif
+                          @if ($check_t5 == 4)
+                            <div class="btn rounded-pill btn-outline-warning ms-2"><i class='bx bxs-badge-check bx-tada' ></i></div>
+                            @else
+                            <select name="t5" class="btn rounded-pill btn-outline-warning ms-2">
+                                <option selected disabled>Thứ 5</option>
+                                <option value="c1">C1</option>
+                                <option value="c2">C2</option>
+                                <option value="Fulltime">Fulltime</option>
+                                <option value="">Nghỉ</option>
+                              </select>
+                          @endif
+                          @if ($check_t6 == 4)
+                            <div class="btn rounded-pill btn-outline-warning ms-2"><i class='bx bxs-badge-check bx-tada' ></i></div>
+                            @else
+                            <select name="t6" class="btn rounded-pill btn-outline-warning ms-2">
+                                <option selected disabled>Thứ 6</option>
+                                <option value="c1">C1</option>
+                                <option value="c2">C2</option>
+                                <option value="Fulltime">Fulltime</option>
+                                <option value="">Nghỉ</option>
+                              </select>
+                          @endif
+                          @if ($check_t7 == 4)
+                            <div class="btn rounded-pill btn-outline-warning ms-2"><i class='bx bxs-badge-check bx-tada' ></i></div>
+                            @else
+                            <select name="t7" class="btn rounded-pill btn-outline-warning ms-2">
+                                <option selected disabled>Thứ 7</option>
+                                <option value="c1">C1</option>
+                                <option value="c2">C2</option>
+                                <option value="Fulltime">Fulltime</option>
+                                <option value="">Nghỉ</option>
+                              </select>
+                          @endif
+                          @if ($check_cn == 4)
+                            <div class="btn rounded-pill btn-outline-warning ms-2"><i class='bx bxs-badge-check bx-tada' ></i></div>
+                            @else
+                            <select name="cn" class="btn rounded-pill btn-outline-warning ms-2">
+                                <option selected disabled>Chủ nhật</option>
+                                <option value="c1">C1</option>
+                                <option value="c2">C2</option>
+                                <option value="Fulltime">Fulltime</option>
+                                <option value="">Nghỉ</option>
+                              </select>
+                          @endif
                         </div>
+                        {{-- <div class="mb-3 d-flex justify-content-center">
+                          
+                            <select name="t2" class="btn rounded-pill btn-outline-warning ms-2">
+                                <option selected disabled>Thứ 2</option>
+                                <option value="c1">C1</option>
+                                <option value="c2">C2</option>
+                                <option value="Fulltime">Fulltime</option>
+                                <option value="">Nghỉ</option>
+                              </select>
+                            <select name="t3" class="btn rounded-pill btn-outline-warning ms-2">
+                                <option selected disabled>Thứ 3</option>
+                                <option value="c1">C1</option>
+                                <option value="c2">C2</option>
+                                <option value="Fulltime">Fulltime</option>
+                                <option value="">Nghỉ</option>
+                              </select>
+                            <select name="t4" class="btn rounded-pill btn-outline-warning ms-2">
+                                <option selected disabled>Thứ 4</option>
+                                <option value="c1">C1</option>
+                                <option value="c2">C2</option>
+                                <option value="Fulltime">Fulltime</option>
+                                <option value="">Nghỉ</option>
+                              </select>
+                            <select name="t5" class="btn rounded-pill btn-outline-warning ms-2">
+                                <option selected disabled>Thứ 5</option>
+                                <option value="c1">C1</option>
+                                <option value="c2">C2</option>
+                                <option value="Fulltime">Fulltime</option>
+                                <option value="">Nghỉ</option>
+                              </select>
+                            <select name="t6" class="btn rounded-pill btn-outline-warning ms-2">
+                                <option selected disabled>Thứ 6</option>
+                                <option value="c1">C1</option>
+                                <option value="c2">C2</option>
+                                <option value="Fulltime">Fulltime</option>
+                                <option value="">Nghỉ</option>
+                              </select>
+                            <select name="t7" class="btn rounded-pill btn-outline-warning ms-2">
+                                <option selected disabled>Thứ 7</option>
+                                <option value="c1">C1</option>
+                                <option value="c2">C2</option>
+                                <option value="Fulltime">Fulltime</option>
+                                <option value="">Nghỉ</option>
+                              </select>
+                            <select name="cn" class="btn rounded-pill btn-outline-warning ms-2">
+                                <option selected disabled>Chủ nhật</option>
+                                <option value="c1">C1</option>
+                                <option value="c2">C2</option>
+                                <option value="Fulltime">Fulltime</option>
+                                <option value="">Nghỉ</option>
+                              </select>
+                        </div> --}}
                         <div class="float-end">
                           <button type="submit" class="btn btn-success me-2 ms-2">Đăng ký</button>
                         </div>
@@ -199,7 +279,7 @@
                               <th style="color: rgb(231, 171, 6);font-size: 14px">Thứ 6</th>
                               <th style="color: rgb(231, 171, 6);font-size: 14px">Thứ 7</th>
                               <th style="color: rgb(231, 171, 6);font-size: 14px">Chủ nhật</th>
-                              <th style="color: rgb(231, 171, 6);font-size: 14px">Số giờ làm</th>
+                              <th style="color: rgb(231, 171, 6);font-size: 14px">Số giờ làm < 64h</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -306,6 +386,7 @@
     <script src="{{ asset('dashboard/assets/js/main.js') }}"></script>
     <!-- Page JS -->
     <!-- Place this tag in your head or just before your close body tag. -->
+    {{-- <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script> --}}
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="https://npmcdn.com/flatpickr/dist/flatpickr.min.js"></script>
     <script src="https://npmcdn.com/flatpickr/dist/l10n/vn.js"></script>
@@ -336,6 +417,16 @@
       swal({
             title: "{{session()->get('calendar_rs')}}",
             icon: "success",
+            button: "OK",
+            timer: 20000,
+          });
+    </script>
+    @endif
+    @if (session()->has('check_max_time'))
+    <script>
+      swal({
+            title: "{{session()->get('check_max_time')}}",
+            icon: "error",
             button: "OK",
             timer: 20000,
           });

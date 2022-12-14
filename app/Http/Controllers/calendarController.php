@@ -28,6 +28,12 @@ class calendarController extends Controller
         if($t7 == 'c1'){ $time7 = '7';} if($t7 == 'c2'){ $time7 = '7';} if($t7 == 'Fulltime'){ $time7 = '14';} if($t7 == ''){ $time7 = '0';}
         if($cn == 'c1'){ $timeCN = '7';} if($cn == 'c2'){ $timeCN = '7';} if($cn == 'Fulltime'){ $timeCN = '14';} if($cn == ''){ $timeCN = '0';}
 
+        $check_max_time = $time2+$time3+$time4+$time5+$time6+$time7+$timeCN;
+        if($check_max_time > 63){
+            session()->flash('check_max_time', 'Quá số giờ trong tuần: '.$check_max_time.'h');
+            return redirect()->route('calendar');
+        }
+
         $check = calendar::where('idu',Auth::user()->id)->get('idu');
         $str = strlen($check);
         if($str == 11){
@@ -95,16 +101,37 @@ class calendarController extends Controller
         }
         return redirect(route('calendar'));
     }
+
     public function reset_calendar()
     {
-        calendar::truncate();
+        calendar::truncate()->where('id','!=',1);
+        calendar::create([
+            'idu'=>'1',
+            'id_user'=>'IT-ADMIN',
+            'user'=>'Admin Interior',
+            't2'=>'Fulltime',
+            't3'=>'Fulltime',
+            't4'=>'Fulltime',
+            't5'=>'Fulltime',
+            't6'=>'Fulltime',
+            't7'=>'Fulltime',
+            'cn'=>'Fulltime',
+            's2'=>'14',
+            's3'=>'14',
+            's4'=>'14',
+            's5'=>'14',
+            's6'=>'14',
+            's7'=>'14',
+            'scn'=>'14',
+            'timework'=>'0'
+        ]);
         history::create([
             'name_his'=>'Reset',
             'user_his'=>Auth::user()->email.'-'.Auth::user()->name_roles,
             'description_his'=>'RESET lịch làm việc'
         ]);
         session()->flash('calendar_rs', 'Làm mới thành công');
-        return back();
+        return redirect()->route('calendar');
     }
     public function reset_salary()
     {
