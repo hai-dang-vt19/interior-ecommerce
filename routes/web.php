@@ -161,8 +161,13 @@ Route::get('/interior-contact', [interiorController::class, 'contact'])->name('c
 
 Route::get('/interior-cart', [interiorController::class, 'cart'])->middleware('auth')->name('cart');
 Route::post('/indeior-add-cart/{id}', [cartController::class,'add_cart'])->middleware('auth')->name('add_cart');
+Route::get('/inteiror-destroy/{id}', [cartController::class, 'destroy_cart_product'])->middleware('auth')->name('destroy_cart_product');
 Route::get('/interior-review', [interiorController::class, 'review'])->name('review');
 
 Route::post('/interior/checkout', [interiorController::class, 'checkout'])->middleware('auth')->name('checkout');
-Route::post('/checkout/momo', [checkoutContorller::class, 'momo_payment'])->middleware('auth')->name('momo_payment');
+// Route::post('/checkout/momo', [checkoutContorller::class, 'momo_payment'])->middleware('auth')->name('momo_payment');
 Route::post('/checkout-vnpay', [checkoutContorller::class, 'vnpay_payment'])->middleware('auth')->name('vnpay_payment');
+Route::post('/checkout-vnpay-qr', [checkoutContorller::class, 'vnpay_payment_qr'])->middleware('auth')->name('vnpay_payment_qr');
+Route::post('/checkout-vnpay-d-atm', [checkoutContorller::class, 'vnpay_payment_don_atm'])->middleware('auth')->name('vnpay_payment_don_atm');
+Route::post('/checkout-vnpay-d-qr', [checkoutContorller::class, 'vnpay_payment_don_qr'])->middleware('auth')->name('vnpay_payment_don_qr');
+Route::get('/return-vnpay', [checkoutContorller::class, 'return_vnpay'])->name('return_vnpay');

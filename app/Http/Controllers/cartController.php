@@ -21,10 +21,10 @@ class cartController extends Controller
             $color = $get->color.', '.$get->color2.', '.$get->color3;
 
             cart::updateOrCreate([
-                'id_cart_user'=>'CART_'.Auth::user()->user_id,
+                'id_cart_user'=>'CART_CS'.Auth::user()->user_id,
                 'id_product'=>$get->id_product
             ],[
-                'id_cart_user'=>'cart_'.Auth::user()->user_id,
+                'id_cart_user'=>'CART_CS'.Auth::user()->user_id,
                 'id_product'=>$get->id_product,
                 'name_product'=> $get->name_product,
                 'type_product'=> $get->type_product,
@@ -41,6 +41,18 @@ class cartController extends Controller
             
         }
         session()->flash('cart_sc', 'Thêm vào giỏ hàng thành công');
+        return back();
+    }
+    
+    public function destroy_cart_product(Request $request)
+    {
+        $getPr = product::where('id_product',$request->id_pr)->get();
+        foreach($getPr as $pr){
+            $g_amo = $pr->amount;
+            $sum = $g_amo+$request->amount_pr;
+            $pr->update(['amount'=>$sum]);
+        }
+        cart::find($request->id)->delete();
         return back();
     }
 }

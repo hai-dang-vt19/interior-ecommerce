@@ -88,7 +88,7 @@
           <div class="content-wrapper">
             <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4">Lịch làm việc (Tối đa 1 manager -3 nhân viên)</h4>
+              <h4 class="fw-bold py-3 mb-4">Lịch làm việc (2M - 2S)</h4>
               <!-- Bottom Offcanvas -->
               <div class="col-lg-3 col-md-6 mb-3 d-flex">
                 <div class="mt-3">

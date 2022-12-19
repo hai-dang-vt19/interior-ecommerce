@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     @include('interiors.blocks.header')
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
 </head>
 
@@ -16,7 +17,6 @@
     @include('interiors.blocks.search')
     <!-- ##### Main Content Wrapper Start ##### -->
     <div class="main-content-wrapper d-flex clearfix">
-        <!-- Mobile Nav (max width 767px)-->
         @include('interiors.blocks.mobile-nav')
         <!-- Header Area Start -->
         <header class="header-area clearfix">
@@ -24,10 +24,9 @@
                 <i class="fa fa-close" aria-hidden="true"></i>
             </div>
             @include('interiors.blocks.logo')
-            <!-- Amado Nav -->
             <nav class="amado-nav">
                 <ul>
-                    <li class="active"><a href="{{ route('index') }}">Home</a></li>
+                    <li><a href="{{route('index')}}">Home</a></li>
                     <li><a href="{{ route('product') }}">Product</a></li>
                     <li><a href="{{ route('contact') }}">Contact</a></li>
                     <li><a href="{{ route('cart') }}">Cart</a></li>
@@ -63,27 +62,38 @@
         </header>
         <!-- Header Area End -->
 
-        <!-- Product Catagories Area Start -->
-        <div class="products-catagories-area clearfix">
-            <div class="amado-pro-catagory clearfix">
+        <!-- Product Details Area Start -->
+        <div class="single-product-area section-padding-0-100 clearfix">
+            <div class="container-fluid">
 
-                <!-- Single Catagory -->
-                @foreach ($slide as $sld)
-                <div class="single-products-catagory clearfix">
-                    <a href="{{ route('product_detail', ['id'=>$sld->id]) }}">
-                        <img src="{{ asset('dashboard\upload_img\product/'.$sld->images) }}" class="index1" alt="">
-                        <!-- Hover Content -->
-                        <div class="hover-content">
-                            <div class="line"></div>
-                            <p style="font-family: Lucida Grande">{{number_format($sld->price)}} &#8363;</p>
-                            <h4 style="font-family: 'Dancing Script', cursive;">{{$sld->name_product}}</h4>
+                <div class="row">
+                    <div>
+                        <h1>Thanh toán thành công</h1>
+                        <h1>Hóa đơn</h1>
+                        <div>
+                          <p>Mã hóa đơn: {{$vnp_TxnRef}}</p>
+                          <p>Ngân hàng: {{$vnp_BankCode}}</p>
+                          <p>Mã GD ngân hàng: {{$vnp_BankTranNo}}</p>
+                          <p>Mã GD VNPAY: {{$vnp_TransactionNo}}</p>
+                          <p>Loại thanh toán: {{$vnp_CardType}}</p>
+                          <p>Giá tiền: {{$vnp_Amount}}</p>
                         </div>
-                    </a>
+                        <form action="" method="POST">
+                          <input type="hidden" name="" value="{{$vnp_TxnRef}}">
+                          <input type="hidden" name="" value="{{$vnp_BankCode}}">
+                          <input type="hidden" name="" value="{{$vnp_BankTranNo}}">
+                          <input type="hidden" name="" value="{{$vnp_CardType}}">
+                          <input type="hidden" name="" value="{{$vnp_TransactionNo}}">
+                          <input type="hidden" name="" value="{{$vnp_Amount}}">
+                          
+                          <button type="submit">Hoàn tất</button>
+                        </form>
+                      
+                    </div>
                 </div>
-                @endforeach
             </div>
         </div>
-        <!-- Product Catagories Area End -->
+        <!-- Product Details Area End -->
     </div>
     <!-- ##### Main Content Wrapper End ##### -->
 
@@ -114,16 +124,26 @@
     @include('interiors.blocks.footer')
 
     <!-- ##### jQuery (Necessary for All JavaScript Plugins) ##### -->
-    <script src="{{ asset('interior\js\jquery\jquery-2.2.4.min.js') }}"></script>
+    <script src="{{ asset('interior/js/jquery/jquery-2.2.4.min.js') }}"></script>
     <!-- Popper js -->
-    <script src="{{ asset('interior\js\popper.min.js') }}"></script>
+    <script src="{{ asset('interior/js/popper.min.js') }}"></script>
     <!-- Bootstrap js -->
-    <script src="{{ asset('interior\js\bootstrap.min.js') }}"></script>
+    <script src="{{ asset('interior/js/bootstrap.min.js') }}"></script>
     <!-- Plugins js -->
-    <script src="{{ asset('interior\js\plugins.js') }}"></script>
+    <script src="{{ asset('interior/js/plugins.js') }}"></script>
     <!-- Active js -->
-    <script src="{{ asset('interior\js\active.js') }}"></script>
-    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <script src="{{ asset('interior/js/active.js') }}"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    @if (session()->has('cart_sc'))
+      <script>
+        swal({
+              title: "{{session()->get('cart_sc')}}",
+              icon: "success",
+              button: "OK",
+              timer: 2000,
+            });
+      </script>
+    @endif
 </body>
 
 </html>

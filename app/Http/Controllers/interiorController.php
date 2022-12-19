@@ -404,14 +404,20 @@ class interiorController extends Controller
     public function index()
     {
         // $product = product::where('status','Còn hàng')->orderby('id','desc')->limit(4)->get();
+        $id_cart_user = 'CART_CS'.Auth::user()->user_id;
+        $data_cart = cart::where('id_cart_user',$id_cart_user)->get();
+
         $slide = slide::orderby('position')->get();
-        return view('interiors.index', compact('slide'));
+        return view('interiors.index', compact('slide','data_cart'));
     }
     public function product()
     {
+        $id_cart_user = 'CART_CS'.Auth::user()->user_id;
+        $data_cart = cart::where('id_cart_user',$id_cart_user)->get();
+        
         $type = typeproduct::all();
         $product = product::where('status','Còn hàng')->limit(6)->paginate(6);
-        return view('interiors.product', compact('type','product'));
+        return view('interiors.product', compact('type','product','data_cart'));
     }
     public function get_with_type(Request $request)
     {
@@ -434,8 +440,10 @@ class interiorController extends Controller
 
     public function product_detail(Request $request)
     {
+        $id_cart_user = 'CART_CS'.Auth::user()->user_id;
+        $data_cart = cart::where('id_cart_user',$id_cart_user)->get();
         $data['pro_detail'] = product::find($request->id)->toArray();
-        return view('interiors.product-details',$data);
+        return view('interiors.product-details',$data, compact('data_cart'));
     }
 
     public function search_interior_client(Request $request)
@@ -461,28 +469,35 @@ class interiorController extends Controller
     }
     public function cart(Request $request)
     {
-        $id_cart_user = 'CART_'.Auth::user()->user_id;
+        $id_cart_user = 'CART_CS'.Auth::user()->user_id;
         $data_cart = cart::where('id_cart_user',$id_cart_user)->get();
-        $sum = cart::where('id_cart_user',$id_cart_user)->sum('total');
-        $city = city::where('name_city', Auth::user()->city)->where('city_province', Auth::user()->province)->get();
-        foreach($city as $cty){
-            $ct = $cty->price;
-            $sum_product_city = $sum + $ct;
-            return view('interiors.cart', compact('data_cart','sum','ct','sum_product_city'));
+        if($data_cart == '[]'){
+            session()->flash('cart_null', 'Bạn chưa có sản phẩm');
+            return view('interiors.cart', compact('data_cart'));
+        }else{
+            $sum = cart::where('id_cart_user',$id_cart_user)->sum('total');
+            $city = city::where('name_city', Auth::user()->city)->where('city_province', Auth::user()->province)->get();
+            foreach($city as $cty){
+                $ct = $cty->price;
+                $sum_product_city = $sum + $ct;
+                return view('interiors.cart', compact('data_cart','sum','ct','sum_product_city'));
+            }
         }
-        
         // dd($sum);
     }
     public function checkout(Request $request)
     {
+        $id_cart_user = 'CART_CS'.Auth::user()->user_id;
+        $data_cart = cart::where('id_cart_user',$id_cart_user)->get();
+
         $sum = $request->tongsanpham;
         $ct = $request->philaprap;
         $sum_product_city = $request->tongtien;
         $data['user'] = User::find(Auth::user()->id)->toArray();
         if($request->customRadioInline1 == 'on'){
-            return view('interiors.checkout-online',$data, compact('sum','ct','sum_product_city'));
+            return view('interiors.checkout-online',$data, compact('sum','ct','sum_product_city','data_cart'));
         }elseif($request->customRadioInline1 == 'of'){
-            return view('interiors.checkout',$data, compact('sum','ct','sum_product_city'));
+            return view('interiors.checkout',$data, compact('sum','ct','sum_product_city','data_cart'));
         }else{
             echo 'Bạn chưa chọn hình thức thanh toán';
             return back();

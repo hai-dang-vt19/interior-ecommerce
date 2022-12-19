@@ -9,7 +9,6 @@
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     @include('interiors.blocks.header')
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
 </head>
 
@@ -41,10 +40,17 @@
             </div>
             <!-- Cart Menu -->
             <div class="cart-fav-search mb-100">
-                <a href="cart.html" class="cart-nav"><img src="{{ asset('interior/img/core-img/cart.png') }}" alt=""> Cart <span>(0)</span></a>
-                <a href="#" class="fav-nav"><img src="{{ asset('interior/img/core-img/favorites.png') }}" alt=""> Favourite</a>
-                <a href="#" class="search-nav"><img src="{{ asset('interior/img/core-img/search.png') }}" alt=""> Search</a>
-                <a href="{{ route('logout') }}">Đăng xuất</a>
+                <a href="{{ route('cart') }}">
+                    @if (count($data_cart) == 0)
+                        <i class='bx bx-cart-alt bx-sm mr-2'></i>
+                    @else
+                        <i class='bx bx-cart-alt bx-tada bx-sm mr-2'></i>
+                    @endif
+                    Giỏ hàng <span>({{count($data_cart)}})</span>
+                </a>
+                <a href="#"><i class='bx bx-heart-circle bx-sm mr-2'></i> Yêu thích</a>
+                <a href="#" class="search-nav"><i class='bx bx-search-alt-2 bx-sm mr-2'></i> Tìm kiếm</a>
+                <a href="{{ route('logout') }}"><i class='bx bx-log-out bx-sm mr-2'></i> Đăng xuất</a>
             </div>
             <!-- Social Button -->
             <div class="social-info d-flex justify-content-between">
