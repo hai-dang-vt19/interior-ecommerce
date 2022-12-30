@@ -13,14 +13,13 @@
 </head>
 
 <body>
-    @php
+    {{-- @php
         use Carbon\Carbon;
         Carbon::setLocale('vi'); // hiển thị ngôn ngữ tiếng việt.
         $dt = Carbon::create($date_bill);
         $time = Carbon::now('Asia/Ho_Chi_Minh');
         $dt_create = $dt->diffForHumans($time); // khoảng cách thời gian
-
-    @endphp
+    @endphp --}}
     <!-- Search Wrapper Area Start -->
     @include('interiors.blocks.search')
     <!-- ##### Main Content Wrapper Start ##### -->
@@ -42,82 +41,71 @@
                 </ul>
             </nav>
             <!-- Button Group -->
-            <div class="amado-btn-group mt-30 mb-100">
-                <a href="#" class="btn amado-btn mb-15">TEST</a>
-                <a href="#" class="btn amado-btn active">New this week</a>
-            </div>
             <!-- Cart Menu -->
             @include('interiors.blocks.nav_btn')
             <!-- Social Button -->
-             
         </header>
         <!-- Header Area End -->
 
         <!-- Product Details Area Start -->
         <div class="single-product-area section-padding-0-100 clearfix">
             <div class="container-fluid fontCSI">
-                @if ($done == "GD thành công")
-                    <div class="row mt-100">
+                    <div class="row ml-100 mt-100">
+                        <div class="container">
+                            <div class="row ml-30 ">
+                                <div class="d-flex">
+                                    <div class="mr-50">
+                                        <p class="fpCSI">Khách hàng: <span>{{ Auth::user()->name }}</span></p>
+                                        <p class="fpCSI">Email: <span>{{ Auth::user()->email }}</span></p>
+                                    </div>
+                                    <div class="">
+                                        <p class="fpCSI">Giới tính: <span>{{ Auth::user()->sex_user }}</span></p>
+                                        <p class="fpCSI">SĐT: <span>{{ Auth::user()->phone }}</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row ml-30">
+                                <p class="fpCSI">Địa chỉ: <span>{{ Auth::user()->district.', '.Auth::user()->city.', '.Auth::user()->province}}</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row container">
                         {{-- <h1>Hóa đơn</h1> --}}
                         <table class="table table-bordered table-responsive-sm table-hover">
                             <thead>
-                                <tr>
-                                    <th colspan="6" class="text-center bold">{{$vnp_TxnRef}}</th>
-                                    {{-- <button onclick="window.print();" class="noPrint">
-                                        Print
-                                    </button> --}}
-                                    <div>
-                                        <a href="{{ route('print_bill', ['id'=>$vnp_TxnRef]) }}" class="d-flex"><h1>Hóa đơn</h1><i class='bx bx-printer'></i></a>
-                                    </div>
-                                </tr>
                               <tr>
                                 <th scope="col">MSP</th>
                                 <th scope="col">Tên sản phẩm</th>
-                                <th scope="col">Giá sản phẩm</th>
                                 <th scope="col">Số lượng</th>
-                                <th scope="col">Giá tổng sản phẩm</th>
+                                <th scope="col">Giá sản phẩm</th>
+                                <th scope="col">Phương thức</th>
+                                <th scope="col">Ngân hàng</th>
+                                <th scope="col">Địa chỉ nhận</th>
+                                <th scope="col">Tổng tiền</th>
                               </tr>
                             </thead>
                             <tbody>
-                                @foreach ($get_data_for_bill as $item)
+                                @foreach ($bills as $item)
                                 <tr>
-                                  <td>{{$item->id_product}}</td>
-                                  <td>{{$item->name_product}}</td>
-                                  <td>{{number_format($item->price)}}&#8363;</td>
-                                  <td>{{$item->amount}}</td>
-                                  <td>{{number_format($item->amount*$item->price)}}&#8363;</td>
+                                    <td>{{$item->id_product}}</td>
+                                    <td>{{$item->name_product}}</td>
+                                    <td>{{$item->amount}}</td>
+                                    <td>{{number_format($item->price)}}&#8363;</td>
+                                    <td>{{$item->method}}</td>
+                                    <td>{{$item->bank}}</td>
+                                    <td>{{$item->address}}</td>
+                                    <td>{{number_format($item->total)}}&#8363;</td>
                                 </tr>
                                 @endforeach
                             </tbody>
-                            <tfoot>
+                            {{-- <tfoot>
                                 <tr>
                                     <td colspan="4">Ngày tạo: {{Carbon::parse($date_bill)->format('d-m-Y')}}</td>
                                     <td colspan="2" class="text-center">Tổng tiền: {{number_format($item->total)}}&#8363;</td>
                                 </tr>
-                            </tfoot>
+                            </tfoot> --}}
                         </table>
                     </div>
-                    <div class="container">
-                        <div class="row">
-                          <div class="col">
-                            <p class="fpCSI">Khách hàng: <span>{{$name_bill}}</span></p>
-                            <p class="fpCSI">Email: <span>{{$email_bill}}</span></p>
-                            <p class="fpCSI">SĐT: <span>{{$phone_bill}}</span></p>
-                            <p class="fpCSI">Địa chỉ: <span>{{$address_bill}}</span></p>
-                          </div>
-                          <div class="col">
-                            <p class="fpCSI">Ngân hàng: <span>{{$vnp_BankCode_bill}}</span></p>
-                            <p class="fpCSI">Mã GD ngân hàng: <span>{{$vnp_BankTranNo_bill}}</span></p>
-                            <p class="fpCSI">Mã GD VNPAY: <span>{{$vnp_TransactionNo_bill}}</span></p>
-                            <p class="fpCSI">Loại thanh toán: <span>{{$vnp_CardType_bill}}</span></p>
-                          </div>
-                          <div class="col">
-                            <p class="text-center">Hà Nội, {{'ngày '.Carbon::parse($date_bill)->day.', tháng '.Carbon::parse($date_bill)->month.', năm '.Carbon::parse($date_bill)->year}}</p>
-                            <p class="mt-100 text-center font_i2">{{Auth::user()->name}}</p>
-                          </div>
-                        </div>
-                    </div>
-                @endif
             </div>
         </div>
         <!-- Product Details Area End -->

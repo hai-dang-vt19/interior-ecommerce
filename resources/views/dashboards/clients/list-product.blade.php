@@ -104,6 +104,7 @@
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Kích cỡ</th>
                         {{-- <th style="color: rgb(231, 171, 6);font-size: 14px">Mô tả</th> --}}
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Trạng thái</th>
+                        <th style="color: rgb(231, 171, 6);font-size: 14px">Giá sale</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Ngày tạo</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Chức năng</th>
                       </tr>
@@ -118,7 +119,7 @@
                         <td>{{$pro->amount}}</td>
                         <td>{{$pro->color}} {{$pro->color2}} {{$pro->color3}}</td>
                         <td>{{number_format($pro->price)}} &#8363;</td>
-                        <td>{{$pro->metarial}}</td>
+                        <td>{{$pro->material}}</td>
                         <td>{{$pro->supplier}}</td>
                         <td>
                           <div class="d-flex">
@@ -131,6 +132,7 @@
                         <td>{{$pro->size}}</td>
                         {{-- <td>{{$pro->descriptions}}</td> --}}
                         <td>{{$pro->status}}</td>
+                        <td>{{number_format($pro->sales)}} &#8363;</td>
                         <td>{{$pro->date}}</td>
                         <td>
                           <a href="{{ route('edit_product', ['id'=>$pro->id]) }}" class="btn btn-primary"><i class='bx bxs-edit'></i></a>

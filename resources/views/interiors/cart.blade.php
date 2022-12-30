@@ -25,39 +25,19 @@
             @include('interiors.blocks.logo')
             <nav class="amado-nav">
                 <ul>
-                    <li><a href="{{route('index')}}">Home</a></li>
-                    <li><a href="{{ route('product') }}">Product</a></li>
-                    <li><a href="{{ route('contact') }}">Contact</a></li>
-                    <li class="active"><a href="{{ route('cart') }}">Cart</a></li>
-                    <li><a href="{{ route('review') }}">Review</a></li>
+                    <li><a href="{{ route('index') }}">Trang chủ</a></li>
+                    <li><a href="{{ route('product') }}">Sản phẩm</a></li>
+                    <li><a href="{{ route('contact') }}">Liên hệ</a></li>
+                    <li class="active"><a href="{{ route('cart') }}">Giỏ hàng</a></li>
+                    <li><a href="{{ route('review') }}">Đánh giá</a></li>
                 </ul>
             </nav>
             <!-- Button Group -->
-            <div class="amado-btn-group mt-30 mb-100">
-                <a href="#" class="btn amado-btn mb-15">TEST</a>
-                <a href="#" class="btn amado-btn active">New this week</a>
-            </div>
+ 
             <!-- Cart Menu -->
-            <div class="cart-fav-search mb-100">
-                <a href="{{ route('cart') }}">
-                    @if (count($data_cart) == 0)
-                        <i class='bx bx-cart-alt bx-sm mr-2'></i>
-                    @else
-                        <i class='bx bx-cart-alt bx-tada bx-sm mr-2'></i>
-                    @endif
-                    Giỏ hàng <span>({{count($data_cart)}})</span>
-                </a>
-                <a href="#"><i class='bx bx-heart-circle bx-sm mr-2'></i> Yêu thích</a>
-                <a href="#" class="search-nav"><i class='bx bx-search-alt-2 bx-sm mr-2'></i> Tìm kiếm</a>
-                <a href="{{ route('logout') }}"><i class='bx bx-log-out bx-sm mr-2'></i> Đăng xuất</a>
-            </div>
+            @include('interiors.blocks.nav_btn')
             <!-- Social Button -->
-            <div class="social-info d-flex justify-content-between">
-                <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-            </div>
+             
         </header>
         <!-- Header Area End -->
 
@@ -74,7 +54,7 @@
                                 <div class="d-flex">
                                     <div style="padding-top: 10px">
                                         <div class="d-flex ">
-                                            <div class="single_product_thumb ml-30 d-flex"  style="max-width: 245px; max-height: 272px">
+                                            <div class="single_product_thumb ml-30 d-flex" >
                                                 <div>
                                                     {{-- <div class="wrapper">
                                                         <div class="switch_box box_4">
@@ -88,38 +68,86 @@
                                                             </div>
                                                         </div>
                                                     </div> --}}
-                                                    <img class="d-block w-100 shadow" src="{{ asset('dashboard\upload_img\product/'.$cart->image_product) }}">
+                                                    <a href="{{ route('review_product_detail', ['id'=>$cart->id_product]) }}">
+                                                    <img class="d-block shadow " src="{{ asset('dashboard\upload_img\product/'.$cart->image_product) }}">
+                                                    </a>
                                                 </div>
+                                                @if ($cart->sales != 0)
+                                                <div class="saless d-flex ">
+                                                    <i class='bx bxs-discount bx-sm bx-tada'></i>
+                                                </div>
+                                                @endif
                                             </div>
                                             <div class="ml-50 mt-30">
                                                 <div class="line"></div>
-                                                <h6 class="mb-20" style="font-family: 'Dancing Script', cursive; font-size: 23px">{{$cart->name_product}} - {{$cart->id_product}}</h6>
-                                                <p class="product-price" style="font-family: Lucida Grande"> Giá sản phẩm: {{number_format($cart->price_product)}} &#8363;</p>
-                                                <p style="font-family: 'Times;"> Số lượng mua: {{$cart->amount_product}}</p>
-                                                <p style="font-family: 'Dancing Script', cursive; font-size: 20px; color: #FBB710"> Tổng tiền: {{number_format($cart->total)}} &#8363;</p>
-                                                <div class="d-flex">
-                                                    <div class="wrap mr-3">
-                                                        <form action="{{ route('vnpay_payment_don_atm') }}" method="POST">
-                                                            @csrf
-                                                            <input type="hidden" value="{{$cart->total}}" name="total_vnpay">
-                                                            <button type="submit" class="button" name="redirect">VNPAY <i class='bx bx-credit-card-front'></i></button>
-                                                        </form>
+                                                <a href="{{ route('review_product_detail', ['id'=>$cart->id_product]) }}">
+                                                    <h6 class="mb-20" style="font-family: 'Dancing Script', cursive; font-size: 23px">
+                                                        {{$cart->name_product}} - {{$cart->id_product}}
+                                                    </h6>
+                                                </a>
+                                                @if ($cart->sales == 0)
+                                                    <p class="product-price" style="font-family: Lucida Grande"> Giá sản phẩm: {{number_format($cart->price_product)}} &#8363;</p>
+                                                    <p style="font-family: 'Times;"> Số lượng mua: {{$cart->amount_product}} <span>&emsp;&emsp;Phụ phí: {{number_format($ct)}}&#8363;</span></p>
+                                                    <p style="font-family: 'Dancing Script', cursive; font-size: 20px; color: #FBB710"> Tổng tiền: {{number_format($cart->total)}} &#8363;</p>
+                                                    <div class="d-flex">
+                                                        <div class="wrap mr-3">
+                                                            <form action="{{ route('vnpay_payment_don_atm') }}" method="POST">
+                                                                @csrf
+                                                                <input type="hidden" value="{{$cart->total+$ct}}" name="total_vnpay">
+                                                                <button type="submit" class="button" name="redirect">VNPAY <i class='bx bx-credit-card-front'></i></button>
+                                                            </form>
+                                                        </div>
+                                                        <div class="wrap mr-3">
+                                                            <form action="{{ route('vnpay_payment_don_qr') }}" method="POST">
+                                                                @csrf
+                                                                <input type="hidden" value="{{$cart->total+$ct}}" name="total_vnpay">
+                                                                <button type="submit" class="button" name="redirect">VNPAY <i class='bx bx-qr-scan' ></i></button>
+                                                            </form>
+                                                        </div>
+                                                        <div class="wrap mr-3">
+                                                            <form action="" method="POST">
+                                                                @csrf
+                                                                <input type="hidden" value="{{$cart->total+$ct}}" name="total_vnpay">
+                                                                <button class="button">COD</button>
+                                                            </form>
+                                                        </div>
                                                     </div>
-                                                    <div class="wrap mr-3">
-                                                        <form action="{{ route('vnpay_payment_don_qr') }}" method="POST">
-                                                            @csrf
-                                                            <input type="hidden" value="{{$cart->total}}" name="total_vnpay">
-                                                            <button type="submit" class="button" name="redirect">VNPAY <i class='bx bx-qr-scan' ></i></button>
-                                                        </form>
+                                                @else
+                                                    <p class="product-price" style="font-family: Lucida Grande"> 
+                                                        @php
+                                                            $price_sales = $cart->sales/$cart->amount_product;
+                                                        @endphp
+                                                        Giá sản phẩm: <span class="sales_">{{number_format($cart->price_product)}} &#8363;</span>
+                                                       {{number_format($price_sales)}} &#8363;
+                                                    </p>
+                                                    <p style="font-family: 'Times;"> Số lượng mua: {{$cart->amount_product}} <span>&emsp;&emsp; Phụ phí: {{number_format($ct)}}&#8363;</span></p>
+                                                    <p style="font-family: 'Dancing Script', cursive; font-size: 20px; color: #FBB710"> 
+                                                        Tổng tiền: {{number_format($cart->sales)}} &#8363;
+                                                    </p>
+                                                    <div class="d-flex">
+                                                        <div class="wrap mr-3">
+                                                            <form action="{{ route('vnpay_payment_don_atm') }}" method="POST">
+                                                                @csrf
+                                                                <input type="hidden" value="{{$cart->sales+$ct}}" name="total_vnpay">
+                                                                <button type="submit" class="button" name="redirect">VNPAY <i class='bx bx-credit-card-front'></i></button>
+                                                            </form>
+                                                        </div>
+                                                        <div class="wrap mr-3">
+                                                            <form action="{{ route('vnpay_payment_don_qr') }}" method="POST">
+                                                                @csrf
+                                                                <input type="hidden" value="{{$cart->sales+$ct}}" name="total_vnpay">
+                                                                <button type="submit" class="button" name="redirect">VNPAY <i class='bx bx-qr-scan' ></i></button>
+                                                            </form>
+                                                        </div>
+                                                        <div class="wrap mr-3">
+                                                            <form action="" method="POST">
+                                                                @csrf
+                                                                <input type="hidden" value="{{$cart->sales+$ct}}" name="total_vnpay">
+                                                                <button class="button">COD</button>
+                                                            </form>
+                                                        </div>
                                                     </div>
-                                                    <div class="wrap mr-3">
-                                                        <form action="" method="POST">
-                                                            @csrf
-                                                            <input type="hidden" value="{{$cart->total}}" name="total_vnpay">
-                                                            <button class="button">COD</button>
-                                                        </form>
-                                                    </div>
-                                                </div>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -241,60 +269,7 @@
                                         </script>
                                     </div>
                                 </ul>
-                                {{-- <form action="{{ route('checkout') }}" method="POST">
-                                    @csrf
-                                    <div>
-                                        <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input" value="on">
-                                            <label class="custom-control-label" for="customRadioInline2">Thanh toán online</label>
-                                        </div>
-                                        <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input" value="of">
-                                            <label class="custom-control-label" for="customRadioInline1">Thanh toán khi nhận hàng</label>
-                                        </div>
-                                        <input type="hidden" value="{{$sum}}" name="tongsanpham">
-                                        <input type="hidden" value="{{$ct}}" name="philaprap">
-                                        <input type="hidden" value="{{$sum_product_city}}" name="tongtien">
-                                    </div>
-                                    <div class="cart-btn mt-100">
-                                        <button class="btn amado-btn w-100" type="submit">Checkout</button>
-                                    </div>
-                                </form> --}}
-
-                                {{-- <div class="container mb-2">
-                                    <div class="justify-content-center">
-                                        <form action="{{ route('vnpay_payment') }}" method="POST">
-                                            @csrf
-                                            <input type="hidden" value="{{$sum_product_city}}" name="total_vnpay">
-                                            <button type="submit" class="btn_total_vnpay" name="redirect">
-                                                VNPAY ATM
-                                            </button>
-                                        </form>
-                                    </div>
-                                </div>
-                                <div class="container mb-2">
-                                    <div class="justify-content-center">
-                                        <form action="{{ route('vnpay_payment_qr') }}" method="POST">
-                                            @csrf
-                                            <input type="hidden" value="{{$sum_product_city}}" name="total_vnpay">
-                                            <button type="submit" class="btn_total_vnpay" name="redirect">
-                                                VNPAY QR
-                                            </button>
-                                        </form>
-                                    </div>
-                                </div>
-                                <div class="container mb-2">
-                                    <div class="justify-content-center">
-                                        <form action="" method="POST">
-                                            @csrf
-                                            <button type="submit" name="payUrl" class="btn_total_vnpay">
-                                                COD
-                                            </button>
-                                        </form>
-                                    </div>
-                                </div> --}}
-                            {{-- <img src="{{ asset('interior\img\core-img\logo-vnpay.55e9c8c.svg') }}" alt="">
-                            <img src="{{ asset('interior\img\core-img\logo_momo.png') }}" alt=""> --}}
+                            </div>
                         </div>
                     @endif
                 </div>
@@ -304,28 +279,7 @@
     <!-- ##### Main Content Wrapper End ##### -->
 
     <!-- ##### Newsletter Area Start ##### -->
-    <section class="newsletter-area section-padding-100-0">
-        <div class="container">
-            <div class="row align-items-center">
-                <!-- Newsletter Text -->
-                <div class="col-12 col-lg-6 col-xl-7">
-                    <div class="newsletter-text mb-100">
-                        <h2>Subscribe for a <span>25% Discount</span></h2>
-                        <p>Nulla ac convallis lorem, eget euismod nisl. Donec in libero sit amet mi vulputate consectetur. Donec auctor interdum purus, ac finibus massa bibendum nec.</p>
-                    </div>
-                </div>
-                <!-- Newsletter Form -->
-                <div class="col-12 col-lg-6 col-xl-5">
-                    <div class="newsletter-form mb-100">
-                        <form action="#" method="post">
-                            <input type="email" name="email" class="nl-email" placeholder="Your E-mail">
-                            <input type="submit" value="Subscribe">
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+      
     <!-- ##### Newsletter Area End ##### -->
     @include('interiors.blocks.footer')
 
@@ -344,6 +298,17 @@
       <script>
         swal({
               title: "{{session()->get('cart_null')}}",
+            //   text: "",
+              icon: "warning",
+              button: "OK",
+              timer: 2000,
+            });
+      </script>
+    @endif
+    @if (session()->has('gd'))
+      <script>
+        swal({
+              title: "{{session()->get('gd')}}",
             //   text: "",
               icon: "warning",
               button: "OK",

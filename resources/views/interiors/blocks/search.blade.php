@@ -6,9 +6,9 @@
         <div class="row">
             <div class="col-12">
                 <div class="search-content">
-                    <form action="{{ route('search_interior_client') }}" method="get">
+                    <form action="" method="get">
                         <input type="search" name="search" id="search" placeholder="Tìm kiếm tại đây" class="inte_search">
-                        <button type="submit"><img src="{{ asset('interior/img/core-img/search.png') }}" alt=""></button>
+                        <button type="submit"><i class='bx bx-search-alt-2 bx-sm mr-2'></i></button>
                     </form>
                 </div>
             </div>

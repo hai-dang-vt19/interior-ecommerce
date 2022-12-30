@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\comments;
 use App\Models\history;
 use App\Models\material;
 use App\Models\product;
@@ -39,6 +40,7 @@ class productController extends Controller
         $pro->color2 = $request->color2;
         $pro->color3 = $request->color3;
         $pro->price = $sum_price;
+        $pro->sales = $sum_price*((100-$request->sales)/100);
         $pro->amount = $amount;
         $pro->descriptions = $request->descriptions;
         $pro->date = $request->date;
@@ -129,6 +131,11 @@ class productController extends Controller
             $product->color2 = $request->color2;
             $product->color3 = $request->color3;
             $product->price = $request->price;
+            if ($request->sales1 != null) {
+                $product->sales = $request->price*((100-$request->sales1)/100);
+            } else {
+                $product->sales = $request->sales2;
+            }
             $product->amount = $amount;
             $product->descriptions = $request->descriptions;
             $product->date = $request->date;
@@ -171,6 +178,19 @@ class productController extends Controller
         }
         
         session()->flash('product_ds', 'Xóa sản phẩm thành công');
+        return back();
+    }
+    public function create_comment(Request $request)
+    {
+        $data = new comments();
+        $data->name_user = Auth::user()->name;
+        $data->id_user = Auth::user()->user_id;
+        $data->id_product = $request->id_product_cmt;
+        $data->descriptions = $request->des_cmt;
+        $data->status_comment = "ok";
+        $data->date_create = $request->date_crt_cmt;
+        $data->img = $request->img;
+        $data->save();
         return back();
     }
 }

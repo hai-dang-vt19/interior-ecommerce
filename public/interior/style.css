@@ -1,3 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500&display=swap');
+ body{
+  font-family: 'Josefin Sans', sans-serif;
+ } 
+ 
+ /* .cart-fav-search{
+  padding: 5px 0;
+ } */
+  .font_nav_btn{
+    font-size: 16px;
+    font-style: normal;
+  }
   .index1{
     max-width: 533px;
     max-height: 757px;
@@ -163,15 +175,17 @@
   color: var(--text-light);
   font-size: 0.9rem;
   margin-bottom: var(--spacing-s);
+  font-family: 'Times New Roman', Times, serif;
   text-transform: uppercase;
 }
 
 .card__heading{
   color: var(--text-lighter);
-  font-size: 1.9rem;
+  font-size: 28px;
   text-shadow: 2px 2px 20px rgba(0,0,0,0.2);
   line-height: 1.4;
-  word-spacing: 100vw;
+  font-family: 'Dancing Script', cursive;;
+  /* word-spacing: 100vw; */
 }
 
 /*  */
@@ -829,4 +843,197 @@ content: '';
   filter: drop-shadow(0px 0px 0px #FBB710);
   margin-left: -80px;
   transition: 1s;
+}
+.font_i2{
+  font-family: 'Dancing Script', cursive;
+  /* font-weight: bold; */
+  font-size: 25px;
+}
+.fontCSI{
+  font-family: 'Times New Roman', Times, serif;
+}
+.fpCSI{
+  /* color: #000000; */
+}
+.fpCSI span{
+  color: #FBB710;
+  font-weight: bold;
+}
+/* @media print {
+  .noPrint{
+    display:none;
+  }
+} */
+.print_bill_bl{
+  margin-left: 0%;
+  margin-right: 0%;
+}
+.noPrint{
+  border: none;
+  background-color: #FFFFFF;
+  cursor: pointer;
+}
+.noPrint:hover{
+  color: #FBB710;
+}
+.noPrint:focus{
+  outline:0 !important;
+}
+.lg_bill{
+  position: relative;
+  margin-left: 35%;
+  margin-bottom: 20px;
+}
+.lg_bill a img{
+  width: 327px;
+  height: auto;
+}
+
+.ratings_2 i{
+  opacity: 30%;
+}
+.ratings_2 i:hover{
+  opacity: 100%;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.body_favo{
+  margin-top: 10%;
+  margin-left: 70px;
+  max-width: 100%;
+}
+.table_favo{
+  
+}
+.table_favo_2 tbody tr:hover{
+  background-color: #f5f5f5;
+}
+.table_favo_2 tbody tr td{
+  color: #8b8b8b;
+}
+.table_favo_2 tbody tr td:hover{
+  color: #000000;
+}
+
+.modal {
+  display: none; /* Ẩn Mặc Định */
+  position: absolute; 
+  z-index: 1; 
+  padding-top: 100px; /* Vị trí của modal */
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; /* thiết lập scroll khi cần thiết */
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.4); 
+}
+/* #myBtn {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+   box-shadow: 0 1px 1px rgba(0,0,0,0.12), 
+              0 2px 2px rgba(0,0,0,0.12), 
+              0 4px 4px rgba(0,0,0,0.12), 
+              0 8px 8px rgba(0,0,0,0.12),
+              0 16px 16px rgba(0,0,0,0.12);
+  outline: none;
+} */
+
+/* Nội Dung Modal */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  margin-top: 30px;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.12), 
+              0 2px 2px rgba(0,0,0,0.12), 
+              0 4px 4px rgba(0,0,0,0.12), 
+              0 8px 8px rgba(0,0,0,0.12),
+              0 16px 16px rgba(0,0,0,0.12);
+  border-radius: 25px;
+}
+
+/* Nút Đóng Modal */
+.close {
+  margin-top: -20px;
+  position: absolute;
+  opacity: 0%;
+}
+.item_search{
+  /* display: block; */
+  /* position: absolute; */
+  max-width: 177px;
+}
+.item_search input{
+  width: 177px;
+  border: none;
+}
+.item_search input:focus{
+  color: #f3be36;
+  outline:0 !important;
+}
+.item_search button{
+  width: 150px;
+  border: none;
+  background-color: #fefefe;
+}
+.item_search button:focus{
+  color: #f3be36;
+  outline:0 !important;
+}
+.item_search button i{
+  margin-top: 7px;
+  margin-left: 10px;
+}
+.item_search button:hover{
+  cursor: pointer;
+}
+
+.single_product_thumb div img{
+  width: 297px;
+  max-height: 262px;
+}
+.saless{
+  position: absolute;
+  margin-top: 5px;
+  margin-left: 5px;
+  color: #f3be36;
+}
+.saless p{
+  margin-left: 5px;
+  border-bottom: 1px dashed #f3be36;
+}
+.sales_{
+  text-decoration-line:line-through;
+  margin-right: 5px;
+  color: #d2d2d2;
+}
+.img_detail {
+  display: block;
+  width: 620px;
+  max-height: auto;
+}
+
+.add_to_cart i{
+  color: #f3be36;
+  opacity: 70%;
+}
+.add_to_cart i:hover{
+  opacity: 100%;
+  /* filter: drop-shadow(2px 2px 1px rgb(0, 0, 0)f); */
+  cursor: pointer;
+  transition: 0.3s;
 }

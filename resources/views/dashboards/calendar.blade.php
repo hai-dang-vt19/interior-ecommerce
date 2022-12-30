@@ -282,6 +282,13 @@
                               <th style="color: rgb(231, 171, 6);font-size: 14px">Số giờ làm < 64h</th>
                             </tr>
                           </thead>
+                          @if ($count == 0)
+                          <tbody>
+                            <tr class="text-center">
+                              <td colspan="9">Lịch trống</td>
+                            </tr> 
+                          </tbody>
+                          @else
                           <tbody>
                             @foreach ($calendar as $cal)
                             <tr>
@@ -353,6 +360,7 @@
                             </tr>
                             @endforeach
                           </tbody>
+                          @endif
                         </table>
                     </div>
                 </div>

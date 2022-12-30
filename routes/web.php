@@ -13,6 +13,7 @@ Use App\Http\Controllers\materialSupplierController;
 Use App\Http\Controllers\calendarController;
 use App\Http\Controllers\cartController;
 use App\Http\Controllers\checkoutContorller;
+use App\Http\Controllers\favoriteController;
 use App\Http\Controllers\productController;
 use App\Http\Controllers\slideController;
 use App\Http\Controllers\warehouseController;
@@ -156,6 +157,7 @@ Route::get('/inteiror-product-cat', [interiorController::class, 'get_with_type']
 Route::get('/inteiror-product-supp', [interiorController::class, 'get_with_brand'])->name('get_with_brand');
 Route::get('/inteiror-product-col', [interiorController::class, 'get_with_color'])->name('get_with_color');
 Route::get('/interior-product-srh', [interiorController::class, 'search_interior_client'])->name('search_interior_client');
+Route::get('/interior-product-news', [interiorController::class, 'new_product'])->name('new_product');
 
 Route::get('/interior-contact', [interiorController::class, 'contact'])->name('contact');
 
@@ -163,11 +165,21 @@ Route::get('/interior-cart', [interiorController::class, 'cart'])->middleware('a
 Route::post('/indeior-add-cart/{id}', [cartController::class,'add_cart'])->middleware('auth')->name('add_cart');
 Route::get('/inteiror-destroy/{id}', [cartController::class, 'destroy_cart_product'])->middleware('auth')->name('destroy_cart_product');
 Route::get('/interior-review', [interiorController::class, 'review'])->name('review');
+Route::post('/interior-add-review', [productController::class, 'create_comment'])->middleware('auth')->name('create_comment');
+Route::get('/inteiror-review/{id}', [interiorController::class, 'review_detail'])->name('review_detail');
+Route::get('/interior-product-detailsrv/{id}', [interiorController::class,'review_product_detail'])->name('review_product_detail');
 
-Route::post('/interior/checkout', [interiorController::class, 'checkout'])->middleware('auth')->name('checkout');
 // Route::post('/checkout/momo', [checkoutContorller::class, 'momo_payment'])->middleware('auth')->name('momo_payment');
 Route::post('/checkout-vnpay', [checkoutContorller::class, 'vnpay_payment'])->middleware('auth')->name('vnpay_payment');
 Route::post('/checkout-vnpay-qr', [checkoutContorller::class, 'vnpay_payment_qr'])->middleware('auth')->name('vnpay_payment_qr');
 Route::post('/checkout-vnpay-d-atm', [checkoutContorller::class, 'vnpay_payment_don_atm'])->middleware('auth')->name('vnpay_payment_don_atm');
 Route::post('/checkout-vnpay-d-qr', [checkoutContorller::class, 'vnpay_payment_don_qr'])->middleware('auth')->name('vnpay_payment_don_qr');
 Route::get('/return-vnpay', [checkoutContorller::class, 'return_vnpay'])->name('return_vnpay');
+
+Route::get('/print-bill/{id}', [interiorController::class, 'print_bill'])->name('print_bill');
+
+Route::get('/add-favorite/{id}', [favoriteController::class, 'create_favorite'])->middleware('auth')->name('create_favorite');
+Route::get('/list-favorite', [interiorController::class, 'favorite_user'])->middleware('auth')->name('favorite_user');
+Route::get('/destroy-favorite/{id}', [favoriteController::class, 'destroy_favorite_user'])->middleware('auth')->name('destroy_favorite_user');
+
+Route::get('profile-user', [interiorController::class, 'profile_user'])->middleware('auth')->name('profile_user');

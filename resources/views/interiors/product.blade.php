@@ -26,39 +26,19 @@
             <!-- Amado Nav -->
             <nav class="amado-nav">
                 <ul>
-                    <li><a href="{{ route('index') }}">Home</a></li>
-                    <li class="active"><a href="{{ route('product') }}">Product</a></li>
-                    <li><a href="{{ route('contact') }}">Contact</a></li>
-                    <li><a href="{{ route('cart') }}">Cart</a></li>
-                    <li><a href="{{ route('review') }}">Review</a></li>
+                    <li><a href="{{ route('index') }}">Trang chủ</a></li>
+                    <li class="active"><a href="{{ route('product') }}">Sản phẩm</a></li>
+                    <li><a href="{{ route('contact') }}">Liên hệ</a></li>
+                    <li><a href="{{ route('cart') }}">Giỏ hàng</a></li>
+                    <li><a href="{{ route('review') }}">Đánh giá</a></li>
                 </ul>
             </nav>
             <!-- Button Group -->
-            <div class="amado-btn-group mt-30 mb-100">
-                <a href="#" class="btn amado-btn mb-15">TEST</a>
-                <a href="#" class="btn amado-btn active">New this week</a>
-            </div>
+ 
             <!-- Cart Menu -->
-            <div class="cart-fav-search mb-100">
-                <a href="{{ route('cart') }}">
-                    @if (count($data_cart) == 0)
-                        <i class='bx bx-cart-alt bx-sm mr-2'></i>
-                    @else
-                        <i class='bx bx-cart-alt bx-tada bx-sm mr-2'></i>
-                    @endif
-                    Giỏ hàng <span>({{count($data_cart)}})</span>
-                </a>
-                <a href="#"><i class='bx bx-heart-circle bx-sm mr-2'></i> Yêu thích</a>
-                <a href="#" class="search-nav"><i class='bx bx-search-alt-2 bx-sm mr-2'></i> Tìm kiếm</a>
-                <a href="{{ route('logout') }}"><i class='bx bx-log-out bx-sm mr-2'></i> Đăng xuất</a>
-            </div>
+            @include('interiors.blocks.nav_btn')
             <!-- Social Button -->
-            <div class="social-info d-flex justify-content-between">
-                <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-            </div>
+             
         </header>
         <!-- Header Area End -->
 
@@ -131,7 +111,15 @@
                             <!-- Product Image -->
                             <a href="{{ route('product_detail', ['id'=>$pro->id]) }}">
                                 <div class="product-img">
+                                    @if ($pro->sales != 0)   
+                                    <div style="position: absolute; color: #FBB710;margin-left: 10px; margin-top: 10px">
+                                        <i class='bx bxs-discount bx-tada bx-md'></i>
+                                    </div>
+                                    @endif
                                     <img src="{{ asset('dashboard\upload_img\product/'.$pro->images) }}" style="max-height: 370px" alt="">
+                                    {{-- <div class="sales">
+                                        <i class='bx bxs-discount bx-sm bx-tada'></i>
+                                    </div> --}}
                                     <!-- Hover Thumb -->
                                     @if ($pro->images2 != null)
                                     <img class="hover-img" src="{{ asset('dashboard\upload_img\product/'.$pro->images2) }}" style="max-height: 370px" alt="">
@@ -143,23 +131,30 @@
                                 <!-- Product Meta Data -->
                                 <div class="product-meta-data">
                                     <div class="line"></div>
-                                    <p class="product-price" style="font-family: Lucida Grande">{{number_format($pro->price)}} &#8363;</p>
+                                    @if ($pro->sales == 0)
+                                    <p class="product-price" style="font-family: Lucida Grande">
+                                            {{number_format($pro->price)}} &#8363;
+                                    </p>
+                                    @else
+                                    <p class="product-price" style="font-family: Lucida Grande">
+                                        {{number_format($pro->sales)}}&#8363;
+                                        <span style="color: #dddddd; text-decoration-line: line-through; margin-left:10px">
+                                            {{number_format($pro->price)}} &#8363;
+                                        </span>
+                                    </p>
+                                    @endif
                                     <a href="{{ route('product_detail', ['id'=>$pro->id]) }}">
                                         <h6 style="font-family: Times; font-weight: bold">{{$pro->name_product}}</h6>
                                     </a>
                                 </div>
                                 <!-- Ratings & Cart -->
-                                <div class="ratings-cart text-right">
-                                    <div class="ratings">
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                <div class="ratings-cart text-right d-flex">
+                                    <div class="ratings ratings_2">
+                                        <a href="{{ route('create_favorite', ['id'=>$pro->id_product]) }}"><i class='bx bx-bookmark-heart bx-md'></i></a>
                                     </div>
-                                    <div class="cart">
-                                        <a href="cart.html" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img src="img/core-img/cart.png" alt=""></a>
-                                    </div>
+                                    {{-- <div class="add_to_cart">
+                                        <a href="" data-toggle="tooltip" data-placement="left" title="Add to Cart"><i class='bx bxs-cart-add bx-md' ></i></a>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
@@ -182,28 +177,7 @@
     <!-- ##### Main Content Wrapper End ##### -->
 
     <!-- ##### Newsletter Area Start ##### -->
-    <section class="newsletter-area section-padding-100-0">
-        <div class="container">
-            <div class="row align-items-center">
-                <!-- Newsletter Text -->
-                <div class="col-12 col-lg-6 col-xl-7">
-                    <div class="newsletter-text mb-100">
-                        <h2>Subscribe for a <span>25% Discount</span></h2>
-                        <p>Nulla ac convallis lorem, eget euismod nisl. Donec in libero sit amet mi vulputate consectetur. Donec auctor interdum purus, ac finibus massa bibendum nec.</p>
-                    </div>
-                </div>
-                <!-- Newsletter Form -->
-                <div class="col-12 col-lg-6 col-xl-5">
-                    <div class="newsletter-form mb-100">
-                        <form action="#" method="post">
-                            <input type="email" name="email" class="nl-email" placeholder="Your E-mail">
-                            <input type="submit" value="Subscribe">
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+      
     <!-- ##### Newsletter Area End ##### -->
     @include('interiors.blocks.footer')
 
@@ -218,6 +192,27 @@
     <!-- Active js -->
     <script src="{{ asset('interior/js/active.js') }}"></script>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    @if (session()->has('create_fv'))
+      <script>
+        swal({
+              title: "{{session()->get('create_fv')}}",
+              icon: "success",
+              button: "OK",
+              timer: 1000,
+            });
+      </script>
+    @endif
+    @if (session()->has('ck_favo'))
+      <script>
+        swal({
+              title: "{{session()->get('ck_favo')}}",
+              icon: "error",
+              button: "OK",
+              timer: 1000,
+            });
+      </script>
+    @endif
     
 </body>
 

@@ -163,6 +163,7 @@
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class='bx bx-screenshot'></i></span>
                               <select name="size" class="form-select">
+                                <option selected></option>
                                 <option value="533x533">533 x 533</option>
                                 <option value="533x757">533 x 757</option>
                                 <option value="533x475">533 x 475</option>
@@ -205,11 +206,16 @@
                         </div>
                         <div class="row mb-3">
                             <label class="col-sm-2 form-label">Giá tiền</label>
-                            <div class="col-sm-10">
-                              <div class="input-group input-group-merge">
+                            <div class="col-sm-10 d-flex">
+                              <div class="input-group input-group-merge me-2">
                                 <span class="input-group-text"><i class='bx bx-money'></i></span>
                                 {{-- <input type="text" class="form-control" placeholder="Nhập giá tiền sản phẩm" name="price" id="currency-field"  data-type="currency"/> --}}
                                 <input type="text" class="form-control" placeholder="Nhập giá tiền sản phẩm" name="price"/>
+                              </div>
+                              <div class="input-group input-group-merge">
+                                <span class="input-group-text"><i class='bx bxs-discount'></i></span>
+                                {{-- <input type="text" class="form-control" placeholder="Nhập giá tiền sản phẩm" name="price" id="currency-field"  data-type="currency"/> --}}
+                                <input type="text" class="form-control" placeholder="Nhập % sale" name="sales"/>
                               </div>
                             </div>
                         </div>

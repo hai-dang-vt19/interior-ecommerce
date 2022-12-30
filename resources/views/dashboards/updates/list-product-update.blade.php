@@ -156,7 +156,7 @@
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class='bx bx-screenshot'></i></span>
                               <select name="size" class="form-select">
-                                <option value="{{$product['size']}}">{{$product['size']}}</option>
+                                <option selected value="{{$product['size']}}">{{$product['size']}}</option>
                                 <option value="533x533">533 x 533</option>
                                 <option value="533x757">533 x 757</option>
                                 <option value="533x475">533 x 475</option>
@@ -199,14 +199,21 @@
                           </div>
                         </div>
                         <div class="row mb-3">
-                            <label class="col-sm-2 form-label">Giá tiền</label>
-                            <div class="col-sm-10">
-                              <div class="input-group input-group-merge">
-                                <span class="input-group-text"><i class='bx bx-money'></i></span>
-                                <input type="text" class="form-control phone-mask" value="{{$product['price']}}" name="price"/>
-                              </div>
+                          <label class="col-sm-2 form-label">Giá tiền</label>
+                          <div class="col-sm-10 d-flex">
+                            <div class="input-group input-group-merge me-2">
+                              <span class="input-group-text"><i class='bx bx-money'></i></span>
+                              {{-- <input type="text" class="form-control" placeholder="Nhập giá tiền sản phẩm" name="price" id="currency-field"  data-type="currency"/> --}}
+                              <input type="text" class="form-control" value="{{$product['price']}}" name="price"/>
                             </div>
-                        </div>
+                            <div class="input-group input-group-merge">
+                              <span class="input-group-text"><i class='bx bxs-discount'></i></span>
+                              {{-- <input type="text" class="form-control" placeholder="Nhập giá tiền sản phẩm" name="price" id="currency-field"  data-type="currency"/> --}}
+                              <input type="text" class="form-control"  name="sales1"/>
+                              <input type="hidden" class="form-control" value="{{$product['sales']}}" name="sales2"/>
+                            </div>
+                          </div>
+                      </div>
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label">Số lượng</label>
                           <div class="col-sm-10">

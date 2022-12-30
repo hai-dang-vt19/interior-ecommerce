@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\bill;
 use App\Models\calendar;
 use App\Models\cart;
 use Illuminate\Http\Request;
@@ -13,6 +14,8 @@ use App\Models\discount;
 use App\Models\province;
 use App\Models\city;
 use App\Models\color;
+use App\Models\comments;
+use App\Models\favorite;
 use App\Models\history;
 use App\Models\supplier;
 use App\Models\type_product;
@@ -58,7 +61,7 @@ class interiorController extends Controller
     }
     public function list_product_dashboard()
     {
-        $product = product::limit(10)->paginate(10);
+        $product = product::limit(8)->paginate(8);
         return view('dashboards.clients.list-product', compact('product'));
     }
     public function edit_product(Request $request)
@@ -75,7 +78,7 @@ class interiorController extends Controller
     }
     public function list_type_dashboard()
     {
-        $type = typeproduct::limit(10)->paginate(10);
+        $type = typeproduct::limit(8)->paginate(8);
         return view('dashboards.clients.list-type', compact('type'));
     }
     public function edit_type_product(Request $request)
@@ -88,7 +91,7 @@ class interiorController extends Controller
     public function supplier_dashboard()
     {
         $status = status_interior::where('type_status', 'supplier')->get();
-        $supplier = supplier::limit(10)->paginate(10);
+        $supplier = supplier::limit(8)->paginate(8);
         return view('dashboards.clients.new-supplier', compact('status','supplier'));
     }
     public function edit_supplier(Request $request)
@@ -100,7 +103,7 @@ class interiorController extends Controller
 
     public function material_dashboard()
     {
-        $material = material::limit(10)->paginate(10);
+        $material = material::limit(8)->paginate(8);
         $supplier = supplier::all();
         $status = status_interior::where('type_status', 'material')->get();
         return view('dashboards.clients.new-material',compact('status','material','supplier'));
@@ -127,7 +130,7 @@ class interiorController extends Controller
     }
     public function list_warehouse_dashboard()
     {
-        $ware = warehouse::orderby('name')->limit(10)->paginate(10);
+        $ware = warehouse::orderby('name')->limit(8)->paginate(8);
         return view('dashboards.clients.list-warehouse', compact('ware'));
     }
     public function edit_warehouse(Request $request)
@@ -156,38 +159,38 @@ class interiorController extends Controller
     }
     public function list_user_dashboard()
     {
-        $user = User::limit(10)->paginate(10);
+        $user = User::limit(8)->paginate(8);
         return view('dashboards.clients.list-user',compact('user'));
     }
     //------ Chức năng xem dữ liệu user
     public function user_name_roles_us()
     {
-        $user = User::where('name_roles', 'user')->limit(10)->paginate(10);
+        $user = User::where('name_roles', 'user')->limit(8)->paginate(8);
         return view('dashboards.clients.list-user',compact('user'));
     }
     public function user_interior()
     {
-        $user = User::where('name_roles','!=','user')->limit(10)->paginate(10);
+        $user = User::where('name_roles','!=','user')->limit(8)->paginate(8);
         return view('dashboards.clients.list-user',compact('user'));
     }
     public function user_city()
     {
-        $user = User::where('name_roles','user')->orderBy('city')->limit(10)->paginate(10);
+        $user = User::where('name_roles','user')->orderBy('city')->limit(8)->paginate(8);
         return view('dashboards.clients.list-user',compact('user'));
     }
     public function user_province()
     {
-        $user = User::where('name_roles','user')->orderBy('province')->limit(10)->paginate(10);
+        $user = User::where('name_roles','user')->orderBy('province')->limit(8)->paginate(8);
         return view('dashboards.clients.list-user',compact('user'));
     }
     public function user_hoatdong()
     {
-        $user = User::where('name_roles','user')->where('name_status','Hoạt động')->limit(10)->paginate(10);
+        $user = User::where('name_roles','user')->where('name_status','Hoạt động')->limit(8)->paginate(8);
         return view('dashboards.clients.list-user',compact('user'));
     }
     public function user_ngat()
     {
-        $user = User::where('name_roles','user')->where('name_status','Ngắt')->limit(10)->paginate(10);
+        $user = User::where('name_roles','user')->where('name_status','Ngắt')->limit(8)->paginate(8);
         return view('dashboards.clients.list-user',compact('user'));
     }
     //---------------------------------
@@ -269,7 +272,10 @@ class interiorController extends Controller
 
     public function comment_dashboard()
     {
-        return view('dashboards.clients.z-comment');
+      
+        $comment = comments::limit(8)->paginate(8);
+
+        return view('dashboards.clients.z-comment', compact('comment'));
     }
 
     public function roles_dashboard()
@@ -356,7 +362,13 @@ class interiorController extends Controller
     public function calendar()
     {
         // $calendar = calendar::all();
-            $calendar = calendar::all()->where('idu','!=','1');
+            $cld = calendar::all()->where('idu','!=','1');
+            $count = count($cld);
+            if ($cld == '[]') {
+                $calendar = calendar::all();
+            } else {
+                $calendar = calendar::all()->where('idu','!=','1');
+            }
             foreach($calendar as $cld){
                 $check_t2 = $cld->where('t2','!=',null)->count('t2');
                 $check_t3 = $cld->where('t3','!=',null)->count('t3');
@@ -366,13 +378,13 @@ class interiorController extends Controller
                 $check_t7 = $cld->where('t7','!=',null)->count('t7');
                 $check_cn = $cld->where('cn','!=',null)->count('cn');
                 // dd($check_t2);
-                return view('dashboards.calendar', compact('calendar','check_t2','check_t3','check_t4','check_t5','check_t6','check_t7','check_cn'));
+                return view('dashboards.calendar', compact('count','calendar','check_t2','check_t3','check_t4','check_t5','check_t6','check_t7','check_cn'));
             }
         // return view('dashboards.calendar', compact('calendar'));
     }
     public function salary()
     {
-        $luong = luong::limit(10)->paginate(10);
+        $luong = luong::limit(8)->paginate(8);
         return view('dashboards.salary', compact('luong'));
     }
     public function slide()
@@ -401,23 +413,22 @@ class interiorController extends Controller
         }
     }
     //------------------------------------------   client   -----------------------------------------
-    public function index()
+    public function index(Request $request)
     {
-        // $product = product::where('status','Còn hàng')->orderby('id','desc')->limit(4)->get();
-        $id_cart_user = 'CART_CS'.Auth::user()->user_id;
-        $data_cart = cart::where('id_cart_user',$id_cart_user)->get();
-
         $slide = slide::orderby('position')->get();
-        return view('interiors.index', compact('slide','data_cart'));
+        return view('interiors.index', compact('slide'));
     }
     public function product()
     {
-        $id_cart_user = 'CART_CS'.Auth::user()->user_id;
-        $data_cart = cart::where('id_cart_user',$id_cart_user)->get();
-        
         $type = typeproduct::all();
         $product = product::where('status','Còn hàng')->limit(6)->paginate(6);
-        return view('interiors.product', compact('type','product','data_cart'));
+        return view('interiors.product', compact('type','product'));
+    }
+    public function new_product()
+    {
+        $type = typeproduct::all();
+        $product = product::where('status','Còn hàng')->orderbydesc('id')->limit(5)->paginate(5);
+        return view('interiors.product', compact('type','product'));
     }
     public function get_with_type(Request $request)
     {
@@ -440,12 +451,10 @@ class interiorController extends Controller
 
     public function product_detail(Request $request)
     {
-        $id_cart_user = 'CART_CS'.Auth::user()->user_id;
-        $data_cart = cart::where('id_cart_user',$id_cart_user)->get();
         $data['pro_detail'] = product::find($request->id)->toArray();
-        return view('interiors.product-details',$data, compact('data_cart'));
+        return view('interiors.product-details',$data);
     }
-
+    
     public function search_interior_client(Request $request)
     {
         $search_inter = $request['search'] ?? "";
@@ -465,8 +474,23 @@ class interiorController extends Controller
 
     public function review()
     {
-        return view('interiors.review');
+        $comment = comments::limit(4)->paginate(4);
+        return view('interiors.review', compact('comment'));
     }
+    public function review_detail(Request $request)
+    {
+        $comment = comments::where('id_product',$request->id)->limit(4)->paginate(4);
+        return view('interiors.review', compact('comment'));
+    }
+    public function review_product_detail(Request $request)
+    {
+        $get = product::all()->where('id_product',$request->id);
+        foreach($get as $ge){
+            $data['pro_detail'] = product::find($ge->id)->toArray();
+            return view('interiors.product-details',$data);
+        }
+    }
+    
     public function cart(Request $request)
     {
         $id_cart_user = 'CART_CS'.Auth::user()->user_id;
@@ -475,33 +499,57 @@ class interiorController extends Controller
             session()->flash('cart_null', 'Bạn chưa có sản phẩm');
             return view('interiors.cart', compact('data_cart'));
         }else{
-            $sum = cart::where('id_cart_user',$id_cart_user)->sum('total');
+            // $sum = cart::where('id_cart_user',$id_cart_user)->sum('total');
+            $sum_not_sale = cart::where('id_cart_user',$id_cart_user)->where('sales',0)->sum('total');
+            $sum_sale = cart::where('id_cart_user',$id_cart_user)->where('sales','!=',0)->sum('sales');
+            $sum = $sum_not_sale+$sum_sale;
+            // echo $sum_not_sale.','.$sum_sale;
             $city = city::where('name_city', Auth::user()->city)->where('city_province', Auth::user()->province)->get();
             foreach($city as $cty){
                 $ct = $cty->price;
                 $sum_product_city = $sum + $ct;
                 return view('interiors.cart', compact('data_cart','sum','ct','sum_product_city'));
             }
+            
         }
         // dd($sum);
     }
-    public function checkout(Request $request)
+    public function print_bill(Request $request)
     {
-        $id_cart_user = 'CART_CS'.Auth::user()->user_id;
-        $data_cart = cart::where('id_cart_user',$id_cart_user)->get();
-
-        $sum = $request->tongsanpham;
-        $ct = $request->philaprap;
-        $sum_product_city = $request->tongtien;
-        $data['user'] = User::find(Auth::user()->id)->toArray();
-        if($request->customRadioInline1 == 'on'){
-            return view('interiors.checkout-online',$data, compact('sum','ct','sum_product_city','data_cart'));
-        }elseif($request->customRadioInline1 == 'of'){
-            return view('interiors.checkout',$data, compact('sum','ct','sum_product_city','data_cart'));
+        $get_data_for_bill = bill::all()->where('id_bill',$request->id);
+                foreach($get_data_for_bill as $gdtfb){
+                    $date_bill = $gdtfb->date_create;
+                    $vnp_TxnRef = $request->id;
+                    $vnp_BankCode = $gdtfb->bank;
+                    $vnp_BankTranNo = $gdtfb->code_bank;
+                    $vnp_TransactionNo = $gdtfb->code_vnpay;
+                    $vnp_CardType = $gdtfb->method;
+                    
+                    $name = $gdtfb->username;
+                    $email = $gdtfb->email;
+                    $phone = $gdtfb->phone;
+                    $address = $gdtfb->address;
+                    // $address = $gdtfb->method; chưa có trong dtabase
+                    return view('interiors.blocks.print_bill', compact('get_data_for_bill','date_bill','vnp_TxnRef','vnp_BankCode',
+                                'vnp_BankTranNo','vnp_TransactionNo','vnp_CardType','name','email','phone','address'));
+                }
+                // dd($get_data_for_bill);
+    }
+    public function favorite_user()
+    {
+        $favorite = favorite::where('id_user',Auth::user()->user_id)->limit(6)->paginate(6);
+        if($favorite == '[]'){
+            session()->flash('ck_favo','Bạn chưa có sản phẩm yêu thích');
+            return redirect()->route('product');
         }else{
-            echo 'Bạn chưa chọn hình thức thanh toán';
-            return back();
+            return view('interiors.favorite', compact('favorite'));
         }
-        // return view('interiors.checkout');
+    }
+    public function profile_user()
+    {
+        $bills = bill::where('email',Auth::user()->email)->orderbydesc('name_product')->limit(6)->paginate(6);
+        return view('interiors.profile', compact('bills'));
     }
 }
+
+

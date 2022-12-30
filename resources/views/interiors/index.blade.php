@@ -27,39 +27,15 @@
             <!-- Amado Nav -->
             <nav class="amado-nav">
                 <ul>
-                    <li class="active"><a href="{{ route('index') }}">Home</a></li>
-                    <li><a href="{{ route('product') }}">Product</a></li>
-                    <li><a href="{{ route('contact') }}">Contact</a></li>
-                    <li><a href="{{ route('cart') }}">Cart</a></li>
-                    <li><a href="{{ route('review') }}">Review</a></li>
+                    <li class="active"><a href="{{ route('index') }}">Trang chủ</a></li>
+                    <li><a href="{{ route('product') }}">Sản phẩm</a></li>
+                    <li><a href="{{ route('contact') }}">Liên hệ</a></li>
+                    <li><a href="{{ route('cart') }}">Giỏ hàng</a></li>
+                    <li><a href="{{ route('review') }}">Đánh giá</a></li>
                 </ul>
             </nav>
-            <!-- Button Group -->
-            <div class="amado-btn-group mt-30 mb-100">
-                <a href="#" class="btn amado-btn mb-15">TEST</a>
-                <a href="#" class="btn amado-btn active">New this week</a>
-            </div>
-            <!-- Cart Menu -->
-            <div class="cart-fav-search mb-100">
-                <a href="{{ route('cart') }}">
-                    @if (count($data_cart) == 0)
-                        <i class='bx bx-cart-alt bx-sm mr-2'></i>
-                    @else
-                        <i class='bx bx-cart-alt bx-tada bx-sm mr-2'></i>
-                    @endif
-                    Giỏ hàng <span>({{count($data_cart)}})</span>
-                </a>
-                <a href="#"><i class='bx bx-heart-circle bx-sm mr-2'></i> Yêu thích</a>
-                <a href="#" class="search-nav"><i class='bx bx-search-alt-2 bx-sm mr-2'></i> Tìm kiếm</a>
-                <a href="{{ route('logout') }}"><i class='bx bx-log-out bx-sm mr-2'></i> Đăng xuất</a>
-            </div>
-            <!-- Social Button -->
-            <div class="social-info d-flex justify-content-between">
-                <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-            </div>
+            @include('interiors.blocks.nav_btn')
+             
         </header>
         <!-- Header Area End -->
 
@@ -88,28 +64,7 @@
     <!-- ##### Main Content Wrapper End ##### -->
 
     <!-- ##### Newsletter Area Start ##### -->
-    <section class="newsletter-area section-padding-100-0">
-        <div class="container">
-            <div class="row align-items-center">
-                <!-- Newsletter Text -->
-                <div class="col-12 col-lg-6 col-xl-7">
-                    <div class="newsletter-text mb-100">
-                        <h2>Subscribe for a <span>25% Discount</span></h2>
-                        <p>Nulla ac convallis lorem, eget euismod nisl. Donec in libero sit amet mi vulputate consectetur. Donec auctor interdum purus, ac finibus massa bibendum nec.</p>
-                    </div>
-                </div>
-                <!-- Newsletter Form -->
-                <div class="col-12 col-lg-6 col-xl-5">
-                    <div class="newsletter-form mb-100">
-                        <form action="#" method="post">
-                            <input type="email" name="email" class="nl-email" placeholder="Your E-mail">
-                            <input type="submit" value="Subscribe">
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+      
     <!-- ##### Newsletter Area End ##### -->
     @include('interiors.blocks.footer')
 
