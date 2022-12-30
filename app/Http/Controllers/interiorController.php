@@ -554,7 +554,9 @@ class interiorController extends Controller
     {
         $adm = user::all()->where('email','admin@gmail.com');
         return view('interiors.contact', compact('adm'));
+        
     }
+
 }
 
 

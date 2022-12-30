@@ -42,6 +42,22 @@
         <!-- Product Catagories Area Start -->
         <div class="products-catagories-area clearfix">
             <div class="amado-pro-catagory clearfix mt-100">
+                <div style="width: 50%">
+                    <form action="{{ route('sendmail') }}" method="POST">
+                        @csrf
+                        <div class="form-group">
+                            <label>Email address</label>
+                            <input class="form-control" type="hidden" name="email" value="zzztrunzzz@gmail.com">
+                            <input class="form-control" type="text" name="email_user" placeholder="Nhập email của bạn">
+                            <small id="emailHelp" class="form-text text-muted">Nhập email của bạn, chúng tôi sẽ liên hệ lại.</small>
+                          </div>
+                          <div class="form-group">
+                            <label>Nội dung</label>
+                            <Textarea class="form-control" name="content"></Textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send</button>
+                    </form>
+                </div>
                 <div class="body_contact">
                     <div class="input_mail">
                         <div class="mr-50 div_input_mail">
@@ -80,6 +96,17 @@
     <!-- Active js -->
     <script src="{{ asset('interior\js\active.js') }}"></script>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    @if (session()->has('msg'))
+      <script>
+        swal({
+              title: "{{session()->get('msg')}}",
+              icon: "success",
+              button: "OK",
+              timer: 2000,
+            });
+      </script>
+    @endif
 </body>
 
 </html>

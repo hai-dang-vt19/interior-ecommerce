@@ -160,6 +160,10 @@ Route::get('/interior-product-srh', [interiorController::class, 'search_interior
 Route::get('/interior-product-news', [interiorController::class, 'new_product'])->name('new_product');
 
 Route::get('/interior-contact', [interiorController::class, 'contact'])->name('contact');
+Route::post('/interior-sendmail', [interiorPostController::class, 'sendmail'])->name('sendmail');
+route::get('/xoa-di', function(){
+    return view('interiors.sendmail');
+});
 
 Route::get('/interior-cart', [interiorController::class, 'cart'])->middleware('auth')->name('cart');
 Route::post('/indeior-add-cart/{id}', [cartController::class,'add_cart'])->middleware('auth')->name('add_cart');

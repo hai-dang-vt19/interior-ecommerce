@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderShipped;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\history;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class interiorPostController extends Controller
 {
@@ -107,4 +109,13 @@ class interiorPostController extends Controller
      }
      
      //------------------------------------------   client   -----------------------------------------
+     public function sendmail(Request $request)
+     {
+        $data['title'] = $request->email_user;
+        $data['content'] = $request->content;
+        // Mail::to($request->email)->send(new OrderShipped($data));
+        \App\Jobs\DemoEmail::dispatch($data, $request->email)->delay(now()->addSeconds(2));
+        session()->flash('msg', 'Gửi mail thành công');
+        return redirect(route('contact'));
+     }
 }
