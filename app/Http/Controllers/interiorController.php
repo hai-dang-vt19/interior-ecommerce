@@ -550,6 +550,11 @@ class interiorController extends Controller
         $bills = bill::where('email',Auth::user()->email)->orderbydesc('name_product')->limit(6)->paginate(6);
         return view('interiors.profile', compact('bills'));
     }
+    public function contact()
+    {
+        $adm = user::all()->where('email','admin@gmail.com');
+        return view('interiors.contact', compact('adm'));
+    }
 }
 
 

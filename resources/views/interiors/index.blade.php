@@ -62,10 +62,6 @@
         <!-- Product Catagories Area End -->
     </div>
     <!-- ##### Main Content Wrapper End ##### -->
-
-    <!-- ##### Newsletter Area Start ##### -->
-      
-    <!-- ##### Newsletter Area End ##### -->
     @include('interiors.blocks.footer')
 
     <!-- ##### jQuery (Necessary for All JavaScript Plugins) ##### -->

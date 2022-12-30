@@ -1037,3 +1037,17 @@ content: '';
   cursor: pointer;
   transition: 0.3s;
 }
+.input_mail{
+  max-width: 95%;
+  position: absolute;
+  background-color: #ffffff;
+  margin-left: 50%;
+  margin-top: 5px;
+  padding-top: 30px;
+}
+.profile_inte{
+  color: #000000;
+}
+.ibx {
+  margin-bottom: 20px;
+}
