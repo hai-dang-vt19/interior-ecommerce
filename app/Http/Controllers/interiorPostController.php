@@ -104,16 +104,26 @@ class interiorPostController extends Controller
      }
      public function logout()
      {
-        Auth::logout();
-        return redirect(route('login'));
+        if(Auth::user()->name_roles == 'user'){
+            Auth::logout();
+            return redirect(route('index'));
+        }else{
+            Auth::logout();
+            return redirect(route('login'));
+        }
      }
+    //  public function logout_interior()
+    //  {
+    //     Auth::logout();
+    //     return redirect(route('index'));
+    //  }
      
      //------------------------------------------   client   -----------------------------------------
      public function sendmail(Request $request)
      {
         $data['title'] = $request->email_user;
         $data['content'] = $request->content;
-        // Mail::to($request->email)->send(new OrderShipped($data));
+        $data['name'] = $request->name;
         \App\Jobs\DemoEmail::dispatch($data, $request->email)->delay(now()->addSeconds(2));
         session()->flash('msg', 'Gửi mail thành công');
         return redirect(route('contact'));

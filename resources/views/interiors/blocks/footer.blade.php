@@ -5,7 +5,9 @@
             <div class="col-12 col-lg-6 col-xl-7">
                 <div class="newsletter-text mb-100">
                     <h2>Liên hệ chúng tôi <span>Chung Si Interior</span></h2>
-                    <p>Nulla ac convallis lorem, eget euismod nisl. Donec in libero sit amet mi vulputate consectetur. Donec auctor interdum purus, ac finibus massa bibendum nec.</p>
+                    <p>
+                        Sự lựa chọn của bạn là ưu tiên hàng đầu và quan trọng nhất của chúng tôi. Thiết kế Đúng và Ý tưởng Đúng quan trọng rất nhiều trong Kinh doanh Thiết kế Nội thất. 
+                    </p>
                 </div>
             </div>
             <!-- Newsletter Form -->

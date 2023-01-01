@@ -45,17 +45,37 @@
                 <div style="width: 50%">
                     <form action="{{ route('sendmail') }}" method="POST">
                         @csrf
+                        @if ($check_u == null)
+                            <div class="d-flex">
+                                <div class="form-group mr-5">
+                                    <label><i class='bx bxl-gmail'></i> Email address</label>
+                                    <input class="form_control_ict" type="hidden" name="email" value="zzztrunzzz@gmail.com">
+                                    <input class="form_control_ict mb-2" type="text" name="email_user" placeholder="Nhập email của bạn">
+                                    <small id="emailHelp" class="form-text text-muted">Nhập email và tên của bạn, chúng tôi sẽ liên hệ lại.</small>
+                                </div>
+                                <div class="form-group ml-5">
+                                    <label>Họ tên</label>
+                                    <input class="form_control_ict" type="text" name="name" placeholder="Nhập tên của bạn">
+                                </div>
+                            </div>
+                        @else
+                            <div class="d-flex">
+                                <div class="form-group mr-5">
+                                    <label><i class='bx bxl-gmail'></i> Email address</label>
+                                    <input class="form_control_ict" type="hidden" name="email" value="zzztrunzzz@gmail.com">
+                                    <input class="form_control_ict mb-2" type="text" name="email_user" value="{{ Auth::user()->email }}" placeholder="Nhập email của bạn">
+                                    <small id="emailHelp" class="form-text text-muted">Nhập email và tên của bạn, chúng tôi sẽ liên hệ lại.</small>
+                                </div>
+                                <div class="form-group ml-5">
+                                    <label>Họ tên</label>
+                                    <input class="form_control_ict" type="text" name="name" value="{{ Auth::user()->name }}" placeholder="Nhập tên của bạn">
+                                </div>
+                            </div>
+                        @endif
                         <div class="form-group">
-                            <label>Email address</label>
-                            <input class="form-control" type="hidden" name="email" value="zzztrunzzz@gmail.com">
-                            <input class="form-control" type="text" name="email_user" placeholder="Nhập email của bạn">
-                            <small id="emailHelp" class="form-text text-muted">Nhập email của bạn, chúng tôi sẽ liên hệ lại.</small>
-                          </div>
-                          <div class="form-group">
-                            <label>Nội dung</label>
-                            <Textarea class="form-control" name="content"></Textarea>
+                            <Textarea class="form_control_ict" name="content" placeholder="Nhập nội dung"></Textarea>
+                            <button type="submit" class="btn btn-primary mt-2">Send <i class='bx bx-mail-send'></i></button>
                         </div>
-                        <button type="submit" class="btn btn-primary">Send</button>
                     </form>
                 </div>
                 <div class="body_contact">

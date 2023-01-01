@@ -5,8 +5,9 @@
                 text-align: center; 
                 border: #f3be36 2px solid;
                 border-radius: 100px;
-                height: 200px;
+                height: 100%;
                 padding-top: 5px;
+                padding-bottom: 5px;
                 width: 90%;
             }
             .nody_sendmail h2{
@@ -24,13 +25,32 @@
         </style>
     </head>
     <body>
+        @php
+            use Illuminate\Support\Facades\Auth;
+            $check_u = Auth::user();
+        @endphp
+        @if ($check_u == null)
         <div class="nody_sendmail">
-            <h2>Khách hàng: {{ $data['title'] }}</h2>
+            <h2>Khách vẵng lai: 
+                {{ $data['name'] }}
+            </h2>
             <div class="nody_des">
-                <h3>Nội dung: <br><span style="margin-left: 5%">
+                <h3>Nội dung: {{ $data['title'] }}<br><span style="margin-left: 5%">
                     {{ $data['content'] }}    
                 </span></h3>
             </div>
         </div>
+        @else
+        <div class="nody_sendmail">
+            <h2>Khách hàng: 
+                {{ $data['name'] }}
+            </h2>
+            <div class="nody_des">
+                <h3>Nội dung: {{ $data['title'] }}<br><span style="margin-left: 5%">
+                    {{ $data['content'] }}    
+                </span></h3>
+            </div>
+        </div>
+        @endif
     </body>
 </html>

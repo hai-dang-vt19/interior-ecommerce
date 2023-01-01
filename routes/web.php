@@ -186,4 +186,5 @@ Route::get('/add-favorite/{id}', [favoriteController::class, 'create_favorite'])
 Route::get('/list-favorite', [interiorController::class, 'favorite_user'])->middleware('auth')->name('favorite_user');
 Route::get('/destroy-favorite/{id}', [favoriteController::class, 'destroy_favorite_user'])->middleware('auth')->name('destroy_favorite_user');
 
-Route::get('profile-user', [interiorController::class, 'profile_user'])->middleware('auth')->name('profile_user');
+Route::get('/profile-user', [interiorController::class, 'profile_user'])->middleware('auth')->name('profile_user');
+// Route::get('/logout/interior', [interiorPostController::class, 'logout_interior'])->name('logout_interior');

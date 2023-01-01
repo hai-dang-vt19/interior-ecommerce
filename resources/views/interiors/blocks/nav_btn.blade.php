@@ -1,4 +1,4 @@
-<div class="amado-btn-group mt-30 mb-100">
+<div class="amado-btn-group mt-30 mb-50">
     {{-- <a href="{{ route('new_product') }}" class="btn amado-btn mb-15">New this week</a> --}}
     <!-- Nút Để  Mở Modal -->
     <button id="myBtn" class="btn amado-btn ">Tìm kiếm</button>
@@ -48,23 +48,36 @@
     </script>
     <a href="{{ route('new_product') }}" class="btn amado-btn active mt-15">New this week</a>
 </div>
-<div class="cart-fav-search font_nav_btn mb-100">
-    <a class="d-flex" href="{{ route('cart') }}"><i class='bx bx-cart-alt bx-sm mr-2'></i> 
-        <p class="font_nav_btn">Giỏ hàng</p>
-    </a>
-    <a class="d-flex" href="{{ route('favorite_user') }}"><i class='bx bx-heart-circle bx-sm mr-2'></i> 
-        <p class="font_nav_btn">Yêu thích</p>
-    </a>
-    {{-- <a class="d-flex" href="#" class="search-nav"><i class='bx bx-search-alt-2 bx-sm mr-2'></i> 
-        <p class="font_nav_btn">Tìm kiếm</p>
-    </a> --}}
-    <a class="d-flex" href="{{ route('profile_user') }}"><i class='bx bx-user-circle bx-sm mr-2'></i> 
-        <p class="font_nav_btn">Tài khoản</p>
-    </a>
-    <a class="d-flex" href="{{ route('logout') }}"><i class='bx bx-log-out bx-sm mr-2'></i> 
-        <p class="font_nav_btn">Đăng xuất</p>
+@php
+        use App\Models\User;
+        use Illuminate\Support\Facades\Auth;
+        $check_u = Auth::user();
+@endphp
+@if ($check_u == null)
+<div class="cart-fav-search font_nav_btn mb-5">
+    <a class="d-flex" href="{{ route('cart') }}"><i class='bx bxs-tag-alt bx-sm mr-2'></i> 
+        <p class="font_nav_btn">Đăng nhập</p>
     </a>
 </div>
+@else
+    <div class="cart-fav-search font_nav_btn mt-100 mb-100">
+        <a class="d-flex" href="{{ route('cart') }}"><i class='bx bx-cart-alt bx-sm'></i> 
+            <p class="font_nav_btn">Giỏ hàng</p>
+        </a>
+        <a class="d-flex" href="{{ route('favorite_user') }}"><i class='bx bx-heart-circle bx-sm mr-2'></i> 
+            <p class="font_nav_btn">Yêu thích</p>
+        </a>
+        {{-- <a class="d-flex" href="#" class="search-nav"><i class='bx bx-search-alt-2 bx-sm mr-2'></i> 
+            <p class="font_nav_btn">Tìm kiếm</p>
+        </a> --}}
+        <a class="d-flex" href="{{ route('profile_user') }}"><i class='bx bx-user-circle bx-sm mr-2'></i> 
+            <p class="font_nav_btn">Tài khoản</p>
+        </a>
+        <a class="d-flex" href="{{ route('logout') }}"><i class='bx bx-log-out bx-sm mr-2'></i> 
+            <p class="font_nav_btn">Đăng xuất</p>
+        </a>
+    </div>
+@endif
 <div class="social-info d-flex justify-content-between">
     <a href="{{ route('index') }}"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
     <a href="{{ route('index') }}"><i class="fa fa-instagram" aria-hidden="true"></i></a>

@@ -552,8 +552,9 @@ class interiorController extends Controller
     }
     public function contact()
     {
+        $check_u = Auth::user();
         $adm = user::all()->where('email','admin@gmail.com');
-        return view('interiors.contact', compact('adm'));
+        return view('interiors.contact', compact('adm','check_u'));
         
     }
 
