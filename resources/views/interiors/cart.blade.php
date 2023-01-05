@@ -46,6 +46,7 @@
                 <div class="row">
                     <div class="col-12 col-lg-8">
                         <h2 class="mt-30 d-flex" style="font-family: 'Times New Roman', Times, serif">Giỏ hàng của bạn <p class="font-weight-light">({{count($data_cart)}})</p></h2>
+                        <h1 class="text-danger">Lỗi thanh toán cod tổng đơn, thanh toán chỉ vào đơn đầu</h1>
                         @if ($data_cart == '[]')
                             <div class="cart_null"><i class='bx bxl-dropbox bx-tada bx-lg'></i></div>
                         @else
@@ -56,18 +57,6 @@
                                         <div class="d-flex ">
                                             <div class="single_product_thumb ml-30 d-flex" >
                                                 <div>
-                                                    {{-- <div class="wrapper">
-                                                        <div class="switch_box box_4">
-                                                            <div class="input_wrapper">
-                                                            <input type="checkbox" class="switch_4" value="1">
-                                                            <svg class="is_checked" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 426.67 426.67">
-                                                                <path d="M153.504 366.84c-8.657 0-17.323-3.303-23.927-9.912L9.914 237.265c-13.218-13.218-13.218-34.645 0-47.863 13.218-13.218 34.645-13.218 47.863 0l95.727 95.727 215.39-215.387c13.218-13.214 34.65-13.218 47.86 0 13.22 13.218 13.22 34.65 0 47.863L177.435 356.928c-6.61 6.605-15.27 9.91-23.932 9.91z"/>
-                                                            </svg>
-                                                            <svg class="is_unchecked" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 212.982 212.982">
-                                                            </svg>
-                                                            </div>
-                                                        </div>
-                                                    </div> --}}
                                                     <a href="{{ route('review_product_detail', ['id'=>$cart->id_product]) }}">
                                                     <img class="d-block shadow " src="{{ asset('dashboard\upload_img\product/'.$cart->image_product) }}">
                                                     </a>
@@ -105,45 +94,43 @@
                                                             </form>
                                                         </div>
                                                         <div class="wrap mr-3">
-                                                            <form action="" method="POST">
+                                                            <form action="{{ route('checkout_cod_get_don', ['id'=>$cart->id_product]) }}" method="POST">
                                                                 @csrf
-                                                                <input type="hidden" value="{{$cart->total+$ct}}" name="total_vnpay">
-                                                                <button class="button">COD</button>
+                                                                <input type="hidden" value="{{$cart->total+$ct}}" name="total_cod">
+                                                                <button type="submit" class="button">COD</button>
                                                             </form>
                                                         </div>
                                                     </div>
                                                 @else
-                                                    <p class="product-price" style="font-family: Lucida Grande"> 
-                                                        @php
-                                                            $price_sales = $cart->sales/$cart->amount_product;
-                                                        @endphp
+                                                    <p class="product-price" style="font-family: Lucida Grande">
                                                         Giá sản phẩm: <span class="sales_">{{number_format($cart->price_product)}} &#8363;</span>
-                                                       {{number_format($price_sales)}} &#8363;
+                                                       {{number_format($cart->sales)}} &#8363;
                                                     </p>
                                                     <p style="font-family: 'Times;"> Số lượng mua: {{$cart->amount_product}} <span>&emsp;&emsp; Phụ phí: {{number_format($ct)}}&#8363;</span></p>
                                                     <p style="font-family: 'Dancing Script', cursive; font-size: 20px; color: #FBB710"> 
-                                                        Tổng tiền: {{number_format($cart->sales)}} &#8363;
+                                                        Tổng tiền: {{number_format($cart->total_sales)}} &#8363;
                                                     </p>
                                                     <div class="d-flex">
                                                         <div class="wrap mr-3">
                                                             <form action="{{ route('vnpay_payment_don_atm') }}" method="POST">
                                                                 @csrf
-                                                                <input type="hidden" value="{{$cart->sales+$ct}}" name="total_vnpay">
+                                                                <input type="hidden" value="{{$cart->total_sales+$ct}}" name="total_vnpay">
+                                                                <input type="hidden" value="{{$cart->id_product}}" name="total_vnpay_idpr">
                                                                 <button type="submit" class="button" name="redirect">VNPAY <i class='bx bx-credit-card-front'></i></button>
                                                             </form>
                                                         </div>
                                                         <div class="wrap mr-3">
                                                             <form action="{{ route('vnpay_payment_don_qr') }}" method="POST">
                                                                 @csrf
-                                                                <input type="hidden" value="{{$cart->sales+$ct}}" name="total_vnpay">
+                                                                <input type="hidden" value="{{$cart->total_sales+$ct}}" name="total_vnpay">
                                                                 <button type="submit" class="button" name="redirect">VNPAY <i class='bx bx-qr-scan' ></i></button>
                                                             </form>
                                                         </div>
                                                         <div class="wrap mr-3">
-                                                            <form action="" method="POST">
+                                                            <form action="{{ route('checkout_cod_get_don', ['id'=>$cart->id_product]) }}" method="POST">
                                                                 @csrf
-                                                                <input type="hidden" value="{{$cart->sales+$ct}}" name="total_vnpay">
-                                                                <button class="button">COD</button>
+                                                                <input type="hidden" value="{{$cart->total_sales+$ct}}" name="total_cod">
+                                                                <button type="submit" class="button">COD</button>
                                                             </form>
                                                         </div>
                                                     </div>
@@ -231,11 +218,10 @@
                                                     <hr/>
                                                     <li>
                                                         <itm>
-                                                            <form action="{{ route('vnpay_payment_qr') }}" method="POST">
+                                                            <form action="{{ route('checkout_cod') }}" method="POST">
                                                                 @csrf
-                                                                <input type="hidden" value="{{$sum_product_city}}" name="total_vnpay">
-                                                                <button type="submit" class="btn_total_vnpay" name="redirect">
-                                                                    {{-- VNPAY QR --}}
+                                                                <input type="hidden" value="{{$sum_product_city}}" name="tt_cod">
+                                                                <button type="submit" class="btn_total_vnpay">
                                                                     <div class="img_cod">
                                                                         <div>
                                                                             <img class="img2" src="{{ asset('interior\img\codd2.png') }}"alt="">
@@ -311,6 +297,16 @@
               title: "{{session()->get('gd')}}",
             //   text: "",
               icon: "warning",
+              button: "OK",
+              timer: 2000,
+            });
+      </script>
+    @endif
+    @if (session()->has('check_cod_don'))
+      <script>
+        swal({
+              title: "{{session()->get('check_cod_don')}}",
+              icon: "success",
               button: "OK",
               timer: 2000,
             });

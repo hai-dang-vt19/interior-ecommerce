@@ -42,7 +42,11 @@
                 </ul>
             </nav>
             <!-- Button Group -->
-            
+            <div class="amado-btn-group mt-30 mb-100">
+                <a href="#" class="btn amado-btn mb-15">TEST</a>
+                <a href="#" class="btn amado-btn active">New this week</a>
+            </div>
+            <!-- Cart Menu -->
             @include('interiors.blocks.nav_btn')
             <!-- Social Button -->
              
@@ -59,11 +63,8 @@
                             <thead>
                                 <tr>
                                     <th colspan="6" class="text-center bold">{{$vnp_TxnRef}}</th>
-                                    {{-- <button onclick="window.print();" class="noPrint">
-                                        Print
-                                    </button> --}}
                                     <div>
-                                        <a href="{{ route('print_bill', ['id'=>$vnp_TxnRef]) }}" class="d-flex"><h1>Hóa đơn</h1><i class='bx bx-printer'></i></a>
+                                        <a href="{{ route('print_bill', ['id'=>$vnp_TxnRef]) }}" class="d-flex"><h1>Thông tin</h1><i class='bx bx-printer'></i></a>
                                     </div>
                                 </tr>
                               <tr>
@@ -119,7 +120,6 @@
         <!-- Product Details Area End -->
     </div>
     <!-- ##### Main Content Wrapper End ##### -->
-
     @include('interiors.blocks.footer')
 
     <!-- ##### jQuery (Necessary for All JavaScript Plugins) ##### -->

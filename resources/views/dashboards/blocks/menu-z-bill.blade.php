@@ -1,4 +1,4 @@
-  <div class="app-brand demo justify-content-center">
+<div class="app-brand demo justify-content-center">
     <a href="{{ route('index_dashboard') }}" class="app-brand-link d-flex">
       <img class="mt-2 ms-2 mb-3" src="{{ asset('interior\img\core-img\logo.png') }}" width="140px" height="51px" alt="Interior CS">
     </a>
@@ -9,18 +9,20 @@
   <div class="menu-inner-shadow"></div>
   <ul class="menu-inner py-1">
     <!-- Dashboard -->
-    <li class="menu-item active">
+    <li class="menu-item">
       <a href="{{ route('index_dashboard') }}" class="menu-link">
         <i class="menu-icon tf-icons bx bx-home-circle"></i>
         <div >Dashboard</div>
       </a>
     </li>
-    <li class="menu-item">
+
+    <li class="menu-item active">
       <a href="{{ route('bill_dashboad') }}" class="menu-link">
         <i class='menu-icon tf-icons bx bx-compass'></i>
         <div>Đơn hàng</div>
       </a>
     </li>
+
     <li class="menu-header small text-uppercase">
       <span class="menu-header-text">Product</span>
     </li>

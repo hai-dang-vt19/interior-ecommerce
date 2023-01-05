@@ -25,7 +25,8 @@ class bill extends Model
         'code_bank',
         'code_vnpay',
         'address',
-        'total'
+        'total',
+        'status_product_bill'
     ];
     public $timestamps = false;
 }

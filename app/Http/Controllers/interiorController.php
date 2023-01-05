@@ -501,9 +501,9 @@ class interiorController extends Controller
         }else{
             // $sum = cart::where('id_cart_user',$id_cart_user)->sum('total');
             $sum_not_sale = cart::where('id_cart_user',$id_cart_user)->where('sales',0)->sum('total');
-            $sum_sale = cart::where('id_cart_user',$id_cart_user)->where('sales','!=',0)->sum('sales');
+            $sum_sale = cart::where('id_cart_user',$id_cart_user)->where('sales','!=',0)->sum('total_sales');
             $sum = $sum_not_sale+$sum_sale;
-            // echo $sum_not_sale.','.$sum_sale;
+            // echo $sum_not_sale.','.$sum_sale.'='.$sum;
             $city = city::where('name_city', Auth::user()->city)->where('city_province', Auth::user()->province)->get();
             foreach($city as $cty){
                 $ct = $cty->price;
@@ -547,7 +547,9 @@ class interiorController extends Controller
     }
     public function profile_user()
     {
-        $bills = bill::where('email',Auth::user()->email)->orderbydesc('name_product')->limit(6)->paginate(6);
+        $bills = bill::where('email',Auth::user()->email)->orderby('id_bill')->limit(10)->paginate(10);
+        // $bills = bill::where('email',Auth::user()->email)->orderbydesc('id_bill')->get();
+        
         return view('interiors.profile', compact('bills'));
     }
     public function contact()
@@ -555,9 +557,12 @@ class interiorController extends Controller
         $check_u = Auth::user();
         $adm = user::all()->where('email','admin@gmail.com');
         return view('interiors.contact', compact('adm','check_u'));
-        
     }
 
+    public function cod403()
+    {
+        Auth::logout();
+        session()->flash('not_user', 'Để đảm bảo an toàn chúng tôi mời bạn đăng nhập lại!!!');
+        return view('dashboards.login');
+    }
 }
-
-

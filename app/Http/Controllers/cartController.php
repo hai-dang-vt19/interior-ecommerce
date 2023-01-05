@@ -37,7 +37,8 @@ class cartController extends Controller
                     'image_product'=> $get->images,
                     'datecreate'=> $carbon,
                     'total'=>$total,
-                    'sales'=>$get->sales
+                    'sales'=>$get->sales,
+                    'total_sales'=>$get->sales*$request->quantity
                 ]);
             }else{
                 foreach($check_cart as $ck_cart){
@@ -60,7 +61,8 @@ class cartController extends Controller
                             'image_product'=> $get->images,
                             'datecreate'=> $carbon,
                             'total'=>$price_new,
-                            'sales'=>$get->sales*$amt_new
+                            'sales'=>$get->sales,
+                            'total_sales'=>$get->sales*$amt_new
                         ]);
                     
                 }

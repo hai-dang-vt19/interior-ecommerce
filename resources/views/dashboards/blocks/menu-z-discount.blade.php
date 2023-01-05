@@ -16,7 +16,12 @@
       <div >Dashboard</div>
     </a>
   </li>
-
+  <li class="menu-item">
+    <a href="{{ route('bill_dashboad') }}" class="menu-link">
+      <i class='menu-icon tf-icons bx bx-compass'></i>
+      <div>Đơn hàng</div>
+    </a>
+  </li>
   <li class="menu-header small text-uppercase">
     <span class="menu-header-text">Product</span>
   </li>

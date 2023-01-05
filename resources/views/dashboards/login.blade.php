@@ -120,5 +120,15 @@
             });
       </script>
     @endif
+    @if (session()->has('not_user'))
+      <script>
+        swal({
+              title: "{{session()->get('not_user')}}",
+              icon: "success",
+              button: "OK",
+              timer: 3000,
+            });
+      </script>
+    @endif
   </body>
 </html>

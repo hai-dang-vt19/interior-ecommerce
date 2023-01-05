@@ -22,7 +22,8 @@ class cart extends Model
         'image_product',
         'datecreate',
         'total',
-        'sales'
+        'sales',
+        'total_sales'
     ];
     public $timestamps = false;
 }
