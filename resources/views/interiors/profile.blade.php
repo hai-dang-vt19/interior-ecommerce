@@ -33,11 +33,11 @@
             @include('interiors.blocks.logo')
             <nav class="amado-nav">
                 <ul>
-                    <li><a href="{{route('index')}}">Home</a></li>
-                    <li><a href="{{ route('product') }}">Product</a></li>
-                    <li><a href="{{ route('contact') }}">Contact</a></li>
-                    <li><a href="{{ route('cart') }}">Cart</a></li>
-                    <li><a href="{{ route('review') }}">Review</a></li>
+                    <li><a href="{{route('index')}}">Trang chủ</a></li>
+                    <li><a href="{{ route('product') }}">Sản phẩm</a></li>
+                    <li><a href="{{ route('contact') }}">Liên hệ</a></li>
+                    <li><a href="{{ route('cart') }}">Giỏ hàng</a></li>
+                    <li><a href="{{ route('review') }}">Đánh giá</a></li>
                 </ul>
             </nav>
             <!-- Button Group -->

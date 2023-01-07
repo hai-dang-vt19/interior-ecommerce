@@ -13,14 +13,14 @@
 </head>
 
 <body>
-    @php
+    {{-- @php
         use Carbon\Carbon;
         Carbon::setLocale('vi'); // hiển thị ngôn ngữ tiếng việt.
         $dt = Carbon::create($date_bill);
         $time = Carbon::now('Asia/Ho_Chi_Minh');
         $dt_create = $dt->diffForHumans($time); // khoảng cách thời gian
 
-    @endphp
+    @endphp --}}
     <!-- Search Wrapper Area Start -->
     @include('interiors.blocks.search')
     <!-- ##### Main Content Wrapper Start ##### -->
@@ -34,18 +34,13 @@
             @include('interiors.blocks.logo')
             <nav class="amado-nav">
                 <ul>
-                    <li><a href="{{route('index')}}">Home</a></li>
-                    <li><a href="{{ route('product') }}">Product</a></li>
-                    <li><a href="{{ route('contact') }}">Contact</a></li>
-                    <li><a href="{{ route('cart') }}">Cart</a></li>
-                    <li><a href="{{ route('review') }}">Review</a></li>
+                    <li><a href="{{route('index')}}">Trang chủ</a></li>
+                    <li><a href="{{ route('product') }}">Sản phẩm</a></li>
+                    <li><a href="{{ route('contact') }}">Liên hệ</a></li>
+                    <li><a href="{{ route('cart') }}">Giỏ hàng</a></li>
+                    <li><a href="{{ route('review') }}">Đánh giá</a></li>
                 </ul>
             </nav>
-            <!-- Button Group -->
-            <div class="amado-btn-group mt-30 mb-100">
-                <a href="#" class="btn amado-btn mb-15">TEST</a>
-                <a href="#" class="btn amado-btn active">New this week</a>
-            </div>
             <!-- Cart Menu -->
             @include('interiors.blocks.nav_btn')
             <!-- Social Button -->
@@ -56,40 +51,68 @@
         <!-- Product Details Area Start -->
         <div class="single-product-area section-padding-0-100 clearfix">
             <div class="container-fluid fontCSI">
-                @if ($done == "GD thành công")
                     <div class="row mt-100">
                         {{-- <h1>Hóa đơn</h1> --}}
                         <table class="table table-bordered table-responsive-sm table-hover">
                             <thead>
                                 <tr>
-                                    <th colspan="6" class="text-center bold">{{$vnp_TxnRef}}</th>
+                                    <th colspan="6" class="text-center bold">Đơn hàng</th>
                                     <div>
-                                        <a href="{{ route('print_bill', ['id'=>$vnp_TxnRef]) }}" class="d-flex"><h1>Thông tin</h1><i class='bx bx-printer'></i></a>
+                                        <a href="{{ route('print_bill', ['id'=>1]) }}" class="d-flex"><h1>Thông tin</h1><i class='bx bx-printer'></i></a>
                                     </div>
                                 </tr>
                               <tr>
                                 <th scope="col">MSP</th>
                                 <th scope="col">Tên sản phẩm</th>
-                                <th scope="col">Giá sản phẩm</th>
+                                <th scope="col">Phụ phí</th>
                                 <th scope="col">Số lượng</th>
-                                <th scope="col">Giá tổng sản phẩm</th>
+                                <th scope="col">Giá sản phẩm</th>
                               </tr>
                             </thead>
                             <tbody>
-                                @foreach ($get_data_for_bill as $item)
+                                @foreach ($cart as $item)
                                 <tr>
                                   <td>{{$item->id_product}}</td>
                                   <td>{{$item->name_product}}</td>
-                                  <td>{{number_format($item->price)}}&#8363;</td>
-                                  <td>{{$item->amount}}</td>
-                                  <td>{{number_format($item->amount*$item->price)}}&#8363;</td>
+                                  <td>{{number_format($phi)}}&#8363;</td>
+                                  <td>{{$item->amount_product}}</td>
+                                  @if ($item->sales == 0)
+                                      <td>{{number_format($item->total)}}&#8363;
+                                    </td>
+                                  @else
+                                      <td>{{number_format($item->total_sales)}}&#8363;</td>
+                                  @endif
                                 </tr>
                                 @endforeach
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td colspan="4">Ngày tạo: {{Carbon::parse($date_bill)->format('d-m-Y')}}</td>
-                                    <td colspan="2" class="text-center">Tổng tiền: {{number_format($item->total)}}&#8363;</td>
+                                    <td colspan="4">Ngày tạo: 01/01/2023</td>
+                                    {{-- <td colspan="4">Ngày tạo: {{Carbon::parse($date_bill)->format('d-m-Y')}}</td> --}}
+                                    <td colspan="2" class="text-center">Tổng tiền: {{number_format($total)}}&#8363;
+                                        <form action="{{ route('checkout_cod_post') }}" method="POST">
+                                            @csrf
+                                            @foreach ($cart as $itm)
+                                                <input type="text" value="{{ $itm->id_product }}" name="id_product">
+                                                <br>
+                                                <input type="text" value="{{ $itm->name_product }}" name="name_product">
+                                                <br>
+                                                <input type="text" value="{{ $phi }}" name="phi">
+                                                <br>
+                                                <input type="text" value="{{ $itm->amount_product }}" name="amount_product">
+                                                <br>
+                                                @if ($itm->sales == 0)
+                                                    <input type="text" value="{{ $itm->total }}" name="total">
+                                                    <br>
+                                                @else
+                                                    <input type="text" value="{{ $itm->total_sales }}" name="total">
+                                                    <br>
+                                                @endif
+                                                <hr>
+                                            @endforeach
+                                            <button type="submit">Success</button>
+                                        </form>
+                                    </td>
                                 </tr>
                             </tfoot>
                         </table>
@@ -97,24 +120,14 @@
                     <div class="container">
                         <div class="row">
                           <div class="col">
-                            <p class="fpCSI">Khách hàng: <span>{{$name_bill}}</span></p>
-                            <p class="fpCSI">Email: <span>{{$email_bill}}</span></p>
-                            <p class="fpCSI">SĐT: <span>{{$phone_bill}}</span></p>
-                            <p class="fpCSI">Địa chỉ: <span>{{$address_bill}}</span></p>
-                          </div>
-                          <div class="col">
-                            <p class="fpCSI">Ngân hàng: <span>{{$vnp_BankCode_bill}}</span></p>
-                            <p class="fpCSI">Mã GD ngân hàng: <span>{{$vnp_BankTranNo_bill}}</span></p>
-                            <p class="fpCSI">Mã GD VNPAY: <span>{{$vnp_TransactionNo_bill}}</span></p>
-                            <p class="fpCSI">Loại thanh toán: <span>{{$vnp_CardType_bill}}</span></p>
-                          </div>
-                          <div class="col">
-                            <p class="text-center">Hà Nội, {{'ngày '.Carbon::parse($date_bill)->day.', tháng '.Carbon::parse($date_bill)->month.', năm '.Carbon::parse($date_bill)->year}}</p>
-                            <p class="mt-100 text-center font_i2">{{Auth::user()->name}}</p>
+                            <p class="fpCSI">Khách hàng: <span>{{ Auth::user()->name }}</span></p>
+                            <p class="fpCSI">Email: <span>{{Auth::user()->email}}</span></p>
+                            <p class="fpCSI">SĐT: <span>{{Auth::user()->phone}}</span></p>
+                            <p class="fpCSI">Địa chỉ: <span>{{Auth::user()->district.', '.Auth::user()->city.', '.Auth::user()->province}}</span></p>
+                            <p class="fpCSI">Loại thanh toán: <span>Ship COD</span></p>
                           </div>
                         </div>
                     </div>
-                @endif
             </div>
         </div>
         <!-- Product Details Area End -->
