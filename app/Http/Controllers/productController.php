@@ -74,7 +74,7 @@ class productController extends Controller
         }
         history::create([
             'name_his'=>'Create',
-            'user_his'=>Auth::user()->email.'-'.Auth::user()->roles,
+             'user_his'=>Auth::user()->email,
             'description_his'=>'Tạo sản phẩm :'.$name_product
         ]);
         session()->flash('product_sc', 'ICS00'.$up->id);
@@ -149,7 +149,7 @@ class productController extends Controller
         // }
         history::create([
             'name_his'=>'Update',
-            'user_his'=>Auth::user()->email.'-'.Auth::user()->roles,
+             'user_his'=>Auth::user()->email,
             'description_his'=>'Cập nhật sản phẩm :'.$name_product
         ]);
         session()->flash('product_update_sc', 'Cập nhật sản phẩm thành công');
@@ -172,7 +172,7 @@ class productController extends Controller
                     ->update(['amount'=>'0']);
             history::create([
             'name_his'=>'Destroy',
-            'user_his'=>Auth::user()->email.'-'.Auth::user()->roles,
+             'user_his'=>Auth::user()->email,
             'description_his'=>'Cập nhật sản phẩm :'.$pro->id_product
         ]);
         }

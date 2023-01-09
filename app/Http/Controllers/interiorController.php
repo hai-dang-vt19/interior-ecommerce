@@ -552,6 +552,28 @@ class interiorController extends Controller
         
         return view('interiors.profile', compact('bills'));
     }
+    public function update_profile()
+    {
+        $data['user'] = User::find(Auth::user()->id)->toArray();
+        $city_user = city::all();
+        return view('interiors.blocks.update_profile', $data, compact('city_user'));
+    }
+    public function update_profile2(Request $request)
+    {
+        $city_user = city::all();
+        $data['cty_user'] = city::find($request->id)->toArray();
+        return view('interiors.blocks.update_profile2', $data, compact('city_user'));
+    }
+    public function update_profile_opCart(Request $request)
+    {
+        $city_user = city::all();
+        $get_ct = city::all()->where('name_city', $request->id);
+        foreach($get_ct as $ct){
+            $data['cty_user'] = city::find($ct->id)->toArray();
+            return view('interiors.blocks.update_profile2', $data, compact('city_user'));
+        }
+    }
+
     public function contact()
     {
         $check_u = Auth::user();

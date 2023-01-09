@@ -191,10 +191,10 @@ Route::post('/checkout-vnpay-d-atm', [checkoutContorller::class, 'vnpay_payment_
 Route::post('/checkout-vnpay-d-qr', [checkoutContorller::class, 'vnpay_payment_don_qr'])->middleware(['can:client_inte','auth'])->name('vnpay_payment_don_qr');
 
 // Route::post('/checkout-cod', [checkoutContorller::class, 'checkout_cod'])->name('checkout_cod');
-Route::get('/checkout-cod', [checkoutContorller::class, 'checkout_cod'])->name('checkout_cod');
-Route::post('/checkout-cod-post', [checkoutContorller::class, 'checkout_cod_post'])->name('checkout_cod_post');
+Route::get('/checkout-cod', [checkoutContorller::class, 'checkout_cod'])->middleware(['can:client_inte','auth'])->name('checkout_cod');
+Route::post('/checkout-cod-post', [checkoutContorller::class, 'checkout_cod_post'])->middleware(['can:client_inte','auth'])->name('checkout_cod_post');
 
-Route::post('/checkout-cod/{id}', [checkoutContorller::class, 'checkout_cod_get_don'])->name('checkout_cod_get_don');
+Route::post('/checkout-cod/{id}', [checkoutContorller::class, 'checkout_cod_get_don'])->middleware(['can:client_inte','auth'])->name('checkout_cod_get_don');
 
 Route::get('/return-vnpay', [checkoutContorller::class, 'return_vnpay'])->name('return_vnpay');
 Route::get('/return-vnpay-don', [checkoutContorller::class, 'return_vnpay_don'])->name('return_vnpay-don');
@@ -206,4 +206,8 @@ Route::get('/list-favorite', [interiorController::class, 'favorite_user'])->midd
 Route::get('/destroy-favorite/{id}', [favoriteController::class, 'destroy_favorite_user'])->middleware(['can:client_inte','auth'])->name('destroy_favorite_user');
 
 Route::get('/profile-user', [interiorController::class, 'profile_user'])->middleware(['can:client_inte','auth'])->name('profile_user');
+Route::get('/update-profile', [interiorController::class, 'update_profile'])->name('update_profile');
+Route::get('/update-profile-adr/{id}', [interiorController::class, 'update_profile2'])->name('update_profile2');
+Route::get('/update-profile-opc/{id}', [interiorController::class, 'update_profile_opCart'])->name('update_profile_opCart');
+
 Route::get('/ship/done', [checkoutContorller::class, 'ship_done'])->middleware(['can:client_inte','auth'])->name('ship_done');

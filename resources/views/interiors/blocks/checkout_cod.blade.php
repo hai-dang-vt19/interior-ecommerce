@@ -106,18 +106,23 @@
                                                 <input type="hidden" value="COD" name="method[]">
                                                 <input type="hidden" value="{{ Auth::user()->district.', '.Auth::user()->city.', '.Auth::user()->province }}" name="address[]">
                                                 <input type="hidden" value="Xử lý" name="status_product_bill[]">
-
                                                 <input type="hidden" value="{{ $itm->id_product }}" name="id_product[]">
                                                 <input type="hidden" value="{{ $itm->name_product }}" name="name_product[]">
                                                 <input type="hidden" value="{{ $phi }}">
                                                 <input type="hidden" value="{{ $itm->amount_product }}" name="amount_product[]">
                                                 @if ($itm->sales == 0)
-                                                    <input type="hidden" value="{{ $itm->total }}" name="total[]">
+                                                    <input type="hidden" value="{{ $itm->total }}" name="price[]">
                                                 @else
-                                                    <input type="hidden" value="{{ $itm->total_sales }}" name="total[]">
+                                                    <input type="hidden" value="{{ $itm->total_sales }}" name="price[]">
                                                 @endif
+                                                <input type="hidden" value="{{ $total }}" name="total[]">
                                             @endforeach
-                                            <button type="submit">Xác nhận</button>
+                                            <div class="submit_cod_">
+                                                <button type="submit" class="submit_cod">
+                                                    <i class='bx bx-check mr-4'></i>
+                                                    <span>Xác nhận</span>
+                                                </button>
+                                            </div>
                                         </form>
                                     </td>
                                 </tr>

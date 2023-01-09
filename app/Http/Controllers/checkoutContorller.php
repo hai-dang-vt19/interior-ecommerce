@@ -493,6 +493,7 @@ class checkoutContorller extends Controller
         $id_product = array_slice($request->id_product,0,$get_cart,true);
         $name_product = array_slice($request->name_product,0,$get_cart,true);
         $amount_product = array_slice($request->amount_product,0,$get_cart,true);
+        $price = array_slice($request->price,0,$get_cart,true);
         $username= array_slice($request->username,0,$get_cart,true);
         $email= array_slice($request->email,0,$get_cart,true);
         $phone= array_slice($request->phone,0,$get_cart,true);
@@ -521,7 +522,7 @@ class checkoutContorller extends Controller
                 'id_product'=>$id_product[$i],
                 'name_product'=>$name_product[$i],
                 'amount'=>$amount_product[$i],
-                'price'=>$total[$i],
+                'price'=>$price[$i],
                 'username'=>$username[$i],
                 'email'=>$email[$i],
                 'phone'=>$phone[$i],
@@ -567,7 +568,7 @@ class checkoutContorller extends Controller
 
     public function ship_done(Request $request)
     {
-        bill::where('id',$request->id)->update([
+        bill::where('id_bill',$request->id)->update([
             'status_product_bill'=>'Thành công'
         ]);
         session()->flash('ship_done', 'Cảm ơn bạn đã tin tưởng và sử dụng sản phẩm của chúng tôi.');
@@ -613,7 +614,7 @@ class checkoutContorller extends Controller
     }
     public function up_bill_dashboad(Request $request)
     {
-        bill::where('id',$request->id)->update([
+        bill::where('id_bill',$request->id)->update([
             'status_product_bill'=>'Vận chuyển'
         ]);
         session()->flash('up_xl', '');
@@ -621,7 +622,7 @@ class checkoutContorller extends Controller
     }
     public function up_bill_vanchuyen(Request $request)
     {
-        bill::where('id', $request->id)->update([
+        bill::where('id_bill', $request->id)->update([
             'status_product_bill'=>'Hàng đến'
         ]);
         session()->flash('up_vc', '');

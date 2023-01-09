@@ -48,7 +48,7 @@
                         @if ($check_u == null)
                             <div class="d-flex">
                                 <div class="form-group mr-5">
-                                    <label><i class='bx bxl-gmail'></i> Email address</label>
+                                    <label><i class='bx bxl-gmail'></i> Đ/c Email</label>
                                     <input class="form_control_ict" type="hidden" name="email" value="zzztrunzzz@gmail.com">
                                     <input class="form_control_ict mb-2" type="text" name="email_user" placeholder="Nhập email của bạn">
                                     <small id="emailHelp" class="form-text text-muted">Nhập email và tên của bạn, chúng tôi sẽ liên hệ lại.</small>
@@ -61,7 +61,7 @@
                         @else
                             <div class="d-flex">
                                 <div class="form-group mr-5">
-                                    <label><i class='bx bxl-gmail'></i> Email address</label>
+                                    <label><i class='bx bxl-gmail'></i> Đ/c Email</label>
                                     <input class="form_control_ict" type="hidden" name="email" value="zzztrunzzz@gmail.com">
                                     <input class="form_control_ict mb-2" type="text" name="email_user" value="{{ Auth::user()->email }}" placeholder="Nhập email của bạn">
                                     <small id="emailHelp" class="form-text text-muted">Nhập email và tên của bạn, chúng tôi sẽ liên hệ lại.</small>

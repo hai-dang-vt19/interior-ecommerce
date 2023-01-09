@@ -152,7 +152,7 @@
                                   <td>{{$bill_xl->email}}</td>
                                   <td>{{$bill_xl->phone}}</td>
                                   <td>{{$bill_xl->method}}</td>
-                                  <td><a href="{{ route('up_bill_dashboad', ['id'=>$bill_xl->id]) }}" class="badge bg-dark">{{$bill_xl->status_product_bill}}</a></td>
+                                  <td><a href="{{ route('up_bill_dashboad', ['id'=>$bill_xl->id_bill]) }}" class="badge bg-dark">{{$bill_xl->status_product_bill}}</a></td>
                                   <td>{{number_format($bill_xl->total)}} &#8363;</td>
                                   <td>{{$bill_xl->address}}</td>
                                   {{-- <td>

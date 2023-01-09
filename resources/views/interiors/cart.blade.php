@@ -45,8 +45,15 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12 col-lg-8">
-                        <h2 class="mt-30 d-flex" style="font-family: 'Times New Roman', Times, serif">Giỏ hàng của bạn <p class="font-weight-light">({{count($data_cart)}})</p></h2>
-                        <h1 class="text-danger">Lỗi thanh toán cod tổng đơn, thanh toán chỉ vào đơn đầu</h1>
+                        <div class="d-flex">
+                            <h2 class="mt-30 d-flex" style="font-family: 'Times New Roman', Times, serif">
+                                Giỏ hàng của bạn 
+                                <p class="font-weight-light">({{count($data_cart)}})</p>
+                                <div class="update_address_">
+                                    <a href="{{ route('update_profile_opCart', ['id'=>Auth::user()->city]) }}" class="update_address">Cập nhật điểm giao hàng</a>
+                                </div>
+                            </h2>
+                        </div>
                         @if ($data_cart == '[]')
                             <div class="cart_null"><i class='bx bxl-dropbox bx-tada bx-lg'></i></div>
                         @else
@@ -218,20 +225,6 @@
                                                     <hr/>
                                                     <li>
                                                         <itm>
-                                                            {{-- <form action="{{ route('checkout_cod') }}" method="POST">
-                                                                @csrf
-                                                                <input type="hidden" value="{{$sum_product_city}}" name="tt_cod">
-                                                                <button type="submit" class="btn_total_vnpay">
-                                                                    <div class="img_cod">
-                                                                        <div>
-                                                                            <img class="img2" src="{{ asset('interior\img\codd2.png') }}"alt="">
-                                                                        </div>
-                                                                        <div>
-                                                                            <img class="img1" src="{{ asset('interior\img\codd1.png') }}"alt="">
-                                                                        </div>
-                                                                    </div>
-                                                                </button>
-                                                            </form> --}}
                                                             <a href="{{ route('checkout_cod', ['tt_cod'=>$sum_product_city]) }}" class="btn_total_vnpay">
                                                                 <div class="img_cod">
                                                                     <div>

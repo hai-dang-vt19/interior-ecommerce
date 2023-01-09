@@ -19,7 +19,7 @@ class materialSupplierController extends Controller
         ]);
         history::create([
             'name_his'=>'Create',
-            'user_his'=>Auth::user()->email.'-'.Auth::user()->roles,
+             'user_his'=>Auth::user()->email,
             'description_his'=>'Tạo nhà cung cấp :'.$request->name_supplier
         ]);
         session()->flash('supplier_sc', $request->name_supplier);
@@ -34,7 +34,7 @@ class materialSupplierController extends Controller
 
         history::create([
             'name_his'=>'Update',
-            'user_his'=>Auth::user()->email.'-'.Auth::user()->roles,
+             'user_his'=>Auth::user()->email,
             'description_his'=>'Cập nhật nhà cung cấp :'.$request->name_supplier
         ]);
 
@@ -46,7 +46,7 @@ class materialSupplierController extends Controller
         supplier::find($request->id)->delete();
         history::create([
             'name_his'=>'Destroy',
-            'user_his'=>Auth::user()->email.'-'.Auth::user()->roles,
+             'user_his'=>Auth::user()->email,
             'description_his'=>'Xóa nhà cung cấp :'.$request->id
         ]);
         session()->flash('supplier_ds', 'Xóa thành công');
@@ -63,7 +63,7 @@ class materialSupplierController extends Controller
         ]);
         history::create([
             'name_his'=>'Create',
-            'user_his'=>Auth::user()->email.'-'.Auth::user()->roles,
+             'user_his'=>Auth::user()->email,
             'description_his'=>'Thêm chất liêu :'.$request->name_material
         ]);
         session()->flash('material_sc', $request->name_material);
@@ -79,7 +79,7 @@ class materialSupplierController extends Controller
         $ma->save();
         history::create([
             'name_his'=>'Update',
-            'user_his'=>Auth::user()->email.'-'.Auth::user()->roles,
+             'user_his'=>Auth::user()->email,
             'description_his'=>'Cập nhật chất liệu :'.$request->name_material
         ]);
 
@@ -91,7 +91,7 @@ class materialSupplierController extends Controller
         material::find($request->id)->delete();
         history::create([
             'name_his'=>'Destroy',
-            'user_his'=>Auth::user()->email.'-'.Auth::user()->roles,
+             'user_his'=>Auth::user()->email,
             'description_his'=>'Xóa chất liệu :'.$request->id
         ]);
         session()->flash('material_ds', 'Xóa thành công');

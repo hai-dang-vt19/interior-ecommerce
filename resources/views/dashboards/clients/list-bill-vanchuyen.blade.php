@@ -151,7 +151,7 @@
                             <td>{{$bill_vc->email}}</td>
                             <td>{{$bill_vc->phone}}</td>
                             <td>{{$bill_vc->method}}</td>
-                            <td><a href="{{ route('up_bill_vanchuyen', ['id'=>$bill_vc->id]) }}" class="badge bg-primary">{{$bill_vc->status_product_bill}}</a></td>
+                            <td><a href="{{ route('up_bill_vanchuyen', ['id'=>$bill_vc->id_bill]) }}" class="badge bg-primary">{{$bill_vc->status_product_bill}}</a></td>
                             <td>{{number_format($bill_vc->total)}} &#8363;</td>
                             <td>{{$bill_vc->address}}</td>
                             {{-- <td>
