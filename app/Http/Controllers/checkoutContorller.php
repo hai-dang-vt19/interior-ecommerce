@@ -483,67 +483,57 @@ class checkoutContorller extends Controller
             $phi = $phu->price;
             return view('interiors.blocks.checkout_cod', compact('cart','total','phi'));
         }
-
-        // echo $cart;
-        // dd($cart); return;
-        // foreach($cart as $crt){
-        //     bill::create([
-        //         'id_bill'=>'ICS0'.time().'COD',
-        //         'id_product'=>$crt->id_product,
-        //         'name_product'=>$crt->name_product,
-        //         'amount'=>$crt->amount_product,
-        //         'price'=>$crt->price_product,
-        //         'username'=>Auth::user()->name,
-        //         'email'=>Auth::user()->email,
-        //         'phone'=>Auth::user()->phone,
-        //         'date_create'=>Carbon::now('Asia/Ho_Chi_Minh')->toDateString(),
-        //         'method'=>'COD',
-        //         'address'=>Auth::user()->district.', '.Auth::user()->city.', '.Auth::user()->province,
-        //         'total'=>$request->tt_cod,
-        //         'status_product_bill'=>'Xử lý'
-        //     ]);
-        //     // cart::where('id_cart_user','CART_CS'.Auth::user()->user_id)->delete();
-        //     // session()->flash('check_cod_don','Đặt hàng thành công');
-        //     return redirect()->route('cart');
-        // }
     }
     public function checkout_cod_post(Request $request)
     {
-        // dd($request);return;
-        // $data = new bill();
-        // $data->id_bill ='ICS0'.time().'COD';
-        // $data->id_product=$request->id_product;
-        // $data->name_product=$request->name_product;
-        // $data->amount=$request->amount_product;
-        // $data->price=$request->total;
-        // $data->username=Auth::user()->name;
-        // $data->email=Auth::user()->email;
-        // $data->phone=Auth::user()->phone;
-        // $data->date_create=Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
-        // $data->method='COD';
-        // $data->address=Auth::user()->district.', '.Auth::user()->city.', '.Auth::user()->province;
-        // $data->total=$request->total;
-        // $data->status_product_bill='Xử lý';
-        // $data->save();
+        $get_cart = cart::all()->where('id_cart_user','CART_CS'.Auth::user()->user_id)->count();
+        // echo $get_cart.'<br>';
 
-        $array[] = [
-            'id_bill'=>'ICS0'.time().'COD',
-            'id_product'=>$request->id_product,
-            'name_product'=>$request->name_product,
-            'amount'=>$request->amount_product,
-            'price'=>$request->total,
-            'username'=>Auth::user()->name,
-            'email'=>Auth::user()->email,
-            'phone'=>Auth::user()->phone,
-            'date_create'=>Carbon::now('Asia/Ho_Chi_Minh')->toDateString(),
-            'method'=>'COD',
-            'address'=>Auth::user()->district.', '.Auth::user()->city.', '.Auth::user()->province,
-            'total'=>$request->total,
-            'status_product_bill'=>'Xử lý'
-        ];
+        $id_bill = array_slice($request->id_bill,0,$get_cart,true);
+        $id_product = array_slice($request->id_product,0,$get_cart,true);
+        $name_product = array_slice($request->name_product,0,$get_cart,true);
+        $amount_product = array_slice($request->amount_product,0,$get_cart,true);
+        $username= array_slice($request->username,0,$get_cart,true);
+        $email= array_slice($request->email,0,$get_cart,true);
+        $phone= array_slice($request->phone,0,$get_cart,true);
+        $date_create= array_slice($request->date_create,0,$get_cart,true);
+        $method= array_slice($request->method,0,$get_cart,true);
+        $address= array_slice($request->address,0,$get_cart,true);
+        $total = array_slice($request->total,0,$get_cart,true);
+        $status_product_bill= array_slice($request->status_product_bill,0,$get_cart,true);
+        // print_r( $id_bill);
+        //     print_r( $id_product);
+        //     print_r( $name_product);
+        //     print_r( $amount_product);
+        //     print_r( $price);
+        //     print_r( $username);
+        //     print_r( $email);
+        //     print_r( $phone);
+        //     print_r( $date_create);
+        //     print_r( $method);
+        //     print_r( $address);
+        //     print_r( $total);
+        // print_r( $status_product_bill);
 
-        bill::insert($array);
-        // return back();
+        for($i=0;$i<$get_cart;$i++){ // Thêm thành công
+            bill::create([
+                'id_bill'=>$id_bill[$i],
+                'id_product'=>$id_product[$i],
+                'name_product'=>$name_product[$i],
+                'amount'=>$amount_product[$i],
+                'price'=>$total[$i],
+                'username'=>$username[$i],
+                'email'=>$email[$i],
+                'phone'=>$phone[$i],
+                'date_create'=>$date_create[$i],
+                'method'=>$method[$i],
+                'address'=>$address[$i],
+                'total'=>$total[$i],
+                'status_product_bill'=>$status_product_bill[$i]
+            ]);
+        }
+        cart::where('id_cart_user','CART_CS'.Auth::user()->user_id)->delete();
+        session()->flash('check_cod_don','Đặt hàng thành công');
         return redirect(route('cart'));
     }
     public function checkout_cod_get_don(Request $request)

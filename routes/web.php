@@ -190,7 +190,8 @@ Route::post('/checkout-vnpay-qr', [checkoutContorller::class, 'vnpay_payment_qr'
 Route::post('/checkout-vnpay-d-atm', [checkoutContorller::class, 'vnpay_payment_don_atm'])->middleware(['can:client_inte','auth'])->name('vnpay_payment_don_atm');
 Route::post('/checkout-vnpay-d-qr', [checkoutContorller::class, 'vnpay_payment_don_qr'])->middleware(['can:client_inte','auth'])->name('vnpay_payment_don_qr');
 
-Route::post('/checkout-cod', [checkoutContorller::class, 'checkout_cod'])->name('checkout_cod');
+// Route::post('/checkout-cod', [checkoutContorller::class, 'checkout_cod'])->name('checkout_cod');
+Route::get('/checkout-cod', [checkoutContorller::class, 'checkout_cod'])->name('checkout_cod');
 Route::post('/checkout-cod-post', [checkoutContorller::class, 'checkout_cod_post'])->name('checkout_cod_post');
 
 Route::post('/checkout-cod/{id}', [checkoutContorller::class, 'checkout_cod_get_don'])->name('checkout_cod_get_don');

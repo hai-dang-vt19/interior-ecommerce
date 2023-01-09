@@ -86,31 +86,38 @@
                                 @endforeach
                             </tbody>
                             <tfoot>
+                                @php
+                                    use Carbon\Carbon;
+                                    $times = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+                                    $id_bill = 'ICS0'.time().'COD';
+                                @endphp
                                 <tr>
-                                    <td colspan="4">Ngày tạo: 01/01/2023</td>
+                                    <td colspan="4">Ngày tạo: {{ $times }}</td>
                                     {{-- <td colspan="4">Ngày tạo: {{Carbon::parse($date_bill)->format('d-m-Y')}}</td> --}}
                                     <td colspan="2" class="text-center">Tổng tiền: {{number_format($total)}}&#8363;
                                         <form action="{{ route('checkout_cod_post') }}" method="POST">
                                             @csrf
                                             @foreach ($cart as $itm)
-                                                <input type="text" value="{{ $itm->id_product }}" name="id_product">
-                                                <br>
-                                                <input type="text" value="{{ $itm->name_product }}" name="name_product">
-                                                <br>
-                                                <input type="text" value="{{ $phi }}" name="phi">
-                                                <br>
-                                                <input type="text" value="{{ $itm->amount_product }}" name="amount_product">
-                                                <br>
+                                                <input type="hidden" value="{{ $id_bill }}" name="id_bill[]">
+                                                <input type="hidden" value="{{ Auth::user()->name }}" name="username[]">
+                                                <input type="hidden" value="{{ Auth::user()->email }}" name="email[]">
+                                                <input type="hidden" value="{{ Auth::user()->phone }}" name="phone[]">
+                                                <input type="hidden" value="{{ $times }}" name="date_create[]">
+                                                <input type="hidden" value="COD" name="method[]">
+                                                <input type="hidden" value="{{ Auth::user()->district.', '.Auth::user()->city.', '.Auth::user()->province }}" name="address[]">
+                                                <input type="hidden" value="Xử lý" name="status_product_bill[]">
+
+                                                <input type="hidden" value="{{ $itm->id_product }}" name="id_product[]">
+                                                <input type="hidden" value="{{ $itm->name_product }}" name="name_product[]">
+                                                <input type="hidden" value="{{ $phi }}">
+                                                <input type="hidden" value="{{ $itm->amount_product }}" name="amount_product[]">
                                                 @if ($itm->sales == 0)
-                                                    <input type="text" value="{{ $itm->total }}" name="total">
-                                                    <br>
+                                                    <input type="hidden" value="{{ $itm->total }}" name="total[]">
                                                 @else
-                                                    <input type="text" value="{{ $itm->total_sales }}" name="total">
-                                                    <br>
+                                                    <input type="hidden" value="{{ $itm->total_sales }}" name="total[]">
                                                 @endif
-                                                <hr>
                                             @endforeach
-                                            <button type="submit">Success</button>
+                                            <button type="submit">Xác nhận</button>
                                         </form>
                                     </td>
                                 </tr>

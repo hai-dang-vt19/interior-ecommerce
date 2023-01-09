@@ -218,7 +218,7 @@
                                                     <hr/>
                                                     <li>
                                                         <itm>
-                                                            <form action="{{ route('checkout_cod') }}" method="POST">
+                                                            {{-- <form action="{{ route('checkout_cod') }}" method="POST">
                                                                 @csrf
                                                                 <input type="hidden" value="{{$sum_product_city}}" name="tt_cod">
                                                                 <button type="submit" class="btn_total_vnpay">
@@ -231,7 +231,17 @@
                                                                         </div>
                                                                     </div>
                                                                 </button>
-                                                            </form>
+                                                            </form> --}}
+                                                            <a href="{{ route('checkout_cod', ['tt_cod'=>$sum_product_city]) }}" class="btn_total_vnpay">
+                                                                <div class="img_cod">
+                                                                    <div>
+                                                                        <img class="img2" src="{{ asset('interior\img\codd2.png') }}"alt="">
+                                                                    </div>
+                                                                    <div>
+                                                                        <img class="img1" src="{{ asset('interior\img\codd1.png') }}"alt="">
+                                                                    </div>
+                                                                </div>
+                                                            </a>
                                                         </itm>
                                                     </li>
                                                 </ul>
