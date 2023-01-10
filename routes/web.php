@@ -206,8 +206,11 @@ Route::get('/list-favorite', [interiorController::class, 'favorite_user'])->midd
 Route::get('/destroy-favorite/{id}', [favoriteController::class, 'destroy_favorite_user'])->middleware(['can:client_inte','auth'])->name('destroy_favorite_user');
 
 Route::get('/profile-user', [interiorController::class, 'profile_user'])->middleware(['can:client_inte','auth'])->name('profile_user');
-Route::get('/update-profile', [interiorController::class, 'update_profile'])->name('update_profile');
-Route::get('/update-profile-adr/{id}', [interiorController::class, 'update_profile2'])->name('update_profile2');
-Route::get('/update-profile-opc/{id}', [interiorController::class, 'update_profile_opCart'])->name('update_profile_opCart');
+Route::get('/update-profile', [interiorController::class, 'update_profile'])->middleware(['can:client_inte','auth'])->name('update_profile');
+Route::get('/update-profile-adr/{id}', [interiorController::class, 'update_profile2'])->middleware(['can:client_inte','auth'])->name('update_profile2');
+Route::get('/update-profile-opc/{id}', [interiorController::class, 'update_profile_opCart'])->middleware(['can:client_inte','auth'])->name('update_profile_opCart');
+Route::get('/update-profile-city/{id}', [interiorController::class, 'update_profile_get_city'])->middleware(['can:client_inte','auth'])->name('update_profile_get_city');
+Route::post('/update-profile-city-po/{id}', [interiorPostController::class, 'update_profile_city_cart'])->middleware(['can:client_inte','auth'])->name('update_profile_city_cart');
+Route::post('/update-profile-city-pro/{id}', [interiorPostController::class, 'update_profile_city'])->middleware(['can:client_inte','auth'])->name('update_profile_city');
 
 Route::get('/ship/done', [checkoutContorller::class, 'ship_done'])->middleware(['can:client_inte','auth'])->name('ship_done');

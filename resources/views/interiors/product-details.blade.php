@@ -131,7 +131,7 @@
                                         <i class="fa fa-star" aria-hidden="true"></i>
                                     </div>
                                     <div class="review">
-                                        <a href="{{ route('review_detail', ['id'=>$pro_detail['id_product']]) }}">Write A Review</a>
+                                        <a href="{{ route('review_detail', ['id'=>$pro_detail['id_product']]) }}">Xem đánh giá</a>
                                     </div>
                                 </div>
                                 <!-- Avaiable -->

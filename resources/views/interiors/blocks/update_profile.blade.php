@@ -43,80 +43,63 @@
         <!-- Product Details Area Start -->
         <div class="single-product-area section-padding-0-100 clearfix">
             <div class="container-fluid fontCSI">
-                <form action="" method="POST">
+                <form action="{{ route('update_profile_city', ['id'=>$user['id']]) }}" method="POST">
+                    @csrf
                     <div class="row ml-100 mt-100">
                         <h1>Thông tin {{ $user['name'] }}</h1>
                     </div>
                     <div class="row">
-                        <div class="form-group mr-5">
+                        <div class="form-group mr-3">
                             <label><i class='bx bxl-gmail'></i> Email</label>
-                            <input class="form_control_ict mb-2" type="text" name="email_user" value="{{ $user['email'] }}">
+                            <input class="form_control_ict mb-2" type="text" name="email" value="{{ $user['email'] }}">
                         </div>
-                        <div class="form-group ml-5">
+                        <div class="form-group mr-3">
                             <label>Họ tên</label>
                             <input class="form_control_ict" type="text" name="name" value="{{ $user['name'] }}">
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group mr-5">
+                        <div class="form-group mr-3">
                             <label><i class='bx bxl-gmail'></i> Giới tính</label>
-                            <input class="form_control_ict mb-2" type="text" name="email_user" value="{{ $user['sex_user'] }}">
+                            <input class="form_control_ict mb-2" type="text" name="sex_user" value="{{ $user['sex_user'] }}">
                         </div>
-                        <div class="form-group ml-5">
+                        <div class="form-group">
                             <label>Ngày sinh</label>
-                            <input class="form_control_ict" type="text" name="name" value="{{ $user['date_user'] }}">
+                            <input class="form_control_ict" type="text" name="date_user" value="{{ $user['date_user'] }}">
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group">
+                        <div class="form-group mr-3">
                             <label>Số điện thoại </label>
-                            <input type="text" name="phone" value="{{ $user['phone'] }}">
+                            <input class="form_control_ict" type="text" name="phone" value="{{ $user['phone'] }}">
+                        </div>
+                        <div class="form-group slct mr-3">
+                            <label>Thành phố</label>
+                            <select class="form_control_ict_slct"  name="city" >
+                                <option selected>{{ $user['city'] }}</option>
+                                @foreach ($city_user as $city)
+                                    <option value="{{ $city->name_city }}">{{ $city->name_city }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group slct mr-3">
+                            <label>Tỉnh</label>
+                            <select class="form_control_ict_slct"  name="province" >
+                                <option selected>{{ $user['province'] }}</option>
+                                @foreach ($city_user as $city)
+                                    <option value="{{ $city->city_province }}">{{ $city->city_province }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="submit_profile">
+                            <button type="submit">Cập nhật</button>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group">
+                        <div class="form-group ml-1">
                             <label>Địa chỉ </label>
                             <p>{{ $user['district'] }}, {{ $user['city'] }}, {{ $user['province'] }}</p>
                         </div>
                     </div>
-                    
-                    <div class="row">
-                        <button>submit</button>
-                    </div>
                 </form>
-                <div class="mt-5">
-                    <div class="dropdown">
-                        <button onclick="myFunction()" class="dropbtn">Chọn địa chỉ cập nhật</button>
-                        <div id="myDropdown" class="dropdown-content">
-                          @foreach ($city_user as $city)
-                              <a href="{{ route('update_profile2', ['id'=>$city->id]) }}">{{ $city->name_city }}</a>
-                          @endforeach
-                        </div>
-                    </div>
-                    <script>
-                        function myFunction() 
-                        {
-                            document.getElementById("myDropdown").classList.toggle("show");
-                        }
-
-                        // Close the dropdown menu if the user clicks outside of it
-                        window.onclick = function(event) 
-                        {
-                            if (!event.target.matches('.dropbtn')) 
-                            {
-                                var dropdowns = document.getElementsByClassName("dropdown-content");
-                                var i;
-                                for (i = 0; i < dropdowns.length; i++) {
-                                    var openDropdown = dropdowns[i];
-                                    if (openDropdown.classList.contains('show')) 
-                                    {
-                                        openDropdown.classList.remove('show');
-                                    }
-                                }
-                            }
-                        }
-                    </script>
-                </div>
             </div>
         </div>
         <!-- Product Details Area End -->
@@ -135,10 +118,10 @@
     <!-- Active js -->
     <script src="{{ asset('interior/js/active.js') }}"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    @if (session()->has('gd'))
+    @if (session()->has('update_sc'))
       <script>
         swal({
-              title: "{{session()->get('gd')}}",
+              title: "{{session()->get('update_sc')}}",
               icon: "success",
               button: "OK",
               timer: 2000,

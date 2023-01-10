@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\OrderShipped;
+use App\Models\city;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\history;
@@ -127,5 +128,30 @@ class interiorPostController extends Controller
         \App\Jobs\DemoEmail::dispatch($data, $request->email)->delay(now()->addSeconds(2));
         session()->flash('msg', 'Gửi mail thành công');
         return redirect(route('contact'));
+     }
+     
+     public function update_profile_city_cart(Request $request)
+     {
+        User::where('id',$request->id)->update([
+            'district'=>$request->district,
+            'city'=>$request->city,
+            'province'=>$request->province
+        ]);
+        session()->flash('update_sc', 'Cập nhật thành công');
+        return redirect()->route('cart');
+     }
+     public function update_profile_city(Request $request)
+     {
+        User::where('id',$request->id)->update([
+            'email'=>$request->email,
+            'name'=>$request->name,
+            'sex_user'=>$request->sex_user,
+            'date_user'=>$request->date_user,
+            'phone'=>$request->phone,
+            'city'=>$request->city,
+            'province'=>$request->province
+        ]);
+        session()->flash('update_sc', 'Cập nhật thành công');
+        return redirect()->route('profile_user');
      }
 }

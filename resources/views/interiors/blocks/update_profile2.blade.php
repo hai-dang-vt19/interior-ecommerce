@@ -42,36 +42,34 @@
 
         <!-- Product Details Area Start -->
         <div class="single-product-area section-padding-0-100 clearfix">
-            <div class="container-fluid fontCSI">
-                <form action="" method="POST">
-                    <div class="row ml-100 mt-100">
+            <div class="container fontCSI">
+                <form action="{{ route('update_profile_city_cart', ['id'=>Auth::user()->id]) }}" method="POST">
+                    <div class="row ml-100 mt-100 mb-50 d-flex">
+                        @csrf
                         <h1>Cập nhật địa chỉ</h1>
                     </div>
-                    <div class="row">
+                    <div class="row d-flex">
                         <div class="form-group">
                             <label><i class='bx bxl-gmail'></i> Địa chỉ cụ thể</label>
-                            <input class="form_control_ict mb-2" type="text" name="district" value="{{ Auth::user()->district }}">
+                            <input class="form_control_ict_cty mb-2" type="text" name="district" value="{{ Auth::user()->district }}">
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group">
+                        <div class="form-group ml-5">
                             <label>Thành phố - Tỉnh</label>
-                            <input class="form_control_ict" type="text" value="{{ $cty_user['name_city'] }} - {{ $cty_user['city_province'] }}" disabled>
+                            <input class="form_control_ict_cty" type="text" value="{{ $cty_user['name_city'] }} - {{ $cty_user['city_province'] }}" disabled>
                             <input type="hidden" name="city" value="{{ $cty_user['name_city'] }}">
                             <input type="hidden" name="province" value="{{ $cty_user['city_province'] }}">
                         </div>
-                    </div>
-                    
-                    <div class="row">
-                        <button type="submit">Cập nhật</button>
+                        <div class="row btn_update_city">
+                            <button type="submit">Cập nhật</button>
+                        </div>
                     </div>
                 </form>
-                <div class="mt-5">
+                <div class="row">
                     <div class="dropdown">
                         <button onclick="myFunction()" class="dropbtn">Chọn địa chỉ cập nhật</button>
                         <div id="myDropdown" class="dropdown-content">
                           @foreach ($city_user as $city)
-                              <a href="#">{{ $city->name_city }}</a>
+                              <a href="{{ route('update_profile_get_city', ['id'=>$city->id]) }}">{{ $city->name_city }}</a>
                           @endforeach
                         </div>
                     </div>

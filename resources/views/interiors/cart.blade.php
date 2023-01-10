@@ -315,6 +315,16 @@
             });
       </script>
     @endif
+    @if (session()->has('update_sc'))
+      <script>
+        swal({
+              title: "{{session()->get('update_sc')}}",
+              icon: "success",
+              button: "OK",
+              timer: 2000,
+            });
+      </script>
+    @endif
 </body>
 
 </html>

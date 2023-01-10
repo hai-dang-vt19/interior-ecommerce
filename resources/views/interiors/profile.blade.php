@@ -68,6 +68,9 @@
                                 <p class="fpCSI">Địa chỉ: <span>{{ Auth::user()->district.', '.Auth::user()->city.', '.Auth::user()->province}}</span></p>
                             </div>
                         </div>
+                        <div class="container">
+                            <a href="{{ route('update_profile') }}" class="btn btn-primary">Cập nhật thông tin</a>
+                        </div>
                     </div>
                     <div class="row container">
                         {{-- <h1>Hóa đơn</h1> --}}
@@ -162,6 +165,16 @@
       <script>
         swal({
               title: "{{session()->get('gd')}}",
+              icon: "success",
+              button: "OK",
+              timer: 2000,
+            });
+      </script>
+    @endif
+    @if (session()->has('update_sc'))
+      <script>
+        swal({
+              title: "{{session()->get('update_sc')}}",
               icon: "success",
               button: "OK",
               timer: 2000,

@@ -45,8 +45,8 @@
 
         <!-- Product Catagories Area Start -->
         <div class="products-catagories-area clearfix">
-            <div class="amado-pro-catagory clearfix mb-100 ml-50">
-                <h2 class="mt-100"></h2>
+            <div class="amado-pro-catagory clearfix mb-0 ml-50">
+                <h2 class=""></h2>
                 <section class="hero-section ">
                     <div class="card-grid">
                         @php
@@ -63,8 +63,10 @@
                         </div>
                       </a>
                       @endforeach
-                      <div class="mt-50 ml-50">
-                        {{$comment->links()}}
+                      <div class="cmt_link">
+                        <div>
+                            {{$comment->links()}}
+                        </div>
                       </div>
                     <div>
                 </section>

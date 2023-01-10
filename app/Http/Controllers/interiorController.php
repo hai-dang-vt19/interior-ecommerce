@@ -474,7 +474,7 @@ class interiorController extends Controller
 
     public function review()
     {
-        $comment = comments::limit(4)->paginate(4);
+        $comment = comments::limit(8)->paginate(8);
         return view('interiors.review', compact('comment'));
     }
     public function review_detail(Request $request)
@@ -572,6 +572,12 @@ class interiorController extends Controller
             $data['cty_user'] = city::find($ct->id)->toArray();
             return view('interiors.blocks.update_profile2', $data, compact('city_user'));
         }
+    }
+    public function update_profile_get_city(Request $request)
+    {
+        $city_user = city::all();
+        $data['cty_user'] = city::find($request->id)->toArray();
+        return view('interiors.blocks.update_profile2', $data, compact('city_user'));
     }
 
     public function contact()
