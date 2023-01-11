@@ -87,6 +87,7 @@
               <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Color / </span>Danh sách Color</h4>
               <!-- Responsive Table -->
               <div class="card">
+                @can('admin')
                 <div class="card-body">
                   <form action="{{ route('add_color') }}" method="POST">
                     @csrf
@@ -102,6 +103,7 @@
                     </div>
                   </form>
                 </div>
+                @endcan
                 <div class="card-body">
                   <div>
                     <div class="table-responsive text-nowrap">
@@ -113,7 +115,9 @@
                               <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>
                               <th style="color: rgb(231, 171, 6);font-size: 14px">Mã màu</th>
                               <th style="color: rgb(231, 171, 6);font-size: 14px">Tên màu</th>
+                              @can('admin')
                               <th style="color: rgb(231, 171, 6);font-size: 14px">Chức năng</th>
+                              @endcan
                             </tr>
                           </thead>
                           <tbody>
@@ -122,10 +126,12 @@
                               <td>{{$key +1}}</td>
                               <td style="color: gold">{{$clor->id}}</td>
                               <td>{{$clor->color}}</td>
+                              @can('admin')
                               <td>
                                 <a href="{{ route('edit_color_dashboard', ['id'=>$clor->id]) }}" class="btn btn-primary"><i class='bx bxs-edit'></i></a>
                                 <a onclick="return confirm('Bạn có chắc chắn xóa không?')"  href="{{ route('destroy_color', ['id'=>$clor->id]) }}" class="btn btn-danger"><i class='bx bx-trash-alt'></i></a>
                               </td>
+                              @endcan
                             </tr>
                             @endforeach
                           </tbody>

@@ -234,5 +234,15 @@
               });
         </script>
       @endif
+      @if (session()->has('login-sc'))
+        <script>
+          swal({
+                title: "{{session()->get('login-sc')}}",
+                icon: "success",
+                button: "OK",
+                timer: 1000,
+              });
+        </script>
+      @endif
   </body>
 </html>

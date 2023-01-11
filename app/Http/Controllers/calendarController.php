@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\calendar;
+use App\Models\expense;
 use App\Models\history;
 use App\Models\luong;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -97,6 +99,7 @@ class calendarController extends Controller
                     'total_salary'=>$t_salary
                 ]);
             }
+
             session()->flash('calendar_sc', Auth::user()->name);
         }
         return redirect(route('calendar'));
@@ -135,6 +138,31 @@ class calendarController extends Controller
     }
     public function reset_salary()
     {
+        // tổng lương hoặc tổng lương + expense_salary cũ
+        $get_salary_fe = luong::all();
+        $sum_salary = $get_salary_fe->sum('total_salary'); //có tổng lương
+
+        $get_year = Carbon::now('Asia/Ho_Chi_Minh')->year;
+        $old_expense = expense::where('years',$get_year)->get('expense_salary');
+            foreach($old_expense as $item){
+                $get_old_ex = $item->expense_salary;
+            }
+            $old = $get_old_ex;
+            if($old == 0){
+                if($old == 0){
+                    expense::where('years',$get_year)->update(['expense_salary'=>$sum_salary]);
+                }else{
+                    expense::create(['years'=>$get_year,'expense_salary'=>$sum_salary]);
+                }
+            }else{
+                $expense_salary = $sum_salary+$old;
+                expense::updateOrCreate([
+                    'years'=>$get_year
+                ],[
+                    'expense_salary'=>$expense_salary
+                ]);
+            }
+
         luong::truncate();
         session()->flash('salary_rs', 'Làm mới thành công');
         return back();

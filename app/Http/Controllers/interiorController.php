@@ -25,6 +25,7 @@ use App\Models\material;
 use App\Models\product;
 use App\Models\slide;
 use App\Models\warehouse;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class interiorController extends Controller
@@ -41,8 +42,9 @@ class interiorController extends Controller
 
     public function index_dashboard()
     {
-        
-        return view('dashboards.index-dashboard');
+        $today = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+        $sum_bill = bill::all()->where('date_create',$today)->sum('total');
+        return view('dashboards.index-dashboard', compact('sum_bill'));
     }
 
     public function product_dashboard()
@@ -252,22 +254,24 @@ class interiorController extends Controller
         return view('dashboards.updates.profile-user-update', compact('rol','cty','get'));
     }
 
-    public function favorite_dashboard()
-    {
-        return view('dashboards.clients.new-favorite');
-    }
+    // public function favorite_dashboard()
+    // {
+    //     return view('dashboards.clients.new-favorite');
+    // }
     public function list_favorite_dashboard()
     {
-        return view('dashboards.clients.list-favorite');
+        $favorite = favorite::limit(10)->paginate(10);
+        return view('dashboards.clients.list-favorite',compact('favorite'));
     }
 
-    public function cart_dashboard()
-    {
-        return view('dashboards.clients.new-cart');
-    }
+    // public function cart_dashboard()
+    // {
+    //     return view('dashboards.clients.new-cart');
+    // }
     public function list_cart_dashboard()
     {
-        return view('dashboards.clients.list-cart');
+        $cart = cart::limit(10)->paginate(10);
+        return view('dashboards.clients.list-cart', compact('cart'));
     }
 
     public function comment_dashboard()

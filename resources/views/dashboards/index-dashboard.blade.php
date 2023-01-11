@@ -85,7 +85,7 @@
                         <div class="card-body">
                           <h5 class="card-title text-primary">Xin chào {{Auth::user()->name}}! 🎉</h5>
                           <p class="mb-5">
-                            Hôm nay đã thu được <span class="fw-bold">72,000,000đ</span>. Hãy kiểm tra những gì bạn làm được.
+                            Hôm nay đã thu được <span class="fw-bold">{{ number_format($sum_bill) }} &#8363;</span>. Hãy kiểm tra những gì bạn làm được.
                           </p>
                         </div>
                       </div>
@@ -604,6 +604,16 @@
               icon: "success",
               button: "OK",
               timer: 20000,
+            });
+      </script>
+    @endif
+    @if (session()->has('login-sc'))
+      <script>
+        swal({
+              title: "{{session()->get('login-sc')}}",
+              icon: "success",
+              button: "OK",
+              timer: 1000,
             });
       </script>
     @endif

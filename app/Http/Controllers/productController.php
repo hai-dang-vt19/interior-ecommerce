@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\comments;
+use App\Models\expense;
 use App\Models\history;
 use App\Models\material;
 use App\Models\product;
 use App\Models\warehouse;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -72,9 +74,34 @@ class productController extends Controller
             $sum = $amount + $get_ware->amount;
             $get_ware->update(['amount'=>$sum]);
         }
+
+        // lấy giá vật liệu để thêm vào expense (giá x số lượng)
+        $expense_material = $amount*$get_pm;
+        $get_year = Carbon::now('Asia/Ho_Chi_Minh')->year;
+        $old_expense = expense::where('years',$get_year)->get('expense_material');
+        foreach($old_expense as $old_expen){
+            $get_old_ex = $old_expen->expense_material;
+        }
+        if($get_old_ex == 0){
+            $amount_material = $amount*$get_pm;
+            if($get_old_ex == 0){
+                expense::where('years',$get_year)->update(['expense_material'=>$amount_material]);
+            }else{
+                expense::create(['years'=>$get_year,'expense_material'=>$amount_material]);
+            }
+        }else{
+            $amount_material = $amount*$get_pm+$get_old_ex;
+            expense::updateOrCreate([
+                'years'=>$get_year
+            ],[
+                'years'=>$get_year,
+                'expense_material'=>$amount_material
+            ]);
+        }         
+
         history::create([
             'name_his'=>'Create',
-             'user_his'=>Auth::user()->email,
+            'user_his'=>Auth::user()->email,
             'description_his'=>'Tạo sản phẩm :'.$name_product
         ]);
         session()->flash('product_sc', 'ICS00'.$up->id);
@@ -147,6 +174,35 @@ class productController extends Controller
         //     $sum = $amount + $get_ware->amount;
         //     $get_ware->update(['amount'=>$sum]);
         // }
+
+        //Lấy số lượng * giá materi + expens_materi cũ
+        $get_price_material = material::where('name_material',$request->material)
+                                    ->where('supplier',$request->supplier)
+                                    ->get();
+        foreach($get_price_material as $gpm){
+            $get_pm = $gpm->price; // giá material
+        }
+        $get_year = Carbon::now('Asia/Ho_Chi_Minh')->year;
+        if($request->check_expense == 1){
+            $old_expense = expense::where('years',$get_year)->get('expense_material');
+            foreach($old_expense as $old_expen){
+                $get_old_ex = $old_expen->expense_material;
+            }
+
+            if($old_expense == '[]'){
+                $amount_material = $amount*$get_pm;
+                expense::create(['years'=>$get_year,'expense_material'=>$amount_material]);
+            }else{
+                $amount_material = $amount*$get_pm+$get_old_ex;
+                expense::updateOrCreate([
+                    'years'=>$get_year
+                ],[
+                    'years'=>$get_year,
+                    'expense_material'=>$amount_material
+                ]);
+            }            
+        }
+
         history::create([
             'name_his'=>'Update',
              'user_his'=>Auth::user()->email,

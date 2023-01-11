@@ -89,6 +89,7 @@
                   <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">City / </span>Danh sách Thành phố</h4>
                   <div class="card mb-4">
                     <div class="card-body">
+                      @can('admin')
                       <form action="{{ route('add_city') }}" method="POST">
                         @csrf
                         <div class="d-flex">
@@ -127,6 +128,7 @@
                         </div>
                         <button type="submit" class="btn btn-success">Thêm</button>
                       </form>
+                      @endcan
                       <div class="table-responsive text-nowrap mt-4">
                         <table class="table table-hover table-dark">
                           <thead>
@@ -136,7 +138,9 @@
                               <th style="color: rgb(231, 171, 6);font-size: 14px">Tên thành phố</th>
                               <th style="color: rgb(231, 171, 6);font-size: 14px">Tên tỉnh</th>
                               <th style="color: rgb(231, 171, 6);font-size: 14px">Giá tiền</th>
+                              @can('admin')
                               <th style="color: rgb(231, 171, 6);font-size: 14px">Chức năng</th>
+                              @endcan
                             </tr>
                           </thead>
                           <tbody>
@@ -147,10 +151,12 @@
                                 <td>{{$cty->name_city}}</td>
                                 <td>{{$cty->city_province}}</td>
                                 <td>{{$cty->price}}</td>
+                                @can('admin')
                                 <td>
                                   <a href="{{ route('edit_city_dashboard', ['id'=>$cty->id]) }}" class="btn btn-primary"><i class='bx bxs-edit'></i></a>
                                   <a onclick="return confirm('Bạn có chắc chắn xóa không?')"  href="{{ route('destroy_city', ['id'=>$cty->id]) }}" class="btn btn-danger"><i class='bx bx-trash-alt'></i></a>
                                 </td>
+                                @endcan
                               </tr>
                             @endforeach
                           </tbody>
@@ -166,6 +172,7 @@
                   <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Province / </span>Danh sách Tỉnh lẻ</h4>
                   <div class="card mb-4">
                     <div class="card-body">
+                      @can('admin')
                       <form action="{{ route('add_province') }}" method="POST">
                         @csrf
                         <div class="mb-3">
@@ -179,6 +186,7 @@
                         </div>
                         <button type="submit" class="btn btn-success">Thêm</button>
                       </form>
+                      @endcan
                       <div class="table-responsive text-nowrap mt-4">
                         <table class="table table-hover table-dark">
                           <thead>
@@ -186,7 +194,9 @@
                               <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>
                               <th style="color: rgb(231, 171, 6);font-size: 14px">Mã tỉnh</th>
                               <th style="color: rgb(231, 171, 6);font-size: 14px">Tên tỉnh</th>
+                              @can('admin')
                               <th style="color: rgb(231, 171, 6);font-size: 14px">Chức năng</th>
+                              @endcan
                             </tr>
                           </thead>
                           <tbody>
@@ -195,10 +205,12 @@
                               <th scope="row">{{$key +1}}</th>
                               <td>{{$pro->id}}</td>
                               <td>{{$pro->name_province}}</td>
+                              @can('admin')
                               <td>
                                 <a href="{{ route('edit_province_dashboard', ['id'=>$pro->id]) }}" class="btn btn-primary"><i class='bx bxs-edit'></i></a>
                                 <a onclick="return confirm('Bạn có chắc chắn xóa không?')"  href="{{ route('destroy_province', ['id'=>$pro->id]) }}" class="btn btn-danger"><i class='bx bx-trash-alt'></i></a>
                               </td>
+                              @endcan
                             </tr>
                             @endforeach
                           </tbody>

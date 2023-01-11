@@ -88,9 +88,11 @@
             <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
               <h4 class="fw-bold py-3 mb-4">Bảng lương nhân viên</h4>
+              @can('admin')
               <div class="mt-3 ms-3">
                 <a href="{{ route('reset_salary') }}" onclick="return confirm('Bạn có chắc chắn làm mới lịch không?')" class="btn btn-sm btn-warning">Làm mới</a>
               </div>
+              @endcan
               <div class="card">
                 <div class="card-body">
                     <div class="table-responsive text-nowrap">

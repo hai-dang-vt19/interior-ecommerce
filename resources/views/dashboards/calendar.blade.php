@@ -241,9 +241,11 @@
                     </div>
                   </div>
                 </div>
+                @can('admin_manager')
                 <div class="mt-3 ms-3">
                   <a href="{{ route('reset_calendar') }}" onclick="return confirm('Bạn có chắc chắn làm mới lịch không?')" class="btn btn-sm btn-warning">Làm mới</a>
                 </div>
+                @endcan
               </div>
               <div class="card mb-3 d-flex">
                 <div class="d-flex justify-content-center m-1">

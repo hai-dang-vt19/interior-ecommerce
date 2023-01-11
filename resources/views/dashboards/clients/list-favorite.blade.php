@@ -90,35 +90,32 @@
                     <thead>
                       <tr>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Mã yêu thích</th>
+                        <th style="color: rgb(231, 171, 6);font-size: 14px">Mã khách hàng</th>
+                        <th style="color: rgb(231, 171, 6);font-size: 14px">Mã sản phẩm</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Tên sản phẩm</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Loại sản phẩm</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Màu sắc</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Trạng thái</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Giá tiền</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Hình ảnh</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Mô tả</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Nhà sản xuất</th>
+                        <th style="color: rgb(231, 171, 6);font-size: 14px">Trạng thái</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Chức năng</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <th scope="row">key + 1</th>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                      </tr>
+                      @foreach ($favorite as $key => $favo)
+                        <tr>
+                          <th scope="row">{{ $key+1 }}</th>
+                          <td>{{ $favo->id_user }}</td>
+                          <td>{{ $favo->id_product }}</td>
+                          <td>{{ $favo->name_product }}</td>
+                          <td>{{ $favo->price }}</td>
+                          <td>{{ $favo->status_product }}</td>
+                          <td>Table cell</td>
+                        </tr>
+                      @endforeach
                     </tbody>
                   </table>
                 </div>
+              </div>
+              <div class="d-flex mt-3">
+                {{ $favorite->links() }}
               </div>
               <!--/ Responsive Table -->
             </div>

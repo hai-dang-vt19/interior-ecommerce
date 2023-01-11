@@ -237,6 +237,12 @@
                             $timeNow = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
                         @endphp
                         <input type="hidden" name="date" value="{{$product['date']}}">
+                        <div class="row mb-3 ">
+                          <label class="col-sm-2 col-form-label"></label>
+                          <div class="col-sm-10">
+                            <input type="checkbox" name="check_expense" value="1"/> Cập nhật số lượng vào chi phí
+                          </div>
+                        </div>
                         <div class="row justify-content-end">
                           <div class="col-sm-10">
                             <button type="submit" class="btn btn-success">Cập nhật</button>

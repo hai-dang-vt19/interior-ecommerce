@@ -33,13 +33,6 @@ class AuthServiceProvider extends ServiceProvider
                 return false;
             }
         });
-        Gate::define('dash-adm', function ($user){
-            if($user->name_roles == 'user'){
-                return false;
-            }else{
-                return true;
-            }
-        });
 
         Gate::define('admin', function($user){
             if ($user->name_roles == 'admin') {
@@ -51,6 +44,24 @@ class AuthServiceProvider extends ServiceProvider
         
         Gate::define('client_inte', function($user){
             if($user->name_roles == 'user'){
+                return true;
+            }else{
+                return false;
+            }
+        });
+
+        Gate::define('admin_manager_staff', function($user){
+            if($user->name_roles == 'user'){
+                return false;
+            }else{
+                return true;
+            }
+        });
+        
+        Gate::define('admin_manager', function($user){
+            if($user->name_roles == 'admin'){
+                return true;
+            }elseif($user->name_roles == 'manager'){
                 return true;
             }else{
                 return false;

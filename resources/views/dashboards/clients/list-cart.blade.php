@@ -92,30 +92,28 @@
                     <thead>
                       <tr>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>
+                        <th style="color: rgb(231, 171, 6);font-size: 14px">Mã giỏ</th>
+                        <th style="color: rgb(231, 171, 6);font-size: 14px">Mã sản phẩm </th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Tên sản phẩm</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Loại sản phẩm</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Màu sắc</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Số lượng</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Mã giảm giá</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Tổng tiền</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Trạng thái</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Hình ảnh</th>
+                        <th style="color: rgb(231, 171, 6);font-size: 14px">Giá sản phẩm</th>
+                        <th style="color: rgb(231, 171, 6);font-size: 14px">Giá Sales</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Chức năng</th>
                       </tr>
                     </thead>
                     <tbody>
+                      @foreach ($cart as $key => $crt)
                       <tr>
-                        <th scope="row">key + 1</th>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
+                        <th scope="row">{{ $key+1 }}</th>
+                        <td>{{ $crt->id_cart_user }}</td>
+                        <td>{{ $crt->id_product }}</td>
+                        <td>{{ $crt->name_product }}</td>
+                        <td>{{ $crt->amount_product }}</td>
+                        <td>{{number_format($crt->total )}} &#8363;</td>
+                        <td>{{number_format($crt->total_sales )}} &#8363;</td>
                         <td>Table cell</td>
                       </tr>
+                      @endforeach
                     </tbody>
                   </table>
                 </div>

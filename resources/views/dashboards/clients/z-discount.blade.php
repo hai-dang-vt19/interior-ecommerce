@@ -87,6 +87,7 @@
               <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Discount / </span>Danh sách mã giảm giá</h4>
               <!-- Responsive Table -->
               <div class="card">
+                @can('admin')
                 <div class="card-body">
                   <form action="{{ route('add_discount') }}" method="POST">
                     @csrf
@@ -129,6 +130,7 @@
                     </div>
                   </form>
                 </div>
+                @endcan
                 <div class="card-body">
                   <div>
                     <div class="table-responsive text-nowrap">
@@ -140,7 +142,9 @@
                             <th style="color: rgb(231, 171, 6);font-size: 14px">Tên mã giảm giá</th>
                             <th style="color: rgb(231, 171, 6);font-size: 14px">Giá tiền giảm</th>
                             <th style="color: rgb(231, 171, 6);font-size: 14px">Trạng thái</th>
+                            @can('admin')
                             <th style="color: rgb(231, 171, 6);font-size: 14px">Chức năng</th>
+                            @endcan
                           </tr>
                         </thead>
                         <tbody>
@@ -151,10 +155,12 @@
                             <td>{{$disc->name_discount}}</td>
                             <td>{{$disc->price}}</td>
                             <td>{{$disc->status_discount}}</td>
+                            @can('admin')
                             <td>
                               <a href="{{ route('edit_discount_dashboard', ['id'=>$disc->id]) }}" class="btn btn-primary"><i class='bx bxs-edit'></i></a>
                               <a onclick="return confirm('Bạn có chắc chắn xóa không?')"  href="{{ route('destroy_discount', ['id'=>$disc->id]) }}" class="btn btn-danger"><i class='bx bx-trash-alt'></i></a>
                             </td>
+                            @endcan
                           </tr>
                           @endforeach
                         </tbody>

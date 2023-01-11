@@ -27,9 +27,12 @@ class interiorPostController extends Controller
                 if(Auth::user()->name_roles == 'user'){
                     session()->flash('login-sc', 'Đăng nhập thành công')    ;
                     return redirect(route('index'));
-                }else{
+                }elseif(Auth::user()->name_roles == 'admin'){
                     session()->flash('login-sc', 'Đăng nhập thành công');
                     return redirect(route('index_dashboard'));
+                }else{
+                    session()->flash('login-sc', 'Đăng nhập thành công');
+                    return redirect(route('bill_dashboad'));
                 }
             } else {
                 return false;
