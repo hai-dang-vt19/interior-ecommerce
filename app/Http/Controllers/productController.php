@@ -76,7 +76,6 @@ class productController extends Controller
         }
 
         // lấy giá vật liệu để thêm vào expense (giá x số lượng)
-        $expense_material = $amount*$get_pm;
         $get_year = Carbon::now('Asia/Ho_Chi_Minh')->year;
         $old_expense = expense::where('years',$get_year)->get('expense_material');
         foreach($old_expense as $old_expen){

@@ -15,6 +15,7 @@ use App\Models\province;
 use App\Models\city;
 use App\Models\color;
 use App\Models\comments;
+use App\Models\expense;
 use App\Models\favorite;
 use App\Models\history;
 use App\Models\supplier;
@@ -43,8 +44,83 @@ class interiorController extends Controller
     public function index_dashboard()
     {
         $today = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
-        $sum_bill = bill::all()->where('date_create',$today)->sum('total');
-        return view('dashboards.index-dashboard', compact('sum_bill'));
+        $bill = bill::all();
+
+        $expense = expense::all();
+        $expense_material = $expense->where('years',Carbon::now('Asia/Ho_Chi_Minh')->year);
+        foreach($expense_material as $exp_mate){
+            $material = $exp_mate->expense_material;
+            $get_year = $exp_mate->years;
+        }
+        $expense_salary = $expense->where('years',Carbon::now('Asia/Ho_Chi_Minh')->year);
+        foreach($expense_salary as $exp_sala){
+            $salary = $exp_sala->expense_salary;
+        }
+        // Lợi nhuận trước thuế = Tổng doanh thu - Chi phí cố định - Chi phí phát sinh(Chưa sử dụng)
+        $sum_mate_sala = $material+$salary; // Chi phí cố định
+        $sum_bill_ln = $bill->where('date_create',$get_year);
+        $s_amount = $sum_bill_ln->sum('amount');
+        $s_price = $sum_bill_ln->sum('price');
+        $sum_bill_ln_2 = $s_amount*$s_price; //Tổng doanh thu
+        $total_expense = $sum_bill_ln_2-$sum_mate_sala;
+
+        
+        // dd($strlen_te);
+
+        $sum_today = $bill->where('date_create',$today);
+
+        $sba_1 = $sum_today->where('method','ATM')->sum('amount');
+        $sba_2 = $sum_today->where('method','ATM')->sum('price');
+        $sum_bill_atm = $sba_1*$sba_2; //1
+
+        $sbs_1 = $sum_today->where('method','STORE')->sum('amount');
+        $sbs_2 = $sum_today->where('method','STORE')->sum('price');
+        $sum_bill_store = $sbs_1*$sbs_2; //2
+
+        $sbc_1 = $sum_today->where('method','COD')->sum('amount');
+        $sbc_2 = $sum_today->where('method','COD')->sum('price');
+        $sum_bill_cod = $sbc_1*$sbc_2; //3
+
+        $sum_bill = $sum_bill_atm+$sum_bill_store+$sum_bill_cod;
+        
+        $old_day = Carbon::now('Asia/Ho_Chi_Minh')->subDays(1)->toDateString();
+        $od_ = $bill->where('date_create',$old_day);
+
+        $sba_o1 = $od_->where('method','ATM')->sum('amount');
+        $sba_o2 = $od_->where('method','ATM')->sum('price');
+        $sum_bill_atm_o = $sba_o1*$sba_o2; //1
+
+        $sbs_o1 = $od_->where('method','STORE')->sum('amount');
+        $sbs_02 = $od_->where('method','STORE')->sum('price');
+        $sum_bill_store_o = $sbs_o1*$sbs_02; //2
+
+        $sbc_o1 = $od_->where('method','COD')->sum('amount');
+        $sbc_o2 = $od_->where('method','COD')->sum('price');
+        $sum_bill_cod_o = $sbc_o1*$sbc_o2;  //3
+
+        $rate_sba = $sum_bill_atm-$sum_bill_atm_o;
+        $rate_sbs = $sum_bill_store-$sum_bill_store_o;
+        $rate_sbc = $sum_bill_cod-$sum_bill_cod_o;
+        // $rate_sba = (($sum_bill_atm-$sum_bill_atm_o)/$sum_bill_atm_o)*100;
+        // $rate_sbs = (($sum_bill_store-$sum_bill_store_o)/$sum_bill_store_o)*100;
+        // $rate_sbc = (($sum_bill_cod-$sum_bill_cod_o)/$sum_bill_cod_o)*100;
+        
+
+        // echo $sum_bill_ln_2.'-'.$sum_mate_sala.'='.$total_expense; return;
+        return view('dashboards.index-dashboard', compact(
+            'sum_bill','total_expense','sum_bill_atm','sum_bill_store','sum_bill_cod','rate_sba',
+            'rate_sbs','rate_sbc'
+        ));
+    }
+
+    public function create_bill_dashboard(Request $request)
+    {
+        $product_slt = product::all()->where('status','Còn hàng');
+        $data = $request->data;
+        $product = product::all()->where('id_product',$data);
+        $cart = cart::all()->where('id_cart_user','STORE-'.Auth::user()->user_id);
+        $sum_cart = cart::where('id_cart_user','STORE-'.Auth::user()->user_id)->sum('total_sales');
+        return view('dashboards.clients.new-bill', compact('product_slt','product','cart','sum_cart'));
     }
 
     public function product_dashboard()
@@ -274,11 +350,10 @@ class interiorController extends Controller
         return view('dashboards.clients.list-cart', compact('cart'));
     }
 
+
     public function comment_dashboard()
     {
-      
         $comment = comments::limit(8)->paginate(8);
-
         return view('dashboards.clients.z-comment', compact('comment'));
     }
 

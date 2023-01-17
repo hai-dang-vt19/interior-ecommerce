@@ -105,8 +105,9 @@
                         <div class="card-body">
                           <div class="card-title d-flex align-items-start justify-content-between">
                             <div class="avatar flex-shrink-0">
-                              <img src="{{ asset('dashboard/assets/img/icons/unicons/chart-success.png') }}" alt="Credit Card" class="rounded"
-                              />
+                              {{-- <img src="{{ asset('dashboard/assets/img/icons/unicons/chart-success.png') }}" alt="Credit Card" class="rounded"
+                              /> --}}
+                              <i class='bx bx-bar-chart bx-md text-success' ></i>
                             </div>
                             <div class="dropdown">
                               <button class="btn p-0" type="button" id="cardOpt6" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -120,8 +121,38 @@
                             </div>
                           </div>
                           <span>Lợi nhuận</span>
-                          <h3 class="card-title text-nowrap mb-1"> 4,679</h3>
-                          <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +28.42%</small>
+                          @php
+                            $strlen_te = strlen($total_expense); 
+                              if($strlen_te == 5){//chục nghìn
+                                  $subtr_ex = Str::substr($total_expense, 0, 2);
+                                  $total_expenses = number_format($subtr_ex).' nghìn';
+                              }elseif($strlen_te == 6){//trăm nghìn
+                                  $subtr_ex = Str::substr($total_expense, 0, 3);
+                                  $total_expenses = number_format($subtr_ex).' nghìn';
+                              }elseif($strlen_te == 7){//triệu
+                                  $subtr_ex = Str::substr($total_expense, 0, 1);
+                                  $total_expenses = number_format($subtr_ex).' triệu';
+                              }elseif($strlen_te == 8){//chục triệu
+                                  $subtr_ex = Str::substr($total_expense, 0, 2);
+                                  $total_expenses = number_format($subtr_ex).' triệu'; 
+                              }elseif($strlen_te == 9){//trăm triệu
+                                  $subtr_ex = Str::substr($total_expense, 0, 3);
+                                  $total_expenses = number_format($subtr_ex).' triệu';
+                              }else{//tỷ
+                                  $subtr_ex = Str::substr($total_expense, 0, 1);
+                                  $total_expenses= number_format($subtr_ex).' tỷ';
+                              }
+                          @endphp
+                          @if ($total_expense > 0)
+                            <h3 class="card-title text-nowrap mb-1"> {{ $total_expenses }}</h3>
+                            <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i></small>
+                          @elseif($total_expense < 0)
+                            <h3 class="card-title text-nowrap mb-1"> {{ $total_expenses }}</h3>
+                            <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i></small>
+                          @else
+                            <h3 class="card-title text-nowrap mb-1"> {{ $total_expenses }}</h3>
+                            <small class="text-decoration fw-semibold"><i class='bx bxs-analyse bx-spin'></i></small>
+                          @endif
                         </div>
                       </div>
                     </div>
@@ -130,8 +161,9 @@
                         <div class="card-body">
                           <div class="card-title d-flex align-items-start justify-content-between">
                             <div class="avatar flex-shrink-0">
-                              <img src="{{ asset('dashboard/assets/img/icons/unicons/wallet-info.png') }}" alt="Credit Card" class="rounded"
-                              />
+                              {{-- <img src="{{ asset('dashboard/assets/img/icons/unicons/wallet-info.png') }}" alt="Credit Card" class="rounded" --}}
+                              {{-- /> --}}
+                              <i class='bx bx-car bx-md text-danger'></i>
                             </div>
                             <div class="dropdown">
                               <button class="btn p-0" type="button" id="cardOpt6" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -144,9 +176,39 @@
                               </div>
                             </div>
                           </div>
-                          <span>Tiền mặt</span>
-                          <h3 class="card-title text-nowrap mb-1"> 4,679</h3>
-                          <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +28.42%</small>
+                          <span>COD</span>
+                          @php
+                            $strlen_sbc = strlen($sum_bill_cod); 
+                              if($strlen_sbc == 5){//chục nghìn
+                                  $subtr_c = Str::substr($sum_bill_cod, 0, 2);
+                                  $sum_bill_cod_ = number_format($subtr_c).' nghìn';
+                              }elseif($strlen_sbc == 6){//trăm nghìn
+                                  $subtr_c = Str::substr($sum_bill_cod, 0, 3);
+                                  $sum_bill_cod_ = number_format($subtr_c).' nghìn';
+                              }elseif($strlen_sbc == 7){//triệu
+                                  $subtr_c = Str::substr($sum_bill_cod, 0, 1);
+                                  $sum_bill_cod_ = number_format($subtr_c).' triệu';
+                              }elseif($strlen_sbc == 8){//chục triệu
+                                  $subtr_c = Str::substr($sum_bill_cod, 0, 2);
+                                  $sum_bill_cod_ = number_format($subtr_c).' triệu'; 
+                              }elseif($strlen_sbc == 9){//trăm triệu
+                                  $subtr_c = Str::substr($sum_bill_cod, 0, 3);
+                                  $sum_bill_cod_ = number_format($subtr_c).' triệu';
+                              }else{//tỷ
+                                  $subtr_c = Str::substr($sum_bill_cod, 0, 1);
+                                  $sum_bill_cod_= number_format($subtr_c).' tỷ';
+                              }
+                          @endphp
+                          @if ($rate_sbc > 0)
+                            <h3 class="card-title text-nowrap mb-1"> {{ $sum_bill_cod_ }}</h3>
+                            <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +{{ number_format($rate_sbc) }} &#8363;</small>
+                          @elseif($rate_sbc < 0)
+                            <h3 class="card-title text-nowrap mb-1"> {{ $sum_bill_cod_ }}</h3>
+                            <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i> {{ number_format($rate_sbc) }} &#8363;</small>
+                          @else
+                            <h3 class="card-title text-nowrap mb-1"> {{ $sum_bill_cod_ }}</h3>
+                            <small class="text-decoration fw-semibold"><i class='bx bxs-analyse bx-spin' ></i> {{ number_format($rate_sbc) }} &#8363;</small>
+                          @endif
                         </div>
                       </div>
                     </div>
@@ -211,7 +273,9 @@
                         <div class="card-body">
                           <div class="card-title d-flex align-items-start justify-content-between">
                             <div class="avatar flex-shrink-0">
-                              <img src="{{ asset('dashboard/assets/img/icons/unicons/paypal.png') }}" alt="Credit Card" class="rounded" />
+                              {{-- <img src="{{ asset('dashboard/assets/img/icons/unicons/paypal.png') }}" alt="Credit Card" class="rounded" /> --}}
+                              {{-- <i class='bx bx-qr'></i> --}}
+                              <i class='bx bx-store bx-md text-warning' ></i>
                             </div>
                             <div class="dropdown">
                               <button class="btn p-0" type="button" id="cardOpt4" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -224,9 +288,17 @@
                               </div>
                             </div>
                           </div>
-                          <span class="d-block mb-1">Payments</span>
-                          <h3 class="card-title text-nowrap mb-2"> 2,456</h3>
-                          <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i> -14.82%</small>
+                          <span class="fw-semibold d-block mb-1">STORE</span>
+                          @if ($rate_sbs > 0)
+                            <h3 class="card-title text-nowrap mb-1"> {{ number_format($sum_bill_store) }}</h3>
+                            <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +{{ number_format($rate_sbs) }} &#8363;</small>
+                          @elseif($rate_sbs < 0)
+                            <h3 class="card-title text-nowrap mb-1"> {{ number_format($sum_bill_store) }}</h3>
+                            <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i> {{ number_format($rate_sbs) }} &#8363;</small>
+                          @else
+                            <h3 class="card-title text-nowrap mb-1"> {{ number_format($sum_bill_store) }}</h3>
+                            <small class="text-decoration fw-semibold"><i class='bx bxs-analyse bx-spin' ></i>  {{ number_format($rate_sbs) }} &#8363;</small>
+                          @endif
                         </div>
                       </div>
                     </div>
@@ -235,7 +307,8 @@
                         <div class="card-body">
                           <div class="card-title d-flex align-items-start justify-content-between">
                             <div class="avatar flex-shrink-0">
-                              <img src="{{ asset('dashboard/assets/img/icons/unicons/cc-primary.png') }}" alt="Credit Card" class="rounded" />
+                              {{-- <img src="{{ asset('dashboard/assets/img/icons/unicons/cc-primary.png') }}" alt="Credit Card" class="rounded" /> --}}
+                              <i class='bx bx-credit-card bx-md text-primary' ></i>
                             </div>
                             <div class="dropdown">
                               <button class="btn p-0" type="button" id="cardOpt1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -248,9 +321,17 @@
                               </div>
                             </div>
                           </div>
-                          <span class="fw-semibold d-block mb-1">Giao dịch</span>
-                          <h3 class="card-title mb-2"> 14,857</h3>
-                          <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +28.14%</small>
+                          <span class="fw-semibold d-block mb-1">ATM</span>
+                          @if ($rate_sba > 0)
+                            <h3 class="card-title text-nowrap mb-1"> {{ number_format($sum_bill_atm) }}</h3>
+                            <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +{{ number_format($rate_sba) }} &#8363;</small>
+                          @elseif($rate_sba < 0)
+                            <h3 class="card-title text-nowrap mb-1"> {{ number_format($sum_bill_atm) }}</h3>
+                            <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i> {{ number_format($rate_sba) }} &#8363;</small>
+                          @else
+                            <h3 class="card-title text-nowrap mb-1"> {{ number_format($sum_bill_atm) }}</h3>
+                            <small class="text-decoration fw-semibold"><i class='bx bxs-analyse bx-spin' ></i> {{ number_format($rate_sba) }} &#8363;</small>
+                          @endif
                         </div>
                       </div>
                     </div>
@@ -412,6 +493,7 @@
                           <div class="d-flex p-4 pt-3">
                             <div class="avatar flex-shrink-0 me-3">
                               <img src="{{ asset('dashboard/assets/img/icons/unicons/wallet.png') }}" alt="User" />
+                              
                             </div>
                             <div>
                               <small class="text-muted d-block">Tổng số dư</small>

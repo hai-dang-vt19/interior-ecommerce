@@ -85,6 +85,26 @@
             <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
               <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Đơn hàng / </span>Danh sách đơn hàng</h4>
+
+              <div class="mb-4 d-flex">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class='bx bx-message-square-add'></i> Chọn sản phẩm
+                  </button>
+                  <ul class="dropdown-menu">
+                    @foreach ($product as $pro)
+                      <li><a class="dropdown-item" href="{{ route('create_bill_dashboard', ['data'=>$pro->id_product]) }}">{{$pro->id_product}}</a></li>    
+                    @endforeach
+                  </ul>
+                </div>
+                <form action="{{ route('create_bill_dashboard') }}" method="GET">
+                  <div class="d-flex ms-5">
+                      <input type="text" class="form-control me-1" value="ICS" name="data" placeholder="Nhập mã">
+                      <Button class="btn btn-outline-secondary">Check</Button>
+                  </div>
+                </form>
+              </div>
+
               <!-- Responsive Table -->
               <div class="card">
                 <div class="nav-align-top">
@@ -241,6 +261,16 @@
                 icon: "success",
                 button: "OK",
                 timer: 1000,
+              });
+        </script>
+      @endif
+      @if (session()->has('pay_sc'))
+        <script>
+          swal({
+                title: "{{session()->get('pay_sc')}}",
+                icon: "success",
+                button: "OK",
+                timer: 2000,
               });
         </script>
       @endif

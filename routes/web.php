@@ -30,6 +30,10 @@ Route::get('/notsIn', [interiorController::class, 'cod403'])->name('cod403');
 //----------------------------------dashboard------------------------------------------------------------
 Route::get('/dashboard-interior', [interiorController::class,'index_dashboard'])->middleware(['can:admin','auth'])->name('index_dashboard');
 
+Route::get('/new-bill', [interiorController::class, 'create_bill_dashboard'])->middleware('can:admin_manager_staff','auth')->name('create_bill_dashboard');
+Route::post('/new-bill-post', [checkoutContorller::class, 'up_to_cart_dashboard'])->middleware('can:admin_manager_staff','auth')->name('up_to_cart_dashboard');
+Route::get('/destroy-card-dashboard/{id}', [checkoutContorller::class, 'drestroy_cart_dashboad'])->middleware('can:admin_manager_staff')->name('drestroy_cart_dashboad');
+
 Route::get('/dashboard-product', [interiorController::class, 'product_dashboard'])->middleware(['can:admin_manager','auth'])->name('product_dashboard');
 Route::get('/dashboard-product/{id}', [interiorController::class, 'product_dashboard2'])->middleware(['can:admin_manager','auth'])->name('product_dashboard2');
 Route::post('/dashboard-add-product', [productController::class, 'add_product'])->middleware(['can:admin_manager','auth'])->name('add_product');
@@ -159,6 +163,12 @@ Route::get('/dashboard-hangden-bill', [checkoutContorller::class, 'bill_hangden_
 Route::get('/dashboard-thanhcong-bill', [checkoutContorller::class, 'bill_thanhcong_dashboad'])->middleware(['can:admin_manager_staff','auth'])->name('bill_thanhcong_dashboad');
 Route::get('/dashboad-up-bill', [checkoutContorller::class, 'up_bill_dashboad'])->middleware(['can:admin_manager_staff','auth'])->name('up_bill_dashboad');
 Route::get('/dashboad-up-bill-vc', [checkoutContorller::class, 'up_bill_vanchuyen'])->middleware(['can:admin_manager_staff','auth'])->name('up_bill_vanchuyen');
+
+Route::get('/checkout-user', [interiorController::class, 'checkout_dash_store'])->middleware('can:admin_manager_staff','auth')->name('checkout_dash_store');
+Route::post('/checkout-atm/db', [checkoutContorller::class, 'vnpay_payment_atm_dashboard'])->name('vnpay_payment_atm_dashboard');
+Route::post('/checkout-qr/db', [checkoutContorller::class, 'vnpay_payment_qr_dashboard'])->name('vnpay_payment_qr_dashboard');
+Route::get('/return-db', [checkoutContorller::class, 'return_db'])->name('return_db');
+Route::post('/update-after-pay',[checkoutContorller::class,'update_after_pay'])->name('update_after_pay');
 
 // ---- user
 Route::get('/interior-index', [interiorController::class,'index'])->name('index');
