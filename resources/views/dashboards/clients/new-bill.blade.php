@@ -176,24 +176,6 @@
                             <button type="submit" class="btn btn-success">Thêm vào giỏ<i class='bx bxs-cart-add ms-2'></i></button>
                           </div>
                         </div>
-                        {{-- <div class="row mb-3 d-flex">
-                          <div id="accordionIcon" class="accordion mt-3 accordion-without-arrow col-sm-5">
-                            <div class="accordion-item card">
-                              <h2 class="accordion-header text-body d-flex justify-content-between" id="accordionIconTwo">
-                                <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordionIcon-2" aria-controls="accordionIcon-2">
-                                  <input type="text" class="form-control"  name="amount_product" placeholder="Số lượng"/>
-                                </button>
-                              </h2>
-                              <div id="accordionIcon-2" class="accordion-collapse collapse" data-bs-parent="#accordionIcon">
-                                <div class="accordion-body d-flex">
-                                  <input type="text" class="form-control me-1"  name="amount_product" placeholder="Tên khách hàng"/>
-                                  <input type="text" class="form-control me-1"  name="amount_product" placeholder="Số điện thoại"/>
-                                  <button type="submit" class="btn btn-success"><i class='bx bxs-cart-add'></i></button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div> --}}
                       </form>
                     </div>
                   </div>
@@ -242,9 +224,9 @@
                     <ul class="dropdown-menu">
                       <li>
                         <div class="dropdown-item">
-                          <form action="" method="POST">
+                          <form action="{{ route('pay_store') }}" method="POST">
                             @csrf
-                            <input type="hidden" name="" value="">
+                            <input type="hidden" name="total_store" value="{{ $sum_cart }}">
                             <button style="border: none; background-color: #ffffff" name="redirect">Tiền mặt</button>
                           </form>
                         </div>

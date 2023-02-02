@@ -94,7 +94,7 @@
                   <div class="card mb-4">
                     <div class="card-header d-flex align-items-center justify-content-between mb-3" style="border-bottom: 3px dashed #F5F5F9">
                         <div class="d-flex">
-                            <a href="{{ route('create_bill_dashboard') }}" class="btn btn-danger">BACK</a>
+                            <a href="{{ route('destroy_bill_dashboard', ['id_bill'=>$id_bill_]) }}" class="btn btn-danger">Hủy</a>
                         </div>
                       <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
                     </div>

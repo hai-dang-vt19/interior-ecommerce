@@ -26,6 +26,38 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('dashboard/assets/js/config.js') }}"></script>
+    
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Năm', 'ATM', 'STORE', 'COD'],
+          // ['2014', 1000, 400, 200],
+          // ['2015', 1170, 460, 250],
+          // ['2016', 660, 1120, 300],
+          // ['2017', 1030, 540, 350]
+          <?php echo $charts_0;?>
+          <?php echo $charts_1;?>
+          <?php echo $charts_2;?>
+        ]);
+
+        var options = {
+          chart: {
+            title: 'Doanh thu các năm gần nhất',
+            subtitle: '', // tưi điền nếu muốn
+          },
+          bars: 'horizontal' // Required for Material Bar Charts.
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('barchart_material'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+    </script>
+
   </head>
 
   <body>
@@ -121,7 +153,7 @@
                             </div>
                           </div>
                           <span>Lợi nhuận</span>
-                          @php
+                          {{-- @php
                             $strlen_te = strlen($total_expense); 
                               if($strlen_te == 5){//chục nghìn
                                   $subtr_ex = Str::substr($total_expense, 0, 2);
@@ -142,15 +174,15 @@
                                   $subtr_ex = Str::substr($total_expense, 0, 1);
                                   $total_expenses= number_format($subtr_ex).' tỷ';
                               }
-                          @endphp
+                          @endphp --}}
                           @if ($total_expense > 0)
-                            <h3 class="card-title text-nowrap mb-1"> {{ $total_expenses }}</h3>
+                            <h3 class="card-title text-nowrap mb-1"> {{number_format( $total_expense )}}</h3>
                             <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i></small>
                           @elseif($total_expense < 0)
-                            <h3 class="card-title text-nowrap mb-1"> {{ $total_expenses }}</h3>
+                            <h3 class="card-title text-nowrap mb-1"> {{number_format( $total_expense )}}</h3>
                             <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i></small>
                           @else
-                            <h3 class="card-title text-nowrap mb-1"> {{ $total_expenses }}</h3>
+                            <h3 class="card-title text-nowrap mb-1"> {{number_format( $total_expense )}}</h3>
                             <small class="text-decoration fw-semibold"><i class='bx bxs-analyse bx-spin'></i></small>
                           @endif
                         </div>
@@ -163,7 +195,7 @@
                             <div class="avatar flex-shrink-0">
                               {{-- <img src="{{ asset('dashboard/assets/img/icons/unicons/wallet-info.png') }}" alt="Credit Card" class="rounded" --}}
                               {{-- /> --}}
-                              <i class='bx bx-car bx-md text-danger'></i>
+                              <i class='bx bx-car bx-md text-warning'></i>
                             </div>
                             <div class="dropdown">
                               <button class="btn p-0" type="button" id="cardOpt6" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -180,14 +212,13 @@
                           @php
                             $strlen_sbc = strlen($sum_bill_cod); 
                               if($strlen_sbc == 5){//chục nghìn
-                                  $subtr_c = Str::substr($sum_bill_cod, 0, 2);
-                                  $sum_bill_cod_ = number_format($subtr_c).' nghìn';
+                                  $sum_bill_cod_ = number_format($sum_bill_cod);
+                              }elseif($strlen_sbc == 1){
+                                  $sum_bill_cod_ = number_format($sum_bill_cod);
                               }elseif($strlen_sbc == 6){//trăm nghìn
-                                  $subtr_c = Str::substr($sum_bill_cod, 0, 3);
-                                  $sum_bill_cod_ = number_format($subtr_c).' nghìn';
+                                  $sum_bill_cod_ = number_format($sum_bill_cod);
                               }elseif($strlen_sbc == 7){//triệu
-                                  $subtr_c = Str::substr($sum_bill_cod, 0, 1);
-                                  $sum_bill_cod_ = number_format($subtr_c).' triệu';
+                                  $sum_bill_cod_ = number_format($sum_bill_cod);
                               }elseif($strlen_sbc == 8){//chục triệu
                                   $subtr_c = Str::substr($sum_bill_cod, 0, 2);
                                   $sum_bill_cod_ = number_format($subtr_c).' triệu'; 
@@ -219,48 +250,9 @@
                   <div class="card">
                     <div class="row row-bordered g-0">
                       <div class="col-md-8">
-                        <h5 class="card-header m-0 me-2 pb-3">Tổng doanh thu</h5>
-                        <div id="totalRevenueChart" class="px-2"></div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="card-body">
-                          <div class="text-center">
-                            <div class="dropdown">
-                              <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" id="growthReportId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                              >
-                                2022
-                              </button>
-                              <div class="dropdown-menu dropdown-menu-end" aria-labelledby="growthReportId">
-                                <a class="dropdown-item" href="javascript:void(0);">2021</a>
-                                <a class="dropdown-item" href="javascript:void(0);">2020</a>
-                                <a class="dropdown-item" href="javascript:void(0);">2019</a>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div id="growthChart"></div>
-                        <div class="text-center fw-semibold pt-3 mb-2">Tăng trưởng 62%</div>
-
-                        <div class="d-flex px-xxl-4 px-lg-2 p-4 gap-xxl-3 gap-lg-1 gap-3 justify-content-between">
-                          <div class="d-flex">
-                            <div class="me-2">
-                              <span class="badge bg-label-primary p-2"><i class="bx bx-dollar text-primary"></i></span>
-                            </div>
-                            <div class="d-flex flex-column">
-                              <small>2022</small>
-                              <h6 class="mb-0"> 32.5k</h6>
-                            </div>
-                          </div>
-                          <div class="d-flex">
-                            <div class="me-2">
-                              <span class="badge bg-label-info p-2"><i class="bx bx-wallet text-info"></i></span>
-                            </div>
-                            <div class="d-flex flex-column">
-                              <small>2021</small>
-                              <h6 class="mb-0"> 41.2k</h6>
-                            </div>
-                          </div>
-                        </div>
+                        
+                        <div id="barchart_material" class="px-2 mt-3 mb-5" style="width: 800px; height: 310px;"></div>{{-- Biểu đồ --}}
+                        {{-- <div id="totalRevenueChart" class="px-2"></div> --}}
                       </div>
                     </div>
                   </div>
@@ -275,7 +267,7 @@
                             <div class="avatar flex-shrink-0">
                               {{-- <img src="{{ asset('dashboard/assets/img/icons/unicons/paypal.png') }}" alt="Credit Card" class="rounded" /> --}}
                               {{-- <i class='bx bx-qr'></i> --}}
-                              <i class='bx bx-store bx-md text-warning' ></i>
+                              <i class='bx bx-store bx-md text-danger' ></i>
                             </div>
                             <div class="dropdown">
                               <button class="btn p-0" type="button" id="cardOpt4" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -289,14 +281,35 @@
                             </div>
                           </div>
                           <span class="fw-semibold d-block mb-1">STORE</span>
+                          @php
+                            $strlen_sbs = strlen($sum_bill_store); 
+                              if($strlen_sbs == 5){//chục nghìn
+                                $sum_bill_store_ = number_format($sum_bill_store);
+                              }elseif($strlen_sbs == 1){
+                                  $sum_bill_store_ = number_format($sum_bill_store);
+                              }elseif($strlen_sbs == 6){//trăm nghìn
+                                  $sum_bill_store_ = number_format($sum_bill_store);
+                              }elseif($strlen_sbs == 7){//triệu
+                                  $sum_bill_store_ = number_format($sum_bill_store);
+                              }elseif($strlen_sbs == 8){//chục triệu
+                                  $subtr_s = Str::substr($sum_bill_store, 0, 2);
+                                  $sum_bill_store_ = number_format($subtr_s).' triệu'; 
+                              }elseif($strlen_sbs == 9){//trăm triệu
+                                  $subtr_s = Str::substr($sum_bill_store, 0, 3);
+                                  $sum_bill_store_ = number_format($subtr_s).' triệu';
+                              }else{//tỷ
+                                  $subtr_s = Str::substr($sum_bill_store, 0, 1);
+                                  $sum_bill_store_= number_format($subtr_s).' tỷ';
+                              }
+                          @endphp
                           @if ($rate_sbs > 0)
-                            <h3 class="card-title text-nowrap mb-1"> {{ number_format($sum_bill_store) }}</h3>
+                            <h3 class="card-title text-nowrap mb-1"> {{ $sum_bill_store_ }}</h3>
                             <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +{{ number_format($rate_sbs) }} &#8363;</small>
                           @elseif($rate_sbs < 0)
-                            <h3 class="card-title text-nowrap mb-1"> {{ number_format($sum_bill_store) }}</h3>
+                            <h3 class="card-title text-nowrap mb-1"> {{ $sum_bill_store_ }}</h3>
                             <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i> {{ number_format($rate_sbs) }} &#8363;</small>
                           @else
-                            <h3 class="card-title text-nowrap mb-1"> {{ number_format($sum_bill_store) }}</h3>
+                            <h3 class="card-title text-nowrap mb-1"> {{ $sum_bill_store_ }}</h3>
                             <small class="text-decoration fw-semibold"><i class='bx bxs-analyse bx-spin' ></i>  {{ number_format($rate_sbs) }} &#8363;</small>
                           @endif
                         </div>
@@ -322,6 +335,27 @@
                             </div>
                           </div>
                           <span class="fw-semibold d-block mb-1">ATM</span>
+                          {{-- @php
+                            $strlen_sba = strlen($sum_bill_atm); 
+                              if($strlen_sba == 5){//chục nghìn
+                                  $sum_bill_atm_ = number_format($sum_bill_atm);
+                              }elseif($strlen_sba == 1){
+                                  $sum_bill_atm_ = number_format($sum_bill_atm);
+                              }elseif($strlen_sba == 6){//trăm nghìn
+                                  $sum_bill_atm_ = number_format($sum_bill_atm);
+                              }elseif($strlen_sba == 7){//triệu
+                                  $sum_bill_atm_ = number_format($sum_bill_atm);
+                              }elseif($strlen_sba == 8){//chục triệu
+                                  $subtr_a = Str::substr($sum_bill_atm, 0, 2);
+                                  $sum_bill_atm_ = number_format($subtr_a).' triệu'; 
+                              }elseif($strlen_sba == 9){//trăm triệu
+                                  $subtr_a = Str::substr($sum_bill_atm, 0, 3);
+                                  $sum_bill_atm_ = number_format($subtr_a).' triệu';
+                              }else{//tỷ
+                                  $subtr_a = Str::substr($sum_bill_atm, 0, 1);
+                                  $sum_bill_atm_= number_format($subtr_a).' tỷ';
+                              }
+                          @endphp --}}
                           @if ($rate_sba > 0)
                             <h3 class="card-title text-nowrap mb-1"> {{ number_format($sum_bill_atm) }}</h3>
                             <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +{{ number_format($rate_sba) }} &#8363;</small>
@@ -341,17 +375,18 @@
                           <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
                             <div class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
                               <div class="card-title">
-                                <h5 class="text-nowrap mb-2">Báo cáo hố sơ</h5>
-                                <span class="badge bg-label-warning rounded-pill">Year 2021</span>
+                                <h5 class="text-nowrap mb-2">Tổng tiền {{ $get_year }}</h5>
+                                <span class="badge bg-label-warning rounded-pill">Year {{ $get_year }}</span>
                               </div>
                               <div class="mt-sm-auto">
                                 <small class="text-success text-nowrap fw-semibold"
                                   ><i class="bx bx-chevron-up"></i> 68.2%</small
                                 >
-                                <h3 class="mb-0"> 84,686k</h3>
+                                <h3 class="mb-0"> {{ number_format($sum_bill_y) }} &#8363;</h3>
                               </div>
                             </div>
-                            <div id="profileReportChart"></div>
+                            <div id="curve_chart" style="width: 200px; height: 112px"></div>
+                            {{-- <div id="profileReportChart"></div> --}}
                           </div>
                         </div>
                       </div>

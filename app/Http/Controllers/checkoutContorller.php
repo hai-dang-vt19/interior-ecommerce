@@ -55,24 +55,29 @@ class checkoutContorller extends Controller
                     }else{
                         $price_all = $crt->sales;
                     }
-                    bill::create([
-                        'id_bill'=>$vnp_TxnRef,
-                        'id_product'=>$crt->id_product,
-                        'name_product'=>$crt->name_product,
-                        'amount'=>$crt->amount_product,
-                        'price'=>$price_all,
-                        'username'=>Auth::user()->name,
-                        'email'=>Auth::user()->email,
-                        'phone'=>Auth::user()->phone,
-                        'date_create'=>Carbon::now('Asia/Ho_Chi_Minh')->toDateString(),
-                        'method'=>$vnp_CardType,
-                        'bank'=>$vnp_BankCode,
-                        'code_bank'=>$vnp_BankTranNo,
-                        'code_vnpay'=>$vnp_TransactionNo,
-                        'address'=>Auth::user()->district.', '.Auth::user()->city.', '.Auth::user()->province,
-                        'total'=>$vnp_Amount,
-                        'status_product_bill'=>'Xử lý'
-                    ]);
+                    $pr_service = city::where('name_city',Auth::user()->city)->get();
+                    foreach($pr_service as $price_service){
+                        bill::create([
+                            'id_bill'=>$vnp_TxnRef,
+                            'id_product'=>$crt->id_product,
+                            'name_product'=>$crt->name_product,
+                            'amount'=>$crt->amount_product,
+                            'price'=>$price_all,
+                            'username'=>Auth::user()->name,
+                            'email'=>Auth::user()->email,
+                            'phone'=>Auth::user()->phone,
+                            'date_create'=>Carbon::now('Asia/Ho_Chi_Minh')->toDateString(),
+                            'year_create'=>Carbon::now('Asia/Ho_Chi_Minh')->year,
+                            'method'=>$vnp_CardType,
+                            'price_service'=>$price_service->price,
+                            'bank'=>$vnp_BankCode,
+                            'code_bank'=>$vnp_BankTranNo,
+                            'code_vnpay'=>$vnp_TransactionNo,
+                            'address'=>Auth::user()->district.', '.Auth::user()->city.', '.Auth::user()->province,
+                            'total'=>$vnp_Amount, // Xem lại
+                            'status_product_bill'=>'Xử lý'
+                        ]);
+                    }
                     cart::where('id_cart_user','CART_CS'.Auth::user()->user_id)->delete();
                 }
                 $get_data_for_bill = bill::all()->where('id_bill',$vnp_TxnRef);
@@ -150,24 +155,29 @@ class checkoutContorller extends Controller
                     }else{
                         $price_all = $crt->sales;
                     }
-                    bill::create([
-                        'id_bill'=>$vnp_TxnRef,
-                        'id_product'=>$crt->id_product,
-                        'name_product'=>$crt->name_product,
-                        'amount'=>$crt->amount_product,
-                        'price'=>$price_all,
-                        'username'=>Auth::user()->name,
-                        'email'=>Auth::user()->email,
-                        'phone'=>Auth::user()->phone,
-                        'date_create'=>Carbon::now('Asia/Ho_Chi_Minh')->toDateString(),
-                        'method'=>$vnp_CardType,
-                        'bank'=>$vnp_BankCode,
-                        'code_bank'=>$vnp_BankTranNo,
-                        'code_vnpay'=>$vnp_TransactionNo,
-                        'address'=>Auth::user()->district.', '.Auth::user()->city.', '.Auth::user()->province,
-                        'total'=>$vnp_Amount,
-                        'status_product_bill'=>'Xử lý'
-                    ]);
+                    $pr_service = city::where('name_city',Auth::user()->city)->get();
+                    foreach($pr_service as $price_service){
+                        bill::create([
+                            'id_bill'=>$vnp_TxnRef,
+                            'id_product'=>$crt->id_product,
+                            'name_product'=>$crt->name_product,
+                            'amount'=>$crt->amount_product,
+                            'price'=>$price_all,
+                            'username'=>Auth::user()->name,
+                            'email'=>Auth::user()->email,
+                            'phone'=>Auth::user()->phone,
+                            'date_create'=>Carbon::now('Asia/Ho_Chi_Minh')->toDateString(),
+                            'year_create'=>Carbon::now('Asia/Ho_Chi_Minh')->year,
+                            'method'=>$vnp_CardType,
+                            'price_service'=>$price_service->price,
+                            'bank'=>$vnp_BankCode,
+                            'code_bank'=>$vnp_BankTranNo,
+                            'code_vnpay'=>$vnp_TransactionNo,
+                            'address'=>Auth::user()->district.', '.Auth::user()->city.', '.Auth::user()->province,
+                            'total'=>$vnp_Amount,
+                            'status_product_bill'=>'Xử lý'
+                        ]);
+                    }
                     cart::where('id_cart_user','CART_CS'.Auth::user()->user_id)
                     ->where('id_product',$crt->id_product)
                     ->delete();
@@ -513,22 +523,28 @@ class checkoutContorller extends Controller
         $address= array_slice($request->address,0,$get_cart,true);
         $total = array_slice($request->total,0,$get_cart,true);
         $status_product_bill= array_slice($request->status_product_bill,0,$get_cart,true);
-        for($i=0;$i<$get_cart;$i++){ // Thêm thành công
-            bill::create([
-                'id_bill'=>$id_bill[$i],
-                'id_product'=>$id_product[$i],
-                'name_product'=>$name_product[$i],
-                'amount'=>$amount_product[$i],
-                'price'=>$price[$i],
-                'username'=>$username[$i],
-                'email'=>$email[$i],
-                'phone'=>$phone[$i],
-                'date_create'=>$date_create[$i],
-                'method'=>$method[$i],
-                'address'=>$address[$i],
-                'total'=>$total[$i],
-                'status_product_bill'=>$status_product_bill[$i]
-            ]);
+
+        $pr_service = city::where('name_city',Auth::user()->city)->get();
+        foreach($pr_service as $price_service){
+            for($i=0;$i<$get_cart;$i++){ // Thêm thành công
+                bill::create([
+                    'id_bill'=>$id_bill[$i],
+                    'id_product'=>$id_product[$i],
+                    'name_product'=>$name_product[$i],
+                    'amount'=>$amount_product[$i],
+                    'price'=>$price[$i],
+                    'username'=>$username[$i],
+                    'email'=>$email[$i],
+                    'phone'=>$phone[$i],
+                    'date_create'=>$date_create[$i],
+                    'year_create'=>Carbon::now('Asia/Ho_Chi_Minh')->year,
+                    'method'=>$method[$i],
+                    'price_service'=>$price_service->price[$i],
+                    'address'=>$address[$i],
+                    'total'=>$total[$i],
+                    'status_product_bill'=>$status_product_bill[$i]
+                ]);
+            }
         }
         cart::where('id_cart_user','CART_CS'.Auth::user()->user_id)->delete();
         session()->flash('check_cod_don','Đặt hàng thành công');
@@ -545,21 +561,26 @@ class checkoutContorller extends Controller
             }else{
                 $price_all = $crt->sales;
             }
-            bill::create([
-                'id_bill'=>'ICS0'.time().'COD',
-                'id_product'=>$crt->id_product,
-                'name_product'=>$crt->name_product,
-                'amount'=>$crt->amount_product,
-                'price'=>$price_all,
-                'username'=>Auth::user()->name,
-                'email'=>Auth::user()->email,
-                'phone'=>Auth::user()->phone,
-                'date_create'=>Carbon::now('Asia/Ho_Chi_Minh')->toDateString(),
-                'method'=>'COD',
-                'address'=>Auth::user()->district.', '.Auth::user()->city.', '.Auth::user()->province,
-                'total'=>$request->total_cod,
-                'status_product_bill'=>'Xử lý'
-            ]);
+            $pr_service = city::where('name_city',Auth::user()->city)->get();
+            foreach($pr_service as $price_service){
+                bill::create([
+                    'id_bill'=>'ICS0'.time().'COD',
+                    'id_product'=>$crt->id_product,
+                    'name_product'=>$crt->name_product,
+                    'amount'=>$crt->amount_product,
+                    'price'=>$price_all,
+                    'username'=>Auth::user()->name,
+                    'email'=>Auth::user()->email,
+                    'phone'=>Auth::user()->phone,
+                    'date_create'=>Carbon::now('Asia/Ho_Chi_Minh')->toDateString(),
+                    'year_create'=>Carbon::now('Asia/Ho_Chi_Minh')->year,
+                    'method'=>'COD',
+                    'price_service'=>$price_service->price,
+                    'address'=>Auth::user()->district.', '.Auth::user()->city.', '.Auth::user()->province,
+                    'total'=>$request->total_cod,
+                    'status_product_bill'=>'Xử lý'
+                ]);
+            }
             cart::where('id_cart_user','CART_CS'.Auth::user()->user_id)
             ->where('id_product', $request->id)
             ->delete();//chus ys xoas 1 thif caanf theem id sp
@@ -651,7 +672,6 @@ class checkoutContorller extends Controller
             session()->flash('er', 'Chưa nhập số lượng');
             return back();
         }
-
         $total_sales = $price_product*$amount_product; // Lưu vào biến total_sales
         $cart = cart::where('id_cart_user',$id_cart_user)->where('id_product',$id_product)->get();
 
@@ -695,6 +715,10 @@ class checkoutContorller extends Controller
     }
     public function vnpay_payment_atm_dashboard(Request $request)
     {
+        if($request->total_vnpay == 0){
+            session()->flash('er', 'Chưa có sản phẩm');
+            return back();
+        }
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
         // $vnp_Returnurl = "https://localhost/vnpay_php/vnpay_return.php";
         $vnp_Returnurl = "http://127.0.0.1:8000/return-db";
@@ -765,6 +789,10 @@ class checkoutContorller extends Controller
     }
     public function vnpay_payment_qr_dashboard(Request $request)
     {
+        if($request->total_vnpay == 0){
+            session()->flash('er', 'Chưa có sản phẩm');
+            return back();
+        }
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
         // $vnp_Returnurl = "https://localhost/vnpay_php/vnpay_return.php";
         $vnp_Returnurl = "http://127.0.0.1:8000/return-db";
@@ -877,6 +905,7 @@ class checkoutContorller extends Controller
                         'amount'=>$crt->amount_product,
                         'price'=>$crt->price_product,
                         'date_create'=>Carbon::now('Asia/Ho_Chi_Minh')->toDateString(),
+                        'year_create'=>Carbon::now('Asia/Ho_Chi_Minh')->year,
                         'method'=>$vnp_CardType,
                         'bank'=>$vnp_BankCode,
                         'code_bank'=>$vnp_BankTranNo,
@@ -911,10 +940,53 @@ class checkoutContorller extends Controller
             'username'=>$request->username,
             'phone'=>$request->phone,
             'address'=>$request->address,
-            'method'=>'STORE'
+            'method'=>'STORE',
+            'status_product_bill'=>'Xử lý'
         ]);
         cart::where('id_cart_user','STORE-'.Auth::user()->user_id)->delete();
+        $bill_amount = bill::all()->where('id_bill',$request->id_bill);
+        foreach($bill_amount as $bill_amt){
+            $amount = $bill_amt->amount;
+            $sum_old_amount = product::where('id_product', $bill_amt->id_product)->sum('amount');
+            $amount_new = $amount+$sum_old_amount;
+            product::where('id_product',$bill_amt->id_product)->update([
+                'amount'=>$amount_new
+            ]);
+        }
         session()->flash('pay_sc','Thanh  toán thành công');
         return redirect(route('bill_dashboad'));
+    }
+    public function destroy_bill_dashboard(Request $request)
+    {
+        bill::where('id_bill',$request->id_bill)->delete();
+        return redirect(route('create_bill_dashboard'));
+    }
+    public function pay_store(Request $request) 
+    {
+        $cart = cart::all()->where('id_cart_user','STORE-'.Auth::user()->user_id);
+        if($request->total_store == 0){
+            session()->flash('er', 'Chưa có sản phẩm');
+            return back();
+        }
+        foreach($cart as $crt){
+            bill::create([
+                'id_bill'=>'STORE-'.Auth::user()->user_id.time(),
+                'id_product'=>$crt->id_product,
+                'name_product'=>$crt->name_product,
+                'amount'=>$crt->amount_product,
+                'price'=>$crt->price_product,
+                'date_create'=>Carbon::now('Asia/Ho_Chi_Minh')->toDateString(),
+                'year_create'=>Carbon::now('Asia/Ho_Chi_Minh')->year,
+                'method'=>'STORE',
+                'total'=>$request->total_store,
+                'status_product_bill'=>'STOP'
+            ]);
+        }
+        $get_ = bill::where('status_product_bill','STOP')
+                        ->where('method','STORE')
+                        ->orderbydesc('id')->first('id_bill');
+        $id_bill_ = substr($get_, 12, -2);
+        $get_data_for_bill = bill::all()->where('id_bill',$id_bill_);
+        return view('dashboards.clients.new-bill-user', compact('get_data_for_bill','id_bill_'));
     }
 }
