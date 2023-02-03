@@ -90,6 +90,7 @@
                                                             <form action="{{ route('vnpay_payment_don_atm') }}" method="POST">
                                                                 @csrf
                                                                 <input type="hidden" value="{{$cart->total+$ct}}" name="total_vnpay">
+                                                                <input type="hidden" value="{{$cart->id_product}}" name="total_vnpay_idpr">
                                                                 <button type="submit" class="button" name="redirect">VNPAY <i class='bx bx-credit-card-front'></i></button>
                                                             </form>
                                                         </div>

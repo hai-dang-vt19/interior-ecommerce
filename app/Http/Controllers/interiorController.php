@@ -261,11 +261,18 @@ class interiorController extends Controller
                 $charts_0 = "['".$gy."', ".$sum_bill_atms_0.", ".$sum_bill_store_ys_0.", ".$sum_bill_cod_ys_0."],";
                 $charts_1 = "['".$gy1."', ".$sum_bill_atms_1.", ".$sum_bill_store_ys_1.", ".$sum_bill_cod_ys_1."],";
                 $charts_2 = "['".$gy2."', ".$sum_bill_atms_2.", ".$sum_bill_store_ys_2.", ".$sum_bill_cod_ys_2."],";
-            $sum_bill_y = $sum_bill_atms_0+$sum_bill_store_ys_0+$sum_bill_cod_ys_0;
+            
+                $sum_bill_y = $sum_bill_atms_0+$sum_bill_store_ys_0+$sum_bill_cod_ys_0;
+                $sum_bill_y1 = $sum_bill_atms_1+$sum_bill_store_ys_1+$sum_bill_cod_ys_1;
+                $sum_bill_y2 = $sum_bill_atms_2+$sum_bill_store_ys_2+$sum_bill_cod_ys_2;
+
+                $char_ck0 = "['".$gy."',     ".$sum_bill_y."],";
+                $char_ck1 = "['".$gy1."',     ".$sum_bill_y1."],";
+                $char_ck2 = "['".$gy2."',     ".$sum_bill_y2."],";
 
         return view('dashboards.index-dashboard', compact(
                 'sum_bill','total_expense','sum_bill_atm','sum_bill_store','sum_bill_cod','rate_sba',
-                'rate_sbs','rate_sbc','sum_bill_y','get_year','charts_0','charts_1','charts_2'
+                'rate_sbs','rate_sbc','sum_bill_y','charts_0','charts_1','charts_2','char_ck0','char_ck1','char_ck2'
         ));
     }
 
