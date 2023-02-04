@@ -72,7 +72,7 @@
         var options = {
           title: 'Tổng tiền 3 năm gần nhất',
           sliceVisibilityThreshold: .2,
-          'width':380,
+          'width':370,
           'height':280
           // 'backgroundColor': 'blue'
         };
@@ -82,7 +82,7 @@
       }
     </script>
   </head>
-
+// chart_div_top_product
   <body>
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
@@ -193,13 +193,13 @@
                           @endphp
                           @if ($total_expense > 0)
                             <h3 class="card-title text-nowrap mb-1"> {{$total_expenses}}</h3>
-                            <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i></small>
+                            <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i>{{number_format($total_expense)}} &#8363;</small>
                           @elseif($total_expense < 0)
                             <h3 class="card-title text-nowrap mb-1"> {{$total_expenses}}</h3>
-                            <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i></small>
+                            <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i>{{number_format($total_expense)}} &#8363;</small>
                           @else
                             <h3 class="card-title text-nowrap mb-1"> {{$total_expenses}}</h3>
-                            <small class="text-decoration fw-semibold"><i class='bx bxs-analyse bx-spin'></i></small>
+                            <small class="text-decoration fw-semibold"><i class='bx bxs-analyse bx-spin'></i>{{number_format($total_expense)}} &#8363;</small>
                           @endif
                         </div>
                       </div>
@@ -372,7 +372,7 @@
                         <div>
                           <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
                             <div class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
-                              <div id="chart_div" style="width: 350px; height: 285px"></div> {{--Biểu đồ tròn--}}
+                              <div id="chart_div" class="ms-1" style="width: 350px; height: 285px"></div> {{--Biểu đồ tròn--}}
                             </div>
                             {{-- <div id="profileReportChart"></div> --}}
                           </div>
@@ -382,9 +382,166 @@
                   </div>
                 </div>
               </div>
+              <div class="row">
+                @php
+                  use Carbon\Carbon;
+                  $times = Carbon::now('Asia/Ho_Chi_Minh');
+                @endphp
+                <!-- Expense Overview -->
+                <div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
+                  <div class="card h-100">
+                    <div class="card-header d-flex align-items-center justify-content-between pb-0">
+                      <div class="card-title mb-0">
+                        <h5 class="m-0 me-2 mb-3">Khách hàng nhiều đơn nhất</h5>
+                      </div>
+                    </div>
+                    <div class="card-body mt-3">
+                      <ul class="p-0 m-0">
+                        @foreach ($get_user_ftop1 as $get_uft1)
+                          <li class="d-flex mb-4 pb-1">
+                            <div class="avatar flex-shrink-0 me-3">
+                              <span class="avatar-initial rounded bg-label-danger"
+                                ><i class='bx bxs-crown bx-tada'></i></span>
+                            </div>
+                            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                              <div class="me-2">
+                                <h6 class="mb-0">{{$get_uft1->username}}</h6>
+                                <small class="text-muted">{{$get_uft1->user_id}}</small>
+                              </div>
+                              <div class="user-progress d-flex">
+                                <i class='bx bxs-star bx-xs text-danger'></i>
+                                <p>{{$get_uft1->amount_user}}</p>
+                              </div>
+                            </div>
+                          </li>
+                        @endforeach
+                      </ul><hr>
+                      <ul class="p-0 m-0">
+                          @foreach ($get_list_user_ftop1 as $key => $get_list_uft1)
+                            <li class="d-flex mb-4 pb-1">
+                              <div class="avatar flex-shrink-0 me-3">
+                                @if ($key+1 == 1)
+                                  <span class="avatar-initial rounded bg-label-danger">2</span>
+                                @elseif ($key+1 == 2)
+                                  <span class="avatar-initial rounded bg-label-danger">3</span>
+                                @elseif ($key+1 == 3)
+                                  <span class="avatar-initial rounded bg-label-danger">4</span>
+                                @else
+                                  <span class="avatar-initial rounded bg-label-danger">5</span>  
+                                @endif
+                              </div>
+                              <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                <div class="me-2">
+                                  <h6 class="mb-0">{{$get_list_uft1->username}}</h6>
+                                  <small class="text-muted">{{$get_list_uft1->user_id}}</small>
+                                </div>
+                                <div class="user-progress d-flex">
+                                  <i class='bx bxs-star bx-xs text-danger'></i>
+                                  <p>{{$get_list_uft1->amount_user}}</p>
+                                </div>
+                              </div>
+                            </li>
+                          @endforeach
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <!--/ Expense Overview -->
+                <!-- Expense Overview -->
+                <div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
+                  <div class="card h-100">
+                    <div class="card-header d-flex align-items-center justify-content-between pb-0">
+                      <div class="card-title mb-0">
+                        <h5 class="m-0 me-2 mb-3">Khách hàng mua nhiều nhất</h5>
+                      </div>
+                    </div>
+                    <div class="card-body mt-3">
+                      <ul class="p-0 m-0">
+                        @foreach ($get_user_price_ftop1 as $get_p_uft1)
+                          <li class="d-flex mb-4 pb-1">
+                            <div class="avatar flex-shrink-0 me-3">
+                              <span class="avatar-initial rounded bg-label-warning"
+                                ><i class='bx bxs-crown bx-tada'></i></span>
+                            </div>
+                            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                              <div class="me-2">
+                                <h6 class="mb-0">{{$get_p_uft1->username}}</h6>
+                                <small class="text-muted">{{$get_p_uft1->user_id}}</small>
+                              </div>
+                              <div class="user-progress d-flex">
+                                <small class="fw-semibold text-warning">{{number_format($get_p_uft1->total)}} &#8363;</small>
+                              </div>
+                            </div>
+                          </li>
+                        @endforeach
+                      </ul><hr>
+                      <ul class="p-0 m-0">
+                        @foreach ($get_list_user_price_ftop1 as $key => $get_price_uft1)
+                          <li class="d-flex mb-4 pb-1">
+                            <div class="avatar flex-shrink-0 me-3">
+                                @if ($key+1 == 1)
+                                  <span class="avatar-initial rounded bg-label-warning">2</span>
+                                @elseif ($key+1 == 2)
+                                  <span class="avatar-initial rounded bg-label-warning">3</span>
+                                @elseif ($key+1 == 3)
+                                  <span class="avatar-initial rounded bg-label-warning">4</span>
+                                @else
+                                  <span class="avatar-initial rounded bg-label-warning">5</span>  
+                                @endif
+                            </div>
+                            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                              <div class="me-2">
+                                <h6 class="mb-0">{{$get_price_uft1->username}}</h6>
+                                <small class="text-muted">{{$get_price_uft1->user_id}}</small>
+                              </div>
+                              <div class="user-progress d-flex">
+                                <small class="fw-semibold text-warning">{{number_format($get_price_uft1->total)}} &#8363;</small>
+                              </div>
+                            </div>
+                          </li>
+                        @endforeach
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <!--/ Expense Overview -->
+                <div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
+                  <div class="card h-100">
+                    <div class="card-header d-flex align-items-center justify-content-between pb-0">
+                      <div class="card-title mb-0">
+                        <h5 class="m-0 me-2 mb-3">Sản phẩm bán chạy nhất tháng {{$times->month}}</h5>
+                      </div>
+                    </div>
+                    <div class="card-body mt-3">
+                      <ul class="p-0 m-0">
+                        @foreach ($get_pr_famous as $key => $get_prf)
+                          <li class="d-flex mb-4 pb-1">
+                            <div class="avatar flex-shrink-0 me-3">
+                              <span class="avatar-initial rounded bg-label-success">{{$key+1}}</span>
+                            </div>
+                            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                              <div class="me-2">
+                                <h6 class="mb-0">{{$get_prf->id_product}}</h6>
+                                <small>{{$get_prf->day_c}} - {{$get_prf->month_c}} - {{$get_prf->year_c}}</small>
+                              </div>
+                              <div class="user-progress d-flex">
+                                <i class='bx bxs-star bx-xs text-warning'></i>
+                                <p>{{$get_prf->amount_bill}}</p>
+                              </div>
+                            </div>
+                          </li>
+                          @if ($key+1 == 1)
+                            <hr>
+                          @endif
+                        @endforeach
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <!-- / Content -->
-
+            <!-- / Content -->            
+            
             <!-- Footer -->
             @include('dashboards.blocks.footer')
             <!-- / Footer -->

@@ -124,15 +124,15 @@
                                 <div class="col-sm-10 d-flex">
                                   <div>
                                     <input type="hidden" class="form-control" value="{{ $item->id_product }}" name="id_product">
-                                    <h5 class=" fw-lighter text-decoration-underline ps-2" style="font-style: oblique; color: #8284FF">
-                                        {{ $item->id_product }}
+                                    <h5 class=" fw-lighter ps-2" style="font-style: oblique; color: #8284FF">
+                                        <abbr title="Mã sản phẩm">{{ $item->id_product }}</abbr>
                                     </h5>
                                   </div>
                                   &emsp;-&emsp;
                                   <div>
                                     <input type="hidden" class="form-control" value="{{ $item->name_product }}" name="name_product">
-                                    <h5 class=" fw-lighter text-decoration-underline ps-2" style="font-style: oblique; color: #8284FF">
-                                        {{ $item->name_product }}
+                                    <h5 class=" fw-lighter ps-2" style="font-style: oblique; color: #8284FF">
+                                        <abbr title="Tên sản phẩm">{{ $item->name_product }}</abbr>
                                     </h5>
                                   </div>
                                 </div>
@@ -144,13 +144,13 @@
                               <div class="col-sm-10 d-flex">
                                   @if ($item->sales == 0)
                                     <input type="hidden" class="form-control" value="{{ $item->price }}" name="price_product">
-                                    <h5 class=" fw-lighter text-decoration-underline ps-2" style="font-style: oblique; color: #8284FF">
-                                        {{ number_format($item->price) }} &#8363;
+                                    <h5 class=" fw-lighter ps-2" style="font-style: oblique; color: #8284FF">
+                                        <abbr title="Giá">{{ number_format($item->price) }} &#8363;</abbr>
                                     </h5>
                                   @else
                                     <input type="hidden" class="form-control" value="{{ $item->sales }}" name="price_product">
-                                    <h5 class=" fw-lighter text-decoration-underline ps-2" style="font-style: oblique; color: #8284FF">
-                                        {{ number_format($item->sales) }} &#8363;
+                                    <h5 class=" fw-lighter ps-2" style="font-style: oblique; color: #8284FF">
+                                        <abbr title="Giá">{{ number_format($item->sales) }} &#8363;</abbr>
                                     </h5>
                                     <i class='bx bxs-discount bx-tada ms-3 text-danger' ></i>
                                   @endif

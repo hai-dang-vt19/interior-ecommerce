@@ -5,15 +5,11 @@
         <script>
           document.write(new Date().getFullYear());
         </script>
-        , made with ❤️ by
-        <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">Đặng Hải Đăng</a>
+        , Nội thất 
+        <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder text-warnig">Chung SI</a>
       </div>
       <div>
-        <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-        <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
-        <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/" target="_blank" class="footer-link me-4" >Documentation</a
-        >
-        <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues" target="_blank" class="footer-link me-4" >Support</a
+        <a href="#" target="_blank" class="footer-link me-4" style="font-size: 12px" >Support: 0957 508 288</a
         >
         <a href="{{ route('logout') }}" class="btn btn-sm btn-outline-danger">
           <i class="bx bx-log-out-circle"></i> Logout

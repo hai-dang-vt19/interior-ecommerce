@@ -170,7 +170,13 @@
                                   <td>{{$bill_hd->email}}</td>
                                   <td>{{$bill_hd->phone}}</td>
                                   <td>{{$bill_hd->method}}</td>
-                                  <td><a href="#" class="badge bg-success">{{$bill_hd->status_product_bill}}</a></td>
+                                  <td>
+                                    @if ($bill_hd->method == "STORE")
+                                      <a href="{{ route('up_bill_xacnhan_store', ['id'=>$bill_hd->id_bill]) }}" class="badge bg-primary">Xác nhận</a>
+                                    @else
+                                      <a href="#" class="badge bg-success">{{$bill_hd->status_product_bill}}</a>
+                                    @endif
+                                  </td>
                                   <td>{{number_format($bill_hd->total)}} &#8363;</td>
                                   <td>{{$bill_hd->address}}</td>
                                   {{-- <td>
@@ -239,6 +245,16 @@
                 icon: "success",
                 button: "OK",
                 timer: 2000,
+              });
+        </script>
+      @endif
+      @if (session()->has('up_vc'))
+        <script>
+          swal({
+                title: "{{session()->get('up_vc')}}",
+                icon: "success",
+                button: "OK",
+                timer: 500,
               });
         </script>
       @endif

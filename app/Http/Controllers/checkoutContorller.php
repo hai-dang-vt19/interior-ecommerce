@@ -6,6 +6,8 @@ use App\Models\bill;
 use App\Models\cart;
 use App\Models\city;
 use App\Models\product;
+use App\Models\product_famous;
+use App\Models\user_famous;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -74,10 +76,46 @@ class checkoutContorller extends Controller
                             'code_bank'=>$vnp_BankTranNo,
                             'code_vnpay'=>$vnp_TransactionNo,
                             'address'=>Auth::user()->district.', '.Auth::user()->city.', '.Auth::user()->province,
-                            'total'=>$vnp_Amount, // Xem lại
+                            'total'=>$vnp_Amount,
                             'status_product_bill'=>'Xử lý'
                         ]);
                     }
+                    //**** Xử lý thêm vào data sản phẩm nổi bật */
+                        $today = Carbon::now('Asia/Ho_Chi_Minh');
+                        $product_famous = product_famous::all()->where('id_product',$crt->id_product)
+                                                            ->where('day_c',$today->day)
+                                                            ->where('month_c',$today->month)
+                                                            ->where('year_c',$today->year);
+                        $sum_amount = $product_famous->sum('amount_bill');
+                        $samt = $sum_amount+1;
+                        product_famous::updateOrCreate([
+                            'id_product'=>$crt->id_product
+                        ],[
+                            'amount_bill'=>$samt,
+                            'day_c'=>$today->day,
+                            'month_c'=>$today->month,
+                            'year_c'=>$today->year
+                        ]);
+                    //*** Xuwr lys theem data khasch hangf nooir abat */
+                        $user_famous = user_famous::all()->where('user_id',Auth::user()->user_id)
+                                                        ->where('day_c',$today->day)
+                                                        ->where('month_c',$today->month)
+                                                        ->where('year_c',$today->year);
+                        $sum_amount_us = $user_famous->sum('amount_user');
+                        $samtus = $sum_amount_us+1;
+                        $sum_total_u = $user_famous->sum('total');
+                        $total_u_f = $sum_total_u + $vnp_Amount;
+                        user_famous::updateOrCreate([
+                            'user_id'=>Auth::user()->user_id
+                        ],[
+                            'username'=>Auth::user()->name,
+                            'amount_user'=>$samtus,
+                            'day_c'=>$today->day,
+                            'month_c'=>$today->month,
+                            'year_c'=>$today->year,
+                            'total'=>$total_u_f
+                        ]);
+                                                        
                     cart::where('id_cart_user','CART_CS'.Auth::user()->user_id)->delete();
                 }
                 $get_data_for_bill = bill::all()->where('id_bill',$vnp_TxnRef);
@@ -178,6 +216,41 @@ class checkoutContorller extends Controller
                             'status_product_bill'=>'Xử lý'
                         ]);
                     }
+                    //**** Xử lý thêm vào data sản phẩm nổi bật */
+                        $today = Carbon::now('Asia/Ho_Chi_Minh');
+                        $product_famous = product_famous::all()->where('id_product',$crt->id_product)
+                                                            ->where('day_c',$today->day)
+                                                            ->where('month_c',$today->month)
+                                                            ->where('year_c',$today->year);
+                        $sum_amount = $product_famous->sum('amount_bill');
+                        $samt = $sum_amount+1;
+                        product_famous::updateOrCreate([
+                            'id_product'=>$crt->id_product
+                        ],[
+                            'amount_bill'=>$samt,
+                            'day_c'=>$today->day,
+                            'month_c'=>$today->month,
+                            'year_c'=>$today->year,
+                        ]);
+                    //*** Xuwr lys theem data khasch hangf nooir abat */
+                        $user_famous = user_famous::all()->where('user_id',Auth::user()->user_id)
+                                                        ->where('day_c',$today->day)
+                                                        ->where('month_c',$today->month)
+                                                        ->where('year_c',$today->year);
+                        $sum_amount_us = $user_famous->sum('amount_user');
+                        $samtus = $sum_amount_us+1;
+                        $sum_total_u = $user_famous->sum('total');
+                        $total_u_f = $sum_total_u + $vnp_Amount;
+                        user_famous::updateOrCreate([
+                            'user_id'=>Auth::user()->user_id
+                        ],[
+                            'username'=>Auth::user()->name,
+                            'amount_user'=>$samtus,
+                            'day_c'=>$today->day,
+                            'month_c'=>$today->month,
+                            'year_c'=>$today->year,
+                            'total'=>$total_u_f
+                        ]);
                     cart::where('id_cart_user','CART_CS'.Auth::user()->user_id)
                     ->where('id_product',$crt->id_product)
                     ->delete();
@@ -544,8 +617,44 @@ class checkoutContorller extends Controller
                     'total'=>$total[$i],
                     'status_product_bill'=>$status_product_bill[$i]
                 ]);
+                //**** Xử lý thêm vào data sản phẩm nổi bật */
+                    $today = Carbon::now('Asia/Ho_Chi_Minh');
+                    $product_famous = product_famous::all()->where('id_product',$id_product[$i])
+                                                        ->where('day_c',$today->day)
+                                                        ->where('month_c',$today->month)
+                                                        ->where('year_c',$today->year);
+                    $sum_amount = $product_famous->sum('amount_bill');
+                    $samt = $sum_amount+1;
+                    product_famous::updateOrCreate([
+                        'id_product'=>$id_product[$i]
+                    ],[
+                        'amount_bill'=>$samt[$i],
+                        'day_c'=>$today->day[$i],
+                        'month_c'=>$today->month[$i],
+                        'year_c'=>$today->year[$i]
+                    ]);
+                //*** Xuwr lys theem data khasch hangf nooir abat */
+                        $user_famous = user_famous::all()->where('user_id',Auth::user()->user_id[$i])
+                                                        ->where('day_c',$today->day)
+                                                        ->where('month_c',$today->month)
+                                                        ->where('year_c',$today->year);
+                        $sum_amount_us = $user_famous->sum('amount_user');
+                        $samtus = $sum_amount_us+1;
+                        $sum_total_u = $user_famous->sum('total');
+                        $total_u_f = $sum_total_u + $total[$i];
+                        user_famous::updateOrCreate([
+                            'user_id'=>Auth::user()->user_id[$i]
+                        ],[
+                            'username'=>Auth::user()->name[$i],
+                            'amount_user'=>$samtus[$i],
+                            'day_c'=>$today->day[$i],
+                            'month_c'=>$today->month[$i],
+                            'year_c'=>$today->year[$i],
+                            'total'=>$total_u_f
+                        ]);
             }
         }
+        
         cart::where('id_cart_user','CART_CS'.Auth::user()->user_id)->delete();
         session()->flash('check_cod_don','Đặt hàng thành công');
         return redirect(route('cart'));
@@ -581,6 +690,41 @@ class checkoutContorller extends Controller
                     'status_product_bill'=>'Xử lý'
                 ]);
             }
+            //**** Xử lý thêm vào data sản phẩm nổi bật */
+                $today = Carbon::now('Asia/Ho_Chi_Minh');
+                $product_famous = product_famous::all()->where('id_product',$crt->id_product)
+                                                    ->where('day_c',$today->day)
+                                                    ->where('month_c',$today->month)
+                                                    ->where('year_c',$today->year);
+                $sum_amount = $product_famous->sum('amount_bill');
+                $samt = $sum_amount+1;
+                product_famous::updateOrCreate([
+                    'id_product'=>$crt->id_product
+                ],[
+                    'amount_bill'=>$samt,
+                    'day_c'=>$today->day,
+                    'month_c'=>$today->month,
+                    'year_c'=>$today->year
+                ]);
+            //*** Xuwr lys theem data khasch hangf nooir abat */
+                        $user_famous = user_famous::all()->where('user_id',Auth::user()->user_id)
+                                                        ->where('day_c',$today->day)
+                                                        ->where('month_c',$today->month)
+                                                        ->where('year_c',$today->year);
+                        $sum_amount_us = $user_famous->sum('amount_user');
+                        $samtus = $sum_amount_us+1;
+                        $sum_total_u = $user_famous->sum('total');
+                        $total_u_f = $sum_total_u + $request->total_cod;
+                        user_famous::updateOrCreate([
+                            'user_id'=>Auth::user()->user_id
+                        ],[
+                            'username'=>Auth::user()->name,
+                            'amount_user'=>$samtus,
+                            'day_c'=>$today->day,
+                            'month_c'=>$today->month,
+                            'year_c'=>$today->year,
+                            'total'=>$total_u_f
+                        ]);
             cart::where('id_cart_user','CART_CS'.Auth::user()->user_id)
             ->where('id_product', $request->id)
             ->delete();//chus ys xoas 1 thif caanf theem id sp
@@ -610,6 +754,7 @@ class checkoutContorller extends Controller
         $product = product::all()->where('status','Còn hàng');
         return view('dashboards.clients.list-bill', compact('bill_xuly','count_xl','count_vc','count_hd','product'));
     }
+    
     public function bill_vanchuyen_dashboad()
     {
         $bill_vanchuyen = bill::where('status_product_bill','Vận chuyển')->limit(10)->paginate(10);
@@ -659,7 +804,14 @@ class checkoutContorller extends Controller
         session()->flash('up_vc', '');
         return back();
     }
-
+    public function up_bill_xacnhan_store(Request $request)
+    {
+        bill::where('id_bill', $request->id)->update([
+            'status_product_bill'=>'Thành công'
+        ]);
+        session()->flash('up_vc', '');
+        return back();
+    }
     // thanh toán trang admin
     public function up_to_cart_dashboard(Request $request)
     {
@@ -913,7 +1065,22 @@ class checkoutContorller extends Controller
                         'total'=>$vnp_Amount,
                         'status_product_bill'=>'Thành công'
                     ]);
-                    
+                    //**** Xử lý thêm vào data sản phẩm nổi bật */
+                    $today = Carbon::now('Asia/Ho_Chi_Minh');
+                    $product_famous = product_famous::all()->where('id_product',$crt->id_product)
+                                                        ->where('day_c',$today->day)
+                                                        ->where('month_c',$today->month)
+                                                        ->where('year_c',$today->year);
+                    $sum_amount = $product_famous->sum('amount_bill');
+                    $samt = $sum_amount+1;
+                    product_famous::updateOrCreate([
+                        'id_product'=>$crt->id_product
+                    ],[
+                        'amount_bill'=>$samt,
+                        'day_c'=>$today->day,
+                        'month_c'=>$today->month,
+                        'year_c'=>$today->year
+                    ]);
                 }
                 $get_data_for_bill = bill::all()->where('id_bill',$vnp_TxnRef);
                 foreach($get_data_for_bill as $gdtfb){
@@ -958,6 +1125,25 @@ class checkoutContorller extends Controller
     }
     public function destroy_bill_dashboard(Request $request)
     {
+        $bill = bill::all()->where('id_bill',$request->id_bill);
+        foreach($bill as $bills){
+            $id_product = $bills->id_product;
+            //**** Xử lý thêm vào data sản phẩm nổi bật */
+            $today = Carbon::now('Asia/Ho_Chi_Minh');
+            $product_famous = product_famous::all()->where('id_product',$id_product)
+                                                ->where('day_c',$today->day)
+                                                ->where('month_c',$today->month)
+                                                ->where('year_c',$today->year);
+            $sum_amount = $product_famous->sum('amount_bill');
+            $samt = $sum_amount-1;
+            product_famous::updateOrCreate([
+                'id_product'=>$id_product
+            ],[
+                'amount_bill'=>$samt
+            ]);
+        }
+        
+
         bill::where('id_bill',$request->id_bill)->delete();
         return redirect(route('create_bill_dashboard'));
     }
@@ -980,6 +1166,22 @@ class checkoutContorller extends Controller
                 'method'=>'STORE',
                 'total'=>$request->total_store,
                 'status_product_bill'=>'STOP'
+            ]);
+            //**** Xử lý thêm vào data sản phẩm nổi bật */
+            $today = Carbon::now('Asia/Ho_Chi_Minh');
+            $product_famous = product_famous::all()->where('id_product',$crt->id_product)
+                                                ->where('day_c',$today->day)
+                                                ->where('month_c',$today->month)
+                                                ->where('year_c',$today->year);
+            $sum_amount = $product_famous->sum('amount_bill');
+            $samt = $sum_amount+1;
+            product_famous::updateOrCreate([
+                'id_product'=>$crt->id_product
+            ],[
+                'amount_bill'=>$samt,
+                'day_c'=>$today->day,
+                'month_c'=>$today->month,
+                'year_c'=>$today->year
             ]);
         }
         $get_ = bill::where('status_product_bill','STOP')

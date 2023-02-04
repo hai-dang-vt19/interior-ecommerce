@@ -26,6 +26,8 @@ use App\Models\material;
 use App\Models\product;
 use App\Models\slide;
 use App\Models\warehouse;
+use App\Models\product_famous;
+use App\Models\user_famous;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -48,22 +50,32 @@ class interiorController extends Controller
 
         $expense = expense::all();
         $expense_material = $expense->where('years',Carbon::now('Asia/Ho_Chi_Minh')->year);
-        foreach($expense_material as $exp_mate){
-            $material = $exp_mate->expense_material;
-            $get_year = $exp_mate->years;
-        }
-        $expense_salary = $expense->where('years',Carbon::now('Asia/Ho_Chi_Minh')->year);
-        foreach($expense_salary as $exp_sala){
-            $salary = $exp_sala->expense_salary;
-        }
+            foreach($expense_material as $exp_mate){
+                $material = $exp_mate->expense_material;
+                $get_year = $exp_mate->years;
+            }
+            $expense_salary = $expense->where('years',Carbon::now('Asia/Ho_Chi_Minh')->year);
+            foreach($expense_salary as $exp_sala){
+                $salary = $exp_sala->expense_salary;
+            }
         // Lợi nhuận trước thuế = Tổng doanh thu - Chi phí cố định - Chi phí phát sinh(Chưa sử dụng)
-        $sum_mate_sala = $material+$salary; // Chi phí cố định
-        $sum_bill_ln = $bill->where('date_create',$get_year);
-        $s_amount = $sum_bill_ln->sum('amount');
-        $s_price = $sum_bill_ln->sum('price');
-        $sum_bill_ln_2 = $s_amount*$s_price; //Tổng doanh thu 
-        $total_expense = $sum_bill_ln_2-$sum_mate_sala; // làm lại
+            $sum_mate_sala = $material+$salary; // Chi phí cố định
+            // $sum_bill_ln = $bill->where('date_create',$get_year);
+            $s_amount = bill::all()->where('amount','=','1')->sum('amount');
+            $s_price = bill::all()->where('amount','=','1')->sum('price');
+            $s_pr_service = bill::all()->where('amount','=','1')->sum('price_service');
+            if($s_amount && $s_price != 0){
+                    $s_amount_ = ($s_amount/$s_amount)*$s_price + $s_pr_service; //tong doanh thu = 1
+                }else{
+                    $s_amount_ = 0;
+            }
+            $s_amount_not_1 = bill::all()->where('amount','!=','1')->sum('amount');
+            $s_price_not_1 = bill::where('amount','!=','1')->distinct()->sum('price');
+            $s_pr_service_not_1 = bill::all()->where('amount','!=','1')->sum('price_service');
+            $sum_price_sba_not_1 = $s_price_not_1*$s_amount_not_1 + $s_pr_service_not_1; // tong doanh thu != 1
 
+            $sum_bill_ln_ = $s_amount_+$sum_price_sba_not_1;  //Tổng doanh thu
+            $total_expense = $sum_bill_ln_-$sum_mate_sala;
         // dd($strlen_te);
 
         $sum_today = $bill->where('date_create',$today);
@@ -113,19 +125,52 @@ class interiorController extends Controller
          
         //**** Dữ liệu lấy để so sánh */
         $old_day = Carbon::now('Asia/Ho_Chi_Minh')->subDays(1)->toDateString();
-            $od_ = $bill->where('date_create',$old_day);
-            $sba_o1 = $od_->where('method','ATM')->sum('amount');
-            $sba_o2 = $od_->where('method','ATM')->sum('price');
-            $sum_bill_atm_o = $sba_o1*$sba_o2; //1
-            $sbs_o1 = $od_->where('method','STORE')->sum('amount');
-            $sbs_02 = $od_->where('method','STORE')->sum('price');
-            $sum_bill_store_o = $sbs_o1*$sbs_02; //2
-            $sbc_o1 = $od_->where('method','COD')->sum('amount');
-            $sbc_o2 = $od_->where('method','COD')->sum('price');
-            $sum_bill_cod_o = $sbc_o1*$sbc_o2;  //3
+            $od_ = bill::all()->where('date_create',$old_day);
+            // ATM
+            $sba_o1 = $od_->where('method','ATM')->where('amount','=','1')->sum('amount');
+            $sba_o2 = $od_->where('method','ATM')->where('amount','=','1')->sum('price');
+            $sba_o3 = $od_->where('method','ATM')->where('amount','=','1')->sum('price_service');
+            if($sba_o1 && $sba_o2 != 0){
+                    $price_sba_o1 = ($sba_o1/$sba_o1)*$sba_o2 + $sba_o3; // đã lấy được giá sl = 1
+                }else{
+                    $price_sba_o1 = 0;
+            }
+            $sba_amount_not_o1 = bill::all()->where('method','ATM')->where('date_create',$old_day)->where('amount','!=','1')->sum('amount');
+            $get_price_not_o1sba = bill::where('method','ATM')->where('date_create',$old_day)->where('amount','!=','1')->distinct()->sum('price'); // đã lấy được giá sl !=  1
+            $price_service_not_o1sba = bill::all()->where('method','ATM')->where('date_create',$old_day)->where('amount','!=','1')->sum('price_service');
+            $sum_price_sba_not_o1 = $get_price_not_o1sba*$sba_amount_not_o1 + $price_service_not_o1sba; // đã lấy được giá sl != 1
+            $sum_bill_atm_o = $price_sba_o1 + $sum_price_sba_not_o1; // 1
+            // Store
+            $sbs_o1 = $od_->where('method','STORE')->where('amount','=','1')->sum('amount');
+            $sbs_o2 = $od_->where('method','STORE')->where('amount','=','1')->sum('price');
+            if($sbs_o1 && $sbs_o2 != 0){
+                    $price_sbs_o1 = ($sbs_o1/$sbs_o1)*$sbs_o2; // đã lấy được giá sl = 1
+                }else{
+                    $price_sbs_o1 = 0;
+            }
+            $sbs_amount_not_o1 = bill::all()->where('method','STORE')->where('date_create',$old_day)->where('amount','!=','1')->sum('amount');
+            $get_price_not_o1sbs = bill::where('method','STORE')->where('date_create',$old_day)->where('amount','!=','1')->distinct()->sum('price'); // đã lấy được giá sl !=  1
+            $sum_price_sbs_not_o1 = $get_price_not_o1sbs*$sbs_amount_not_o1; // đã lấy được giá sl != 1
+            $sum_bill_store_o = $price_sbs_o1 + $sum_price_sbs_not_o1; // 2
+            // COD
+            $sbc_o1 = $od_->where('method','COD')->where('amount','=','1')->sum('amount');
+            $sbc_o2 = $od_->where('method','COD')->where('amount','=','1')->sum('price');
+            $sbc_o3 = $od_->where('method','COD')->where('amount','=','1')->sum('price_service');
+            if($sbc_o1 && $sbc_o2 != 0){
+                    $price_sbc_o1 = ($sbc_o1/$sbc_o1)*$sbc_o2 + $sbc_o3; // đã lấy được giá sl = 1
+                }else{
+                    $price_sbc_o1 = 0;
+            }
+            $sbc_amount_not_o1 = bill::all()->where('method','COD')->where('date_create',$old_day)->where('amount','!=','1')->sum('amount');
+            $get_price_not_o1sbc = bill::where('method','COD')->where('date_create',$old_day)->where('amount','!=','1')->distinct()->sum('price'); // đã lấy được giá sl !=  1
+            $price_service_not_o1sbc = bill::all()->where('method','COD')->where('date_create',$old_day)->where('amount','!=','1')->sum('price_service');
+            $sum_price_sbc_not_o1 = $get_price_not_o1sbc*$sbc_amount_not_o1 + $price_service_not_o1sbc; // đã lấy được giá sl != 1
+            $sum_bill_cod_o = $price_sbc_o1 + $sum_price_sbc_not_o1; // 3   
+
             $rate_sba = $sum_bill_atm-$sum_bill_atm_o;
             $rate_sbs = $sum_bill_store-$sum_bill_store_o;
             $rate_sbc = $sum_bill_cod-$sum_bill_cod_o;
+            
             // $rate_sba = (($sum_bill_atm-$sum_bill_atm_o)/$sum_bill_atm_o)*100;
             // $rate_sbs = (($sum_bill_store-$sum_bill_store_o)/$sum_bill_store_o)*100;
         // $rate_sbc = (($sum_bill_cod-$sum_bill_cod_o)/$sum_bill_cod_o)*100;
@@ -269,10 +314,45 @@ class interiorController extends Controller
                 $char_ck0 = "['".$gy."',     ".$sum_bill_y."],";
                 $char_ck1 = "['".$gy1."',     ".$sum_bill_y1."],";
                 $char_ck2 = "['".$gy2."',     ".$sum_bill_y2."],";
-
+            //
+        //*** Top 5 sản phẩm bán chạy */
+        $date_famous = Carbon::now('Asia/Ho_Chi_Minh');
+        $month_famous = $date_famous->month;
+        $year_famous = $date_famous->year;
+        
+        $get_pr_famous = product_famous::where('month_c',$month_famous)
+                        ->where('year_c',$year_famous)
+                        ->orderbyDESC('amount_bill')
+                        ->take(5)->get();
+        //*** top usser */
+        $get_user_ftop1 = user_famous::where('month_c',$month_famous)
+                        ->where('year_c',$year_famous)
+                        ->orderbyDESC('amount_user')
+                        ->take(1)->get();
+        foreach($get_user_ftop1 as $get_uftop1){
+            $get_list_user_ftop1 = user_famous::where('month_c',$month_famous)
+                        ->where('year_c',$year_famous)
+                        ->where('user_id','!=',$get_uftop1->user_id)
+                        ->orderbyDESC('amount_user')
+                        ->take(4)
+                        ->get();
+        }
+        $get_user_price_ftop1 = user_famous::where('month_c',$month_famous)
+                        ->where('year_c',$year_famous)
+                        ->orderbyDESC('total')
+                        ->take(1)->get();
+        foreach($get_user_price_ftop1 as $get_price_uftop1){
+            $get_list_user_price_ftop1 = user_famous::where('month_c',$month_famous)
+                        ->where('year_c',$year_famous)
+                        ->where('user_id','!=',$get_price_uftop1->user_id)
+                        ->orderbyDESC('total')
+                        ->take(4)
+                        ->get();
+        }
         return view('dashboards.index-dashboard', compact(
-                'sum_bill','total_expense','sum_bill_atm','sum_bill_store','sum_bill_cod','rate_sba',
-                'rate_sbs','rate_sbc','sum_bill_y','charts_0','charts_1','charts_2','char_ck0','char_ck1','char_ck2'
+            'sum_bill','total_expense','sum_bill_atm','sum_bill_store','sum_bill_cod','rate_sba',
+            'rate_sbs','rate_sbc','sum_bill_y','charts_0','charts_1','charts_2','char_ck0','char_ck1','char_ck2',
+            'get_pr_famous','get_user_ftop1','get_user_price_ftop1','get_list_user_ftop1','get_list_user_price_ftop1'
         ));
     }
 
@@ -690,7 +770,7 @@ class interiorController extends Controller
         $product = product::where('status','Còn hàng')->where('color',$request->col)->limit(6)->paginate(6);
         return view('interiors.product', compact('type','product'));
     }
-
+// check chưa đăng nhập k vào được giỏ hàng
     public function product_detail(Request $request)
     {
         $data['pro_detail'] = product::find($request->id)->toArray();

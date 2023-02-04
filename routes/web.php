@@ -163,6 +163,7 @@ Route::get('/dashboard-hangden-bill', [checkoutContorller::class, 'bill_hangden_
 Route::get('/dashboard-thanhcong-bill', [checkoutContorller::class, 'bill_thanhcong_dashboad'])->middleware(['can:admin_manager_staff','auth'])->name('bill_thanhcong_dashboad');
 Route::get('/dashboad-up-bill', [checkoutContorller::class, 'up_bill_dashboad'])->middleware(['can:admin_manager_staff','auth'])->name('up_bill_dashboad');
 Route::get('/dashboad-up-bill-vc', [checkoutContorller::class, 'up_bill_vanchuyen'])->middleware(['can:admin_manager_staff','auth'])->name('up_bill_vanchuyen');
+Route::get('/dashboad-up-bill-store', [checkoutContorller::class, 'up_bill_xacnhan_store'])->middleware(['can:admin_manager_staff','auth'])->name('up_bill_xacnhan_store');
 
 Route::get('/checkout-user', [interiorController::class, 'checkout_dash_store'])->middleware(['can:admin_manager_staff','auth'])->name('checkout_dash_store');
 Route::post('/checkout-atm/db', [checkoutContorller::class, 'vnpay_payment_atm_dashboard'])->name('vnpay_payment_atm_dashboard');
