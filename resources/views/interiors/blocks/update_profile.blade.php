@@ -128,6 +128,17 @@
             });
       </script>
     @endif
+    @if (session()->has('err'))
+      <script>
+        swal({
+              title: "Thiếu thông tin",
+              text: "{{session()->get('err')}}",
+              icon: "error",
+              button: "OK",
+              timer: 2000,
+            });
+      </script>
+    @endif
 </body>
 
 </html>

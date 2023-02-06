@@ -31,6 +31,8 @@ use App\Models\user_famous;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
+use function PHPUnit\Framework\isEmpty;
+
 class interiorController extends Controller
 {
     //------------------------------------------ dash board -----------------------------------------
@@ -59,7 +61,7 @@ class interiorController extends Controller
                 $salary = $exp_sala->expense_salary;
             }
         // Lợi nhuận trước thuế = Tổng doanh thu - Chi phí cố định - Chi phí phát sinh(Chưa sử dụng)
-            $sum_mate_sala = $material+$salary; // Chi phí cố định
+                $sum_mate_sala = $material+$salary; // Chi phí cố định
             // $sum_bill_ln = $bill->where('date_create',$get_year);
             $s_amount = bill::all()->where('amount','=','1')->sum('amount');
             $s_price = bill::all()->where('amount','=','1')->sum('price');
@@ -74,8 +76,10 @@ class interiorController extends Controller
             $s_pr_service_not_1 = bill::all()->where('amount','!=','1')->sum('price_service');
             $sum_price_sba_not_1 = $s_price_not_1*$s_amount_not_1 + $s_pr_service_not_1; // tong doanh thu != 1
 
-            $sum_bill_ln_ = $s_amount_+$sum_price_sba_not_1;  //Tổng doanh thu
+                $sum_bill_ln_ = $s_amount_+$sum_price_sba_not_1;  //Tổng doanh thu
             $total_expense = $sum_bill_ln_-$sum_mate_sala;
+            // echo number_format($sum_bill_ln_).'-'.number_format($sum_mate_sala).'<br>';
+            // echo number_format($total_expense);return;
         // dd($strlen_te);
 
         $sum_today = $bill->where('date_create',$today);
@@ -734,6 +738,65 @@ class interiorController extends Controller
             return view('dashboards.slide2',$data, compact('allProduct','get_pst'));
         }
     }
+
+    public function search_dashboard_up(Request $request)
+    {
+        if ($request->check_kh == 1) {
+            $product = product::where('id_product','LIKE','%'.$request->data_search)
+                                ->orwhere('name_product','LIKE','%'.$request->data_search.'%')
+                                ->limit(8)->paginate(8);
+            return view('dashboards.clients.list-product', compact('product'));
+        } elseif($request->check_kh == 2) {
+            $bill = bill::all()->where('id_bill',$request->data_search);
+            $ck_bill = bill::where('id_bill','LIKE',$request->data_search);
+            $count_xl_ = bill::all()->where('status_product_bill','Xử lý')->count();
+            $count_vc_ = bill::all()->where('status_product_bill','Vận chuyển')->count();
+            $count_hd_ = bill::all()->where('status_product_bill','Hàng đến')->count();
+            $product_ = product::all()->where('status','Còn hàng');
+            if($bill == '[]'){
+                session()->flash('no_data_search','Bạn chưa nhập đơn hàng');
+                return back();
+            }else{
+                foreach($bill as $bills){
+                    if ($bills->status_product_bill == "Xử lý") {
+                        $bill_xuly = $ck_bill->where('status_product_bill','Xử lý')->limit(10)->paginate(10);
+                        $count_xl = $count_xl_;
+                        $count_vc = $count_vc_;
+                        $count_hd = $count_hd_;
+                        $product = $product_;
+                        return view('dashboards.clients.list-bill', compact('bill_xuly','count_xl','count_vc','count_hd','product'));
+                    } elseif($bills->status_product_bill == "Vận chuyển") {
+                        $bill_vanchuyen = $ck_bill->where('status_product_bill','Vận chuyển')->limit(10)->paginate(10);
+                        $count_xl = $count_xl_;
+                        $count_vc = $count_vc_;
+                        $count_hd = $count_hd_;
+                        $product = $product_;
+                        return view('dashboards.clients.list-bill-vanchuyen', compact('bill_vanchuyen','count_xl','count_vc','count_hd','product'));
+                    } elseif($bills->status_product_bill == "Hàng đến") {
+                        $bill_hangden = $ck_bill->where('status_product_bill','Hàng đến')->limit(10)->paginate(10);
+                        $count_xl = $count_xl_;
+                        $count_vc = $count_vc_;
+                        $count_hd = $count_hd_;
+                        $product = $product_;
+                        return view('dashboards.clients.list-bill-hangden', compact('bill_hangden','count_xl','count_vc','count_hd','product'));            
+                    } else {
+                        $bill_thanhcong = $ck_bill->where('status_product_bill', 'Thành công')->limit(10)->paginate(10);
+                        $count_xl = $count_xl_;
+                        $count_vc = $count_vc_;
+                        $count_hd = $count_hd_;
+                        $product = $product_;
+                        return view('dashboards.clients.list-bill-thanhcong', compact('bill_thanhcong','count_xl','count_vc','count_hd','product'));
+                    }
+                }
+            }
+        } else {
+            $user = User::where('user_id','LIKE','%'.$request->data_search)
+                         ->orwhere('name','LIKE','%'.$request->data_search.'%')
+                         ->limit(8)->paginate(8);
+            return view('dashboards.clients.list-user',compact('user'));
+        }
+        
+    }
     //------------------------------------------   client   -----------------------------------------
     public function index(Request $request)
     {
@@ -770,7 +833,7 @@ class interiorController extends Controller
         $product = product::where('status','Còn hàng')->where('color',$request->col)->limit(6)->paginate(6);
         return view('interiors.product', compact('type','product'));
     }
-// check chưa đăng nhập k vào được giỏ hàng
+
     public function product_detail(Request $request)
     {
         $data['pro_detail'] = product::find($request->id)->toArray();
@@ -815,25 +878,46 @@ class interiorController extends Controller
     
     public function cart(Request $request)
     {
-        $id_cart_user = 'CART_CS'.Auth::user()->user_id;
-        $data_cart = cart::where('id_cart_user',$id_cart_user)->get();
-        if($data_cart == '[]'){
-            session()->flash('cart_null', 'Bạn chưa có sản phẩm');
-            return view('interiors.cart', compact('data_cart'));
-        }else{
-            // $sum = cart::where('id_cart_user',$id_cart_user)->sum('total');
-            $sum_not_sale = cart::where('id_cart_user',$id_cart_user)->where('sales',0)->sum('total');
-            $sum_sale = cart::where('id_cart_user',$id_cart_user)->where('sales','!=',0)->sum('total_sales');
-            $sum = $sum_not_sale+$sum_sale;
-            // echo $sum_not_sale.','.$sum_sale.'='.$sum;
-            $city = city::where('name_city', Auth::user()->city)->where('city_province', Auth::user()->province)->get();
-            foreach($city as $cty){
-                $ct = $cty->price;
-                $sum_product_city = $sum + $ct;
-                return view('interiors.cart', compact('data_cart','sum','ct','sum_product_city'));
+        $check_adress = User::all()->where('user_id',Auth::user()->user_id);
+        // echo $check_adress;return;
+        foreach($check_adress as $check_ad){
+            $check_city = $check_ad->city;
+            $check_province = $check_ad->province;
+            // $check_district = $check_ad->district;
+            $check_phone = $check_ad->phone;
+            if($check_city  == null){
+                session()->flash('err','Bạn cần nhập số điện thoại và địa chỉ');
+                return redirect()->route('update_profile');
+            }elseif($check_province == null){
+                session()->flash('err','Bạn cần nhập số điện thoại và địa chỉ');
+                return redirect()->route('update_profile');
+            }elseif($check_phone == null){
+                session()->flash('err','Bạn cần nhập số điện thoại và địa chỉ');
+                return redirect()->route('update_profile');
+            }else{
+                
+                $id_cart_user = 'CART_CS'.Auth::user()->user_id;
+                $data_cart = cart::where('id_cart_user',$id_cart_user)->get();
+                if($data_cart == '[]'){
+                    session()->flash('cart_null', 'Bạn chưa có sản phẩm');
+                    return view('interiors.cart', compact('data_cart'));
+                }else{
+                    // $sum = cart::where('id_cart_user',$id_cart_user)->sum('total');
+                    $sum_not_sale = cart::where('id_cart_user',$id_cart_user)->where('sales',0)->sum('total');
+                    $sum_sale = cart::where('id_cart_user',$id_cart_user)->where('sales','!=',0)->sum('total_sales');
+                    $sum = $sum_not_sale+$sum_sale;
+                    // echo $sum_not_sale.','.$sum_sale.'='.$sum;
+                    $city = city::where('name_city', Auth::user()->city)->where('city_province', Auth::user()->province)->get();
+                    foreach($city as $cty){
+                        $ct = $cty->price;
+                        $sum_product_city = $sum + $ct;
+                        return view('interiors.cart', compact('data_cart','sum','ct','sum_product_city'));
+                    }
+                    
+                }
             }
-            
         }
+        
         // dd($sum);
     }
     public function print_bill(Request $request)

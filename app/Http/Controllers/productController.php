@@ -7,6 +7,7 @@ use App\Models\expense;
 use App\Models\history;
 use App\Models\material;
 use App\Models\product;
+use App\Models\product_famous;
 use App\Models\warehouse;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -42,7 +43,16 @@ class productController extends Controller
         $pro->color2 = $request->color2;
         $pro->color3 = $request->color3;
         $pro->price = $sum_price;
-        $pro->sales = $sum_price*((100-$request->sales)/100);
+        if($request->sales > 0){
+            if($request->sales <= 70){
+                $pro->sales = $sum_price*((100-$request->sales)/100);
+            }else{
+                session()->flash('er_add_product','Nhập discount nhỏ hơn 70%');
+                return back();
+            }
+        }else{
+            $pro->sales = '0';
+        }
         $pro->amount = $amount;
         $pro->descriptions = $request->descriptions;
         $pro->date = $request->date;
@@ -89,7 +99,7 @@ class productController extends Controller
                 expense::create(['years'=>$get_year,'expense_material'=>$amount_material]);
             }
         }else{
-            $amount_material = $amount*$get_pm+$get_old_ex;
+            $amount_material = $amount*$get_pm+$get_old_ex; // sl x gia + price expense
             expense::updateOrCreate([
                 'years'=>$get_year
             ],[
@@ -225,6 +235,7 @@ class productController extends Controller
             warehouse::where('name_product',$pro->name_product)
                     ->where('name',$pro->type_product)
                     ->update(['amount'=>'0']);
+            product_famous::where('id_product',$pro->id_product)->delete();
             history::create([
             'name_his'=>'Destroy',
              'user_his'=>Auth::user()->email,

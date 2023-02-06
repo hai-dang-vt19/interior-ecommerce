@@ -62,13 +62,7 @@
             </div>
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
               <!-- Search -->
-              <div class="navbar-nav align-items-center">
-                <div class="nav-item d-flex align-items-center">
-                  <i class="bx bx-search fs-4 lh-0"></i>
-                  <input type="text" class="form-control border-0 shadow-none" placeholder="Search..." aria-label="Search..."
-                  />
-                </div>
-              </div>
+              @include('dashboards.blocks.a-search-user')
               <!-- /Search -->
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- User -->
@@ -119,6 +113,17 @@
                               <label class="col-sm-2 col-form-label">Địa chỉ</label>
                               <div class="col-sm-6">
                                   <input type="text" class="form-control" name="address">
+                              </div>
+                            </div>
+                            <div class="row mb-3">
+                              <label class="col-sm-2 col-form-label">Mã giảm giá</label>
+                              <div class="col-sm-6">
+                                  <select class="form-select" name="discount">
+                                    <option value="0" selected></option>
+                                    @foreach ($discounts as $discount)
+                                      <option value="{{ $discount->price }}">{{ $discount->name_discount}}</option>
+                                    @endforeach
+                                  </select>
                               </div>
                             </div>
                             <div class="row ms-1">
@@ -233,5 +238,16 @@
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     {{-- <script src="{{ asset('dashboard\js\formatCurrence.js') }}"></script> --}}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    @if (session()->has('er_add_product'))
+      <script>
+        swal({
+              title: "{{session()->get('er_add_product')}}",
+              icon: "error",
+              button: "OK",
+              timer: 1000,
+            });
+      </script>
+    @endif
   </body>
 </html>

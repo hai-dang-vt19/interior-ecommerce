@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\bill;
 use App\Models\cart;
 use App\Models\city;
+use App\Models\discount;
 use App\Models\product;
 use App\Models\product_famous;
 use App\Models\user_famous;
@@ -578,7 +579,7 @@ class checkoutContorller extends Controller
             return view('interiors.blocks.checkout_cod', compact('cart','total','phi'));
         }
     }
-    public function checkout_cod_post(Request $request)
+    public function checkout_cod_post(Request $request) // Chưa xử lý được hàng - khách nổi bật
     {
         $get_cart = cart::all()->where('id_cart_user','CART_CS'.Auth::user()->user_id)->count();
         // echo $get_cart.'<br>';
@@ -634,22 +635,23 @@ class checkoutContorller extends Controller
                         'year_c'=>$today->year[$i]
                     ]);
                 //*** Xuwr lys theem data khasch hangf nooir abat */
-                        $user_famous = user_famous::all()->where('user_id',Auth::user()->user_id[$i])
+                        $get_tb = bill::where('id_bill',$request->id_bill)->distinct()->sum('total');
+                        $user_famous = user_famous::all()->where('user_id',Auth::user()->user_id)
                                                         ->where('day_c',$today->day)
                                                         ->where('month_c',$today->month)
                                                         ->where('year_c',$today->year);
                         $sum_amount_us = $user_famous->sum('amount_user');
                         $samtus = $sum_amount_us+1;
                         $sum_total_u = $user_famous->sum('total');
-                        $total_u_f = $sum_total_u + $total[$i];
+                        $total_u_f = $sum_total_u + $get_tb;
                         user_famous::updateOrCreate([
-                            'user_id'=>Auth::user()->user_id[$i]
+                            'user_id'=>Auth::user()->user_id
                         ],[
-                            'username'=>Auth::user()->name[$i],
-                            'amount_user'=>$samtus[$i],
-                            'day_c'=>$today->day[$i],
-                            'month_c'=>$today->month[$i],
-                            'year_c'=>$today->year[$i],
+                            'username'=>Auth::user()->name,
+                            'amount_user'=>$samtus,
+                            'day_c'=>$today->day,
+                            'month_c'=>$today->month,
+                            'year_c'=>$today->year,
                             'total'=>$total_u_f
                         ]);
             }
@@ -768,7 +770,7 @@ class checkoutContorller extends Controller
     }
     public function bill_hangden_dashboad()
     {
-        $bill_hangden = bill::where('status_product_bill','Hàng đến')->limit(10)->paginate(10);
+        $bill_hangden = bill::where('status_product_bill','Hàng đến')->orderbydesc('method')->limit(10)->paginate(10);
         
         $count_xl = bill::all()->where('status_product_bill','Xử lý')->count();
         $count_vc = bill::all()->where('status_product_bill','Vận chuyển')->count();
@@ -1102,13 +1104,16 @@ class checkoutContorller extends Controller
     }
     public function update_after_pay(Request $request)
     {
+        $old_bill = bill::where('id_bill',$request->id_bill)->distinct()->sum('total');
+        $new_total = $old_bill-$request->discount;
         bill::where('id_bill',$request->id_bill)
         ->update([
             'username'=>$request->username,
             'phone'=>$request->phone,
             'address'=>$request->address,
             'method'=>'STORE',
-            'status_product_bill'=>'Xử lý'
+            'status_product_bill'=>'Xử lý',
+            'total'=>$new_total
         ]);
         cart::where('id_cart_user','STORE-'.Auth::user()->user_id)->delete();
         $bill_amount = bill::all()->where('id_bill',$request->id_bill);
@@ -1188,7 +1193,8 @@ class checkoutContorller extends Controller
                         ->where('method','STORE')
                         ->orderbydesc('id')->first('id_bill');
         $id_bill_ = substr($get_, 12, -2);
+        $discounts = discount::all()->where('status_discount','Phát hành');
         $get_data_for_bill = bill::all()->where('id_bill',$id_bill_);
-        return view('dashboards.clients.new-bill-user', compact('get_data_for_bill','id_bill_'));
+        return view('dashboards.clients.new-bill-user', compact('get_data_for_bill','id_bill_','discounts'));
     }
 }

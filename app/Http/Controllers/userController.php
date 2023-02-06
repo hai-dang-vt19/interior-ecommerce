@@ -6,6 +6,7 @@ use App\Models\city;
 use App\Models\User;
 use App\Models\history;
 use App\Models\luong;
+use App\Models\user_famous;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -194,6 +195,10 @@ class userController extends Controller
     public function destroy_user(Request $request)
     {
         User::find($request->id)->delete();
+        $get_us = User::all()->where('id',$request->id);
+        foreach($get_us as $get_u){
+            user_famous::where('user_id',$get_u->user_id)->delete();
+        }
         history::create([
             'name_his'=>'Destroy',
             'user_his'=>Auth::user()->email.'-'.Auth::user()->name_roles,

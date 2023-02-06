@@ -63,12 +63,7 @@
             </div>
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
               <!-- Search -->
-              <div class="navbar-nav align-items-center">
-                <div class="nav-item d-flex align-items-center">
-                  <i class="bx bx-search fs-4 lh-0"></i>
-                  <input type="text" class="form-control border-0 shadow-none" placeholder="Search..." aria-label="Search..."/>
-                </div>
-              </div>
+              @include('dashboards.blocks.a-search-user')
               <!-- /Search -->
 
               <ul class="navbar-nav flex-row align-items-center ms-auto">
@@ -172,7 +167,7 @@
                                   <td>{{$bill_xl->email}}</td>
                                   <td>{{$bill_xl->phone}}</td>
                                   <td>{{$bill_xl->method}}</td>
-                                  <td><a href="{{ route('up_bill_dashboad', ['id'=>$bill_xl->id_bill]) }}" class="badge bg-dark">{{$bill_xl->status_product_bill}}</a></td>
+                                  <td><a href="{{ route('up_bill_dashboad', ['id'=>$bill_xl->id_bill]) }}" class="badge bg-dark">Vận chuyển</a></td>
                                   <td>{{number_format($bill_xl->total)}} &#8363;</td>
                                   <td>{{$bill_xl->address}}</td>
                                   {{-- <td>
@@ -274,5 +269,15 @@
               });
         </script>
       @endif
+      @if (session()->has('no_data_search'))
+      <script>
+        swal({
+              title: "{{session()->get('no_data_search')}}",
+              icon: "warning",
+              button: "OK",
+              timer: 1000,
+            });
+      </script>
+    @endif
   </body>
 </html>

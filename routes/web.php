@@ -173,6 +173,8 @@ Route::get('/destroy-bill-dashboard', [checkoutContorller::class, 'destroy_bill_
 Route::post('/update-after-pay',[checkoutContorller::class,'update_after_pay'])->name('update_after_pay');
 Route::post('/pay-store', [checkoutContorller::class, 'pay_store'])->middleware(['can:admin_manager_staff','auth'])->name('pay_store');
 
+Route::get('/search-dashboard=',[interiorController::class, 'search_dashboard_up'])->middleware('can:admin_manager_staff','auth')->name('search_dashboard_up');
+
 // ---- user
 Route::get('/interior-index', [interiorController::class,'index'])->name('index');
 Route::get('/interior-product', [interiorController::class,'product'])->name('product');

@@ -105,17 +105,8 @@
             </div>
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
               <!-- Search -->
-              <div class="navbar-nav align-items-center">
-                <div class="nav-item d-flex align-items-center">
-                  <i class="bx bx-search fs-4 lh-0"></i>
-                  <input
-                    type="text"
-                    class="form-control border-0 shadow-none"
-                    placeholder="Search..."
-                    aria-label="Search..."
-                  />
-                </div>
-              </div>
+              @include('dashboards.blocks.a-search-user')
+                
               <!-- /Search -->
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- User -->
@@ -178,17 +169,33 @@
                           <span>Lợi nhuận</span>
                           @php
                             $strlen_te = strlen($total_expense); 
-                              if($strlen_te == 8){//chục triệu
+                              
+                              if($total_expense > 0){
+                                if($strlen_te == 8){//chục triệu
                                   $subtr_ex = Str::substr($total_expense, 0, 2);
                                   $total_expenses = number_format($subtr_ex).' M'; 
-                              }elseif($strlen_te == 9){//trăm triệu
+                                }elseif($strlen_te == 9){//trăm triệu
+                                    $subtr_ex = Str::substr($total_expense, 0, 3);
+                                    $total_expenses = number_format($subtr_ex).' M';
+                                }elseif($strlen_te == 10){//tỷ
+                                    $subtr_ex = Str::substr($total_expense, 0, 1);
+                                    $total_expenses = number_format($subtr_ex).' B';
+                                }else{
+                                    $total_expenses= number_format($total_expense);
+                                }
+                              }else {
+                                if($strlen_te == 9){//chục triệu
                                   $subtr_ex = Str::substr($total_expense, 0, 3);
-                                  $total_expenses = number_format($subtr_ex).' M';
-                              }elseif($strlen_te == 10){//tỷ
-                                  $subtr_ex = Str::substr($total_expense, 0, 1);
-                                  $total_expenses = number_format($subtr_ex).' B';
-                              }else{
-                                  $total_expenses= number_format($total_expense);
+                                  $total_expenses = number_format($subtr_ex).' M'; 
+                                }elseif($strlen_te == 10){//trăm triệu
+                                    $subtr_ex = Str::substr($total_expense, 0, 4);
+                                    $total_expenses = number_format($subtr_ex).' M';
+                                }elseif($strlen_te == 11){//tỷ
+                                    $subtr_ex = Str::substr($total_expense, 0, 2);
+                                    $total_expenses = number_format($subtr_ex).' B';
+                                }else{
+                                    $total_expenses= number_format($total_expense);
+                                }
                               }
                           @endphp
                           @if ($total_expense > 0)
@@ -590,6 +597,16 @@
         swal({
               title: "{{session()->get('login-sc')}}",
               icon: "success",
+              button: "OK",
+              timer: 1000,
+            });
+      </script>
+    @endif
+    @if (session()->has('no_data_search'))
+      <script>
+        swal({
+              title: "{{session()->get('no_data_search')}}",
+              icon: "warning",
               button: "OK",
               timer: 1000,
             });

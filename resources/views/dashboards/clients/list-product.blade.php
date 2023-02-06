@@ -63,12 +63,7 @@
             </div>
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
               <!-- Search -->
-              <div class="navbar-nav align-items-center">
-                <div class="nav-item d-flex align-items-center">
-                  <i class="bx bx-search fs-4 lh-0"></i>
-                  <input type="text" class="form-control border-0 shadow-none" placeholder="Search..." aria-label="Search..."/>
-                </div>
-              </div>
+              @include('dashboards.blocks.a-search-user')
               <!-- /Search -->
 
               <ul class="navbar-nav flex-row align-items-center ms-auto">
@@ -144,10 +139,10 @@
                   </table>
                 </div>
               </div>
+              <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>    
               <div class="d-flex mt-3">
                 {{ $product->links() }}
               </div>
-              <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>    
               <!--/ Responsive Table -->
             </div>
             <!-- / Content -->
