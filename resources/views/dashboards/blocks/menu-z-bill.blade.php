@@ -20,7 +20,7 @@
   <li class="menu-item active">
     <a href="{{ route('bill_dashboad') }}" class="menu-link">
       <i class='menu-icon tf-icons bx bx-compass'></i>
-      <div>Đơn hàng</div>
+      <div>Order</div>
     </a>
   </li>
   @can('admin_manager')

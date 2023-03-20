@@ -6,8 +6,11 @@ use App\Models\bill;
 use App\Models\cart;
 use App\Models\city;
 use App\Models\discount;
+use App\Models\expense;
+use App\Models\history;
 use App\Models\product;
 use App\Models\product_famous;
+use App\Models\User;
 use App\Models\user_famous;
 use Carbon\Carbon;
 use Exception;
@@ -53,11 +56,11 @@ class checkoutContorller extends Controller
                 $done = "GD thành công";
                 $cart = cart::all()->where('id_cart_user','CART_CS'.Auth::user()->user_id);
                 foreach($cart as $crt){
-                    if($crt->sales == 0){
-                        $price_all = $crt->total;
-                    }else{
-                        $price_all = $crt->sales;
-                    }
+                    // if($crt->sales == 0){
+                    //     $price_all = $crt->total;
+                    // }else{
+                    //     $price_all = $crt->sales;
+                    // }
                     $pr_service = city::where('name_city',Auth::user()->city)->get();
                     foreach($pr_service as $price_service){
                         bill::create([
@@ -65,7 +68,8 @@ class checkoutContorller extends Controller
                             'id_product'=>$crt->id_product,
                             'name_product'=>$crt->name_product,
                             'amount'=>$crt->amount_product,
-                            'price'=>$price_all,
+                            // 'price'=>$price_all,
+                            'price'=>$crt->price_product,
                             'username'=>Auth::user()->name,
                             'email'=>Auth::user()->email,
                             'phone'=>Auth::user()->phone,
@@ -78,10 +82,10 @@ class checkoutContorller extends Controller
                             'code_vnpay'=>$vnp_TransactionNo,
                             'address'=>Auth::user()->district.', '.Auth::user()->city.', '.Auth::user()->province,
                             'total'=>$vnp_Amount,
-                            'status_product_bill'=>'Xử lý'
+                            'status_product_bill'=>'1'
                         ]);
                     }
-                    //**** Xử lý thêm vào data sản phẩm nổi bật */
+                    //**** 1 thêm vào data sản phẩm nổi bật */
                         $today = Carbon::now('Asia/Ho_Chi_Minh');
                         $product_famous = product_famous::all()->where('id_product',$crt->id_product)
                                                             ->where('day_c',$today->day)
@@ -189,11 +193,11 @@ class checkoutContorller extends Controller
                 ->where('id_product',$request->vnp_OrderInfo); // sử dụng biến vnp_OrderInfo dể làm điểu kiện
                 // dd($cart);return;
                 foreach($cart as $crt){
-                    if($crt->sales == 0){
-                        $price_all = $crt->total;
-                    }else{
-                        $price_all = $crt->sales;
-                    }
+                    // if($crt->sales == 0){
+                    //     $price_all = $crt->total;
+                    // }else{
+                    //     $price_all = $crt->sales;
+                    // }
                     $pr_service = city::where('name_city',Auth::user()->city)->get();
                     foreach($pr_service as $price_service){
                         bill::create([
@@ -201,7 +205,8 @@ class checkoutContorller extends Controller
                             'id_product'=>$crt->id_product,
                             'name_product'=>$crt->name_product,
                             'amount'=>$crt->amount_product,
-                            'price'=>$price_all,
+                            // 'price'=>$price_all,
+                            'price'=>$crt->price_product,
                             'username'=>Auth::user()->name,
                             'email'=>Auth::user()->email,
                             'phone'=>Auth::user()->phone,
@@ -214,10 +219,10 @@ class checkoutContorller extends Controller
                             'code_vnpay'=>$vnp_TransactionNo,
                             'address'=>Auth::user()->district.', '.Auth::user()->city.', '.Auth::user()->province,
                             'total'=>$vnp_Amount,
-                            'status_product_bill'=>'Xử lý'
+                            'status_product_bill'=>'1'
                         ]);
                     }
-                    //**** Xử lý thêm vào data sản phẩm nổi bật */
+                    //**** 1 thêm vào data sản phẩm nổi bật */
                         $today = Carbon::now('Asia/Ho_Chi_Minh');
                         $product_famous = product_famous::all()->where('id_product',$crt->id_product)
                                                             ->where('day_c',$today->day)
@@ -579,7 +584,7 @@ class checkoutContorller extends Controller
             return view('interiors.blocks.checkout_cod', compact('cart','total','phi'));
         }
     }
-    public function checkout_cod_post(Request $request) // Chưa xử lý được hàng - khách nổi bật
+    public function checkout_cod_post(Request $request) // Chưa 1 được hàng - khách nổi bật
     {
         $get_cart = cart::all()->where('id_cart_user','CART_CS'.Auth::user()->user_id)->count();
         // echo $get_cart.'<br>';
@@ -618,7 +623,7 @@ class checkoutContorller extends Controller
                     'total'=>$total[$i],
                     'status_product_bill'=>$status_product_bill[$i]
                 ]);
-                //**** Xử lý thêm vào data sản phẩm nổi bật */
+                //**** 1 thêm vào data sản phẩm nổi bật */
                     $today = Carbon::now('Asia/Ho_Chi_Minh');
                     $product_famous = product_famous::all()->where('id_product',$id_product[$i])
                                                         ->where('day_c',$today->day)
@@ -689,10 +694,10 @@ class checkoutContorller extends Controller
                     'price_service'=>$price_service->price,
                     'address'=>Auth::user()->district.', '.Auth::user()->city.', '.Auth::user()->province,
                     'total'=>$request->total_cod,
-                    'status_product_bill'=>'Xử lý'
+                    'status_product_bill'=>'1'
                 ]);
             }
-            //**** Xử lý thêm vào data sản phẩm nổi bật */
+            //**** 1 thêm vào data sản phẩm nổi bật */
                 $today = Carbon::now('Asia/Ho_Chi_Minh');
                 $product_famous = product_famous::all()->where('id_product',$crt->id_product)
                                                     ->where('day_c',$today->day)
@@ -738,7 +743,7 @@ class checkoutContorller extends Controller
     public function ship_done(Request $request)
     {
         bill::where('id_bill',$request->id)->update([
-            'status_product_bill'=>'Thành công'
+            'status_product_bill'=>'4'
         ]);
         session()->flash('ship_done', 'Cảm ơn bạn đã tin tưởng và sử dụng sản phẩm của chúng tôi.');
         return back();
@@ -747,11 +752,11 @@ class checkoutContorller extends Controller
     public function bill_dashboad()
     {
         // $bill_ = bill::all();
-        $bill_xuly = bill::where('status_product_bill','Xử lý')->limit(10)->paginate(10);
+        $bill_xuly = bill::where('status_product_bill','1')->limit(10)->paginate(10);
 
-        $count_xl = bill::all()->where('status_product_bill','Xử lý')->count();
-        $count_vc = bill::all()->where('status_product_bill','Vận chuyển')->count();
-        $count_hd = bill::all()->where('status_product_bill','Hàng đến')->count();
+        $count_xl = bill::all()->where('status_product_bill','1')->count();
+        $count_vc = bill::all()->where('status_product_bill','2')->count();
+        $count_hd = bill::all()->where('status_product_bill','3')->count();
         
         $product = product::all()->where('status','Còn hàng');
         return view('dashboards.clients.list-bill', compact('bill_xuly','count_xl','count_vc','count_hd','product'));
@@ -759,33 +764,33 @@ class checkoutContorller extends Controller
     
     public function bill_vanchuyen_dashboad()
     {
-        $bill_vanchuyen = bill::where('status_product_bill','Vận chuyển')->limit(10)->paginate(10);
+        $bill_vanchuyen = bill::where('status_product_bill','2')->limit(10)->paginate(10);
         // dd($bill_vanchuyen);
-        $count_xl = bill::all()->where('status_product_bill','Xử lý')->count();
-        $count_vc = bill::all()->where('status_product_bill','Vận chuyển')->count();
-        $count_hd = bill::all()->where('status_product_bill','Hàng đến')->count();
+        $count_xl = bill::all()->where('status_product_bill','1')->count();
+        $count_vc = bill::all()->where('status_product_bill','2')->count();
+        $count_hd = bill::all()->where('status_product_bill','3')->count();
 
         $product = product::all()->where('status','Còn hàng');
         return view('dashboards.clients.list-bill-vanchuyen', compact('bill_vanchuyen','count_xl','count_vc','count_hd','product'));
     }
     public function bill_hangden_dashboad()
     {
-        $bill_hangden = bill::where('status_product_bill','Hàng đến')->orderbydesc('method')->limit(10)->paginate(10);
+        $bill_hangden = bill::where('status_product_bill','3')->orderbydesc('method')->limit(10)->paginate(10);
         
-        $count_xl = bill::all()->where('status_product_bill','Xử lý')->count();
-        $count_vc = bill::all()->where('status_product_bill','Vận chuyển')->count();
-        $count_hd = bill::all()->where('status_product_bill','Hàng đến')->count();
+        $count_xl = bill::all()->where('status_product_bill','1')->count();
+        $count_vc = bill::all()->where('status_product_bill','2')->count();
+        $count_hd = bill::all()->where('status_product_bill','3')->count();
 
         $product = product::all()->where('status','Còn hàng');
         return view('dashboards.clients.list-bill-hangden', compact('bill_hangden','count_xl','count_vc','count_hd','product'));
     }
     public function bill_thanhcong_dashboad()
     {
-        $bill_thanhcong = bill::where('status_product_bill', 'Thành công')->limit(10)->paginate(10);
+        $bill_thanhcong = bill::where('status_product_bill', '4')->limit(10)->paginate(10);
         
-        $count_xl = bill::all()->where('status_product_bill','Xử lý')->count();
-        $count_vc = bill::all()->where('status_product_bill','Vận chuyển')->count();
-        $count_hd = bill::all()->where('status_product_bill','Hàng đến')->count();
+        $count_xl = bill::all()->where('status_product_bill','1')->count();
+        $count_vc = bill::all()->where('status_product_bill','2')->count();
+        $count_hd = bill::all()->where('status_product_bill','3')->count();
 
         $product = product::all()->where('status','Còn hàng');
         return view('dashboards.clients.list-bill-thanhcong', compact('bill_thanhcong','count_xl','count_vc','count_hd','product'));
@@ -793,7 +798,7 @@ class checkoutContorller extends Controller
     public function up_bill_dashboad(Request $request)
     {
         bill::where('id_bill',$request->id)->update([
-            'status_product_bill'=>'Vận chuyển'
+            'status_product_bill'=>'2'
         ]);
         session()->flash('up_xl', '');
         return back();
@@ -801,7 +806,7 @@ class checkoutContorller extends Controller
     public function up_bill_vanchuyen(Request $request)
     {
         bill::where('id_bill', $request->id)->update([
-            'status_product_bill'=>'Hàng đến'
+            'status_product_bill'=>'3'
         ]);
         session()->flash('up_vc', '');
         return back();
@@ -809,7 +814,7 @@ class checkoutContorller extends Controller
     public function up_bill_xacnhan_store(Request $request)
     {
         bill::where('id_bill', $request->id)->update([
-            'status_product_bill'=>'Thành công'
+            'status_product_bill'=>'4'
         ]);
         session()->flash('up_vc', '');
         return back();
@@ -1065,9 +1070,9 @@ class checkoutContorller extends Controller
                         'code_bank'=>$vnp_BankTranNo,
                         'code_vnpay'=>$vnp_TransactionNo,
                         'total'=>$vnp_Amount,
-                        'status_product_bill'=>'Thành công'
+                        'status_product_bill'=>'4'
                     ]);
-                    //**** Xử lý thêm vào data sản phẩm nổi bật */
+                    //**** 1 thêm vào data sản phẩm nổi bật */
                     $today = Carbon::now('Asia/Ho_Chi_Minh');
                     $product_famous = product_famous::all()->where('id_product',$crt->id_product)
                                                         ->where('day_c',$today->day)
@@ -1084,10 +1089,11 @@ class checkoutContorller extends Controller
                         'year_c'=>$today->year
                     ]);
                 }
+                $discounts = discount::all()->where('status_discount','Phát hành');
                 $get_data_for_bill = bill::all()->where('id_bill',$vnp_TxnRef);
                 foreach($get_data_for_bill as $gdtfb){
                     $id_bill_ = $gdtfb->id_bill;
-                    return view('dashboards.clients.new-bill-user', compact('get_data_for_bill','id_bill_'));
+                    return view('dashboards.clients.new-bill-user', compact('get_data_for_bill','id_bill_','discounts'));
                 }
                 // dd($get_data_for_bill);
             } 
@@ -1110,9 +1116,10 @@ class checkoutContorller extends Controller
         ->update([
             'username'=>$request->username,
             'phone'=>$request->phone,
+            'email'=>$request->email,
             'address'=>$request->address,
             'method'=>'STORE',
-            'status_product_bill'=>'Xử lý',
+            'status_product_bill'=>'1',
             'total'=>$new_total
         ]);
         cart::where('id_cart_user','STORE-'.Auth::user()->user_id)->delete();
@@ -1133,7 +1140,7 @@ class checkoutContorller extends Controller
         $bill = bill::all()->where('id_bill',$request->id_bill);
         foreach($bill as $bills){
             $id_product = $bills->id_product;
-            //**** Xử lý thêm vào data sản phẩm nổi bật */
+            //**** 1 thêm vào data sản phẩm nổi bật */
             $today = Carbon::now('Asia/Ho_Chi_Minh');
             $product_famous = product_famous::all()->where('id_product',$id_product)
                                                 ->where('day_c',$today->day)
@@ -1172,7 +1179,7 @@ class checkoutContorller extends Controller
                 'total'=>$request->total_store,
                 'status_product_bill'=>'STOP'
             ]);
-            //**** Xử lý thêm vào data sản phẩm nổi bật */
+            //**** 1 thêm vào data sản phẩm nổi bật */
             $today = Carbon::now('Asia/Ho_Chi_Minh');
             $product_famous = product_famous::all()->where('id_product',$crt->id_product)
                                                 ->where('day_c',$today->day)
@@ -1197,4 +1204,143 @@ class checkoutContorller extends Controller
         $get_data_for_bill = bill::all()->where('id_bill',$id_bill_);
         return view('dashboards.clients.new-bill-user', compact('get_data_for_bill','id_bill_','discounts'));
     }
+    public function destroy_donhang_dashboard(Request $request)
+    {
+        $year = Carbon::now('Asia/Ho_Chi_Minh')->year;
+        // thêm giá vào expenses_incurred, update status_bil = 0
+        bill::where('id_bill', $request->id)->update([
+            'status_product_bill'=>'0'
+        ]);
+
+        $today = Carbon::now('Asia/Ho_Chi_Minh');
+        $bill_amt = bill::all()->where('id_bill', $request->id);
+        foreach($bill_amt as $bill_a){
+            $id_product = $bill_a->id_product;
+            $product_old = product::where('id_product',$id_product)->sum('amount');
+            $amt = $product_old+$bill_a->amount;
+            product::where('id_product',$id_product)->update(['amount'=>$amt]);
+
+            //**** product famous */
+                $product_famous = product_famous::all()->where('id_product',$bill_a->id_product)
+                                                    ->where('day_c',$today->day)
+                                                    ->where('month_c',$today->month)
+                                                    ->where('year_c',$today->year);
+                $sum_amount = $product_famous->sum('amount_bill');
+                $samt = $sum_amount - $bill_a->amount;
+                if($samt > 0){
+                    product_famous::updateOrCreate([
+                        'id_product'=>$bill_a->id_product
+                    ],[
+                        'amount_bill'=>$samt,
+                        'day_c'=>$today->day,
+                        'month_c'=>$today->month,
+                        'year_c'=>$today->year,
+                    ]);
+                }else{
+                    product_famous::updateOrCreate([
+                        'id_product'=>$bill_a->id_product
+                    ],[
+                        'amount_bill'=>'0',
+                        'day_c'=>$today->day,
+                        'month_c'=>$today->month,
+                        'year_c'=>$today->year,
+                    ]);
+                }
+            //*** user famous */
+                $us = User::all()->where('email',$bill_a->email);
+                if($us != "[]"){
+                    foreach($us as $users){
+                        $user_famous = user_famous::all()->where('user_id',$users->user_id)
+                                                        ->where('day_c',$today->day)
+                                                        ->where('month_c',$today->month)
+                                                        ->where('year_c',$today->year);
+                        $sum_amount_us = $user_famous->sum('amount_user');
+                        $samtus = $sum_amount_us - $bill_a->amount;
+                        $sum_total_u = $user_famous->sum('total');
+                        $total_u_f = $sum_total_u - $bill_a->total;
+                        if($total_u_f > 0){
+                            user_famous::updateOrCreate([
+                                'user_id'=>$users->user_id
+                            ],[
+                                'username'=>$users->name,
+                                'amount_user'=>$samtus,
+                                'day_c'=>$today->day,
+                                'month_c'=>$today->month,
+                                'year_c'=>$today->year,
+                                'total'=>$total_u_f
+                            ]);
+                        }else{
+                            user_famous::updateOrCreate([
+                                'user_id'=>$users->user_id
+                            ],[
+                                'username'=>$users->name,
+                                'amount_user'=>'0',
+                                'day_c'=>$today->day,
+                                'month_c'=>$today->month,
+                                'year_c'=>$today->year,
+                                'total'=>'0'
+                            ]);
+                        }
+                    }
+                }
+            //
+            $check_ex = expense::all()->where('years',$year);
+            $bill_price_service = bill::where('id_bill', $request->id)->distinct()->sum('price_service');
+            if($check_ex == '[]'){
+                if($bill_a->status_product_bill == "1"){
+                    expense::updateOrCreate(['years'=>$year,'expense_incurred'=>'0']);
+                }else{
+                    foreach($check_ex as $check_e){
+                        $incurred_old = $check_e->expense_incurred;
+                    }
+                    $incurred = $incurred_old+$bill_price_service;
+                    expense::updateOrCreate([
+                        'years'=>$year
+                    ],[
+                        'expense_incurred'=>$incurred
+                    ]);
+                }
+            }else{
+                if($bill_a->status_product_bill == "1"){
+                    foreach($check_ex as $check_e){
+                        $incurred_old = $check_e->expense_incurred;;
+                    }
+                    expense::updateOrCreate([
+                        'years'=>$year,
+                        'expense_incurred'=>$incurred_old
+                    ]);
+                    // echo '1 - '.$incurred_old;return;
+                }else{
+                    foreach($check_ex as $check_e){
+                        $incurred_old = $check_e->expense_incurred;
+                    }
+                    $incurred = $incurred_old+$bill_price_service;
+                    expense::updateOrCreate([
+                        'years'=>$year
+                    ],[
+                        'expense_incurred'=>$incurred
+                    ]);
+                    // echo '2 - '.$incurred;return;
+                }
+            }
+        }
+
+        // check save to history
+        if(Auth::user()->name_roles == 'user'){
+            session()->flash('huy_bill', 'Hủy đơn hàng thành công');
+            return back();
+        }else{
+            history::create([
+                'name_his'=>'Destroy',
+                'user_his'=>Auth::user()->email,
+                'description_his'=>'Hủy đơn hàng:'.$request->id
+            ]);
+            session()->flash('huy_bill', 'Hủy đơn hàng thành công');
+            return back();
+        }
+    }
 }
+// Xửlý_1
+// Vậnchuyển_2
+// Hàngđến_3
+// Thànhcông_4

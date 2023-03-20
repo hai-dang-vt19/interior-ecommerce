@@ -46,7 +46,7 @@
         }
         }
     </script>
-    <a href="{{ route('new_product') }}" class="btn amado-btn active mt-15">New this week</a>
+    <a href="{{ route('new_product') }}" class="btn amado-btn active mt-15">Sản phẩm mới</a>
 </div>
 @php
         use App\Models\User;

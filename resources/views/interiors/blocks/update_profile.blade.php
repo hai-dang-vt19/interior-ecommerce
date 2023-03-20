@@ -63,7 +63,7 @@
                         </div>
                         <div class="form-group">
                             <label>Ngày sinh</label>
-                            <input class="form_control_ict" type="text" name="date_user" value="{{ $user['date_user'] }}">
+                            <input class="form_control_ict" type="date" name="date_user" value="{{ $user['date_user'] }}">
                         </div>
                     </div>
                     <div class="row">
@@ -81,22 +81,55 @@
                             </select>
                         </div>
                         <div class="form-group slct mr-3">
-                            <label>Tỉnh</label>
-                            <select class="form_control_ict_slct"  name="province" >
-                                <option selected>{{ $user['province'] }}</option>
-                                @foreach ($city_user as $city)
-                                    <option value="{{ $city->city_province }}">{{ $city->city_province }}</option>
-                                @endforeach
-                            </select>
+                            <label>Số/Phường</label>
+                            <input class="form_control_ict" type="text" name="district" value="{{ $user['district'] }}">
                         </div>
                         <div class="submit_profile">
-                            <button type="submit">Cập nhật</button>
+                            <button class="btn btn-success col-8" type="submit">Cập nhật</button>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group ml-1">
                             <label>Địa chỉ </label>
                             <p>{{ $user['district'] }}, {{ $user['city'] }}, {{ $user['province'] }}</p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="ml-0">
+                <button class="btn btn-outline-info btn-sm" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    Đổi mật khẩu
+                </button>
+                <form action="{{ route('update_password') }}" method="POST">
+                    @csrf
+                    <div class="collapse show col-8 mt-2 ml-5" id="collapseExample">
+                        <div class="card card-body">
+                            <div class="">
+                                @error('pass_old')<span class="text-danger">{{$message}}</span>@enderror
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend col-5">
+                                      <span class="input-group-text" id="basic-addon1">Mật khẩu cũ</span>
+                                    </div>
+                                    <input type="password" name="pass_old" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                                </div>
+                                @error('pass_new')<span class="text-danger">{{$message}}</span>@enderror
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend col-5">
+                                      <span class="input-group-text" id="basic-addon1">Mật khẩu mới</span>
+                                    </div>
+                                    <input type="password" name="pass_new" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                                </div>
+                                @error('check_pass_new')<span class="text-danger">{{$message}}</span>@enderror
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend col-5">
+                                      <span class="input-group-text" id="basic-addon1">Nhập lại mật khẩu mới</span>
+                                    </div>
+                                    <input type="password" name="check_pass_new" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                                </div>
+                                <div>
+                                    <button class="btn btn-success btn-sm" type="submit">Cập nhật</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -136,6 +169,26 @@
               icon: "error",
               button: "OK",
               timer: 2000,
+            });
+      </script>
+    @endif
+    @if (session()->has('tb_sc'))
+      <script>
+        swal({
+              title: "{{session()->get('tb_sc')}}",
+              icon: "success",
+              button: "OK",
+              timer: 1000,
+            });
+      </script>
+    @endif
+    @if (session()->has('tb_er'))
+      <script>
+        swal({
+              title: "{{session()->get('tb_er')}}",
+              icon: "error",
+              button: "OK",
+              timer: 1000,
             });
       </script>
     @endif

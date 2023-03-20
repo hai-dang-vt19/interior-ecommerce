@@ -110,6 +110,12 @@
                               </div>
                             </div>
                             <div class="row mb-3">
+                              <label class="col-sm-2 col-form-label">Email</label>
+                              <div class="col-sm-6">
+                                  <input type="text" class="form-control" name="email">
+                              </div>
+                            </div>
+                            <div class="row mb-3">
                               <label class="col-sm-2 col-form-label">Địa chỉ</label>
                               <div class="col-sm-6">
                                   <input type="text" class="form-control" name="address">

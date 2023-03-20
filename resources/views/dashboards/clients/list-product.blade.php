@@ -106,6 +106,9 @@
                     </thead>
                     <tbody>
                       @foreach ($product as $key => $pro)
+                      @php
+                        $date = Carbon\Carbon::parse($pro->date)->format('d-m-Y');
+                      @endphp
                       <tr>
                         <td scope="row">{{$key+1}}</td>
                         <td>{{$pro->id_product}}</td>
@@ -128,10 +131,10 @@
                         {{-- <td>{{$pro->descriptions}}</td> --}}
                         <td>{{$pro->status}}</td>
                         <td>{{number_format($pro->sales)}} &#8363;</td>
-                        <td>{{$pro->date}}</td>
+                        <td>{{$date}}</td>
                         <td>
-                          <a href="{{ route('edit_product', ['id'=>$pro->id]) }}" class="btn btn-primary"><i class='bx bxs-edit'></i></a>
-                          <a href="{{ route('destroy_product', ['id'=>$pro->id]) }}" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn xóa không?')"><i class='bx bx-trash-alt'></i></a>
+                          <a href="{{ route('edit_product', ['id'=>$pro->id]) }}" class="btn btn-primary btn-sm"><i class='bx bxs-edit'></i></a>
+                          <a href="{{ route('destroy_product', ['id'=>$pro->id]) }}" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn xóa không?')"><i class='bx bx-trash-alt'></i></a>
                         </td>
                       </tr>
                       @endforeach

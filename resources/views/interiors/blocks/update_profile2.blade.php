@@ -66,7 +66,7 @@
                 </form>
                 <div class="row">
                     <div class="dropdown">
-                        <button onclick="myFunction()" class="dropbtn">Chọn địa chỉ cập nhật</button>
+                        <button onclick="myFunction()" class="dropbtn">Chọn Thành phố</button>
                         <div id="myDropdown" class="dropdown-content">
                           @foreach ($city_user as $city)
                               <a href="{{ route('update_profile_get_city', ['id'=>$city->id]) }}">{{ $city->name_city }}</a>

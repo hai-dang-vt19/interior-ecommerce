@@ -50,41 +50,42 @@
         <!-- Product Details Area Start -->
         <div class="single-product-area section-padding-0-100 clearfix">
             <div class="container-fluid fontCSI">
-                    <div class="row ml-100 mt-100">
+                    <div class="ml-100 mt-100 d-flex">
                         <div class="container">
-                            <div class="row ml-30 ">
+                            <div class="ml-0 ">
                                 <div class="d-flex">
-                                    <div class="mr-50">
-                                        <p class="fpCSI">Khách hàng: <span>{{ Auth::user()->name }}</span></p>
-                                        <p class="fpCSI">Email: <span>{{ Auth::user()->email }}</span></p>
-                                    </div>
-                                    <div class="">
-                                        <p class="fpCSI">Giới tính: <span>{{ Auth::user()->sex_user }}</span></p>
-                                        <p class="fpCSI">SĐT: <span>{{ Auth::user()->phone }}</span></p>
+                                    <div class="mr-0 d-flex">
+                                        <p class="fpCSI mr-5"><i class='bx bxs-user-rectangle text-dark'></i> <span class="text-secondary">{{ Auth::user()->name }}</span></p>
+                                        <p class="fpCSI mr-5"><i class='bx bxl-gmail text-dark' ></i> <span class="text-secondary">{{ Auth::user()->email }}</span></p>
+                                        <p class="fpCSI mr-5"><i class='bx bxs-spa text-dark' ></i> <span class="text-secondary">{{ Auth::user()->sex_user }}</span></p>
+                                        <p class="fpCSI mr-5"><i class='bx bxs-phone text-dark' ></i> <span class="text-secondary">{{ Auth::user()->phone }}</span></p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row ml-30">
-                                <p class="fpCSI">Địa chỉ: <span>{{ Auth::user()->district.', '.Auth::user()->city.', '.Auth::user()->province}}</span></p>
+                            <div class="ml-0">
+                                <p class="fpCSI text-dark">Địa chỉ: <span class="text-secondary">{{ Auth::user()->district.', '.Auth::user()->city.', '.Auth::user()->province}}</span></p>
                             </div>
                         </div>
-                        <div class="container">
-                            <a href="{{ route('update_profile') }}" class="btn btn-primary">Cập nhật thông tin</a>
+                        <div class="text-center mr-5 d-flex">
+                            <a href="{{ route('update_profile') }}" class="mr-2">
+                                <button class="btn btn-outline-info btn-sm">Cập nhật thông tin</button>
+                            </a>
                         </div>
                     </div>
-                    <div class="row container">
+                    <div class="row container mt-4">
                         {{-- <h1>Hóa đơn</h1> --}}
                         <table class="table table-bordered table-responsive-sm table-hover">
                             <thead>
+                              <td colspan="8" class="text-center"><h3 style="font-family: 'Dancing Script';" class="text-warning">Danh sách đơn hàng</h3></td>
                               <tr>
-                                <th scope="col">Mã đơn</th>
-                                <th scope="col">Mã SP</th>
-                                <th scope="col">Số lượng</th>
-                                <th scope="col">Giá sản phẩm</th>
-                                <th scope="col">Phương thức</th>
-                                <th scope="col">Địa chỉ nhận</th>
-                                <th scope="col">Tổng tiền</th>
-                                <th scope="col">Trạng thái</th>
+                                <th>Mã đơn</th>
+                                <th>Mã SP</th>
+                                <th>Số lượng</th>
+                                <th>Giá sản phẩm</th>
+                                <th>Phương thức</th>
+                                <th>Địa chỉ nhận</th>
+                                <th>Tổng tiền</th>
+                                <th>Trạng thái</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -97,19 +98,29 @@
                                     <td>{{$item->method}}</td>
                                     <td>{{$item->address}}</td>
                                     <td>{{number_format($item->total)}}&#8363;</td>
-                                    @if ($item->status_product_bill == "Xử lý")
+                                    @if ($item->status_product_bill == "1")
                                         <td>
-                                            <a class="stt_b1" href="#">
-                                                {{$item->status_product_bill}}
-                                            </a>
+                                            <div class="d-flex">
+                                                <a class="stt_b1 mr-1" href="#">
+                                                    Đang lấy hàng
+                                                </a>
+                                                <a class="stt_b5" href="{{ route('destroy_donhang_dashboard', ['id'=>$item->id_bill]) }}">
+                                                    Hủy đơn
+                                                </a>
+                                            </div>
                                         </td>
-                                    @elseif($item->status_product_bill == "Vận chuyển")
+                                    @elseif($item->status_product_bill == "2")
                                         <td>
-                                            <a class="stt_b1" href="#">
-                                                {{$item->status_product_bill}}
-                                            </a>
+                                            <div class="d-flex">
+                                                <a class="stt_b2 mr-1" href="#">
+                                                    Đang giao hàng
+                                                </a>
+                                                <a class="stt_b5" href="{{ route('destroy_donhang_dashboard', ['id'=>$item->id_bill]) }}">
+                                                    Hủy đơn
+                                                </a>
+                                            </div>
                                         </td>
-                                    @elseif($item->status_product_bill == "Hàng đến")
+                                    @elseif($item->status_product_bill == "3")
                                         <td>
                                             <a class="stt_b3" href="{{ route('ship_done', ['id'=>$item->id_bill]) }}">
                                                 Xác nhận lấy hàng
@@ -118,7 +129,7 @@
                                     @else
                                         <td>
                                             <a class="stt_b4" href="#">
-                                                {{$item->status_product_bill}}
+                                                Thành công
                                             </a>
                                         </td>
                                     @endif
@@ -178,6 +189,16 @@
               icon: "success",
               button: "OK",
               timer: 2000,
+            });
+      </script>
+    @endif
+    @if (session()->has('huy_bill'))
+      <script>
+        swal({
+              title: "{{session()->get('huy_bill')}}",
+              icon: "success",
+              button: "OK",
+              timer: 1000,
             });
       </script>
     @endif

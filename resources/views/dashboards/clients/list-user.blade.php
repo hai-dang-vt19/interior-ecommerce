@@ -148,14 +148,16 @@
                             <span class="badge rounded bg-danger me-1" style="width: 93px; font-size: 12px">{{$us->name_status}}</span>
                           @endif
                           @if (Auth::user()->name_roles == 'admin')
-                            <a href="{{ route('reset_pw', ['id'=>$us->id]) }}"><i class="bx bx-key"></i></a>
+                            @if ($us->name_roles != 'admin')
+                              <a href="{{ route('reset_pw', ['id'=>$us->id]) }}"><i class="bx bx-key"></i></a>
+                            @endif
                           @endif
                         </td>
                         <td>{{$us->phone}}</td>
                         {{-- <td>Table cell</td> --}}
                         <td>
-                          <a href="{{ route('edit_list_user', ['id'=>$us->id]) }}" class="btn btn-primary"><i class='bx bxs-edit'></i></a>
-                          <a onclick="return confirm('Bạn có chắc chắn xóa không?')"  href="{{ route('destroy_user', ['id'=>$us->id]) }}" class="btn btn-danger"><i class='bx bx-trash-alt'></i></a>
+                          <a href="{{ route('edit_list_user', ['id'=>$us->id]) }}" class="btn btn-primary btn-sm"><i class='bx bxs-edit'></i></a>
+                          <a onclick="return confirm('Bạn có chắc chắn xóa không?')"  href="{{ route('destroy_user', ['id'=>$us->id]) }}" class="btn btn-danger btn-sm"><i class='bx bx-trash-alt'></i></a>
                         </td>
                       </tr>
                       @endforeach

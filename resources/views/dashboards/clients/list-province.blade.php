@@ -148,8 +148,8 @@
                                 <td>{{$cty->price}}</td>
                                 @can('admin')
                                 <td>
-                                  <a href="{{ route('edit_city_dashboard', ['id'=>$cty->id]) }}" class="btn btn-primary"><i class='bx bxs-edit'></i></a>
-                                  <a onclick="return confirm('Bạn có chắc chắn xóa không?')"  href="{{ route('destroy_city', ['id'=>$cty->id]) }}" class="btn btn-danger"><i class='bx bx-trash-alt'></i></a>
+                                  <a href="{{ route('edit_city_dashboard', ['id'=>$cty->id]) }}" class="btn btn-primary btn-sm"><i class='bx bxs-edit'></i></a>
+                                  <a onclick="return confirm('Bạn có chắc chắn xóa không?')"  href="{{ route('destroy_city', ['id'=>$cty->id]) }}" class="btn btn-danger btn-sm"><i class='bx bx-trash-alt'></i></a>
                                 </td>
                                 @endcan
                               </tr>
@@ -202,8 +202,8 @@
                               <td>{{$pro->name_province}}</td>
                               @can('admin')
                               <td>
-                                <a href="{{ route('edit_province_dashboard', ['id'=>$pro->id]) }}" class="btn btn-primary"><i class='bx bxs-edit'></i></a>
-                                <a onclick="return confirm('Bạn có chắc chắn xóa không?')"  href="{{ route('destroy_province', ['id'=>$pro->id]) }}" class="btn btn-danger"><i class='bx bx-trash-alt'></i></a>
+                                <a href="{{ route('edit_province_dashboard', ['id'=>$pro->id]) }}" class="btn btn-primary btn-sm"><i class='bx bxs-edit'></i></a>
+                                <a onclick="return confirm('Bạn có chắc chắn xóa không?')"  href="{{ route('destroy_province', ['id'=>$pro->id]) }}" class="btn btn-danger btn-sm"><i class='bx bx-trash-alt'></i></a>
                               </td>
                               @endcan
                             </tr>

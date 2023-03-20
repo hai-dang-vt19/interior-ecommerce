@@ -145,16 +145,46 @@ class interiorPostController extends Controller
      }
      public function update_profile_city(Request $request)
      {
-        User::where('id',$request->id)->update([
-            'email'=>$request->email,
-            'name'=>$request->name,
-            'sex_user'=>$request->sex_user,
-            'date_user'=>$request->date_user,
-            'phone'=>$request->phone,
-            'city'=>$request->city,
-            'province'=>$request->province
-        ]);
+        $provinces = city::all()->where('name_city',$request->city);
+        foreach($provinces as $pro){
+            User::where('id',$request->id)->update([
+                'email'=>$request->email,
+                'name'=>$request->name,
+                'sex_user'=>$request->sex_user,
+                'date_user'=>$request->date_user,
+                'phone'=>$request->phone,
+                'city'=>$request->city,
+                'district'=>$request->district,
+                'province'=>$pro->city_province
+            ]);
+        }
         session()->flash('update_sc', 'Cập nhật thành công');
         return redirect()->route('profile_user');
+     }
+     public function update_password(Request $request)
+     {
+        $request->validate([
+            'pass_old' => 'required',
+            'pass_new' => 'required|min:6',
+            'check_pass_new' =>  'required|same:pass_new',
+        ], [
+            'pass_old.required' => '* Chưa nhập mật khẩu cũ',
+            'pass_new.required' => '* Chưa nhập mật khẩu',
+            'pass_new.min' => '* Mật khẩu tối thiểu 6 ký tự',
+            'check_pass_new.required' => '* Chưa nhập mật khẩu',
+            'check_pass_new.same' => '* Nhập lại mật khẩu không chính xác',
+        ]);
+        
+        $pass_old = $request->pass_old;
+        $pass_new = $request->pass_new;
+        $get_info = User::where('email',Auth::user()->email);
+        $old_pass = Auth::user()->password;
+        if(Hash::check($pass_old, $old_pass)){
+            $get_info->update(['password'=>Hash::make($pass_new)]);
+            session()->flash('tb_sc', 'Đổi mật khẩu thành công');
+        }else{
+            session()->flash('tb_er', 'Mật khẩu cũ không chính xác');
+        }
+        return back();
      }
 }

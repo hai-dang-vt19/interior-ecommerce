@@ -152,8 +152,8 @@
                                   <td>{{$statuses->name_status}}</td>
                                   <td>{{$statuses->type_status}}</td>
                                   <td>
-                                    <a href="{{ route('edit_status_dashboard', ['id'=>$statuses->id]) }}" class="btn btn-primary"><i class='bx bxs-edit'></i></a>
-                                    <a onclick="return confirm('Bạn có chắc chắn xóa không?')"  href="{{ route('destroy_status', ['id'=>$statuses->id]) }}" class="btn btn-danger"><i class='bx bx-trash-alt'></i></a>
+                                    <a href="{{ route('edit_status_dashboard', ['id'=>$statuses->id]) }}" class="btn btn-primary btn-sm"><i class='bx bxs-edit'></i></a>
+                                    <a onclick="return confirm('Bạn có chắc chắn xóa không?')"  href="{{ route('destroy_status', ['id'=>$statuses->id]) }}" class="btn btn-danger btn-sm"><i class='bx bx-trash-alt'></i></a>
                                   </td>
                                 </tr>
                                 @endforeach

@@ -47,7 +47,7 @@
             <!-- ##### Single Widget ##### -->
             <div class="widget catagory mb-50">
                 <!-- Widget Title -->
-                <h6 class="widget-title mb-30">Categories</h6>
+                <h6 class="widget-title mb-30">Loại sản phẩm</h6>
                 <!--  Catagories  -->
                 <div class="catagories-menu">
                     <ul>
@@ -65,7 +65,7 @@
             </div>
             <div class="widget catagory mb-50">
                 <!-- Widget Title -->
-                <h6 class="widget-title mb-30">Basic color</h6>
+                <h6 class="widget-title mb-30">Màu sản phẩm</h6>
 
                 <!--  Catagories  -->
                 <div class="catagories-menu">
@@ -98,11 +98,27 @@
                     </ul>
                 </div>
             </div>
-            <!-- ##### Single Widget ##### -->
         </div>
 
-        <div class="amado_product_area section-padding-100 ml-5">
-            <div class="container-fluid">
+        <div class="amado_product_area mt-5 ml-5">
+            <div class="container-fluid mt-5">
+                <div class="dropdown mb-5">
+                    <button class="btn btn-warning dropdown-toggle btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Khoảng giá
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        @php
+                            $step = 500000;
+                            for ($i = $min; $i <= ceil($max / $step) * $step; $i++){
+                                if ($i % $step == 0) {
+                                    $data = $min." - ".$i;
+                                    $min = $i + 0;
+                                    echo ' <a class="dropdown-item" href="'.route('product_with_price', ['data'=>$data]).'">'.$data.' &#8363;</a> ';
+                                }
+                            }
+                        @endphp
+                    </div>
+                </div>
                 <div class="row border-bottom border-warning">
                     <!-- Single Product Area -->
                     @foreach ($product as $pro)

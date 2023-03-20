@@ -13,6 +13,7 @@ class expense extends Model
         'id',
         'expense_salary',
         'expense_material',
+        'expense_incurred',
         'years',       
     ];
     public $timestamps = false;

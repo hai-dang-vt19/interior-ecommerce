@@ -79,7 +79,7 @@
           <div class="content-wrapper">
             <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Đơn hàng / </span>Danh sách đơn hàng</h4>
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Order / </span>Danh sách đơn hàng</h4>
               <div class="mb-4 d-flex">
                 <div class="btn-group">
                   <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -146,11 +146,11 @@
                                   <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>
                                   <th style="color: rgb(231, 171, 6);font-size: 14px">ID Bill</th>
                                   <th style="color: rgb(231, 171, 6);font-size: 14px">ID sản phẩm</th>
-                                  <th style="color: rgb(231, 171, 6);font-size: 14px">Tên sản phẩm</th>
                                   <th style="color: rgb(231, 171, 6);font-size: 14px">Email</th>
                                   <th style="color: rgb(231, 171, 6);font-size: 14px">Số điện thoại</th>
                                   <th style="color: rgb(231, 171, 6);font-size: 14px">Phương thức</th>
                                   <th style="color: rgb(231, 171, 6);font-size: 14px">Trạng thái</th>
+                                  <th style="color: rgb(231, 171, 6);font-size: 14px">Tên sản phẩm</th>
                                   <th style="color: rgb(231, 171, 6);font-size: 14px">Tổng tiền</th>
                                   <th style="color: rgb(231, 171, 6);font-size: 14px">Địa chỉ</th>
                                 </tr>
@@ -161,7 +161,6 @@
                                   <td scope="row">{{$key_hd+1}}</td>
                                   <td>{{$bill_hd->id_bill}}</td>
                                   <td>{{$bill_hd->id_product}}</td>
-                                  <td>{{$bill_hd->name_product}}</td>
                                   <td>{{$bill_hd->email}}</td>
                                   <td>{{$bill_hd->phone}}</td>
                                   <td>{{$bill_hd->method}}</td>
@@ -172,12 +171,16 @@
                                       <a href="#" class="badge bg-success">Khách hàng xác nhận</a>
                                     @endif
                                   </td>
+                                  <td>{{$bill_hd->name_product}}</td>
                                   <td>{{number_format($bill_hd->total)}} &#8363;</td>
                                   <td>{{$bill_hd->address}}</td>
                                   {{-- <td>
                                     <a href="{{ route('edit_product', ['id'=>$bill_hd->id]) }}" class="btn btn-primary"><i class='bx bxs-edit'></i></a>
                                     <a href="{{ route('destroy_product', ['id'=>$bill_hd->id]) }}" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn xóa không?')"><i class='bx bx-trash-alt'></i></a>
                                   </td> --}}
+                                  <td>
+                                    <a href="{{ route('destroy_donhang_dashboard', ['id'=>$bill_hd->id_bill]) }}" class="btn-xs btn-danger">Hủy đơn</a>
+                                  </td>
                                 </tr>
                                 @endforeach
                               </tbody>
@@ -262,6 +265,16 @@
               timer: 1000,
             });
       </script>
-    @endif
+      @endif
+      @if (session()->has('huy_bill'))
+      <script>
+        swal({
+              title: "{{session()->get('huy_bill')}}",
+              icon: "success",
+              button: "OK",
+              timer: 1000,
+            });
+      </script>
+      @endif
   </body>
 </html>

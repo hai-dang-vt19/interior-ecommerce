@@ -175,9 +175,11 @@ Route::post('/pay-store', [checkoutContorller::class, 'pay_store'])->middleware(
 
 Route::get('/search-dashboard=',[interiorController::class, 'search_dashboard_up'])->middleware('can:admin_manager_staff','auth')->name('search_dashboard_up');
 
+Route::get('/destroy/donhang/{id}',[checkoutContorller::class, 'destroy_donhang_dashboard'])->middleware('auth')->name('destroy_donhang_dashboard');
 // ---- user
 Route::get('/interior-index', [interiorController::class,'index'])->name('index');
 Route::get('/interior-product', [interiorController::class,'product'])->name('product');
+Route::get('/interior-product/price', [interiorController::class,'product_with_price'])->name('product_with_price');
 Route::get('/interior-product-details/{id}', [interiorController::class,'product_detail'])->name('product_detail');
 Route::get('/inteiror-product-cat', [interiorController::class, 'get_with_type'])->name('get_with_type');
 Route::get('/inteiror-product-supp', [interiorController::class, 'get_with_brand'])->name('get_with_brand');
@@ -228,5 +230,7 @@ Route::get('/update-profile-opc/{id}', [interiorController::class, 'update_profi
 Route::get('/update-profile-city/{id}', [interiorController::class, 'update_profile_get_city'])->middleware(['can:client_inte','auth'])->name('update_profile_get_city');
 Route::post('/update-profile-city-po/{id}', [interiorPostController::class, 'update_profile_city_cart'])->middleware(['can:client_inte','auth'])->name('update_profile_city_cart');
 Route::post('/update-profile-city-pro/{id}', [interiorPostController::class, 'update_profile_city'])->middleware(['can:client_inte','auth'])->name('update_profile_city');
+
+Route::post('update_password', [interiorPostController::class, 'update_password'])->middleware('auth')->name('update_password');
 
 Route::get('/ship/done', [checkoutContorller::class, 'ship_done'])->middleware(['can:client_inte','auth'])->name('ship_done');

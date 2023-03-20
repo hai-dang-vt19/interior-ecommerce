@@ -100,8 +100,8 @@
                           <td>{{$tp->name_type}}</td>
                           <td>{{$tp->type_status}}</td>
                           <td>
-                            <a href="{{ route('edit_type_product', ['id'=>$tp->id]) }}" class="btn btn-primary"><i class='bx bxs-edit'></i></a>
-                            <a href="{{ route('destroy_type_product', ['id'=>$tp->id]) }}" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn xóa không?')"><i class='bx bx-trash-alt'></i></a>
+                            <a href="{{ route('edit_type_product', ['id'=>$tp->id]) }}" class="btn btn-primary btn-sm"><i class='bx bxs-edit'></i></a>
+                            <a href="{{ route('destroy_type_product', ['id'=>$tp->id]) }}" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn xóa không?')"><i class='bx bx-trash-alt'></i></a>
                           </td>
                         </tr>
                         @endforeach

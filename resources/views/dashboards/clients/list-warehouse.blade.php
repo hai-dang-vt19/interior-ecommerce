@@ -103,8 +103,8 @@
                         <td>{{$wr->amount}}</td>
                         <td>{{$wr->material}}, {{$wr->supplier}}</td>
                         <td>
-                          <a href="{{ route('edit_warehouse', ['id'=>$wr->id]) }}" class="btn btn-primary"><i class='bx bxs-edit'></i></a>
-                          <a href="{{ route('destroy_warehouse', ['id'=>$wr->id]) }}" onclick="return confirm('Bạn có chắc chắn xóa không?')"  class="btn btn-danger"><i class='bx bx-trash-alt'></i></a>
+                          <a href="{{ route('edit_warehouse', ['id'=>$wr->id]) }}" class="btn btn-primary btn-sm"><i class='bx bxs-edit'></i></a>
+                          <a href="{{ route('destroy_warehouse', ['id'=>$wr->id]) }}" onclick="return confirm('Bạn có chắc chắn xóa không?')"  class="btn btn-danger btn-sm"><i class='bx bx-trash-alt'></i></a>
                         </td>
                       </tr>
                       @endforeach
