@@ -173,8 +173,9 @@
                             <div class="input-group input-group-merge me-2">
                               <span class="input-group-text"><i class='bx bx-brush'></i></span>
                               <select class="form-select" name="color">
+                                <option selected disabled>Chọn màu</option>
                                 @foreach ($color as $cl)
-                                    <option value="{{$cl->color}}">{{$cl->color}}</option>
+                                    <option value="{{$cl->color}}" style="background-color: {{$cl->color}};">{{$cl->color}}</option>
                                 @endforeach
                               </select>
                             </div>
@@ -183,7 +184,7 @@
                               <select class="form-select" name="color2">
                                 <option selected disabled>Nếu có</option>
                                 @foreach ($color as $cl)
-                                    <option value="{{$cl->color}}">{{$cl->color}}</option>
+                                    <option value="{{$cl->color}}" style="background-color: {{$cl->color}};">{{$cl->color}}</option>
                                 @endforeach
                               </select>
                             </div>
@@ -192,7 +193,7 @@
                               <select class="form-select" name="color3">
                                 <option selected disabled>Nếu có</option>
                                 @foreach ($color as $cl)
-                                    <option value="{{$cl->color}}">{{$cl->color}}</option>
+                                    <option value="{{$cl->color}}" style="background-color: {{$cl->color}};">{{$cl->color}}</option>
                                 @endforeach
                               </select>
                             </div>

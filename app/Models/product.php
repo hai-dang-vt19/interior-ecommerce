@@ -16,8 +16,6 @@ class product extends Model
         'type_product',
         'amount',
         'color',
-        'color2',
-        'color3',
         'price',
         'images',
         'images2',

@@ -79,7 +79,7 @@
           <div class="content-wrapper">
             <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Order / </span>Danh sách đơn hàng</h4>
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Order / </span>Danh sách đơn hàng <a href="{{ route('export_excel_bill') }}" class="btn btn-primary btn-xs">Export Excel</a></h4>
               <div class="mb-4 d-flex">
                 <div class="btn-group">
                   <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">

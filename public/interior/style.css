@@ -64,19 +64,14 @@
   }
   
 .interior_color{
-  
-  width: 30px;
-  height: 30px;
-  transition: 0.3s;
-  /* border: #8d8c8c 1px solid; */
-  border-radius: 50%;
+  width: 80%;
 }
 .interior_color:hover{
-  width: 100px;
-  height: 30px;
+  width: 85%;
   box-shadow: #FBB710 3px 3px;
-  border: none;
-  border-radius: 0%;
+  border: 1px solid #E0A792;
+  /* border-radius: 1000px; */
+  transition: 0.1s;
 }
 
 .inte_search{

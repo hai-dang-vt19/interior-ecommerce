@@ -1,5 +1,6 @@
 <?php
 
+use App\Exports\BillExport;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\interiorController;
 use App\Http\Controllers\interiorPostController;
@@ -234,3 +235,5 @@ Route::post('/update-profile-city-pro/{id}', [interiorPostController::class, 'up
 Route::post('update_password', [interiorPostController::class, 'update_password'])->middleware('auth')->name('update_password');
 
 Route::get('/ship/done', [checkoutContorller::class, 'ship_done'])->middleware(['can:client_inte','auth'])->name('ship_done');
+//Export excel
+Route::get('bill/export/', [BillExport::class, 'export_excel_bill'])->middleware(['auth'])->name('export_excel_bill');

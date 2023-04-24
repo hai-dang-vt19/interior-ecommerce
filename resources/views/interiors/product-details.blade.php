@@ -108,7 +108,7 @@
                             @endif
                         </div>
                     </div>
-                    <div class="col-12 col-lg-5">
+                    <div class="col-12 col-lg-5" style="background-color: #fbfbfbeb">
                         <div class="single_product_desc">
                             <!-- Product Meta Data -->
                             <div class="product-meta-data">
@@ -147,7 +147,7 @@
                                 @csrf
                                 <div class="cart-btn d-flex mb-50">
                                     <div class="d-flex mr-3">
-                                        <p>Qty</p>
+                                        <p>SL</p>
                                         <div class="quantity">
                                             <span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i class="fa fa-caret-down" aria-hidden="true"></i></span>
                                             <input type="number" class="qty-text" id="qty" step="1" min="1" max="{{$pro_detail['amount']}}" name="quantity" value="1">

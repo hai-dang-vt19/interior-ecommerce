@@ -295,7 +295,6 @@ class checkoutContorller extends Controller
     public function vnpay_payment(Request $request)
     {
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        // $vnp_Returnurl = "https://localhost/vnpay_php/vnpay_return.php";
         $vnp_Returnurl = "http://127.0.0.1:8000/return-vnpay";
         $vnp_TmnCode = "MX3URQXB";//Mã website tại VNPAY 
         $vnp_HashSecret = "VBUEHKBFEXKXQMMNNLJCIHZQUSICDJEI"; //Chuỗi bí mật
@@ -305,7 +304,7 @@ class checkoutContorller extends Controller
         $vnp_OrderType = 'billpayment';
         $vnp_Amount = $request->total_vnpay * 100;
         $vnp_Locale = 'vn';
-        $vnp_BankCode = 'NCB';
+        $vnp_BankCode = "NCB";
         // $vnp_BankCode = 'VNPAYQR';
         $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
         $inputData = array(
@@ -375,7 +374,7 @@ class checkoutContorller extends Controller
         $vnp_OrderType = 'billpayment';
         $vnp_Amount = $request->total_vnpay * 100;
         $vnp_Locale = 'vn';
-        // $vnp_BankCode = 'NCB';
+        // $vnp_BankCode = "NCB";
         $vnp_BankCode = 'VNPAYQR';
         $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
         $inputData = array(
@@ -445,7 +444,7 @@ class checkoutContorller extends Controller
         $vnp_OrderType = 'billpayment';
         $vnp_Amount = $request->total_vnpay * 100;
         $vnp_Locale = 'vn';
-        $vnp_BankCode = 'NCB';
+        $vnp_BankCode = "NCB";
         // $vnp_BankCode = 'VNPAYQR';
         $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
         $inputData = array(
@@ -515,7 +514,7 @@ class checkoutContorller extends Controller
         $vnp_OrderType = 'billpayment';
         $vnp_Amount = $request->total_vnpay * 100;
         $vnp_Locale = 'vn';
-        // $vnp_BankCode = 'NCB';
+        // $vnp_BankCode = "NCB";
         $vnp_BankCode = 'VNPAYQR';
         $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
         $inputData = array(
@@ -889,7 +888,7 @@ class checkoutContorller extends Controller
         $vnp_OrderType = 'billpayment';
         $vnp_Amount = $request->total_vnpay * 100;
         $vnp_Locale = 'vn';
-        $vnp_BankCode = 'NCB';
+        $vnp_BankCode = "NCB";
         // $vnp_BankCode = 'VNPAYQR';
         $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
         $inputData = array(
@@ -963,7 +962,7 @@ class checkoutContorller extends Controller
         $vnp_OrderType = 'billpayment';
         $vnp_Amount = $request->total_vnpay * 100;
         $vnp_Locale = 'vn';
-        // $vnp_BankCode = 'NCB';
+        // $vnp_BankCode = "NCB";
         $vnp_BankCode = 'VNPAYQR';
         $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
         $inputData = array(

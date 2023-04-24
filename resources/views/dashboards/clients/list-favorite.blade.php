@@ -90,7 +90,7 @@
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Tên sản phẩm</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Giá tiền</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Trạng thái</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Chức năng</th>
+                        {{-- <th style="color: rgb(231, 171, 6);font-size: 14px">Chức năng</th> --}}
                       </tr>
                     </thead>
                     <tbody>
@@ -102,7 +102,7 @@
                           <td>{{ $favo->name_product }}</td>
                           <td>{{ $favo->price }}</td>
                           <td>{{ $favo->status_product }}</td>
-                          <td>Table cell</td>
+                          {{-- <td>Table cell</td> --}}
                         </tr>
                       @endforeach
                     </tbody>

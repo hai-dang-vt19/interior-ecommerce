@@ -88,6 +88,7 @@
                       <tr>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">MSP</th>
+                        <th style="color: rgb(231, 171, 6);font-size: 14px">QR CODE</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Tên sản phẩm</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Loại sản phẩm</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Số lượng</th>
@@ -108,14 +109,26 @@
                       @foreach ($product as $key => $pro)
                       @php
                         $date = Carbon\Carbon::parse($pro->date)->format('d-m-Y');
+                        $url = 'http://localhost:8000/interior-product-details/'.$pro->id;
                       @endphp
                       <tr>
                         <td scope="row">{{$key+1}}</td>
                         <td>{{$pro->id_product}}</td>
+                        <td class="text-center"><div>{{ QrCode::color(251,183,16)->size(35)->generate($url) }}</div></td>
                         <td>{{$pro->name_product}}</td>
                         <td>{{$pro->type_product}}</td>
                         <td>{{$pro->amount}}</td>
-                        <td>{{$pro->color}} {{$pro->color2}} {{$pro->color3}}</td>
+                        <td>
+                          <div class="d-flex">
+                            @php
+                                $explode = explode(', ', $pro->color);
+                                $count = count($explode);
+                                for($cl = 0; $cl < $count; $cl++){
+                                    echo '<p class="ms-1" style="width: 20px;height: 20px;background-color: '.$explode[$cl].'; border: 1px solid #E0A792; border-radius: 1000px;" title="'.$explode[$cl].'"></p>';
+                                }
+                            @endphp
+                          </div>
+                        </td>
                         <td>{{number_format($pro->price)}} &#8363;</td>
                         <td>{{$pro->material}}</td>
                         <td>{{$pro->supplier}}</td>

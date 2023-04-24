@@ -70,31 +70,12 @@
                 <!--  Catagories  -->
                 <div class="catagories-menu">
                     <ul>
-                        <li>
-                            <a href="{{ route('get_with_color', ['col'=>'Trắng']) }}">
-                                <div class="interior_color" style="background-color: #FFFFFF">   </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('get_with_color', ['col'=>'Xám']) }}">
-                                <div  class="interior_color" style="background-color: #b7b7b7">   </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('get_with_color', ['col'=>'Nhám']) }}">
-                                <div class="interior_color" style="background-color: #303030">   </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('get_with_color', ['col'=>'Đen']) }}">
-                                <div class="interior_color" style="background-color: #030303">   </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('get_with_color', ['col'=>'Nâu']) }}">
-                                <div class="interior_color" style="background-color: #E0A792">   </div>
-                            </a>
-                        </li>
+                        {{-- <div class="interior_color" style="background-color: #FFFFFF">   </div> --}}
+                        @foreach ($color as $cl)
+                            <li class="mb-2">
+                                <a href="{{ route('get_with_color', ['col'=>$cl->color]) }}" class="btn btn-lg interior_color" style="background-color: {{$cl->color}}"></a>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
@@ -111,7 +92,7 @@
                             $step = 500000;
                             for ($i = $min; $i <= ceil($max / $step) * $step; $i++){
                                 if ($i % $step == 0) {
-                                    $data = $min." - ".$i;
+                                    $data = number_format($min)." - ".number_format($i);
                                     $min = $i + 0;
                                     echo ' <a class="dropdown-item" href="'.route('product_with_price', ['data'=>$data]).'">'.$data.' &#8363;</a> ';
                                 }

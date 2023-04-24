@@ -84,15 +84,17 @@
               <div class="card">
                 @can('admin')
                 <div class="card-body">
-                  <form action="{{ route('add_color') }}" method="POST">
+                  <form action="{{ route('add_color') }}" enctype="multipart/form-data" method="POST">
                     @csrf
                     <div class="row">
-                      <label class="col-sm-2 col-form-label">Color</label>
-                      <div class="col-sm-10">
-                        <div class="input-group input-group-merge">
-                          <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
-                          <input type="text" class="form-control" name="color"/>
-                          <button type="submit" class="btn btn-success">Thêm</button>
+                      <div class="d-flex">
+                        <label class="col-sm-1 col-form-label">Color</label>
+                        <div class="col-sm-2">
+                          {{-- <input type="text" class="form-control" name="color"/> --}}
+                          <input class="form-control" type="color" name="color" value="#FBB710" id="html5-color-input" />
+                        </div>
+                        <div>
+                          <button type="submit" class="btn btn-success btn-sm ms-2">Thêm</button>
                         </div>
                       </div>
                     </div>
@@ -107,20 +109,20 @@
                         <table class="table table-hover table-dark">
                           <thead>
                             <tr>
-                              <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>
+                              <th style="color: rgb(231, 171, 6);font-size: 14px">ID</th>
                               <th style="color: rgb(231, 171, 6);font-size: 14px">Mã màu</th>
-                              <th style="color: rgb(231, 171, 6);font-size: 14px">Tên màu</th>
+                              <th style="color: rgb(231, 171, 6);font-size: 14px">Màu</th>
                               @can('admin')
                               <th style="color: rgb(231, 171, 6);font-size: 14px">Chức năng</th>
                               @endcan
                             </tr>
                           </thead>
                           <tbody>
-                            @foreach ($color as $key => $clor)
+                            @foreach ($color as $clor)
                             <tr>
-                              <td>{{$key +1}}</td>
                               <td style="color: gold">{{$clor->id}}</td>
                               <td>{{$clor->color}}</td>
+                              <td><p class="btn btn-lg" style="background-color: {{$clor->color}}"></p></td>
                               @can('admin')
                               <td>
                                 <a href="{{ route('edit_color_dashboard', ['id'=>$clor->id]) }}" class="btn btn-primary btn-sm"><i class='bx bxs-edit'></i></a>

@@ -79,7 +79,7 @@
           <div class="content-wrapper">
             <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Order / </span>Danh sách đơn hàng</h4>
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Order / </span>Danh sách đơn hàng <a href="{{ route('export_excel_bill') }}" class="btn btn-primary btn-xs">Export Excel</a></h4>
 
               <div class="mb-4 d-flex">
                 <div class="btn-group">
@@ -117,7 +117,7 @@
                     </li>
                     <li class="nav-item">
                       <a href="{{ route('bill_vanchuyen_dashboad') }}" class="nav-link">
-                        <i class="tf-icons bx bxs-ship"></i> Vận chuyển
+                        <i class="tf-icons bx bxs-ship"></i>Vận chuyển
                         <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-label-danger">{{$count_vc}}</span>
                       </a>
                     </li>
@@ -166,7 +166,7 @@
                                   <td>{{$bill_xl->email}}</td>
                                   <td>{{$bill_xl->phone}}</td>
                                   <td>{{$bill_xl->method}}</td>
-                                  <td><a href="{{ route('up_bill_dashboad', ['id'=>$bill_xl->id_bill]) }}" class="badge bg-dark">Vận chuyển</a></td>
+                                  <td><a href="{{ route('up_bill_dashboad', ['id'=>$bill_xl->id_bill]) }}" class="badge bg-dark">Chờ Xử lý</a></td>
                                   <td>{{$bill_xl->name_product}}</td>
                                   <td>{{number_format($bill_xl->total)}} &#8363;</td>
                                   <td>{{$bill_xl->address}}</td>

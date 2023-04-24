@@ -82,7 +82,6 @@
       }
     </script>
   </head>
-// chart_div_top_product
   <body>
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">

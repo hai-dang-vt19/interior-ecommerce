@@ -29,6 +29,8 @@ use App\Models\warehouse;
 use App\Models\product_famous;
 use App\Models\user_famous;
 use Carbon\Carbon;
+use App\Exports\BillExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Auth;
 
 use function PHPUnit\Framework\isEmpty;
@@ -819,56 +821,87 @@ class interiorController extends Controller
     public function product()
     {
         $type = typeproduct::all();
+        $color = color::all();
         $product = product::where('status','Còn hàng')->limit(6)->paginate(6);
         $min = product::where('status','Còn hàng')->min('price');
         $max = product::where('status','Còn hàng')->max('price');
-        return view('interiors.product', compact('type','product','max','min'));
+        return view('interiors.product', compact('type','product','max','min','color'));
     }
     public function product_with_price(Request $req)
     {
         $arr = explode(' - ',$req->data);
-        $p1 = $arr[0];
-        $p2 = $arr[1];
+        // print_r($arr);return;
+        $p1_ = $arr[0];
+        $p2_ = $arr[1];
+        $p1_explode = explode(',',$p1_);
+        $p2_explode = explode(',',$p2_);
+        $count_p1_ex = count($p1_explode);
+        $count_p2_ex = count($p2_explode);
+        
+        if($count_p1_ex == 1){// nghìn -> trăm
+            $p1 = $p1_explode[0];
+        }elseif($count_p1_ex == 2){// triệu -> trăm triệu
+            $p1 = $p1_explode[0].$p1_explode[1];
+        }else{
+            $p1 = $p1_explode[0].$p1_explode[1].$p1_explode[2];
+        }
+        if($count_p2_ex == 1){// nghìn -> trăm
+            $p2 = $p2_explode[0];
+        }elseif($count_p2_ex == 2){// triệu -> trăm triệu
+            $p2 = $p2_explode[0].$p2_explode[1];
+        }else{
+            $p2 = $p2_explode[0].$p2_explode[1].$p2_explode[2];
+        }
+        // echo $tst.'<BR>';
+        // print_r($count_p1_ex);
+        // print_r($p1_explode);return;
         // echo $arr[0];
         $type = typeproduct::all();
+        $color = color::all();
         $products = product::where('status','Còn hàng')->whereBetween('price', [$p1, $p2]);
         $c = $products->count();
         $product = $products->limit($c)->paginate($c);
         $min = product::where('status','Còn hàng')->min('price');
         $max = product::where('status','Còn hàng')->max('price');
-        return view('interiors.product', compact('type','product','max','min'));
+        return view('interiors.product', compact('type','product','max','min','color'));
     }
     public function new_product()
     {
         $type = typeproduct::all();
+        $color = color::all();
         $product = product::where('status','Còn hàng')->orderbydesc('id')->limit(5)->paginate(5);
         $min = product::where('status','Còn hàng')->min('price');
         $max = product::where('status','Còn hàng')->max('price');
-        return view('interiors.product', compact('type','product','max','min'));
+        return view('interiors.product', compact('type','product','max','min', 'color'));
     }
     public function get_with_type(Request $request)
     {
         $type = typeproduct::all();
+        $color = color::all();
         $product = product::where('status','Còn hàng')->where('type_product',$request->type)->limit(6)->paginate(6);
         $min = product::where('status','Còn hàng')->min('price');
         $max = product::where('status','Còn hàng')->max('price');
-        return view('interiors.product', compact('type','product','max','min'));
+        return view('interiors.product', compact('type','product','max','min','color'));
     }
     public function get_with_brand(Request $request)
     {
         $type = typeproduct::all();
+        $color = color::all();
         $product = product::where('status','Còn hàng')->where('supplier',$request->supp)->limit(6)->paginate(6);
         $min = product::where('status','Còn hàng')->min('price');
         $max = product::where('status','Còn hàng')->max('price');
-        return view('interiors.product', compact('type','product','max','min'));
+        return view('interiors.product', compact('type','product','max','min','color'));
     }
     public function get_with_color(Request $request)
     {
         $type = typeproduct::all();
-        $product = product::where('status','Còn hàng')->where('color',$request->col)->limit(6)->paginate(6);
+        $color = color::all();
+        $product = product::where('status','Còn hàng')
+                            ->where('color','like',"%$request->col%")
+                            ->limit(6)->paginate(6);
         $min = product::where('status','Còn hàng')->min('price');
         $max = product::where('status','Còn hàng')->max('price');
-        return view('interiors.product', compact('type','product','max','min'));
+        return view('interiors.product', compact('type','product','max','min','color'));
     }
 
     public function product_detail(Request $request)
@@ -891,7 +924,9 @@ class interiorController extends Controller
                 // dd($product);
         }
         $type = typeproduct::all();
-        return view('interiors.product', compact('type','product','search_inter'));
+        $min = product::where('status','Còn hàng')->min('price');
+        $max = product::where('status','Còn hàng')->max('price');
+        return view('interiors.product', compact('type','product','search_inter','min','max'));
     }
 
     public function review()
@@ -1036,4 +1071,10 @@ class interiorController extends Controller
         session()->flash('not_user', 'Để đảm bảo an toàn chúng tôi mời bạn đăng nhập lại!!!');
         return view('dashboards.login');
     }
+
+    // public function export_excel_bill()
+    // {
+    //     $time = Carbon::now('Asia/Ho_Chi_Minh');
+    //     return Excel::download(new BillExport(), 'Don_hang_'.$time->day.'_'.$time->month.'_'.$time->year.'.xlsx');
+    // }
 }

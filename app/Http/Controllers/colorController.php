@@ -11,13 +11,14 @@ class colorController extends Controller
 {
     public function add_color(Request $request)
     {
+        // dd($request->all());return;
         color::updateOrCreate([
             'color'=>$request->color,
         ]);
         history::create([
             'name_his'=>'Create',
             'user_his'=>Auth::user()->email.'-'.Auth::user()->roles,
-            'description_his'=>'tạo màu :'.$request->color
+            'description_his'=>'Tạo màu :'.$request->color
         ]);
         session()->flash('color_sc', $request->color);
         return back();

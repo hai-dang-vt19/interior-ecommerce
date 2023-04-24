@@ -96,12 +96,12 @@
     </a>
     <ul class="menu-sub">
       <li class="menu-item">
-        <a href="{{ route('warehouse_dashboard') }}" class="menu-link" target="_blank">
+        <a href="{{ route('warehouse_dashboard') }}" class="menu-link"  >
           <div >New loại Warehouse</div>
         </a>
       </li>
       <li class="menu-item active">
-        <a href="{{ route('list_warehouse_dashboard') }}" class="menu-link" target="_blank">
+        <a href="{{ route('list_warehouse_dashboard') }}" class="menu-link"  >
           <div >List Warehouse </div>
         </a>
       </li>

@@ -24,7 +24,20 @@ class productController extends Controller
         $type_product = $request->type_product;
         $amount = $request->amount;
         $pri = $request->price;
-        
+        $color1 = $request->color;
+        $color2 = $request->color2;
+        $color3 = $request->color3;
+        if(!empty($color1) and empty($color2) and empty($color3)){
+            $color = $color1;
+            // echo 1;return;
+        }elseif(!empty($color1) and !empty($color2) and empty($color3)){
+            $color = $color1.', '.$color2;
+            // echo 2;return;
+        }else{
+            $color = $color1.', '.$color2.', '.$color3;
+            // echo 3;return;
+        }
+
         $get_price_material = material::where('name_material',$request->material)
                                     ->where('supplier',$request->supplier)
                                     ->get();
@@ -39,9 +52,7 @@ class productController extends Controller
         $pro->type_product = $type_product;
         $pro->material = $request->material;
         $pro->supplier = $request->supplier;
-        $pro->color = $request->color;
-        $pro->color2 = $request->color2;
-        $pro->color3 = $request->color3;
+        $pro->color = $color;
         $pro->price = $sum_price;
         if($request->sales > 0){
             if($request->sales <= 70){
@@ -122,7 +133,16 @@ class productController extends Controller
         $name_product = $request->name_product;
         $type_product = $request->type_product;
         $amount = $request->amount;
-
+        $color1 = $request->color;
+        $color2 = $request->color2;
+        $color3 = $request->color3;
+        if(!empty($color1) and empty($color2) and empty($color3)){
+            $color = $color1;
+        }elseif(!empty($color1) and !empty($color2) and empty($color3)){
+            $color = $color1.', '.$color2;
+        }else{
+            $color = $color1.', '.$color2.', '.$color3;
+        }
         $get = product::where('id',$request->id)->get();
         
         $product = product::find($request->id);
@@ -163,9 +183,7 @@ class productController extends Controller
                 $product->images2 = $request->images2_c;
             }
             
-            $product->color = $request->color;
-            $product->color2 = $request->color2;
-            $product->color3 = $request->color3;
+            $product->color = $color;
             $product->price = $request->price;
             if ($request->sales1 != null) {
                 $product->sales = $request->price*((100-$request->sales1)/100);
