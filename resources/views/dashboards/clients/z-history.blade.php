@@ -77,20 +77,10 @@
 
           <!-- Content wrapper -->
           <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4">Lịch sử</h4>
-            <div class="accordion mt-3 mb-2" id="accordionExample">
-              <div class="card accordion-item">
-                <h2 class="accordion-header" id="headingTwo">
-                  <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordionTwo" aria-expanded="false" aria-controls="accordionTwo">
-                    <i class='bx bxs-component'></i> &nbsp;&nbsp; Chức năng
-                  </button>
-                </h2>
-                <div id="accordionTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                  <div class="accordion-body d-flex">
-                    <a href="{{route('destroy_all_history')}}" class="btn btn-warning">Làm mới</a>
-                  </div>
-                </div>
-              </div>
+            <h4 class="fw-bold py-3 mb-2">Lịch sử</h4>
+            <div class="container mb-2 d-flex">
+              <a href="{{route('destroy_all_history')}}" class="btn btn-warning btn-sm">Reset</a>
+              <a href="{{route('export_excel_history')}}" class="btn btn-primary btn-sm ms-2">Xuất Excel</a>
             </div>
             <!-- Responsive Table -->
             <div class="card">
@@ -99,10 +89,10 @@
                   <thead>
                     <tr>
                       <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>
-                      <th style="color: rgb(231, 171, 6);font-size: 14px">Người sử dụng</th>
+                      <th style="color: rgb(231, 171, 6);font-size: 14px">Người dùng</th>
                       <th style="color: rgb(231, 171, 6);font-size: 14px">Nội dung</th>
-                      <th style="color: rgb(231, 171, 6);font-size: 14px">Phân loại</th>
-                      <th style="color: rgb(231, 171, 6);font-size: 14px">Thời gian tạo</th>
+                      <th style="color: rgb(231, 171, 6);font-size: 14px">Hình thức</th>
+                      <th style="color: rgb(231, 171, 6);font-size: 14px">Thời gian</th>
                     </tr>
                   </thead>
                   <tbody>

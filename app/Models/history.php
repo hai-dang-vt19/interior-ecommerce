@@ -13,6 +13,7 @@ class history extends Model
         'id',
         'name_his',
         'user_his',
-        'description_his'
+        'description_his',
+        'created_at'
     ];
 }

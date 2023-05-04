@@ -183,12 +183,7 @@
         <div data-i18n="Form Layouts">Province - City</div>
       </a>
     </li>
-    <li class="menu-item">
-      <a href="{{ route('color_dashboard') }}" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-cookie"></i>
-        <div data-i18n="Form Layouts">Color Product</div>
-      </a>
-    </li>
+     
     @can('admin')
     <li class="menu-item">
       <a href="{{ route('slide') }}" class="menu-link">

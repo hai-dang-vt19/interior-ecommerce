@@ -77,7 +77,6 @@
                                     </li>
                                 </ol>
                                 <div class="carousel-inner">
-                                    
                                     <div class="carousel-item active">
                                         <a class="gallery_img" href="{{ asset($sl1) }}">
                                             <img class="d-block w-100" src="{{ asset($sl1) }}" alt="First slide">

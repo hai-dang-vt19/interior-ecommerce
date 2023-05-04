@@ -1,6 +1,7 @@
 <?php
 
 use App\Exports\BillExport;
+use App\Exports\HistoryExport;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\interiorController;
 use App\Http\Controllers\interiorPostController;
@@ -138,12 +139,6 @@ Route::get('/dashboard-edit-discount/{id}', [interiorController::class, 'edit_di
 Route::post('/dashboard-update-discount/{id}', [statusController::class, 'update_discount'])->middleware(['can:admin','auth'])->name('update_discount');
 Route::get('/dashboard-destroy-discount/{id}', [statusController::class, 'destroy_discount'])->middleware(['can:admin','auth'])->name('destroy_discount');
 
-Route::get('/dashboard-color', [interiorController::class, 'color_dashboard'])->middleware(['can:admin_manager','auth'])->name('color_dashboard');
-Route::post('/dashboard-add-color', [colorController::class, 'add_color'])->middleware(['can:admin','auth'])->name('add_color');
-Route::get('/dashboard-edit-color/{id}', [interiorController::class, 'edit_color_dashboard'])->middleware(['can:admin','auth'])->name('edit_color_dashboard');
-Route::post('/dashboard-update-color/{id}', [colorController::class, 'update_color'])->middleware(['can:admin','auth'])->name('update_color');
-Route::get('/dashboard-destroy-color/{id}', [colorController::class, 'destroy_color'])->middleware(['can:admin','auth'])->name('destroy_color');
-
 Route::get('/dashboard-history', [interiorController::class, 'history_dashboard'])->middleware(['can:admin','auth'])->name('history_dashboard');
 Route::get('/dashboard-destroy-all-history', [historyController::class, 'destroy_all_history'])->middleware(['can:admin','auth'])->name('destroy_all_history');
 
@@ -213,7 +208,9 @@ Route::post('/checkout-vnpay-d-qr', [checkoutContorller::class, 'vnpay_payment_d
 Route::get('/checkout-cod', [checkoutContorller::class, 'checkout_cod'])->middleware(['can:client_inte','auth'])->name('checkout_cod');
 Route::post('/checkout-cod-post', [checkoutContorller::class, 'checkout_cod_post'])->middleware(['can:client_inte','auth'])->name('checkout_cod_post');
 
-Route::post('/checkout-cod/{id}', [checkoutContorller::class, 'checkout_cod_get_don'])->middleware(['can:client_inte','auth'])->name('checkout_cod_get_don');
+Route::get('/checkout-cod/{id}', [checkoutContorller::class, 'checkout_cod_get_don'])->middleware(['can:client_inte','auth'])->name('checkout_cod_get_don');
+Route::post('/checkout-cod-post-don', [checkoutContorller::class, 'checkout_cod_post_don'])->middleware(['can:client_inte','auth'])->name('checkout_cod_post_don');
+// Route::post('/checkout-cod/{id}', [checkoutContorller::class, 'checkout_cod_get_don'])->middleware(['can:client_inte','auth'])->name('checkout_cod_get_don');
 
 Route::get('/return-vnpay', [checkoutContorller::class, 'return_vnpay'])->name('return_vnpay');
 Route::get('/return-vnpay-don', [checkoutContorller::class, 'return_vnpay_don'])->name('return_vnpay-don');
@@ -237,3 +234,4 @@ Route::post('update_password', [interiorPostController::class, 'update_password'
 Route::get('/ship/done', [checkoutContorller::class, 'ship_done'])->middleware(['can:client_inte','auth'])->name('ship_done');
 //Export excel
 Route::get('bill/export/', [BillExport::class, 'export_excel_bill'])->middleware(['auth'])->name('export_excel_bill');
+Route::get('history/export/', [HistoryExport::class, 'export_excel_history'])->middleware(['auth'])->name('export_excel_history');

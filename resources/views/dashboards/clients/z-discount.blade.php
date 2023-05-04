@@ -133,8 +133,8 @@
                         <thead>
                           <tr>
                             <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>
-                            <th style="color: rgb(231, 171, 6);font-size: 14px">ID Mã giảm giá</th>
-                            <th style="color: rgb(231, 171, 6);font-size: 14px">Tên mã giảm giá</th>
+                            <th style="color: rgb(231, 171, 6);font-size: 14px">ID</th>
+                            <th style="color: rgb(231, 171, 6);font-size: 14px">Mã giảm giá</th>
                             <th style="color: rgb(231, 171, 6);font-size: 14px">Giá tiền giảm</th>
                             <th style="color: rgb(231, 171, 6);font-size: 14px">Trạng thái</th>
                             @can('admin')

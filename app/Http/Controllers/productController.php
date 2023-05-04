@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
+use App\Models\color;
 
 
 class productController extends Controller
@@ -27,15 +28,15 @@ class productController extends Controller
         $color1 = $request->color;
         $color2 = $request->color2;
         $color3 = $request->color3;
-        if(!empty($color1) and empty($color2) and empty($color3)){
-            $color = $color1;
-            // echo 1;return;
-        }elseif(!empty($color1) and !empty($color2) and empty($color3)){
-            $color = $color1.', '.$color2;
-            // echo 2;return;
-        }else{
+        $check_color = $request->check_color;
+        if($check_color == 1){
             $color = $color1.', '.$color2.', '.$color3;
-            // echo 3;return;
+            color::updateOrCreate(['id_color'=>$color1]);
+            color::updateOrCreate(['id_color'=>$color2]);
+            color::updateOrCreate(['id_color'=>$color3]);
+        }else{
+            $color = $color1;
+            color::updateOrCreate(['id_color'=>$color1]);
         }
 
         $get_price_material = material::where('name_material',$request->material)
@@ -118,7 +119,7 @@ class productController extends Controller
                 'expense_material'=>$amount_material
             ]);
         }         
-
+        color::updateOrCreate(['id_color'=>$color]);
         history::create([
             'name_his'=>'Create',
             'user_his'=>Auth::user()->email,
@@ -138,10 +139,16 @@ class productController extends Controller
         $color3 = $request->color3;
         if(!empty($color1) and empty($color2) and empty($color3)){
             $color = $color1;
+            color::updateOrCreate(['id_color'=>$color1]);
         }elseif(!empty($color1) and !empty($color2) and empty($color3)){
             $color = $color1.', '.$color2;
+            color::updateOrCreate(['id_color'=>$color1]);
+            color::updateOrCreate(['id_color'=>$color2]);
         }else{
             $color = $color1.', '.$color2.', '.$color3;
+            color::updateOrCreate(['id_color'=>$color1]);
+            color::updateOrCreate(['id_color'=>$color2]);
+            color::updateOrCreate(['id_color'=>$color3]);
         }
         $get = product::where('id',$request->id)->get();
         
@@ -195,8 +202,7 @@ class productController extends Controller
             $product->date = $request->date;
             $product->size = $request->size;
         $product->save();
-
-        $get_warehouse = warehouse::where('name_product',$name_product)->where('name',$type_product)->update(['amount'=>$amount]);
+        warehouse::where('name_product',$name_product)->where('name',$type_product)->update(['amount'=>$amount]);
         // foreach($get_warehouse as $get_ware){
         //     $sum = $amount + $get_ware->amount;
         //     $get_ware->update(['amount'=>$sum]);

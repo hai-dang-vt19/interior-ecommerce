@@ -102,9 +102,11 @@
                                                             </form>
                                                         </div>
                                                         <div class="wrap mr-3">
-                                                            <form action="{{ route('checkout_cod_get_don', ['id'=>$cart->id_product]) }}" method="POST">
-                                                                @csrf
-                                                                <input type="hidden" value="{{$cart->total+$ct}}" name="total_cod">
+                                                            {{-- <form action="{{ route('checkout_cod', ['tt_cod'=>$sum_product_city]) }}" method="POST"> --}}
+                                                            <form action="{{ route('checkout_cod_get_don', ['id'=>$cart->id_product]) }}" method="GET">
+                                                                {{-- @csrf --}}
+                                                                <input type="hidden" value="{{$cart->total+$ct}}" name="tt_cod">
+                                                                {{-- <input type="hidden" value="{{$cart->total+$ct}}" name="total_cod"> --}}
                                                                 <button type="submit" class="button">COD</button>
                                                             </form>
                                                         </div>
@@ -135,9 +137,11 @@
                                                             </form>
                                                         </div>
                                                         <div class="wrap mr-3">
-                                                            <form action="{{ route('checkout_cod_get_don', ['id'=>$cart->id_product]) }}" method="POST">
-                                                                @csrf
-                                                                <input type="hidden" value="{{$cart->total_sales+$ct}}" name="total_cod">
+                                                            {{-- <form action="{{ route('checkout_cod', ['tt_cod'=>$sum_product_city]) }}" method="POST"> --}}
+                                                            <form action="{{ route('checkout_cod_get_don', ['id'=>$cart->id_product]) }}" method="GET">
+                                                                {{-- @csrf --}}
+                                                                <input type="hidden" value="{{$cart->total_sales+$ct}}" name="tt_cod">
+                                                                {{-- <input type="hidden" value="{{$cart->total_sales+$ct}}" name="total_cod"> --}}
                                                                 <button type="submit" class="button">COD</button>
                                                             </form>
                                                         </div>

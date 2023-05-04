@@ -70,11 +70,23 @@
                 <!--  Catagories  -->
                 <div class="catagories-menu">
                     <ul>
+                        {{-- @php
+                            $color2 = trim($color,'[{}]');
+                            $explode = explode('},{',$color2);
+                            $count = count($explode);
+                            for($c = 0 ;$c < $count; $c++){
+                                $subtr = substr($explode[$c],9,-1);
+                                $exp = explode(',',$subtr);
+                                $ct = count($exp);
+                                for($ce = 0; $ce < $ct; $ce++){
+                                    $trim_ce = trim($exp[$ce]);
+                                    echo '<li class="mb-2"><a href="'.route('get_with_color', ['col'=>$trim_ce]).'" class="btn btn-lg interior_color" style="background-color: '.$trim_ce.'"></a></li>';
+                                }
+                            }
+                        @endphp --}}
                         {{-- <div class="interior_color" style="background-color: #FFFFFF">   </div> --}}
                         @foreach ($color as $cl)
-                            <li class="mb-2">
-                                <a href="{{ route('get_with_color', ['col'=>$cl->color]) }}" class="btn btn-lg interior_color" style="background-color: {{$cl->color}}"></a>
-                            </li>
+                            <li class="mb-2"><a href="{{ route('get_with_color', ['col'=>$cl->id_color]) }}" class="btn btn-lg interior_color" style="background-color: {{$cl->id_color}}"></a></li>
                         @endforeach
                     </ul>
                 </div>

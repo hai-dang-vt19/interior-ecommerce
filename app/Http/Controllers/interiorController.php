@@ -13,7 +13,6 @@ use App\Models\roles;
 use App\Models\discount;
 use App\Models\province;
 use App\Models\city;
-use App\Models\color;
 use App\Models\comments;
 use App\Models\expense;
 use App\Models\favorite;
@@ -29,11 +28,8 @@ use App\Models\warehouse;
 use App\Models\product_famous;
 use App\Models\user_famous;
 use Carbon\Carbon;
-use App\Exports\BillExport;
-use Maatwebsite\Excel\Facades\Excel;
+use App\Models\color;
 use Illuminate\Support\Facades\Auth;
-
-use function PHPUnit\Framework\isEmpty;
 
 class interiorController extends Controller
 {
@@ -388,16 +384,14 @@ class interiorController extends Controller
     public function product_dashboard()
     {
         $ware = warehouse::orderbydesc('id')->get();
-        // $color = color::all();        
         return view('dashboards.clients.new-product', compact('ware'));
     }
     public function product_dashboard2(Request $request)
     {
         // $ware = warehouse::where('id',$request->id)->get();
         $data['ware'] = warehouse::find($request->id)->toArray();
-        $wareAll = warehouse::orderbydesc('id')->get();
-        $color = color::all();        
-        return view('dashboards.clients.new-product2', $data, compact('color','wareAll'));
+        $wareAll = warehouse::orderbydesc('id')->get();   
+        return view('dashboards.clients.new-product2', $data, compact('wareAll'));
     }
     public function list_product_dashboard()
     {
@@ -407,8 +401,7 @@ class interiorController extends Controller
     public function edit_product(Request $request)
     {
         $data['product'] = product::find($request->id)->toArray();
-        $color = color::all();
-        return view('dashboards.updates.list-product-update', $data, compact('color'));
+        return view('dashboards.updates.list-product-update', $data);
     }
 
     public function type_dashboard()
@@ -684,17 +677,6 @@ class interiorController extends Controller
         $select_province = province::all();
         return view('dashboards.updates.list-city-update',$data,compact('select_province'));
     }
-
-    public function color_dashboard()
-    {
-        $color = color::limit(5)->paginate(5);
-        return view('dashboards.clients.z-color', compact('color'));
-    }
-    public function edit_color_dashboard(Request $request)
-    {
-        $data['color'] = color::find($request->id);
-        return view('dashboards.updates.z-color-update',$data);
-    }
     public function history_dashboard()
     {
         $his = history::orderbyDESC('id')->limit(10)->paginate(10);
@@ -821,10 +803,11 @@ class interiorController extends Controller
     public function product()
     {
         $type = typeproduct::all();
-        $color = color::all();
         $product = product::where('status','Còn hàng')->limit(6)->paginate(6);
         $min = product::where('status','Còn hàng')->min('price');
         $max = product::where('status','Còn hàng')->max('price');
+
+        $color = color::distinct('color')->get('id_color');
         return view('interiors.product', compact('type','product','max','min','color'));
     }
     public function product_with_price(Request $req)
@@ -923,10 +906,11 @@ class interiorController extends Controller
                 $product = product::where('status','Còn hàng')->limit(6)->paginate(6);
                 // dd($product);
         }
+        $color = color::all();
         $type = typeproduct::all();
         $min = product::where('status','Còn hàng')->min('price');
         $max = product::where('status','Còn hàng')->max('price');
-        return view('interiors.product', compact('type','product','search_inter','min','max'));
+        return view('interiors.product', compact('color','type','product','search_inter','min','max'));
     }
 
     public function review()

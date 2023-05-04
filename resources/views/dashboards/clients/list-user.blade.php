@@ -142,10 +142,10 @@
                         <td>{{Carbon\Carbon::parse($us->date_user)->format('d-m-Y')}}</td>
                         <td>{{$us->district}}, {{$us->city}}, {{$us->province}}</td>
                         <td>
-                          @if ($us->name_status == 'Hoạt động')
-                            <span class="badge rounded bg-success me-1" style="width: 93px; font-size: 12px">{{$us->name_status}}</span>
+                          @if ($us->name_status == '1')
+                            <span class="badge rounded bg-success me-1" style="width: 93px; font-size: 12px">Hoạt động</span>
                           @else
-                            <span class="badge rounded bg-danger me-1" style="width: 93px; font-size: 12px">{{$us->name_status}}</span>
+                            <span class="badge rounded bg-danger me-1" style="width: 93px; font-size: 12px">Ngắt</span>
                           @endif
                           @if (Auth::user()->name_roles == 'admin')
                             @if ($us->name_roles != 'admin')

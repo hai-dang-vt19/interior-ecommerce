@@ -212,10 +212,13 @@
                                 <div class="input-group input-group-merge">
                                   <span class="input-group-text"><i class='bx bx-shape-square'></i></span>
                                   <select class="form-select" name="name_status">
-                                    <option style="color: rgb(164, 164, 164)" selected value="{{$user['name_status']}}">{{$user['name_status']}}</option>
-                                    @foreach ($status as $stt)
-                                        <option value="{{$stt->name_status}}">{{$stt->name_status}}</option>
-                                    @endforeach
+                                    @if ($user['name_status'] == 1)
+                                    <option selected value="{{$user['name_status']}}">Hoạt động</option>
+                                    <option value="0">Ngắt</option>
+                                    @else
+                                    <option selected value="{{$user['name_status']}}">Ngắt</option>
+                                    <option value="1">Hoạt động</option>
+                                    @endif
                                   </select>
                                 </div>
                               </div>

@@ -998,8 +998,9 @@ content: '';
 }
 
 .single_product_thumb div img{
-  width: 297px;
-  max-height: 262px;
+  width: 522px;
+  max-height: 530px;
+  /* margin-left: 70px; */
 }
 .saless{
   position: absolute;

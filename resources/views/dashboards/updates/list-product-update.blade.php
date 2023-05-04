@@ -163,45 +163,20 @@
                         <div class="row mb-3">
                           @php
                               $explode = explode(', ', $product['color']);
+                              $count = count($explode);
                           @endphp
                           <label class="col-sm-2 form-label">Màu sắc</label>
-                          <div class="col-sm-10 d-flex">
-                            <div class="input-group input-group-merge me-2">
-                              <span class="input-group-text"><i class='bx bx-brush'></i></span>
-                              <select class="form-select" name="color">
-                                @if (!empty($explode[0]))
-                                  <option selected value="{{$explode[0]}}">{{$explode[0]}}</option>
-                                @endif
-                                <option></option>
-                                @foreach ($color as $cl)
-                                    <option value="{{$cl->color}}" style="background-color: {{$cl->color}};">{{$cl->color}}</option>
-                                @endforeach
-                              </select>
-                            </div>
-                            <div class="input-group input-group-merge me-2">
-                              <span class="input-group-text"><i class='bx bx-brush'></i></span>
-                              <select class="form-select" name="color2">
-                                @if (!empty($explode[1]))
-                                  <option selected value="{{$explode[1]}}">{{$explode[1]}}</option>
-                                @endif
-                                <option></option>
-                                @foreach ($color as $cl)
-                                    <option value="{{$cl->color}}" style="background-color: {{$cl->color}};">{{$cl->color}}</option>
-                                @endforeach
-                              </select>
-                            </div>
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class='bx bx-brush'></i></span>
-                              <select class="form-select" name="color3">
-                                @if (!empty($explode[2]))
-                                  <option selected value="{{$explode[2]}}">{{$explode[2]}}</option>
-                                @endif
-                                <option></option>
-                                @foreach ($color as $cl)
-                                    <option value="{{$cl->color}}" style="background-color: {{$cl->color}};">{{$cl->color}}</option>
-                                @endforeach
-                              </select>
-                            </div>
+                          <div class="col-sm-5 d-flex">
+                            @if ($count == 1)
+                              <input type="color" name="color" value="{{ $explode[0] }}" class="form-control">
+                            @elseif($count == 2)
+                              <input type="color" name="color" value="{{ $explode[0] }}" class="form-control me-2">
+                              <input type="color" name="color2" value="{{ $explode[1] }}" class="form-control me-2">
+                            @else
+                              <input type="color" name="color" value="{{ $explode[0] }}" class="form-control me-2">
+                              <input type="color" name="color2" value="{{ $explode[1] }}" class="form-control me-2">
+                              <input type="color" name="color3" value="{{ $explode[2] }}" class="form-control">
+                            @endif
                           </div>
                         </div>
                         <div class="row mb-3">

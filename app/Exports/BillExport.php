@@ -43,7 +43,7 @@ class BillExport implements FromCollection,ShouldAutoSize,WithHeadings, WithStyl
         
         return [
             // Style the first row as bold text.
-            1    => ['font' => ['bold' => true,'italic' => true, 'size' => 16]],
+            1    => ['font' => ['bold' => true,'italic' => true, 'size' => 13]],
             // Styling a specific cell by coordinate.
             'A' => ['font' => ['italic' => true]],
             // 'D' => ['font'=> ['bold' => true]],

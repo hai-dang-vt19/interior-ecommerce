@@ -667,52 +667,71 @@ class checkoutContorller extends Controller
     }
     public function checkout_cod_get_don(Request $request)
     {
-        $cart = cart::all()->where('id_cart_user','CART_CS'.Auth::user()->user_id)
-        ->where('id_product',$request->id);
-        // dd($cart);
-        foreach($cart as $crt){
-            if($crt->sales == 0){
-                $price_all = $crt->total;
-            }else{
-                $price_all = $crt->sales;
-            }
-            $pr_service = city::where('name_city',Auth::user()->city)->get();
-            foreach($pr_service as $price_service){
+        $cart = cart::all()->where('id_cart_user','CART_CS'.Auth::user()->user_id)->where('id_product',$request->id);
+        $total = $request->tt_cod;
+        $phuphi = city::all()->where('name_city', Auth::user()->city);
+        foreach($phuphi as $phu){
+            $phi = $phu->price;
+            return view('interiors.blocks.checkout_cod_don', compact('cart','total','phi'));
+        }
+    }
+    public function checkout_cod_post_don(Request $request)
+    {
+        $get_cart = cart::all()->where('id_cart_user','CART_CS'.Auth::user()->user_id)->count();
+        // echo $get_cart.'<br>';
+
+        $id_bill = array_slice($request->id_bill,0,$get_cart,true);
+        $id_product = array_slice($request->id_product,0,$get_cart,true);
+        $name_product = array_slice($request->name_product,0,$get_cart,true);
+        $amount_product = array_slice($request->amount_product,0,$get_cart,true);
+        $price = array_slice($request->price,0,$get_cart,true);
+        $username= array_slice($request->username,0,$get_cart,true);
+        $email= array_slice($request->email,0,$get_cart,true);
+        $phone= array_slice($request->phone,0,$get_cart,true);
+        $date_create= array_slice($request->date_create,0,$get_cart,true);
+        $method= array_slice($request->method,0,$get_cart,true);
+        $address= array_slice($request->address,0,$get_cart,true);
+        $total = array_slice($request->total,0,$get_cart,true);
+        $status_product_bill= array_slice($request->status_product_bill,0,$get_cart,true);
+
+        $pr_service = city::where('name_city',Auth::user()->city)->get();
+        foreach($pr_service as $price_service){
+            for($i=0;$i<$get_cart;$i++){ // Thêm thành công
                 bill::create([
-                    'id_bill'=>'ICS0'.time().'COD',
-                    'id_product'=>$crt->id_product,
-                    'name_product'=>$crt->name_product,
-                    'amount'=>$crt->amount_product,
-                    'price'=>$price_all,
-                    'username'=>Auth::user()->name,
-                    'email'=>Auth::user()->email,
-                    'phone'=>Auth::user()->phone,
-                    'date_create'=>Carbon::now('Asia/Ho_Chi_Minh')->toDateString(),
+                    'id_bill'=>$id_bill[0],
+                    'id_product'=>$id_product[0],
+                    'name_product'=>$name_product[0],
+                    'amount'=>$amount_product[0],
+                    'price'=>$price[0],
+                    'username'=>$username[0],
+                    'email'=>$email[0],
+                    'phone'=>$phone[0],
+                    'date_create'=>$date_create[0],
                     'year_create'=>Carbon::now('Asia/Ho_Chi_Minh')->year,
-                    'method'=>'COD',
-                    'price_service'=>$price_service->price,
-                    'address'=>Auth::user()->district.', '.Auth::user()->city.', '.Auth::user()->province,
-                    'total'=>$request->total_cod,
-                    'status_product_bill'=>'1'
+                    'method'=>$method[0],
+                    'price_service'=>$price_service->price[0],
+                    'address'=>$address[0],
+                    'total'=>$total[0],
+                    'status_product_bill'=>$status_product_bill[0]
                 ]);
-            }
-            //**** 1 thêm vào data sản phẩm nổi bật */
-                $today = Carbon::now('Asia/Ho_Chi_Minh');
-                $product_famous = product_famous::all()->where('id_product',$crt->id_product)
-                                                    ->where('day_c',$today->day)
-                                                    ->where('month_c',$today->month)
-                                                    ->where('year_c',$today->year);
-                $sum_amount = $product_famous->sum('amount_bill');
-                $samt = $sum_amount+1;
-                product_famous::updateOrCreate([
-                    'id_product'=>$crt->id_product
-                ],[
-                    'amount_bill'=>$samt,
-                    'day_c'=>$today->day,
-                    'month_c'=>$today->month,
-                    'year_c'=>$today->year
-                ]);
-            //*** Xuwr lys theem data khasch hangf nooir abat */
+                //**** 1 thêm vào data sản phẩm nổi bật */
+                    $today = Carbon::now('Asia/Ho_Chi_Minh');
+                    $product_famous = product_famous::all()->where('id_product',$id_product[0])
+                                                        ->where('day_c',$today->day)
+                                                        ->where('month_c',$today->month)
+                                                        ->where('year_c',$today->year);
+                    $sum_amount = $product_famous->sum('amount_bill');
+                    $samt = $sum_amount+1;
+                    product_famous::updateOrCreate([
+                        'id_product'=>$id_product[0]
+                    ],[
+                        'amount_bill'=>$samt[0],
+                        'day_c'=>$today->day[0],
+                        'month_c'=>$today->month[0],
+                        'year_c'=>$today->year[0]
+                    ]);
+                //*** Xuwr lys theem data khasch hangf nooir abat */
+                        $get_tb = bill::where('id_bill',$request->id_bill)->distinct()->sum('total');
                         $user_famous = user_famous::all()->where('user_id',Auth::user()->user_id)
                                                         ->where('day_c',$today->day)
                                                         ->where('month_c',$today->month)
@@ -720,7 +739,7 @@ class checkoutContorller extends Controller
                         $sum_amount_us = $user_famous->sum('amount_user');
                         $samtus = $sum_amount_us+1;
                         $sum_total_u = $user_famous->sum('total');
-                        $total_u_f = $sum_total_u + $request->total_cod;
+                        $total_u_f = $sum_total_u + $get_tb;
                         user_famous::updateOrCreate([
                             'user_id'=>Auth::user()->user_id
                         ],[
@@ -731,12 +750,11 @@ class checkoutContorller extends Controller
                             'year_c'=>$today->year,
                             'total'=>$total_u_f
                         ]);
-            cart::where('id_cart_user','CART_CS'.Auth::user()->user_id)
-            ->where('id_product', $request->id)
-            ->delete();//chus ys xoas 1 thif caanf theem id sp
-            session()->flash('check_cod_don','Đặt hàng thành công');
-            return redirect()->route('cart');
+                cart::where('id_cart_user','CART_CS'.Auth::user()->user_id)->where('id_product',$id_product[0])->delete();
+            }
         }
+        session()->flash('check_cod_don','Đặt hàng thành công');
+        return redirect(route('cart'));
     }
 
     public function ship_done(Request $request)

@@ -169,34 +169,11 @@
                         </div>
                         <div class="row mb-3">
                           <label class="col-sm-2 form-label">Màu sắc</label>
-                          <div class="col-sm-10 d-flex">
-                            <div class="input-group input-group-merge me-2">
-                              <span class="input-group-text"><i class='bx bx-brush'></i></span>
-                              <select class="form-select" name="color">
-                                <option selected disabled>Chọn màu</option>
-                                @foreach ($color as $cl)
-                                    <option value="{{$cl->color}}" style="background-color: {{$cl->color}};">{{$cl->color}}</option>
-                                @endforeach
-                              </select>
-                            </div>
-                            <div class="input-group input-group-merge me-2">
-                              <span class="input-group-text"><i class='bx bx-brush'></i></span>
-                              <select class="form-select" name="color2">
-                                <option selected disabled>Nếu có</option>
-                                @foreach ($color as $cl)
-                                    <option value="{{$cl->color}}" style="background-color: {{$cl->color}};">{{$cl->color}}</option>
-                                @endforeach
-                              </select>
-                            </div>
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class='bx bx-brush'></i></span>
-                              <select class="form-select" name="color3">
-                                <option selected disabled>Nếu có</option>
-                                @foreach ($color as $cl)
-                                    <option value="{{$cl->color}}" style="background-color: {{$cl->color}};">{{$cl->color}}</option>
-                                @endforeach
-                              </select>
-                            </div>
+                          <div class="col-sm-5 d-flex">
+                            <input type="color" name="color" value="#FFFFFF" class="form-control me-5">
+                            <input type="checkbox" name="check_color" value="1" class="ms-3 me-2">
+                            <input type="color" name="color2" value="#FFFFFF" class="form-control me-2">
+                            <input type="color" name="color3" value="#FFFFFF" class="form-control">
                           </div>
                         </div>
                         <div class="row mb-3">

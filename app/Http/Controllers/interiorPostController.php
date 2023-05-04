@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\OrderShipped;
 use App\Models\city;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\history;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 
 class interiorPostController extends Controller
 {
@@ -24,18 +22,24 @@ class interiorPostController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             if (Auth::check()) {
-                if(Auth::user()->name_roles == 'user'){
-                    session()->flash('login-sc', 'Đăng nhập thành công')    ;
-                    return redirect(route('index'));
-                }elseif(Auth::user()->name_roles == 'admin'){
-                    session()->flash('login-sc', 'Đăng nhập thành công');
-                    return redirect(route('index_dashboard'));
+                if(Auth::user()->name_status == 1){
+                    if(Auth::user()->name_roles == 'user'){
+                        session()->flash('login-sc', 'Đăng nhập thành công')    ;
+                        return redirect(route('index'));
+                    }elseif(Auth::user()->name_roles == 'admin'){
+                        session()->flash('login-sc', 'Đăng nhập thành công');
+                        return redirect(route('index_dashboard'));
+                    }else{
+                        session()->flash('login-sc', 'Đăng nhập thành công');
+                        return redirect(route('bill_dashboad'));
+                    }
                 }else{
-                    session()->flash('login-sc', 'Đăng nhập thành công');
-                    return redirect(route('bill_dashboad'));
-                }
+                    session()->flash('login-er', 'Tài khoản đã ngắt kết nối, để sử dụng lại bạn hãy liên hệ chúng tôi');
+                    return redirect(route('login'));
+                }                
             } else {
-                return false;
+                session()->flash('login-er', 'Không thành công');
+                return redirect(route('login'));
             }  
         }else{
             session()->flash('login-er', 'Tài khoản hoặc mật khẩu không chính xác');
