@@ -161,7 +161,7 @@
                               </button>
                               <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt6">
                                 <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                                {{--<a class="dropdown-item" href="javascript:void(0);">Reset</a>--}}
                               </div>
                             </div>
                           </div>
@@ -226,7 +226,7 @@
                               </button>
                               <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt6">
                                 <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                                {{--<a class="dropdown-item" href="javascript:void(0);">Reset</a>--}}
                               </div>
                             </div>
                           </div>
@@ -266,7 +266,7 @@
                   <div class="card" style="height: 492px">
                     <div class="row row-bordered g-0">
                       <div class="col-md-8">
-                        <h4 class="container mt-4 mb-5">Doanh thu 3 năm gần nhất</h4>
+                        <h4 class="container mt-4 mb-5">Doanh thu 3 năm gần nhất @include('dashboards.block_dashboard.modal_chart_month')</h4>
                         <div id="barchart_material" class="px-2 mt-5 mb-3" style="width: 800px; height: 310px;"></div>{{-- Biểu đồ --}}
                         {{-- <div id="totalRevenueChart" class="px-2"></div> --}}
                       </div>
@@ -292,7 +292,7 @@
                               </button>
                               <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt4">
                                 <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                                {{--<a class="dropdown-item" href="javascript:void(0);">Reset</a>--}}
                               </div>
                             </div>
                           </div>
@@ -340,7 +340,7 @@
                               </button>
                               <div class="dropdown-menu" aria-labelledby="cardOpt1">
                                 <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                                {{--<a class="dropdown-item" href="javascript:void(0);">Reset</a>--}}
                               </div>
                             </div>
                           </div>

@@ -79,53 +79,81 @@
           <div class="content-wrapper">
             <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Discount / </span>Danh sách mã giảm giá</h4>
-              <!-- Responsive Table -->
-              <div class="card">
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Discount / </span>Danh sách mã giảm giá
                 @can('admin')
-                <div class="card-body">
-                  <form action="{{ route('add_discount') }}" method="POST">
-                    @csrf
-                    <div class="row mb-3">
-                      <label class="col-sm-2 col-form-label">Discount</label>
-                      <div class="col-sm-10">
-                        <div class="input-group input-group-merge">
-                          <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
-                          <input type="text" class="form-control" name="name_discount"/>
+                <button
+                type="button"
+                class="btn btn-primary btn-sm ms-2"
+                data-bs-toggle="modal"
+                data-bs-target="#basicModal"
+                title="Thêm mới"
+                >
+                  <i class='bx bx-plus-medical bx-burst-hover bx-xs'></i>
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="basicModal" tabindex="-1" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel1">Thêm mã giảm giá</h5>
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <form action="{{ route('add_discount') }}" method="POST">
+                        <div class="modal-body">
+                            @csrf
+                            <div class="row mb-3">
+                              {{-- <label class="col-sm-2 col-form-label"></label> --}}
+                              <div>
+                                <div class="input-group input-group-merge">
+                                  <span class="input-group-text col-2">Mã giảm: </span>
+                                  <input type="text" class="form-control" name="name_discount" placeholder="CSI_20"/>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row mb-3">
+                              {{-- <label class="col-sm-2 col-form-label"></label> --}}
+                              <div>
+                                <div class="input-group input-group-merge">
+                                  <span class="input-group-text col-2">Discount: </span>
+                                  <input type="text" class="form-control" name="price" placeholder="%"/>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row mb-3">
+                              {{-- <label class="col-sm-2 col-form-label"></label> --}}
+                              <div>
+                                <div class="input-group input-group-merge">
+                                  <span class="input-group-text col-3">Trạng thái</span>
+                                  <select class="select2 form-select" name="status_discount">
+                                    {{-- <option selected disabled> </option> --}}
+                                    @foreach ($status as $stt)
+                                      <option value="{{$stt->name_status}}">{{$stt->name_status}}</option>
+                                    @endforeach
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
                         </div>
-                      </div>
-                    </div>
-                    <div class="row mb-3">
-                      <label class="col-sm-2 col-form-label">Số tiền giảm</label>
-                      <div class="col-sm-10">
-                        <div class="input-group input-group-merge">
-                          <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
-                          <input type="text" class="form-control" name="price"/>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                            Hủy
+                          </button>
+                          <button type="submit" class="btn btn-success">Xác nhận</button>
                         </div>
-                      </div>
+                      </form>
                     </div>
-                    <div class="row mb-3">
-                      <label class="col-sm-2 col-form-label">Trạng thái</label>
-                      <div class="col-sm-10">
-                        <div class="input-group input-group-merge">
-                          <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
-                          <select class="select2 form-select" name="status_discount">
-                            <option selected disabled> </option>
-                            @foreach ($status as $stt)
-                              <option value="{{$stt->name_status}}">{{$stt->name_status}}</option>
-                            @endforeach
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row justify-content-end">
-                      <div class="col-sm-10">
-                        <button type="submit" class="btn btn-success">Thêm</button>
-                      </div>
-                    </div>
-                  </form>
+                  </div>
                 </div>
                 @endcan
+              </h4>
+              <!-- Responsive Table -->
+              <div class="card">
                 <div class="card-body">
                   <div>
                     <div class="table-responsive text-nowrap">
@@ -134,8 +162,8 @@
                           <tr>
                             <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>
                             <th style="color: rgb(231, 171, 6);font-size: 14px">ID</th>
-                            <th style="color: rgb(231, 171, 6);font-size: 14px">Mã giảm giá</th>
-                            <th style="color: rgb(231, 171, 6);font-size: 14px">Giá tiền giảm</th>
+                            <th style="color: rgb(231, 171, 6);font-size: 14px">Mã</th>
+                            <th style="color: rgb(231, 171, 6);font-size: 14px">Discount</th>
                             <th style="color: rgb(231, 171, 6);font-size: 14px">Trạng thái</th>
                             @can('admin')
                             <th style="color: rgb(231, 171, 6);font-size: 14px">Chức năng</th>
@@ -148,7 +176,7 @@
                             <th>{{$key +1}}</th>
                             <td style="color: gold">{{$disc->id}}</td>
                             <td>{{$disc->name_discount}}</td>
-                            <td>{{$disc->price}}</td>
+                            <td>{{$disc->price}}%</td>
                             <td>{{$disc->status_discount}}</td>
                             @can('admin')
                             <td>

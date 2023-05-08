@@ -1128,7 +1128,13 @@ class checkoutContorller extends Controller
     public function update_after_pay(Request $request)
     {
         $old_bill = bill::where('id_bill',$request->id_bill)->distinct()->sum('total');
-        $new_total = $old_bill-$request->discount;
+        if(!empty($request->discount)){
+            // $dis = (100-$request->discount)/100;
+            $new_total = $old_bill*((100-$request->discount)/100); 
+        }else{
+            $new_total = $old_bill;
+        }
+        // echo $new_total;return;
         bill::where('id_bill',$request->id_bill)
         ->update([
             'username'=>$request->username,
@@ -1196,6 +1202,7 @@ class checkoutContorller extends Controller
                 'total'=>$request->total_store,
                 'status_product_bill'=>'STOP'
             ]);
+            
             //**** 1 thêm vào data sản phẩm nổi bật */
             $today = Carbon::now('Asia/Ho_Chi_Minh');
             $product_famous = product_famous::all()->where('id_product',$crt->id_product)

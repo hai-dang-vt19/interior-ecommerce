@@ -50,23 +50,11 @@
   </li>
 @can('admin_manager')
   <li class="menu-item">
-    <a href="#" class="menu-link menu-toggle">
-      <i class="menu-icon tf-icons bx bx-box"></i>
-      <div >Type Product</div>
-    </a>
-    <ul class="menu-sub">
-      <li class="menu-item">
-        <a href="{{ route('type_dashboard') }}" class="menu-link">
-          <div >New Type</div>
-        </a>
-      </li>
-      <li class="menu-item">
-        <a href="{{ route('list_type_dashboard') }}" class="menu-link">
-          <div >List Type</div>
-        </a>
-      </li>
-    </ul>
-  </li>
+      <a href="{{ route('list_type_dashboard') }}" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-box"></i>
+        <div >Type Product</div>
+      </a>
+    </li>
 @endcan
 @can('admin_manager')
   <li class="menu-item ">

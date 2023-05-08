@@ -79,74 +79,96 @@
           <div class="content-wrapper">
             <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Material/</span> Thêm mới chất liệu</h4>
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Material/</span> Thêm mới chất liệu
+                <button
+                type="button"
+                class="btn btn-primary btn-sm ms-2"
+                data-bs-toggle="modal"
+                data-bs-target="#basicModal"
+                title="Thêm mới"
+                >
+                  <i class='bx bx-plus-medical bx-burst-hover bx-xs'></i>
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="basicModal" tabindex="-1" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel1">Thêm chất liệu</h5>
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <form action="{{ route('add_material') }}" method="POST">
+                        <div class="modal-body">
+                          <div class="row mb-3">
+                            {{-- <label class="col-sm-2 col-form-label"></label> --}}
+                            <div class="col">
+                              <div class="input-group input-group-merge">
+                                <span class="input-group-text col-3">Tên chất liệu: </span>
+                                <input type="text" class="form-control" name="name_material" placeholder="Gỗ hương"/>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row mb-3">
+                            {{-- <label class="col-sm-2 col-form-label"></label> --}}
+                            <div class="col">
+                              <div class="input-group input-group-merge">
+                                <span class="input-group-text col-3">Giá nhập: </span>
+                                <input type="text" class="form-control" name="price" placeholder="280.000"/>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row mb-3">
+                            {{-- <label class="col-sm-2 col-form-label"></label> --}}
+                            <div class="col">
+                              <div class="input-group input-group-merge">
+                                <span class="input-group-text col-3">Nhà cung cấp</span>
+                                <select class="form-select" name="supplier">
+                                  @foreach ($supplier as $sup)
+                                      <option value="{{$sup->name_supplier}}">{{$sup->name_supplier}}</option>
+                                  @endforeach
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row mb-3">
+                            {{-- <label class="col-sm-2 col-form-label"></label> --}}
+                            <div class="col">
+                              <div class="input-group input-group-merge">
+                                <span class="input-group-text col-3">Trạng thái</span>
+                                <select class="form-select" name="status_material">
+                                  @foreach ($status as $stt)
+                                      <option value="{{$stt->name_status}}">{{$stt->name_status}}</option>
+                                  @endforeach
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                            Hủy
+                          </button>
+                          <button type="submit" class="btn btn-success">Xác nhận</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </h4>
               <!-- Basic Layout & Basic with Icons -->
               <div class="row">
                 <!-- Basic with Icons -->
                 <div class="col-xxl">
                   <div class="card mb-4">
-                    <div class="card-header d-flex align-items-center justify-content-between">
-                      <h5 class="mb-0" style="color: #696cff">Quản lý nhà cung cấp</h5>
-                      <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
-                    </div>
-                    <hr class="my-0">
-                    <div class="card-body">
-                      <form action="{{ route('add_material') }}" method="POST">
-                        @csrf
-                        <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Tên chất liệu</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
-                              <input type="text" class="form-control" name="name_material"/>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Giá nhập</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class='bx bx-money'></i></span>
-                              <input type="text" class="form-control" name="price"/>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Nhà cung cấp</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class='bx bx-crown'></i></span>
-                              <select class="form-select" name="supplier">
-                                @foreach ($supplier as $sup)
-                                    <option value="{{$sup->name_supplier}}">{{$sup->name_supplier}}</option>
-                                @endforeach
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Trạng thái</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class='bx bx-cube-alt'></i></span>
-                              <select class="form-select" name="status_material">
-                                @foreach ($status as $stt)
-                                    <option value="{{$stt->name_status}}">{{$stt->name_status}}</option>
-                                @endforeach
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row justify-content-end">
-                          <div class="col-sm-10">
-                            <button type="submit" class="btn btn-success">Thêm chất liệu</button>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                    <div class="card-body">
+                    <div>
                       <div class="table-responsive text-nowrap">
-                        <table class="table table-dark table-hover">
+                        <table class="table table-hover">
                           <thead>
                             <tr>
                               <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>

@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="{{ asset('dashboard/assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
     <link rel="stylesheet" href="{{ asset('dashboard/assets/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
     <link rel="stylesheet" href="{{ asset('dashboard/assets/css/demo.css') }}" />
+    <link rel="stylesheet" href="{{ asset('dashboard/assets/css/multi-select.css') }}" />
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{ asset('dashboard/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
     <!-- Page CSS -->
@@ -39,6 +40,7 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('dashboard/assets/js/config.js') }}"></script>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <script src="{{ asset('dashboard/assets/js/multi-select.js') }}"></script>
   </head>
   <body>
     <!-- Layout wrapper -->
@@ -124,8 +126,8 @@
                             <div class="row mb-3">
                               <label class="col-sm-2 col-form-label">Mã giảm giá</label>
                               <div class="col-sm-6">
-                                  <select class="form-select" name="discount">
-                                    <option value="0" selected></option>
+                                  <select class="form-select" name="discount" id="choices-multiple-remove-button">
+                                    <option disabled selected></option>
                                     @foreach ($discounts as $discount)
                                       <option value="{{ $discount->price }}">{{ $discount->name_discount}}</option>
                                     @endforeach
@@ -255,5 +257,15 @@
             });
       </script>
     @endif
+    <script>
+      $(document).ready(function(){
+          var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+            removeItemButton: true,
+            maxItemCount:5,
+            searchResultLimit:5,
+            renderChoiceLimit:5
+          }); 
+      });
+    </script>
   </body>
 </html>

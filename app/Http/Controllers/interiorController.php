@@ -30,6 +30,8 @@ use App\Models\user_famous;
 use Carbon\Carbon;
 use App\Models\color;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
+use Symfony\Component\HttpClient\HttpClient;
 
 class interiorController extends Controller
 {
@@ -404,15 +406,11 @@ class interiorController extends Controller
         return view('dashboards.updates.list-product-update', $data);
     }
 
-    public function type_dashboard()
-    {
-        $status = status_interior::where('type_status','type_product')->get();
-        return view('dashboards.clients.new-type', compact('status'));
-    }
     public function list_type_dashboard()
     {
         $type = typeproduct::limit(8)->paginate(8);
-        return view('dashboards.clients.list-type', compact('type'));
+        $status = status_interior::where('type_status','type_product')->get();
+        return view('dashboards.clients.list-type', compact('type','status'));
     }
     public function edit_type_product(Request $request)
     {
@@ -794,6 +792,13 @@ class interiorController extends Controller
         }
         
     }
+
+    // public function test_api_map()
+    // {
+    //     $key = 'AIzaSyCiaJz_47PO1h12WOaRs8b5u3rVbCr13co';
+    //     $link = 'https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key='.$key;
+    //     return redirect($link);
+    // }
     //------------------------------------------   client   -----------------------------------------
     public function index(Request $request)
     {

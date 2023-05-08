@@ -50,10 +50,11 @@ class provinceCityController extends Controller
 
     public function add_city(Request $request)
     {
+        $price = $request->klm*3500;
         city::updateOrCreate([
             'name_city'=>'Tp.'.$request->name_city,
             'city_province'=>$request->city_province,
-            'price'=>$request->price
+            'price'=>$price
         ]);
         history::create([
             'name_his'=>'Create',

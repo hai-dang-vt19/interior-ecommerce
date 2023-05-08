@@ -49,29 +49,51 @@
                         <h1>Thông tin {{ $user['name'] }}</h1>
                     </div>
                     <div class="row">
-                        <div class="form-group mr-3">
+                        <div class="form-group col-3 mr-3">
                             <label><i class='bx bxl-gmail'></i> Email</label>
                             <input class="form_control_ict mb-2" type="text" name="email" value="{{ $user['email'] }}">
                         </div>
-                        <div class="form-group mr-3">
+                        <div class="form-group col-3 mr-3">
                             <label>Họ tên</label>
                             <input class="form_control_ict" type="text" name="name" value="{{ $user['name'] }}">
                         </div>
-                        <div class="form-group mr-3">
-                            <label><i class='bx bxl-gmail'></i> Giới tính</label>
-                            <input class="form_control_ict mb-2" type="text" name="sex_user" value="{{ $user['sex_user'] }}">
-                        </div>
-                        <div class="form-group">
-                            <label>Ngày sinh</label>
-                            <input class="form_control_ict" type="date" name="date_user" value="{{ $user['date_user'] }}">
+                        <div class="form-group col-3 mr-3">
+                            <label>Giới tính</label><br>
+                            {{-- <input class="form_control_ict mb-2" type="text" name="sex_user" value="{{ $user['sex_user'] }}"> --}}
+                            @if ($user['sex_user'] == 'Nam')
+                                <div class="mt-2">
+                                    <input type="radio" checked name="sex_user" value="Nam"> Nam
+                                    <input type="radio" name="sex_user" value="Nữ"> Nữ
+                                </div>
+                            @else
+                                <div class="mt-2">
+                                    <input type="radio" name="sex_user" value="Nam"> Nam
+                                    <input type="radio" checked name="sex_user" value="Nữ"> Nữ
+                                </div>
+                            @endif
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group mr-3">
+                        <div class="form-group col-3 mr-3">
+                            <label>Ngày sinh</label>
+                            <input class="form_control_ict" type="date" name="date_user" value="{{ $user['date_user'] }}">
+                        </div>
+                        <div class="form-group col-3 mr-3">
                             <label>Số điện thoại </label>
                             <input class="form_control_ict" type="text" name="phone" value="{{ $user['phone'] }}">
                         </div>
-                        <div class="form-group slct mr-3">
+                    </div>
+                    <div class="row mb-3">
+                        {{-- <div class="form-group col-3 slct mr-3">
+                            <label>Tỉnh</label>
+                            <select class="form_control_ict_slct"  name="province" >
+                                <option selected>{{ $user['province'] }}</option>
+                                @foreach ($city_user as $city)
+                                    <option value="{{ $city->city_province }}">{{ $city->city_province }}</option>
+                                @endforeach
+                            </select>
+                        </div> --}}
+                        <div class="form-group col-3 slct mr-3">
                             <label>Thành phố</label>
                             <select class="form_control_ict_slct"  name="city" >
                                 <option selected>{{ $user['city'] }}</option>
@@ -80,29 +102,28 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-group slct mr-3">
-                            <label>Số/Phường</label>
+                        <div class="form-group col-5 slct mr-3">
+                            <label>Dc cụ thể</label>
                             <input class="form_control_ict" type="text" name="district" value="{{ $user['district'] }}">
                         </div>
-                        <div class="submit_profile">
-                            <button class="btn btn-success col-8" type="submit">Cập nhật</button>
-                        </div>
                     </div>
-                    <div class="row">
-                        <div class="form-group ml-1">
-                            <label>Địa chỉ </label>
+                    <div class="row col">
+                        <div class="form-group mt-20">
                             <p>{{ $user['district'] }}, {{ $user['city'] }}, {{ $user['province'] }}</p>
                         </div>
                     </div>
+                    <div class="row col mb-5">
+                        <button class="btn btn-success col-2" type="submit">Cập nhật</button>
+                    </div>
                 </form>
             </div>
-            <div class="ml-0">
+            <div class="ml-0 col">
                 <button class="btn btn-outline-info btn-sm" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                     Đổi mật khẩu
                 </button>
                 <form action="{{ route('update_password') }}" method="POST">
                     @csrf
-                    <div class="collapse show col-8 mt-2 ml-5" id="collapseExample">
+                    <div class="collapse col-8 mt-2 " id="collapseExample">
                         <div class="card card-body">
                             <div class="">
                                 @error('pass_old')<span class="text-danger">{{$message}}</span>@enderror
@@ -127,7 +148,7 @@
                                     <input type="password" name="check_pass_new" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
                                 </div>
                                 <div>
-                                    <button class="btn btn-success btn-sm" type="submit">Cập nhật</button>
+                                    <button class="btn btn-success btn-sm" type="submit">Xác nhận</button>
                                 </div>
                             </div>
                         </div>

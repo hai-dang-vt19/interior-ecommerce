@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="{{ asset('dashboard/assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
     <link rel="stylesheet" href="{{ asset('dashboard/assets/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
     <link rel="stylesheet" href="{{ asset('dashboard/assets/css/demo.css') }}" />
+    <link rel="stylesheet" href="{{ asset('dashboard/assets/css/multi-select.css') }}" />
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{ asset('dashboard/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
     <!-- Page CSS -->
@@ -38,6 +39,7 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('dashboard/assets/js/config.js') }}"></script>
+    <script src="{{ asset('dashboard/assets/js/multi-select.js') }}"></script>
   </head>
 
   <body>
@@ -79,56 +81,85 @@
           <div class="content-wrapper">
             <!-- Content -->
             <div class="container flex-grow-1 container-p-y">
+              {{-- <a href="{{ route('test_api_map') }}">Test</a> --}}
               <div class="row">
                 <div class="col-xl">
-                  <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">City / </span>Danh sách Thành phố</h4>
+                  <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">City / </span>Danh sách Thành phố
+                    @can('admin')
+                    <button
+                    type="button"
+                    class="btn btn-primary btn-sm ms-2"
+                    data-bs-toggle="modal"
+                    data-bs-target="#basicModal"
+                    title="Thêm mới"
+                    >
+                      <i class='bx bx-plus-medical bx-burst-hover bx-xs'></i>
+                    </button>
+    
+                    <!-- Modal -->
+                    <div class="modal fade" id="basicModal" tabindex="-1" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel1">Thêm thành phố</h5>
+                            <button
+                              type="button"
+                              class="btn-close"
+                              data-bs-dismiss="modal"
+                              aria-label="Close"
+                            ></button>
+                          </div>
+                          <form action="{{ route('add_city') }}" method="POST">
+                            <div class="modal-body">
+                                @csrf
+                                <div class="mb-3">
+                                  <label class="col-form-label">Chọn Tỉnh</label>
+                                  <div class="col">
+                                    <select name="city_province" class="form-control" id="choices-multiple-remove-button">
+                                      <option selected disabled></option>
+                                      @foreach ($select_province as $slt_pro)
+                                          <option value="{{$slt_pro->name_province}}">{{$slt_pro->name_province}}</option>
+                                      @endforeach
+                                    </select>
+                                  </div>
+                                </div>
+                                <div class="mb-3">
+                                  {{-- <label class="form-label"></label> --}}
+                                  <div class="input-group input-group-merge">
+                                    <span class="input-group-text col-3">
+                                      Thành phố:
+                                    </span>
+                                    <input type="text" class="form-control" name="name_city" placeholder="Việt Trì"/>
+                                  </div>
+                                </div>
+                                <div>
+                                  {{-- <label class="form-label"></label> --}}
+                                  <div class="input-group input-group-merge">
+                                    <span class="input-group-text col-3">
+                                      Khoảng cách
+                                    </span>
+                                    <input type="text" class="form-control" name="klm" placeholder="km"/>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                Hủy
+                              </button>
+                              <button type="submit" class="btn btn-success">Xác nhận</button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                    @endcan
+                  </h4>
                   <div class="card mb-4">
                     <div class="card-body">
-                      @can('admin')
-                      <form action="{{ route('add_city') }}" method="POST">
-                        @csrf
-                        <div class="d-flex">
-                          <div class="mb-3 me-1">
-                            <label class="form-label">Thành phố</label>
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text">
-                                <i class="bx bx-user"></i>
-                              </span>
-                              <input type="text" class="form-control" name="name_city"/>
-                            </div>
-                          </div>
-                          <div class="mb-3 me-1">
-                            <label class="form-label">Tỉnh</label>
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text">
-                                <i class="bx bx-user"></i>
-                              </span>
-                              <select name="city_province" class="select form-select">
-                                <option selected disabled> </option>
-                                @foreach ($select_province as $slt_pro)
-                                    <option value="{{$slt_pro->name_province}}">{{$slt_pro->name_province}}</option>
-                                @endforeach
-                              </select>
-                            </div>
-                          </div>
-                          <div class="mb-3">
-                            <label class="form-label">Giá tiền</label>
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text">
-                                <i class="bx bx-user"></i>
-                              </span>
-                              <input type="text" class="form-control" name="price"/>
-                            </div>
-                          </div>
-                        </div>
-                        <button type="submit" class="btn btn-success">Thêm</button>
-                      </form>
-                      @endcan
                       <div class="table-responsive text-nowrap mt-4">
-                        <table class="table table-hover table-dark">
+                        <table class="table table-hover  ">
                           <thead>
                             <tr>
-                              <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>
                               <th style="color: rgb(231, 171, 6);font-size: 14px">Mã thành phố</th>
                               <th style="color: rgb(231, 171, 6);font-size: 14px">Tên thành phố</th>
                               <th style="color: rgb(231, 171, 6);font-size: 14px">Tên tỉnh</th>
@@ -139,13 +170,12 @@
                             </tr>
                           </thead>
                           <tbody>
-                            @foreach ($city as $key => $cty)
+                            @foreach ($city as $cty)
                               <tr>
-                                <td scope="row">{{$key +1}}</td>
                                 <td>{{$cty->id}}</td>
                                 <td>{{$cty->name_city}}</td>
                                 <td>{{$cty->city_province}}</td>
-                                <td>{{$cty->price}}</td>
+                                <td>{{number_format($cty->price)}}</td>
                                 @can('admin')
                                 <td>
                                   <a href="{{ route('edit_city_dashboard', ['id'=>$cty->id]) }}" class="btn btn-primary btn-sm"><i class='bx bxs-edit'></i></a>
@@ -164,29 +194,61 @@
                   </div>
                 </div>
                 <div class="col-xl">
-                  <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Province / </span>Danh sách Tỉnh lẻ</h4>
+                  <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Province / </span>Danh sách Tỉnh lẻ
+                    @can('admin')
+                    <button
+                    type="button"
+                    class="btn btn-primary btn-sm ms-2"
+                    data-bs-toggle="modal"
+                    data-bs-target="#basicModal2"
+                    title="Thêm mới"
+                    >
+                      <i class='bx bx-plus-medical bx-burst-hover bx-xs'></i>
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="basicModal2" tabindex="-1" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel1">Thêm tỉnh</h5>
+                            <button
+                              type="button"
+                              class="btn-close"
+                              data-bs-dismiss="modal"
+                              aria-label="Close"
+                            ></button>
+                          </div>
+                          <form action="{{ route('add_province') }}" method="POST">
+                            <div class="modal-body">
+                                @csrf
+                                <div>
+                                  {{-- <label class="form-label"></label> --}}
+                                  <div class="input-group input-group-merge">
+                                    <span class="input-group-text col-2">
+                                      Tên tỉnh:
+                                    </span>
+                                    <input type="text" class="form-control" name="name_province" placeholder="Phú Thọ"/>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                Hủy
+                              </button>
+                              <button type="submit" class="btn btn-success">Xác nhận</button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                    @endcan
+                  </h4>
                   <div class="card mb-4">
                     <div class="card-body">
-                      @can('admin')
-                      <form action="{{ route('add_province') }}" method="POST">
-                        @csrf
-                        <div class="mb-3">
-                          <label class="form-label">Tỉnh lẻ</label>
-                          <div class="input-group input-group-merge">
-                            <span class="input-group-text">
-                              <i class="bx bx-user"></i>
-                            </span>
-                            <input type="text" class="form-control" name="name_province"/>
-                          </div>
-                        </div>
-                        <button type="submit" class="btn btn-success">Thêm</button>
-                      </form>
-                      @endcan
                       <div class="table-responsive text-nowrap mt-4">
-                        <table class="table table-hover table-dark">
+                        <table class="table table-hover  ">
                           <thead>
                             <tr>
-                              <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>
                               <th style="color: rgb(231, 171, 6);font-size: 14px">Mã tỉnh</th>
                               <th style="color: rgb(231, 171, 6);font-size: 14px">Tên tỉnh</th>
                               @can('admin')
@@ -195,9 +257,8 @@
                             </tr>
                           </thead>
                           <tbody>
-                            @foreach ($province as $key => $pro)
+                            @foreach ($province as $pro)
                             <tr>
-                              <th scope="row">{{$key +1}}</th>
                               <td>{{$pro->id}}</td>
                               <td>{{$pro->name_province}}</td>
                               @can('admin')
@@ -313,5 +374,15 @@
             });
       </script>
     @endif
+    <script>
+      $(document).ready(function(){
+          var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+            removeItemButton: true,
+            maxItemCount:5,
+            searchResultLimit:5,
+            renderChoiceLimit:5
+          }); 
+      });
+    </script>
   </body>
 </html>

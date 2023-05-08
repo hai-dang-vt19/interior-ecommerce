@@ -79,7 +79,67 @@
           <div class="content-wrapper">
             <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Type / </span>Danh sách loại sản phẩm</h4>
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Type / </span>Danh sách loại sản phẩm
+                <button
+                type="button"
+                class="btn btn-primary btn-sm ms-2"
+                data-bs-toggle="modal"
+                data-bs-target="#basicModal"
+                title="Thêm mới"
+                >
+                  <i class='bx bx-plus-medical bx-burst-hover bx-xs'></i>
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="basicModal" tabindex="-1" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel1">Thêm loại sản phẩm</h5>
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <form action="{{ route('add_type_product') }}" method="POST">
+                        @csrf
+                        <div class="modal-body">
+                          <div class="row mb-3">
+                            {{-- <label class="col-sm-2 col-form-label"></label> --}}
+                            <div class="col">
+                              <div class="input-group input-group-merge">
+                                <span class="input-group-text col-3">Loại sản phẩm:</span>
+                                <input type="text" class="form-control" name="name_type"/>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row mb-3">
+                            {{-- <label class="col-sm-2 col-form-label"></label> --}}
+                            <div class="col">
+                              <div class="input-group input-group-merge">
+                                <span class="input-group-text col-3">Trạng thái</span>
+                                <select class="form-select" name="type_status">
+                                  @foreach ($status as $stt)
+                                      <option value="{{$stt->name_status}}">{{$stt->name_status}}</option>
+                                  @endforeach
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                            Hủy
+                          </button>
+                          <button type="submit" class="btn btn-success">Xác nhận</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </h4>
               <!-- Responsive Table -->
               <div class="card">
                 <div class="card-header">

@@ -45,7 +45,7 @@ Route::post('/dashboard-update-list-product/{id}', [productController::class, 'u
 Route::get('/dashboard-destroy-product/{id}', [productController::class, 'destroy_product'])->middleware(['can:admin_manager','auth'])->name('destroy_product');
 
 
-Route::get('/dashboard-type', [interiorController::class, 'type_dashboard'])->middleware(['can:admin_manager','auth'])->name('type_dashboard');
+// Route::get('/dashboard-type', [interiorController::class, 'type_dashboard'])->middleware(['can:admin_manager','auth'])->name('type_dashboard');
 Route::post('/dashboard-type-product', [typeController::class, 'add_type_product'])->middleware(['can:admin_manager','auth'])->name('add_type_product');
 Route::get('/dashboard-list-type', [interiorController::class,'list_type_dashboard'])->middleware(['can:admin_manager','auth'])->name('list_type_dashboard');
 Route::get('/dashboard-edit-list-type-product/{id}', [interiorController::class, 'edit_type_product'])->middleware(['can:admin_manager','auth'])->name('edit_type_product');
@@ -172,6 +172,8 @@ Route::post('/pay-store', [checkoutContorller::class, 'pay_store'])->middleware(
 Route::get('/search-dashboard=',[interiorController::class, 'search_dashboard_up'])->middleware('can:admin_manager_staff','auth')->name('search_dashboard_up');
 
 Route::get('/destroy/donhang/{id}',[checkoutContorller::class, 'destroy_donhang_dashboard'])->middleware('auth')->name('destroy_donhang_dashboard');
+
+// Route::get('test/map',[interiorController::class, 'test_api_map'])->name('test_api_map');
 // ---- user
 Route::get('/interior-index', [interiorController::class,'index'])->name('index');
 Route::get('/interior-product', [interiorController::class,'product'])->name('product');
