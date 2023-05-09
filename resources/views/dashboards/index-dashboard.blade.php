@@ -150,20 +150,19 @@
                         <div class="card-body">
                           <div class="card-title d-flex align-items-start justify-content-between">
                             <div class="avatar flex-shrink-0">
-                              {{-- <img src="{{ asset('dashboard/assets/img/icons/unicons/chart-success.png') }}" alt="Credit Card" class="rounded"
-                              /> --}}
                               <i class='bx bx-bar-chart bx-md text-success' ></i>
                             </div>
-                            <div class="dropdown">
-                              <button class="btn p-0" type="button" id="cardOpt6" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                              >
-                                <i class="bx bx-dots-vertical-rounded"></i>
-                              </button>
-                              <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt6">
-                                <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                                {{--<a class="dropdown-item" href="javascript:void(0);">Reset</a>--}}
+                            {{--
+                              <div class="dropdown">
+                                <button class="btn p-0" type="button" id="cardOpt6" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  <i class="bx bx-dots-vertical-rounded"></i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt6">
+                                  <a class="dropdown-item" href="javascript:void(0);">View More</a>
+                                </div>
                               </div>
-                            </div>
+                            --}}
+                            @include('dashboards.block_dashboard.modal_expense')
                           </div>
                           <span>Lợi nhuận</span>
                           @php
@@ -225,7 +224,7 @@
                                 <i class="bx bx-dots-vertical-rounded"></i>
                               </button>
                               <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt6">
-                                <a class="dropdown-item" href="javascript:void(0);">View More</a>
+                                <a class="dropdown-item" href="{{route('detail_cod_dash')}}">Xem thêm</a>
                                 {{--<a class="dropdown-item" href="javascript:void(0);">Reset</a>--}}
                               </div>
                             </div>
@@ -266,7 +265,8 @@
                   <div class="card" style="height: 492px">
                     <div class="row row-bordered g-0">
                       <div class="col-md-8">
-                        <h4 class="container mt-4 mb-5">Doanh thu 3 năm gần nhất @include('dashboards.block_dashboard.modal_chart_month')</h4>
+                        <h4 class="container mt-4 mb-5">Doanh thu 3 năm gần nhất</h4>
+                        {{--<h4 class="container mt-4 mb-5">Doanh thu 3 năm gần nhất @include('dashboards.block_dashboard.modal_chart_month')</h4>--}}
                         <div id="barchart_material" class="px-2 mt-5 mb-3" style="width: 800px; height: 310px;"></div>{{-- Biểu đồ --}}
                         {{-- <div id="totalRevenueChart" class="px-2"></div> --}}
                       </div>

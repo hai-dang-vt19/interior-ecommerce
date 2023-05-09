@@ -18,7 +18,6 @@ use App\Models\expense;
 use App\Models\favorite;
 use App\Models\history;
 use App\Models\supplier;
-use App\Models\type_product;
 use App\Models\typeproduct;
 use App\Models\luong;
 use App\Models\material;
@@ -30,8 +29,6 @@ use App\Models\user_famous;
 use Carbon\Carbon;
 use App\Models\color;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Http;
-use Symfony\Component\HttpClient\HttpClient;
 
 class interiorController extends Controller
 {
@@ -369,8 +366,25 @@ class interiorController extends Controller
         return view('dashboards.index-dashboard', compact(
             'sum_bill','total_expense','sum_bill_atm','sum_bill_store','sum_bill_cod','rate_sba',
             'rate_sbs','rate_sbc','sum_bill_y','charts_0','charts_1','charts_2','char_ck0','char_ck1','char_ck2',
-            'get_pr_famous','get_user_ftop1','get_user_price_ftop1','get_list_user_ftop1','get_list_user_price_ftop1'
+            'get_pr_famous','get_user_ftop1','get_user_price_ftop1','get_list_user_ftop1','get_list_user_price_ftop1',
+            'expense'
         ));
+    }
+
+    public function detail_cod_dash()
+    {
+        $time = Carbon::now('Asia/Ho_Chi_Minh')->year;
+        $bill = bill::where('method','COD')->where('year_create',$time)->limit(20)->paginate(20);
+        return view('dashboards.block_dashboard.modal_cod',compact('bill'));
+    }
+    
+    public function detail_bill(Request $request)
+    {
+        $bill = bill::all()->where('id_bill',$request->id);
+        foreach($bill as $bl){
+            $product = product::all()->where('id_product',$bl->id_product);
+            return view('dashboards.block_dashboard.bill_detail',compact('bill','product'));
+        }
     }
 
     public function create_bill_dashboard(Request $request)
