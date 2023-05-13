@@ -224,7 +224,7 @@
                                 <i class="bx bx-dots-vertical-rounded"></i>
                               </button>
                               <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt6">
-                                <a class="dropdown-item" href="{{route('detail_cod_dash')}}">Xem thêm</a>
+                                <a class="dropdown-item" href="{{route('detail_with_method_dash', ['method'=>'COD'])}}">Xem thêm</a>
                                 {{--<a class="dropdown-item" href="javascript:void(0);">Reset</a>--}}
                               </div>
                             </div>
@@ -291,7 +291,7 @@
                                 <i class="bx bx-dots-vertical-rounded"></i>
                               </button>
                               <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt4">
-                                <a class="dropdown-item" href="javascript:void(0);">View More</a>
+                                <a class="dropdown-item" href="{{route('detail_with_method_dash', ['method'=>'STORE'])}}">Xem thêm</a>
                                 {{--<a class="dropdown-item" href="javascript:void(0);">Reset</a>--}}
                               </div>
                             </div>
@@ -339,7 +339,7 @@
                                 <i class="bx bx-dots-vertical-rounded"></i>
                               </button>
                               <div class="dropdown-menu" aria-labelledby="cardOpt1">
-                                <a class="dropdown-item" href="javascript:void(0);">View More</a>
+                                <a class="dropdown-item" href="{{route('detail_with_method_dash', ['method'=>'ATM'])}}">View More</a>
                                 {{--<a class="dropdown-item" href="javascript:void(0);">Reset</a>--}}
                               </div>
                             </div>

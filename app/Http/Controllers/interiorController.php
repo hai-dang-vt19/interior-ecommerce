@@ -371,20 +371,19 @@ class interiorController extends Controller
         ));
     }
 
-    public function detail_cod_dash()
+    public function detail_with_method_dash(Request $request)
     {
         $time = Carbon::now('Asia/Ho_Chi_Minh')->year;
-        $bill = bill::where('method','COD')->where('year_create',$time)->limit(20)->paginate(20);
-        return view('dashboards.block_dashboard.modal_cod',compact('bill'));
+        $methods = $request->method;
+        $bill = bill::where('method',$request->method)->where('year_create',$time)->limit(20)->paginate(20);
+        return view('dashboards.block_dashboard.modal_with_method',compact('bill','methods'));
     }
     
     public function detail_bill(Request $request)
     {
         $bill = bill::all()->where('id_bill',$request->id);
-        foreach($bill as $bl){
-            $product = product::all()->where('id_product',$bl->id_product);
-            return view('dashboards.block_dashboard.bill_detail',compact('bill','product'));
-        }
+        $product = product::all()->where('id_product',$request->product);
+        return view('dashboards.block_dashboard.bill_detail',compact('bill','product'));
     }
 
     public function create_bill_dashboard(Request $request)

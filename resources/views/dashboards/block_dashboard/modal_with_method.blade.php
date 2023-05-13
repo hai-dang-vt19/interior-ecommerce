@@ -67,7 +67,7 @@
           <div class="content-wrapper">
             <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Dashboard / </span>Danh sách đơn hàng sử dụng dịch vụ COD</h4>
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Dashboard / </span>Danh sách đơn hàng sử dụng dịch vụ {{ $methods }}</h4>
               <!-- Responsive Table -->
               <div class="card">
                 <div class="table-responsive text-nowrap">
@@ -77,7 +77,7 @@
                         <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Mã đơn</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">MSP</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Số lượng</th> 
+                        <th style="color: rgb(231, 171, 6);font-size: 14px">SL</th> 
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Giá tiền</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Phí dịch vụ</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Trạng thái</th>
@@ -88,10 +88,16 @@
                     </thead>
                     <tbody>
                       @foreach ($bill as $key => $bl)
-                      <tr>
+                      <tr 
+                        data-bs-toggle="tooltip"
+                        data-bs-offset="0,4"
+                        data-bs-placement="left"
+                        data-bs-html="true"
+                        title="<span>Nhấn mã đơn để xem <br>chi tiết</span>"
+                      >
                         <td scope="row">{{$key+1}}</td>
                         <td>
-                          <a href="{{ route('detail_bill', ['id'=>$bl->id_bill]) }}">{{$bl->id_bill}}</a>
+                          <a href="{{ route('detail_bill', ['id'=>$bl->id_bill, 'product'=>$bl->id_product]) }}">{{$bl->id_bill}}</a>
                         </td>
                         <td>{{$bl->id_product}}</td>
                         <td>{{$bl->amount}}</td>
@@ -100,9 +106,9 @@
                         @if ($bl->status_product_bill == 1)
                           <td><a href="#" class="badge bg-dark">Chờ xử lý</a></td>
                         @elseif($bl->status_product_bill == 2)
-                          <td><a href="#" class="badge bg-outline-primary">Đang giao</a></td>
+                          <td><a href="#" class="badge bg-primary">Đang giao</a></td>
                         @elseif($bl->status_product_bill == 3)
-                          <td><a href="#" class="badge bg-primary">Chờ xác nhận</a></td>
+                          <td><a href="#" class="badge bg-info">Chờ xác nhận</a></td>
                         @else
                           <td><a href="#" class="badge bg-warning">Thành công</a></td>
                         @endif

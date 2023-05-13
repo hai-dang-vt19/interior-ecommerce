@@ -31,7 +31,7 @@ Route::get('/notsIn', [interiorController::class, 'cod403'])->name('cod403');
 
 //----------------------------------dashboard------------------------------------------------------------
 Route::get('/dashboard-interior', [interiorController::class,'index_dashboard'])->middleware(['can:admin','auth'])->name('index_dashboard');
-Route::get('/cod/detail', [interiorController::class, 'detail_cod_dash'])->middleware(['can:admin','auth'])->name('detail_cod_dash');
+Route::get('/detail/method=', [interiorController::class, 'detail_with_method_dash'])->middleware(['can:admin','auth'])->name('detail_with_method_dash');
 Route::get('bill/detail/{id}', [interiorController::class, 'detail_bill'])->name('detail_bill');
 
 Route::get('/new-bill', [interiorController::class, 'create_bill_dashboard'])->middleware('can:admin_manager_staff','auth')->name('create_bill_dashboard');

@@ -161,7 +161,7 @@
                                 @foreach ($bill_xuly as $key => $bill_xl)
                                 <tr>
                                   <td scope="row">{{$key+1}}</td>
-                                  <td>{{$bill_xl->id_bill}}</td>
+                                  <td><a href="{{ route('detail_bill', ['id'=>$bill_xl->id_bill, 'product'=>$bill_xl->id_product]) }}">{{$bill_xl->id_bill}}</a></td>
                                   <td>{{$bill_xl->id_product}}</td>
                                   <td>{{$bill_xl->email}}</td>
                                   <td>{{$bill_xl->phone}}</td>

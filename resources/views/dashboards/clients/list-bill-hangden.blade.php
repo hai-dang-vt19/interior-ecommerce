@@ -159,7 +159,7 @@
                                 @foreach ($bill_hangden as $key_hd => $bill_hd)
                                 <tr>
                                   <td scope="row">{{$key_hd+1}}</td>
-                                  <td>{{$bill_hd->id_bill}}</td>
+                                  <td><a href="{{ route('detail_bill', ['id'=>$bill_hd->id_bill, 'product'=>$bill_hd->id_product]) }}">{{$bill_hd->id_bill}}</a></td>
                                   <td>{{$bill_hd->id_product}}</td>
                                   <td>{{$bill_hd->email}}</td>
                                   <td>{{$bill_hd->phone}}</td>

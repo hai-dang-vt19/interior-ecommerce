@@ -168,13 +168,20 @@
                                       <p class="col-3">Loại sản phẩm</p><p class="text-primary ms-4">{{ $pr->type_product }}</p>
                                     </div>
                                     <div class="d-flex">
-                                      <p class="col-3">Máu sắc</p><p class="text-primary ms-4">{{ $pr->color }}</p>
+                                      <p class="col-3">Máu sắc</p>
+                                      @php
+                                          $explode = explode(', ', $pr->color);
+                                          $count = count($explode);
+                                          for($cl = 0; $cl < $count; $cl++){
+                                              echo '<p class="ms-4" style="width: 20px;height: 20px;background-color: '.$explode[$cl].'; border: 1px solid #E0A792; border-radius: 1000px;" title="'.$explode[$cl].'"></p>';
+                                          }
+                                      @endphp
                                     </div>
                                     <div class="d-flex">
                                       <p class="col-3">Giá tiền</p><p class="text-primary ms-4">{{number_format( $pr->price) }} &#8363;</p>
                                     </div>
                                     <div class="d-flex">
-                                      <p class="col-3">Giá sale</p><p class="text-primary ms-4">{{ $pr->sales }}</p>
+                                      <p class="col-3">Giá sale</p><p class="text-primary ms-4">{{ number_format($pr->sales) }} &#8363;</p>
                                     </div>
                                     <div class="d-flex">
                                       <p class="col-3">Chất liệu</p><p class="text-primary ms-4">{{ $pr->material }}</p>
