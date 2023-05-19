@@ -100,7 +100,7 @@
                     <tr>
                         <td>{{$key +1}}</td>
                         <td>{{$hi->user_his}}</td>
-                        <td>{{$hi->description_his}}</td>
+                        <td class="text-capitalize">{{$hi->description_his}}</td>
                         <td>{{$hi->name_his}}</td>
                         <td>{{Carbon\Carbon::parse($hi->created_at)->format('d-m-Y H:i:s')}}</td>
                     </tr>

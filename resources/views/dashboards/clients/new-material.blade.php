@@ -104,6 +104,7 @@
                         ></button>
                       </div>
                       <form action="{{ route('add_material') }}" method="POST">
+                        @csrf
                         <div class="modal-body">
                           <div class="row mb-3">
                             {{-- <label class="col-sm-2 col-form-label"></label> --}}

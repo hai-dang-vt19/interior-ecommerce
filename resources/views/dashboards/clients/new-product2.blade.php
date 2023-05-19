@@ -158,11 +158,11 @@
                               <span class="input-group-text"><i class='bx bx-screenshot'></i></span>
                               <select name="size" class="form-select">
                                 <option selected></option>
-                                <option value="533x533">533 x 533</option>
-                                <option value="533x757">533 x 757</option>
-                                <option value="533x475">533 x 475</option>
-                                <option value="533x641">533 x 641</option>
-                                <option value="489x435">489 x 435</option>
+                                <option value="533x533">533 x 533 (1,5)</option>
+                                <option value="533x757">533 x 757 (2,7)</option>
+                                <option value="533x475">533 x 475 (6,9)</option>
+                                <option value="533x641">533 x 641 (8)</option>
+                                <option value="489x435">489 x 435 (3,4)</option>
                               </select>
                             </div>
                           </div>

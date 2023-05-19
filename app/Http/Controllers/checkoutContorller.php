@@ -49,7 +49,7 @@ class checkoutContorller extends Controller
                 $i = 1;
             }
         }
-        $vnp_HashSecret = "VBUEHKBFEXKXQMMNNLJCIHZQUSICDJEI";
+        $vnp_HashSecret = "XJZONSMCWFAWVKHFSCLGCCIUIPLNCUPN";
         $secureHash = hash_hmac('sha512', $hashData, $vnp_HashSecret);
         if ($secureHash == $vnp_SecureHash) {
             if ($vnp_ResponseCode == '00') {
@@ -184,7 +184,7 @@ class checkoutContorller extends Controller
                 $i = 1;
             }
         }
-        $vnp_HashSecret = "VBUEHKBFEXKXQMMNNLJCIHZQUSICDJEI";
+        $vnp_HashSecret = "XJZONSMCWFAWVKHFSCLGCCIUIPLNCUPN";
         $secureHash = hash_hmac('sha512', $hashData, $vnp_HashSecret);
         if ($secureHash == $vnp_SecureHash) {
             if ($vnp_ResponseCode == '00') {
@@ -296,8 +296,8 @@ class checkoutContorller extends Controller
     {
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
         $vnp_Returnurl = "http://127.0.0.1:8000/return-vnpay";
-        $vnp_TmnCode = "MX3URQXB";//Mã website tại VNPAY 
-        $vnp_HashSecret = "VBUEHKBFEXKXQMMNNLJCIHZQUSICDJEI"; //Chuỗi bí mật
+        $vnp_TmnCode = "HEYD7Y8N";//Mã website tại VNPAY 
+        $vnp_HashSecret = "XJZONSMCWFAWVKHFSCLGCCIUIPLNCUPN"; //Chuỗi bí mật
         
         $vnp_TxnRef = 'ICS0'.time(); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
         $vnp_OrderInfo = 'Thanh toán qua VNPAY';
@@ -366,8 +366,8 @@ class checkoutContorller extends Controller
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
         // $vnp_Returnurl = "https://localhost/vnpay_php/vnpay_return.php";
         $vnp_Returnurl = "http://127.0.0.1:8000/return-vnpay";
-        $vnp_TmnCode = "MX3URQXB";//Mã website tại VNPAY 
-        $vnp_HashSecret = "VBUEHKBFEXKXQMMNNLJCIHZQUSICDJEI"; //Chuỗi bí mật
+        $vnp_TmnCode = "HEYD7Y8N";//Mã website tại VNPAY 
+        $vnp_HashSecret = "XJZONSMCWFAWVKHFSCLGCCIUIPLNCUPN"; //Chuỗi bí mật
         
         $vnp_TxnRef = 'ICS0'.time(); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
         $vnp_OrderInfo = 'Thanh toán qua VNPAY';
@@ -436,8 +436,8 @@ class checkoutContorller extends Controller
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
         // $vnp_Returnurl = "https://localhost/vnpay_php/vnpay_return.php";
         $vnp_Returnurl = "http://127.0.0.1:8000/return-vnpay-don";
-        $vnp_TmnCode = "MX3URQXB";//Mã website tại VNPAY 
-        $vnp_HashSecret = "VBUEHKBFEXKXQMMNNLJCIHZQUSICDJEI"; //Chuỗi bí mật
+        $vnp_TmnCode = "HEYD7Y8N";//Mã website tại VNPAY 
+        $vnp_HashSecret = "XJZONSMCWFAWVKHFSCLGCCIUIPLNCUPN"; //Chuỗi bí mật
         
         $vnp_TxnRef = 'ICS0'.time(); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
         $vnp_OrderInfo = $request->total_vnpay_idpr;
@@ -506,8 +506,8 @@ class checkoutContorller extends Controller
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
         // $vnp_Returnurl = "https://localhost/vnpay_php/vnpay_return.php";
         $vnp_Returnurl = "http://127.0.0.1:8000/return-vnpay-don";
-        $vnp_TmnCode = "MX3URQXB";//Mã website tại VNPAY 
-        $vnp_HashSecret = "VBUEHKBFEXKXQMMNNLJCIHZQUSICDJEI"; //Chuỗi bí mật
+        $vnp_TmnCode = "HEYD7Y8N";//Mã website tại VNPAY 
+        $vnp_HashSecret = "XJZONSMCWFAWVKHFSCLGCCIUIPLNCUPN"; //Chuỗi bí mật
         
         $vnp_TxnRef = 'ICS0'.time(); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
         $vnp_OrderInfo = 'Thanh toán qua VNPAY';
@@ -898,8 +898,8 @@ class checkoutContorller extends Controller
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
         // $vnp_Returnurl = "https://localhost/vnpay_php/vnpay_return.php";
         $vnp_Returnurl = "http://127.0.0.1:8000/return-db";
-        $vnp_TmnCode = "MX3URQXB";//Mã website tại VNPAY 
-        $vnp_HashSecret = "VBUEHKBFEXKXQMMNNLJCIHZQUSICDJEI"; //Chuỗi bí mật
+        $vnp_TmnCode = "HEYD7Y8N";//Mã website tại VNPAY 
+        $vnp_HashSecret = "XJZONSMCWFAWVKHFSCLGCCIUIPLNCUPN"; //Chuỗi bí mật
         
         $vnp_TxnRef = 'STORE-'.Auth::user()->user_id.time(); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
         $vnp_OrderInfo = 'Thanh toán qua VNPAY';
@@ -972,8 +972,8 @@ class checkoutContorller extends Controller
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
         // $vnp_Returnurl = "https://localhost/vnpay_php/vnpay_return.php";
         $vnp_Returnurl = "http://127.0.0.1:8000/return-db";
-        $vnp_TmnCode = "MX3URQXB";//Mã website tại VNPAY 
-        $vnp_HashSecret = "VBUEHKBFEXKXQMMNNLJCIHZQUSICDJEI"; //Chuỗi bí mật
+        $vnp_TmnCode = "HEYD7Y8N";//Mã website tại VNPAY 
+        $vnp_HashSecret = "XJZONSMCWFAWVKHFSCLGCCIUIPLNCUPN"; //Chuỗi bí mật
         
         $vnp_TxnRef = 'STORE-'.Auth::user()->user_id.time(); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
         $vnp_OrderInfo = 'Thanh toán qua VNPAY';
@@ -1067,7 +1067,7 @@ class checkoutContorller extends Controller
                 $i = 1;
             }
         }
-        $vnp_HashSecret = "VBUEHKBFEXKXQMMNNLJCIHZQUSICDJEI";
+        $vnp_HashSecret = "XJZONSMCWFAWVKHFSCLGCCIUIPLNCUPN";
         $secureHash = hash_hmac('sha512', $hashData, $vnp_HashSecret);
         if ($secureHash == $vnp_SecureHash) {
             if ($vnp_ResponseCode == '00') {

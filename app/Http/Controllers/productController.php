@@ -119,7 +119,7 @@ class productController extends Controller
                 'expense_material'=>$amount_material
             ]);
         }         
-        color::updateOrCreate(['id_color'=>$color]);
+        // color::updateOrCreate(['id_color'=>$color]);
         history::create([
             'name_his'=>'Create',
             'user_his'=>Auth::user()->email,

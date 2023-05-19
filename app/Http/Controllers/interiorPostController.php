@@ -149,6 +149,7 @@ class interiorPostController extends Controller
      }
      public function update_profile_city(Request $request)
      {
+        // dd($request->all());
         $provinces = city::all()->where('name_city',$request->city);
         foreach($provinces as $pro){
             User::where('id',$request->id)->update([

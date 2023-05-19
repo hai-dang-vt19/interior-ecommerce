@@ -405,7 +405,7 @@ class interiorController extends Controller
     {
         // $ware = warehouse::where('id',$request->id)->get();
         $data['ware'] = warehouse::find($request->id)->toArray();
-        $wareAll = warehouse::orderbydesc('id')->get();   
+        $wareAll = warehouse::orderbydesc('id')->get();
         return view('dashboards.clients.new-product2', $data, compact('wareAll'));
     }
     public function list_product_dashboard()

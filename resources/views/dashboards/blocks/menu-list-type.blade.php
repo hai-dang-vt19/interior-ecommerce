@@ -85,7 +85,7 @@
     <ul class="menu-sub">
       <li class="menu-item">
         <a href="{{ route('warehouse_dashboard') }}" class="menu-link"  >
-          <div >New loại Warehouse</div>
+          <div >New Warehouse</div>
         </a>
       </li>
       <li class="menu-item">
