@@ -13,6 +13,7 @@ use App\Http\Controllers\historyController;
 Use App\Http\Controllers\typeController;
 Use App\Http\Controllers\materialSupplierController;
 Use App\Http\Controllers\calendarController;
+use App\Http\Controllers\calenderController;
 use App\Http\Controllers\cartController;
 use App\Http\Controllers\checkoutContorller;
 use App\Http\Controllers\favoriteController;
@@ -144,11 +145,19 @@ Route::get('/dashboard-destroy-discount/{id}', [statusController::class, 'destro
 Route::get('/dashboard-history', [interiorController::class, 'history_dashboard'])->middleware(['can:admin','auth'])->name('history_dashboard');
 Route::get('/dashboard-destroy-all-history', [historyController::class, 'destroy_all_history'])->middleware(['can:admin','auth'])->name('destroy_all_history');
 
-Route::get('/dashboard-calendar', [interiorController::class, 'calendar'])->middleware(['can:admin_manager_staff','auth'])->name('calendar');
-Route::post('/dashboard-add-calender', [calendarController::class, 'add_calender'])->middleware(['can:admin_manager_staff','auth'])->name('add_calender');
-Route::get('/dashboard-reset-calender', [calendarController::class, 'reset_calendar'])->middleware(['can:admin_manager_staff','auth'])->name('reset_calendar');
-Route::get('/dashboard-reset-salary', [calendarController::class, 'reset_salary'])->middleware(['can:admin_manager_staff','auth'])->name('reset_salary');
+// Route::get('/dashboard-calendar', [interiorController::class, 'calendar'])->middleware(['can:admin_manager_staff','auth'])->name('calendar');
+// Route::post('/dashboard-add-calender', [calendarController::class, 'add_calender'])->middleware(['can:admin_manager_staff','auth'])->name('add_calender');
+// Route::get('/dashboard-reset-calender', [calendarController::class, 'reset_calendar'])->middleware(['can:admin_manager_staff','auth'])->name('reset_calendar');
+// Route::get('/dashboard-reset-salary', [calendarController::class, 'reset_salary'])->middleware(['can:admin_manager_staff','auth'])->name('reset_salary');
 
+// new-calender
+
+Route::get('/new/calender', [calenderController::class, 'new_calender'])->middleware(['can:admin_manager_staff','auth'])->name('calender');
+Route::post('/dashboard/post/calender', [calenderController::class, 'post_calender'])->middleware(['can:admin_manager_staff','auth'])->name('post_calender');
+Route::get('/dashboard/reset/calender', [calenderController::class, 'reset_calender'])->middleware(['can:admin_manager_staff','auth'])->name('reset_calender');
+Route::get('/dashboard/reset/salary', [calenderController::class, 'reset_salary'])->middleware(['can:admin_manager_staff','auth'])->name('reset_salary');
+
+// new-calender
 Route::get('/dashboard-slide', [interiorController::class, 'slide'])->middleware(['can:admin','auth'])->name('slide');
 Route::get('/dashboard-slide/{id}', [interiorController::class, 'slide2'])->middleware(['can:admin','auth'])->name('slide2');
 Route::post('/dashboard-add-slide', [slideController::class, 'add_slide'])->middleware(['can:admin','auth'])->name('add_slide');

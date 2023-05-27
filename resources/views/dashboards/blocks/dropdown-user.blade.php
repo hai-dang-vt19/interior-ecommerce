@@ -40,7 +40,8 @@
         </a>
       </li>
       <li>
-        <a class="dropdown-item" href="{{ route('calendar') }}">
+        <a class="dropdown-item" href="{{ route('calender') }}">
+        {{-- <a class="dropdown-item" href="{{ route('calendar') }}"> --}}
           <i class='bx bx-calendar me-2'></i>
           <span class="align-middle">Lịch làm việc</span>
         </a>

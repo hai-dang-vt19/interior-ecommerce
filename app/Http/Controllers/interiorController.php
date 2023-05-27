@@ -126,102 +126,106 @@ class interiorController extends Controller
         $sum_bill = $sum_bill_atm+$sum_bill_store+$sum_bill_cod;
          
         //**** Dữ liệu lấy để so sánh */
-        $old_day = Carbon::now('Asia/Ho_Chi_Minh')->subDays(1)->toDateString();
-            $od_ = bill::all()->where('date_create',$old_day);
-            // ATM
-            $sba_o1 = $od_->where('method','ATM')->where('amount','=','1')->sum('amount');
-            $sba_o2 = $od_->where('method','ATM')->where('amount','=','1')->sum('price');
-            $sba_o3 = $od_->where('method','ATM')->where('amount','=','1')->sum('price_service');
-            if($sba_o1 && $sba_o2 != 0){
-                    $price_sba_o1 = ($sba_o1/$sba_o1)*$sba_o2 + $sba_o3; // đã lấy được giá sl = 1
-                }else{
-                    $price_sba_o1 = 0;
-            }
-            $sba_amount_not_o1 = bill::all()->where('method','ATM')->where('date_create',$old_day)->where('amount','!=','1')->sum('amount');
-            $get_price_not_o1sba = bill::where('method','ATM')->where('date_create',$old_day)->where('amount','!=','1')->distinct()->sum('price'); // đã lấy được giá sl !=  1
-            $price_service_not_o1sba = bill::all()->where('method','ATM')->where('date_create',$old_day)->where('amount','!=','1')->sum('price_service');
-            $sum_price_sba_not_o1 = $get_price_not_o1sba*$sba_amount_not_o1 + $price_service_not_o1sba; // đã lấy được giá sl != 1
-            $sum_bill_atm_o = $price_sba_o1 + $sum_price_sba_not_o1; // 1
-            // Store
-            $sbs_o1 = $od_->where('method','STORE')->where('amount','=','1')->sum('amount');
-            $sbs_o2 = $od_->where('method','STORE')->where('amount','=','1')->sum('price');
-            if($sbs_o1 && $sbs_o2 != 0){
-                    $price_sbs_o1 = ($sbs_o1/$sbs_o1)*$sbs_o2; // đã lấy được giá sl = 1
-                }else{
-                    $price_sbs_o1 = 0;
-            }
-            $sbs_amount_not_o1 = bill::all()->where('method','STORE')->where('date_create',$old_day)->where('amount','!=','1')->sum('amount');
-            $get_price_not_o1sbs = bill::where('method','STORE')->where('date_create',$old_day)->where('amount','!=','1')->distinct()->sum('price'); // đã lấy được giá sl !=  1
-            $sum_price_sbs_not_o1 = $get_price_not_o1sbs*$sbs_amount_not_o1; // đã lấy được giá sl != 1
-            $sum_bill_store_o = $price_sbs_o1 + $sum_price_sbs_not_o1; // 2
-            // COD
-            $sbc_o1 = $od_->where('method','COD')->where('amount','=','1')->sum('amount');
-            $sbc_o2 = $od_->where('method','COD')->where('amount','=','1')->sum('price');
-            $sbc_o3 = $od_->where('method','COD')->where('amount','=','1')->sum('price_service');
-            if($sbc_o1 && $sbc_o2 != 0){
-                    $price_sbc_o1 = ($sbc_o1/$sbc_o1)*$sbc_o2 + $sbc_o3; // đã lấy được giá sl = 1
-                }else{
-                    $price_sbc_o1 = 0;
-            }
-            $sbc_amount_not_o1 = bill::all()->where('method','COD')->where('date_create',$old_day)->where('amount','!=','1')->sum('amount');
-            $get_price_not_o1sbc = bill::where('method','COD')->where('date_create',$old_day)->where('amount','!=','1')->distinct()->sum('price'); // đã lấy được giá sl !=  1
-            $price_service_not_o1sbc = bill::all()->where('method','COD')->where('date_create',$old_day)->where('amount','!=','1')->sum('price_service');
-            $sum_price_sbc_not_o1 = $get_price_not_o1sbc*$sbc_amount_not_o1 + $price_service_not_o1sbc; // đã lấy được giá sl != 1
-            $sum_bill_cod_o = $price_sbc_o1 + $sum_price_sbc_not_o1; // 3   
+        // $old_day = Carbon::now('Asia/Ho_Chi_Minh')->subDays(1)->toDateString();
+        $old_day = Carbon::now('Asia/Ho_Chi_Minh')->subMonth(1);
+        $month = $old_day->month;
+        $year = $old_day->year;
 
-            $rate_sba = $sum_bill_atm-$sum_bill_atm_o;
-            $rate_sbs = $sum_bill_store-$sum_bill_store_o;
-            $rate_sbc = $sum_bill_cod-$sum_bill_cod_o;
+        if($month < 8){
+            if($month != 2){
+                if($month % 2 != 0){      //   tháng chẵn
+                    $l_dofm = '30';
+                }else{                      //    tháng lẻ
+                    $l_dofm = '31';
+                }
+            }else{                          // tháng 2: nhuận - thường
+                if($year % 4 == 0){
+                    $l_dofm = '29';
+                }else{
+                    $l_dofm = '28';
+                }
+            }
+        }else{
+            if($month % 2 != 0){      //   tháng chẵn
+                $l_dofm = '31';
+            }else{                      //    tháng lẻ
+                $l_dofm = '30';
+            }
+        }
+
+        if($month < 10){
+            $new_my = $year.'-0'.$month;
+        }else{
+            $new_my = $year.'-'.$month;
+        }
+        
+        $f_dayOfmonth = $new_my.'-01';
+        $l_dayofmonth = $new_my.'-'.$l_dofm;
+        
+            $od_ = bill::all()->whereBetween('date_create', [$f_dayOfmonth, $l_dayofmonth]);
+            // dd($od_);
+            // $od_ = bill::all()->where('date_create',$old_day);
+            // ATM 
+                $sba_o1 = $od_->where('method','ATM')->where('amount','=','1')->sum('amount');
+                $sba_o2 = $od_->where('method','ATM')->where('amount','=','1')->sum('price');
+                $sba_o3 = $od_->where('method','ATM')->where('amount','=','1')->sum('price_service');
+                if($sba_o1 && $sba_o2 != 0){
+                        $price_sba_o1 = ($sba_o1/$sba_o1)*$sba_o2 + $sba_o3; // đã lấy được giá sl = 1
+                    }else{
+                        $price_sba_o1 = 0;
+                }
+                $sba_amount_not_o1 = bill::all()->where('method','ATM')->where('date_create',$old_day)->where('amount','!=','1')->sum('amount');
+                $get_price_not_o1sba = bill::where('method','ATM')->where('date_create',$old_day)->where('amount','!=','1')->distinct()->sum('price'); // đã lấy được giá sl !=  1
+                $price_service_not_o1sba = bill::all()->where('method','ATM')->where('date_create',$old_day)->where('amount','!=','1')->sum('price_service');
+                $sum_price_sba_not_o1 = $get_price_not_o1sba*$sba_amount_not_o1 + $price_service_not_o1sba; // đã lấy được giá sl != 1
+                $sum_bill_atm_o = $price_sba_o1 + $sum_price_sba_not_o1; // 1
+            // Store
+                $sbs_o1 = $od_->where('method','STORE')->where('amount','=','1')->sum('amount');
+                $sbs_o2 = $od_->where('method','STORE')->where('amount','=','1')->sum('price');
+                if($sbs_o1 && $sbs_o2 != 0){
+                        $price_sbs_o1 = ($sbs_o1/$sbs_o1)*$sbs_o2; // đã lấy được giá sl = 1
+                    }else{
+                        $price_sbs_o1 = 0;
+                }
+                $sbs_amount_not_o1 = bill::all()->where('method','STORE')->where('date_create',$old_day)->where('amount','!=','1')->sum('amount');
+                $get_price_not_o1sbs = bill::where('method','STORE')->where('date_create',$old_day)->where('amount','!=','1')->distinct()->sum('price'); // đã lấy được giá sl !=  1
+                $sum_price_sbs_not_o1 = $get_price_not_o1sbs*$sbs_amount_not_o1; // đã lấy được giá sl != 1
+                $sum_bill_store_o = $price_sbs_o1 + $sum_price_sbs_not_o1; // 2
+            // COD
+                $sbc_o1 = $od_->where('method','COD')->where('amount','=','1')->sum('amount');
+                $sbc_o2 = $od_->where('method','COD')->where('amount','=','1')->sum('price');
+                $sbc_o3 = $od_->where('method','COD')->where('amount','=','1')->sum('price_service');
+                if($sbc_o1 && $sbc_o2 != 0){
+                        $price_sbc_o1 = ($sbc_o1/$sbc_o1)*$sbc_o2 + $sbc_o3; // đã lấy được giá sl = 1
+                    }else{
+                        $price_sbc_o1 = 0;
+                }
+                $sbc_amount_not_o1 = bill::all()->where('method','COD')->where('date_create',$old_day)->where('amount','!=','1')->sum('amount');
+                $get_price_not_o1sbc = bill::where('method','COD')->where('date_create',$old_day)->where('amount','!=','1')->distinct()->sum('price'); // đã lấy được giá sl !=  1
+                $price_service_not_o1sbc = bill::all()->where('method','COD')->where('date_create',$old_day)->where('amount','!=','1')->sum('price_service');
+                $sum_price_sbc_not_o1 = $get_price_not_o1sbc*$sbc_amount_not_o1 + $price_service_not_o1sbc; // đã lấy được giá sl != 1
+                $sum_bill_cod_o = $price_sbc_o1 + $sum_price_sbc_not_o1; // 3   
+
+                $rate_sba = $sum_bill_atm-$sum_bill_atm_o;
+                $rate_sbs = $sum_bill_store-$sum_bill_store_o;
+                $rate_sbc = $sum_bill_cod-$sum_bill_cod_o;
             
             // $rate_sba = (($sum_bill_atm-$sum_bill_atm_o)/$sum_bill_atm_o)*100;
             // $rate_sbs = (($sum_bill_store-$sum_bill_store_o)/$sum_bill_store_o)*100;
-        // $rate_sbc = (($sum_bill_cod-$sum_bill_cod_o)/$sum_bill_cod_o)*100;
+            // $rate_sbc = (($sum_bill_cod-$sum_bill_cod_o)/$sum_bill_cod_o)*100;
 
         //*** doanh thu các năm */
             $get_years = Carbon::now('Asia/Ho_Chi_Minh');
             $gy = $get_years->year;
             $gy1 = $gy-1;
             $gy2 = $gy-2;
-            // $gy_ = $gy-3;
-            // for($y = $gy_; $y <= $gy; $y++){
-            //     // ATM-
-            //     $atm1 = bill::all()->where('method','ATM')->where('year_create',$y)->where('amount','1')->sum('amount');
-            //     $atm2 = bill::all()->where('method','ATM')->where('year_create',$y)->where('amount','1')->sum('price');
-            //     $atm3 = bill::all()->where('method','ATM')->where('year_create',$y)->where('amount','1')->sum('price_service');
-            //     if($atm1 && $atm2 != 0){$price_atm1 = ($atm1/$atm1)*$atm2 + $atm3;}else{$price_atm1 = 0;}
-            //     $amount_not_atm1 = bill::all()->where('method','ATM')->where('year_create',$y)->where('amount','!=','1')->sum('amount');
-            //     $price_not_atm1 = bill::where('method','ATM')->where('year_create',$y)->where('amount','!=','1')->distinct()->sum('price');
-            //     $price_service_not_atm1 = bill::all()->where('method','ATM')->where('year_create',$y)->where('amount','!=','1')->sum('price_service');           
-            //     $sum_price_not_atm1 = $price_not_atm1 * $amount_not_atm1 + $price_service_not_atm1;
-            //     $sum_bill_atms = $price_atm1 + $sum_price_not_atm1;
-            //     // Store
-            //     $store1 = bill::all()->where('method','STORE')->where('year_create',$y)->where('amount','1')->sum('amount');
-            //     $store2 = bill::all()->where('method','STORE')->where('year_create',$y)->where('amount','1')->sum('price');
-            //     if($store1 && $store2 != 0){$price_store1 = ($store1/$store1)*$store2;}else{$price_store1 = 0;}
-            //     $amount_not_store1 = bill::all()->where('method','STORE')->where('year_create',$y)->where('amount','!=',1)->where('status_product_bill','!=','0')->sum('amount');
-            //     $price_not_store1 = bill::where('method','STORE')->where('year_create',$y)->where('amount','!=',1)->where('status_product_bill','!=','0')->distinct()->sum('price');
-            //     $sum_price_not_store1 = $price_not_store1*$amount_not_store1;
-            //     $sum_bill_store_ys = $price_store1 + $sum_price_not_store1;
-            //     // COD
-            //     $cod1 = bill::all()->where('method','COD')->where('year_create',$y)->where('amount','1')->sum('amount');
-            //     $cod2 = bill::all()->where('method','COD')->where('year_create',$y)->where('amount','1')->sum('price');
-            //     $cod3 = bill::all()->where('method','COD')->where('year_create',$y)->where('amount','1')->sum('price_service');
-            //     if($cod1 && $cod2 != 0){$price_cod1 = ($cod1/$cod1)*$cod2 + $cod3;}else{$price_cod1 = 0;}
-            //     $amount_not_cod1 = bill::all()->where('method','COD')->where('year_create',$y)->where('amount','!=','1')->sum('amount');
-            //     $price_not_cod1 = bill::where('method','COD')->where('year_create',$y)->where('amount','!=','1')->distinct()->sum('price');
-            //     $price_service_not_cod1 = bill::all()->where('method','COD')->where('year_create',$y)->where('amount','!=','1')->sum('price_service');
-            //     $sum_price_not_cod1 = $price_not_cod1*$amount_not_cod1 + $price_service_not_cod1;
-            //     $sum_bill_cod_ys = $price_cod1 + $sum_price_not_cod1; // 3
-
-                
-            //     $charts = "['".$y."', ".$sum_bill_atms.", ".$sum_bill_store_ys.", ".$sum_bill_cod_ys."],";
-            // }
 
             // ATM-
                 // 0
-                    $atm0_1 = bill::all()->where('method','ATM')->where('year_create',$gy)->where('amount','1')->where('status_product_bill','!=','0')->sum('amount');
-                    $atm0_2 = bill::all()->where('method','ATM')->where('year_create',$gy)->where('amount','1')->where('status_product_bill','!=','0')->sum('price');
-                    $atm0_3 = bill::all()->where('method','ATM')->where('year_create',$gy)->where('amount','1')->where('status_product_bill','!=','0')->sum('price_service');
+                    $atm0 = bill::all()->where('method','ATM')->where('year_create',$gy)->where('amount','1')->where('status_product_bill','!=','0');
+                    $atm0_1 = $atm0->sum('amount');
+                    $atm0_2 = $atm0->sum('price');
+                    $atm0_3 = $atm0->sum('price_service');
                     if($atm0_1 && $atm0_2 != 0){$price_atm0_1 = ($atm0_1/$atm0_1)*$atm0_2 + $atm0_3;}else{$price_atm0_1 = 0;}
                     $amount_not_atm0_1 = bill::all()->where('method','ATM')->where('year_create',$gy)->where('amount','!=','1')->where('status_product_bill','!=','0')->sum('amount');
                     $price_not_atm0_1 = bill::where('method','ATM')->where('year_create',$gy)->where('amount','!=','1')->where('status_product_bill','!=','0')->distinct()->sum('price');
@@ -230,9 +234,10 @@ class interiorController extends Controller
                     $sum_bill_atms_0 = $price_atm0_1 + $sum_price_not_atm0_1;
 
                 // 1
-                    $atm1_1 = bill::all()->where('method','ATM')->where('year_create',$gy1)->where('amount','1')->where('status_product_bill','!=','0')->sum('amount');
-                    $atm1_2 = bill::all()->where('method','ATM')->where('year_create',$gy1)->where('amount','1')->where('status_product_bill','!=','0')->sum('price');
-                    $atm1_3 = bill::all()->where('method','ATM')->where('year_create',$gy1)->where('amount','1')->where('status_product_bill','!=','0')->sum('price_service');
+                    $atm1 = bill::all()->where('method','ATM')->where('year_create',$gy1)->where('amount','1')->where('status_product_bill','!=','0');
+                    $atm1_1 = $atm1->sum('amount');
+                    $atm1_2 = $atm1->sum('price');
+                    $atm1_3 = $atm1->sum('price_service');
                     if($atm1_1 && $atm1_2 != 0){$price_atm1_1 = ($atm1_1/$atm1_1)*$atm1_2 + $atm1_3;}else{$price_atm1_1 = 0;}
                     $amount_not_atm1_1 = bill::all()->where('method','ATM')->where('year_create',$gy1)->where('amount','!=','1')->where('status_product_bill','!=','0')->sum('amount');
                     $price_not_atm1_1 = bill::where('method','ATM')->where('year_create',$gy1)->where('amount','!=','1')->where('status_product_bill','!=','0')->distinct()->sum('price');
@@ -240,9 +245,10 @@ class interiorController extends Controller
                     $sum_price_not_atm1_1 = $price_not_atm1_1 * $amount_not_atm1_1 + $price_service_not_atm1_1;
                     $sum_bill_atms_1 = $price_atm1_1 + $sum_price_not_atm1_1;
                 // 2
-                    $atm2_1 = bill::all()->where('method','ATM')->where('year_create',$gy2)->where('amount','1')->where('status_product_bill','!=','0')->sum('amount');
-                    $atm2_2 = bill::all()->where('method','ATM')->where('year_create',$gy2)->where('amount','1')->where('status_product_bill','!=','0')->sum('price');
-                    $atm2_3 = bill::all()->where('method','ATM')->where('year_create',$gy2)->where('amount','1')->where('status_product_bill','!=','0')->sum('price_service');
+                    $atm2 = bill::all()->where('method','ATM')->where('year_create',$gy2)->where('amount','1')->where('status_product_bill','!=','0');
+                    $atm2_1 = $atm2->sum('amount');
+                    $atm2_2 = $atm2->sum('price');
+                    $atm2_3 = $atm2->sum('price_service');
                     if($atm2_1 && $atm2_2 != 0){$price_atm2_1 = ($atm2_1/$atm2_1)*$atm2_2 + $atm2_3;}else{$price_atm2_1 = 0;}
                     $amount_not_atm2_1 = bill::all()->where('method','ATM')->where('year_create',$gy2)->where('amount','!=','1')->where('status_product_bill','!=','0')->sum('amount');
                     $price_not_atm2_1 = bill::where('method','ATM')->where('year_create',$gy2)->where('amount','!=','1')->where('status_product_bill','!=','0')->distinct()->sum('price');
@@ -251,24 +257,27 @@ class interiorController extends Controller
                     $sum_bill_atms_2 = $price_atm2_1 + $sum_price_not_atm2_1;
             // Store
                 //0
-                    $store0_1 = bill::all()->where('method','STORE')->where('year_create',$gy)->where('amount','1')->where('status_product_bill','!=','0')->sum('amount');
-                    $store0_2 = bill::all()->where('method','STORE')->where('year_create',$gy)->where('amount','1')->where('status_product_bill','!=','0')->sum('price');
+                    $store0 = bill::all()->where('method','STORE')->where('year_create',$gy)->where('amount','1')->where('status_product_bill','!=','0');
+                    $store0_1 = $store0->sum('amount');
+                    $store0_2 = $store0->sum('price');
                     if($store0_1 && $store0_2 != 0){$price_store0_1 = ($store0_1/$store0_1)*$store0_2;}else{$price_store0_1 = 0;}
                     $amount_not_store0_1 = bill::all()->where('method','STORE')->where('year_create',$gy)->where('amount','!=',1)->where('status_product_bill','!=','0')->sum('amount');
                     $price_not_store0_1 = bill::where('method','STORE')->where('year_create',$gy)->where('amount','!=',1)->where('status_product_bill','!=','0')->distinct()->sum('price');
                     $sum_price_not_store0_1 = $price_not_store0_1*$amount_not_store0_1;
                     $sum_bill_store_ys_0 = $price_store0_1 + $sum_price_not_store0_1;
                 //1
-                    $store1_1 = bill::all()->where('method','STORE')->where('year_create',$gy1)->where('amount','1')->where('status_product_bill','!=','0')->sum('amount');
-                    $store1_2 = bill::all()->where('method','STORE')->where('year_create',$gy1)->where('amount','1')->where('status_product_bill','!=','0')->sum('price');
+                    $store1 = bill::all()->where('method','STORE')->where('year_create',$gy1)->where('amount','1')->where('status_product_bill','!=','0');
+                    $store1_1 = $store1->sum('amount');
+                    $store1_2 = $store1->sum('price');
                     if($store1_1 && $store1_2 != 0){$price_store1_1 = ($store1_1/$store1_1)*$store1_2;}else{$price_store1_1 = 0;}
                     $amount_not_store1_1 = bill::all()->where('method','STORE')->where('year_create',$gy1)->where('amount','!=',1)->where('status_product_bill','!=','0')->sum('amount');
                     $price_not_store1_1 = bill::where('method','STORE')->where('year_create',$gy1)->where('amount','!=',1)->where('status_product_bill','!=','0')->distinct()->sum('price');
                     $sum_price_not_store1_1 = $price_not_store1_1*$amount_not_store1_1;
                     $sum_bill_store_ys_1 = $price_store1_1 + $sum_price_not_store1_1;
                 //2
-                    $store2_1 = bill::all()->where('method','STORE')->where('year_create',$gy2)->where('amount','1')->where('status_product_bill','!=','0')->sum('amount');
-                    $store2_2 = bill::all()->where('method','STORE')->where('year_create',$gy2)->where('amount','1')->where('status_product_bill','!=','0')->sum('price');
+                    $store2 = bill::all()->where('method','STORE')->where('year_create',$gy2)->where('amount','1')->where('status_product_bill','!=','0');
+                    $store2_1 = $store2->sum('amount');
+                    $store2_2 = $store2->sum('price');
                     if($store2_1 && $store2_2 != 0){$price_store2_1 = ($store2_1/$store2_1)*$store2_2;}else{$price_store2_1 = 0;}
                     $amount_not_store2_1 = bill::all()->where('method','STORE')->where('year_create',$gy2)->where('amount','!=',1)->where('status_product_bill','!=','0')->sum('amount');
                     $price_not_store2_1 = bill::where('method','STORE')->where('year_create',$gy2)->where('amount','!=',1)->where('status_product_bill','!=','0')->distinct()->sum('price');
@@ -276,9 +285,10 @@ class interiorController extends Controller
                     $sum_bill_store_ys_2 = $price_store2_1 + $sum_price_not_store2_1;
             // COD
                 //0
-                    $cod0_1 = bill::all()->where('method','COD')->where('year_create',$gy)->where('amount','1')->where('status_product_bill','!=','0')->sum('amount');
-                    $cod0_2 = bill::all()->where('method','COD')->where('year_create',$gy)->where('amount','1')->where('status_product_bill','!=','0')->sum('price');
-                    $cod0_3 = bill::all()->where('method','COD')->where('year_create',$gy)->where('amount','1')->where('status_product_bill','!=','0')->sum('price_service');
+                    $cod0 = bill::all()->where('method','COD')->where('year_create',$gy)->where('amount','1')->where('status_product_bill','!=','0');
+                    $cod0_1 = $cod0->sum('amount');
+                    $cod0_2 = $cod0->sum('price');
+                    $cod0_3 = $cod0->sum('price_service');
                     if($cod0_1 && $cod0_2 != 0){$price_cod0_1 = ($cod0_1/$cod0_1)*$cod0_2 + $cod0_3;}else{$price_cod0_1 = 0;}
                     $amount_not_cod0_1 = bill::all()->where('method','COD')->where('year_create',$gy)->where('amount','!=','1')->where('status_product_bill','!=','0')->sum('amount');
                     $price_not_cod0_1 = bill::where('method','COD')->where('year_create',$gy)->where('amount','!=','1')->where('status_product_bill','!=','0')->distinct()->sum('price');
@@ -286,9 +296,10 @@ class interiorController extends Controller
                     $sum_price_not_cod0_1 = $price_not_cod0_1*$amount_not_cod0_1 + $price_service_not_cod0_1;
                     $sum_bill_cod_ys_0 = $price_cod0_1 + $sum_price_not_cod0_1; // 3
                 //1
-                    $cod1_1 = bill::all()->where('method','COD')->where('year_create',$gy1)->where('amount','1')->where('status_product_bill','!=','0')->sum('amount');
-                    $cod1_2 = bill::all()->where('method','COD')->where('year_create',$gy1)->where('amount','1')->where('status_product_bill','!=','0')->sum('price');
-                    $cod1_3 = bill::all()->where('method','COD')->where('year_create',$gy1)->where('amount','1')->where('status_product_bill','!=','0')->sum('price_service');
+                    $cod1 = bill::all()->where('method','COD')->where('year_create',$gy1)->where('amount','1')->where('status_product_bill','!=','0');
+                    $cod1_1 = $cod1->sum('amount');
+                    $cod1_2 = $cod1->sum('price');
+                    $cod1_3 = $cod1->sum('price_service');
                     if($cod1_1 && $cod1_2 != 0){$price_cod1_1 = ($cod1_1/$cod1_1)*$cod1_2 + $cod1_3;}else{$price_cod1_1 = 0;}
                     $amount_not_cod1_1 = bill::all()->where('method','COD')->where('year_create',$gy1)->where('amount','!=','1')->where('status_product_bill','!=','0')->sum('amount');
                     $price_not_cod1_1 = bill::where('method','COD')->where('year_create',$gy1)->where('amount','!=','1')->where('status_product_bill','!=','0')->distinct()->sum('price');
@@ -296,9 +307,10 @@ class interiorController extends Controller
                     $sum_price_not_cod1_1 = $price_not_cod1_1*$amount_not_cod1_1 + $price_service_not_cod1_1;
                     $sum_bill_cod_ys_1 = $price_cod1_1 + $sum_price_not_cod1_1; // 3
                 //2
-                    $cod2_1 = bill::all()->where('method','COD')->where('year_create',$gy2)->where('amount','1')->where('status_product_bill','!=','0')->sum('amount');
-                    $cod2_2 = bill::all()->where('method','COD')->where('year_create',$gy2)->where('amount','1')->where('status_product_bill','!=','0')->sum('price');
-                    $cod2_3 = bill::all()->where('method','COD')->where('year_create',$gy2)->where('amount','1')->where('status_product_bill','!=','0')->sum('price_service');
+                    $cod2 = bill::all()->where('method','COD')->where('year_create',$gy2)->where('amount','1')->where('status_product_bill','!=','0');
+                    $cod2_1 = $cod2->sum('amount');
+                    $cod2_2 = $cod2->sum('price');
+                    $cod2_3 = $cod2->sum('price_service');
                     if($cod2_1 && $cod2_2 != 0){$price_cod2_1 = ($cod2_1/$cod2_1)*$cod2_2 + $cod2_3;}else{$price_cod2_1 = 0;}
                     $amount_not_cod2_1 = bill::all()->where('method','COD')->where('year_create',$gy2)->where('amount','!=','1')->where('status_product_bill','!=','0')->sum('amount');
                     $price_not_cod2_1 = bill::where('method','COD')->where('year_create',$gy2)->where('amount','!=','1')->where('status_product_bill','!=','0')->distinct()->sum('price');
@@ -692,29 +704,6 @@ class interiorController extends Controller
     {
         $his = history::orderbyDESC('id')->limit(10)->paginate(10);
         return view('dashboards.clients.z-history', compact('his'));
-    }
-    public function calendar()
-    {
-        // $calendar = calendar::all();
-            $cld = calendar::all()->where('idu','!=','1');
-            $count = count($cld);
-            if ($cld == '[]') {
-                $calendar = calendar::all();
-            } else {
-                $calendar = calendar::all()->where('idu','!=','1');
-            }
-            foreach($calendar as $cld){
-                $check_t2 = $cld->where('t2','!=',null)->count('t2');
-                $check_t3 = $cld->where('t3','!=',null)->count('t3');
-                $check_t4 = $cld->where('t4','!=',null)->count('t4');
-                $check_t5 = $cld->where('t5','!=',null)->count('t5');
-                $check_t6 = $cld->where('t6','!=',null)->count('t6');
-                $check_t7 = $cld->where('t7','!=',null)->count('t7');
-                $check_cn = $cld->where('cn','!=',null)->count('cn');
-                // dd($check_t2);
-                return view('dashboards.calendar', compact('count','calendar','check_t2','check_t3','check_t4','check_t5','check_t6','check_t7','check_cn'));
-            }
-        // return view('dashboards.calendar', compact('calendar'));
     }
     public function salary()
     {

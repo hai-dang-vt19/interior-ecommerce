@@ -177,58 +177,6 @@
                               </select>
                           @endif
                         </div>
-                        {{-- <div class="mb-3 d-flex justify-content-center">
-                          
-                            <select name="t2" class="btn rounded-pill btn-outline-warning ms-2">
-                                <option selected disabled>Thứ 2</option>
-                                <option value="c1">C1</option>
-                                <option value="c2">C2</option>
-                                <option value="Fulltime">Fulltime</option>
-                                <option value="">Nghỉ</option>
-                              </select>
-                            <select name="t3" class="btn rounded-pill btn-outline-warning ms-2">
-                                <option selected disabled>Thứ 3</option>
-                                <option value="c1">C1</option>
-                                <option value="c2">C2</option>
-                                <option value="Fulltime">Fulltime</option>
-                                <option value="">Nghỉ</option>
-                              </select>
-                            <select name="t4" class="btn rounded-pill btn-outline-warning ms-2">
-                                <option selected disabled>Thứ 4</option>
-                                <option value="c1">C1</option>
-                                <option value="c2">C2</option>
-                                <option value="Fulltime">Fulltime</option>
-                                <option value="">Nghỉ</option>
-                              </select>
-                            <select name="t5" class="btn rounded-pill btn-outline-warning ms-2">
-                                <option selected disabled>Thứ 5</option>
-                                <option value="c1">C1</option>
-                                <option value="c2">C2</option>
-                                <option value="Fulltime">Fulltime</option>
-                                <option value="">Nghỉ</option>
-                              </select>
-                            <select name="t6" class="btn rounded-pill btn-outline-warning ms-2">
-                                <option selected disabled>Thứ 6</option>
-                                <option value="c1">C1</option>
-                                <option value="c2">C2</option>
-                                <option value="Fulltime">Fulltime</option>
-                                <option value="">Nghỉ</option>
-                              </select>
-                            <select name="t7" class="btn rounded-pill btn-outline-warning ms-2">
-                                <option selected disabled>Thứ 7</option>
-                                <option value="c1">C1</option>
-                                <option value="c2">C2</option>
-                                <option value="Fulltime">Fulltime</option>
-                                <option value="">Nghỉ</option>
-                              </select>
-                            <select name="cn" class="btn rounded-pill btn-outline-warning ms-2">
-                                <option selected disabled>Chủ nhật</option>
-                                <option value="c1">C1</option>
-                                <option value="c2">C2</option>
-                                <option value="Fulltime">Fulltime</option>
-                                <option value="">Nghỉ</option>
-                              </select>
-                        </div> --}}
                         <div class="float-end">
                           <button type="submit" class="btn btn-success me-2 ms-2">Đăng ký</button>
                         </div>

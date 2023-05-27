@@ -112,45 +112,42 @@
                       <form action="{{ route('up_to_cart_dashboard') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @foreach ($product as $item)
-                          <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Mã sản phẩm</label>
-                            <div class="col-sm-10">
-                                <div class="col-sm-10 d-flex">
-                                  <div>
-                                    <input type="hidden" class="form-control" value="{{ $item->id_product }}" name="id_product">
-                                    <h5 class=" fw-lighter ps-2" style="font-style: oblique; color: #8284FF">
-                                        <abbr title="Mã sản phẩm">{{ $item->id_product }}</abbr>
-                                    </h5>
-                                  </div>
-                                  &emsp;-&emsp;
-                                  <div>
-                                    <input type="hidden" class="form-control" value="{{ $item->name_product }}" name="name_product">
-                                    <h5 class=" fw-lighter ps-2" style="font-style: oblique; color: #8284FF">
-                                        <abbr title="Tên sản phẩm">{{ $item->name_product }}</abbr>
-                                    </h5>
-                                  </div>
-                                </div>
+                          <div class="d-flex">
+                            <div>
+                              <dl class="row mt-2 ms-4">
+                                <dt class="col-sm-2">Mã sản phẩm: </dt>
+                                <dd class="col-sm-9">{{ $item->id_product }}</dd>
+        
+                                <dt class="col-sm-2">Tên sản phẩm: </dt>
+                                <dd class="col-sm-9">
+                                  {{ $item->name_product }} &emsp;&emsp; ( {{ $item->type_product }} )
+                                </dd>
+                                <dt class="col-sm-2">Số lượng: </dt>
+                                <dd class="col-sm-9">
+                                  <p>{{ $item->amount }}</p>
+                                </dd>
+        
+                                <dt class="col-sm-2">Giá sản phẩm</dt>
+                                <dd class="col-sm-9">{{ number_format($item->price) }} &#8363;</dd>
+        
+                                <dt class="col-sm-2 text-truncate">Giá sale: </dt>
+                                <dd class="col-sm-9">
+                                  <p>{{ number_format($item->sales) }} &#8363;</p>
+                                </dd>
+                                <dt class="col-sm-2 text-truncate">Số lượng mua </dt>
+                                <dd class="col-sm-2">
+                                  <input type="text" class="form-control" name="amount_product">
+                                </dd>
+                              </dl>
+                            </div>
+                            <div>
+                              <img class="me-5 shadow" src="{{ asset('dashboard\upload_img\product/'.$item->images) }}" width="300px" height="290px" style="border: 1px solid rgb(255, 255, 255); border-radius: 1000px"  alt="">
                             </div>
                           </div>
-                          <div class="row mb-3">
-                            <label class="col-sm-2 form-label">Giá sản phẩm</label>
-                            <div class="col-sm-10">
-                              <div class="col-sm-10 d-flex">
-                                  @if ($item->sales == 0)
-                                    <input type="hidden" class="form-control" value="{{ $item->price }}" name="price_product">
-                                    <h5 class=" fw-lighter ps-2" style="font-style: oblique; color: #8284FF">
-                                        <abbr title="Giá">{{ number_format($item->price) }} &#8363;</abbr>
-                                    </h5>
-                                  @else
-                                    <input type="hidden" class="form-control" value="{{ $item->sales }}" name="price_product">
-                                    <h5 class=" fw-lighter ps-2" style="font-style: oblique; color: #8284FF">
-                                        <abbr title="Giá">{{ number_format($item->sales) }} &#8363;</abbr>
-                                    </h5>
-                                    <i class='bx bxs-discount bx-tada ms-3 text-danger' ></i>
-                                  @endif
-                              </div>
-                            </div>
-                          </div>
+                          <input type="hidden" class="form-control" value="{{ $item->id_product }}" name="id_product">
+                          <input type="hidden" class="form-control" value="{{ $item->name_product }}" name="name_product">
+                          <input type="hidden" class="form-control" value="{{ $item->price }}" name="price_product">
+                          <input type="hidden" class="form-control" value="{{ $item->sales }}" name="price_product">
                           <input type="hidden" value="{{ $item->amount }}" name="amount_old">
                           <input type="hidden" value="{{ 'STORE-'.Auth::user()->user_id }}" name="id_cart_user">
                         @endforeach
@@ -159,12 +156,6 @@
                             $timeNow = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
                         @endphp
                         <input type="hidden" name="date_create" value="{{$timeNow}}">
-                        <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Số lượng</label>
-                          <div class="col-sm-3 d-flex">
-                              <input type="text" class="form-control" name="amount_product">
-                          </div>
-                        </div>
                         <div class="row">
                           <div>
                             <button type="submit" class="btn btn-success">Thêm vào giỏ<i class='bx bxs-cart-add ms-2'></i></button>

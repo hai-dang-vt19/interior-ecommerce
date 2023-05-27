@@ -1146,15 +1146,15 @@ class checkoutContorller extends Controller
             'total'=>$new_total
         ]);
         cart::where('id_cart_user','STORE-'.Auth::user()->user_id)->delete();
-        $bill_amount = bill::all()->where('id_bill',$request->id_bill);
-        foreach($bill_amount as $bill_amt){
-            $amount = $bill_amt->amount;
-            $sum_old_amount = product::where('id_product', $bill_amt->id_product)->sum('amount');
-            $amount_new = $amount+$sum_old_amount;
-            product::where('id_product',$bill_amt->id_product)->update([
-                'amount'=>$amount_new
-            ]);
-        }
+        // $bill_amount = bill::all()->where('id_bill',$request->id_bill);
+        // foreach($bill_amount as $bill_amt){
+        //     $amount = $bill_amt->amount;
+        //     $sum_old_amount = product::where('id_product', $bill_amt->id_product)->sum('amount');
+        //     $amount_new = $amount+$sum_old_amount;
+        //     product::where('id_product',$bill_amt->id_product)->update([
+        //         'amount'=>$amount_new
+        //     ]);
+        // }
         session()->flash('pay_sc','Thanh  toán thành công');
         return redirect(route('bill_dashboad'));
     }
