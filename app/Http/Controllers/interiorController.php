@@ -133,7 +133,7 @@ class interiorController extends Controller
 
         if($month < 8){
             if($month != 2){
-                if($month % 2 != 0){      //   tháng chẵn
+                if($month % 2 == 0){      //   tháng chẵn
                     $l_dofm = '30';
                 }else{                      //    tháng lẻ
                     $l_dofm = '31';
@@ -146,7 +146,7 @@ class interiorController extends Controller
                 }
             }
         }else{
-            if($month % 2 != 0){      //   tháng chẵn
+            if($month % 2 == 0){      //   tháng chẵn
                 $l_dofm = '31';
             }else{                      //    tháng lẻ
                 $l_dofm = '30';

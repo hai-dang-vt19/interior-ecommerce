@@ -87,7 +87,7 @@
 
                                     if($month < 8){
                                         if($month != 2){
-                                            if($month % 2 != 0){      //   tháng chẵn
+                                            if($month % 2 == 0){      //   tháng chẵn
                                                 $l_dofm = '30';
                                             }else{                      //    tháng lẻ
                                                 $l_dofm = '31';
@@ -100,7 +100,7 @@
                                             }
                                         }
                                     }else{
-                                        if($month % 2 != 0){      //   tháng chẵn
+                                        if($month % 2 == 0){      //   tháng chẵn
                                             $l_dofm = '31';
                                         }else{                      //    tháng lẻ
                                             $l_dofm = '30';
@@ -119,7 +119,8 @@
                         <div class="modal-dialog modal-lg" role="document">
                           <div class="modal-content">
                             <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLabel4">Nhân viên chọn ca làm việc</h5>
+                              <h5 class="modal-title" id="exampleModalLabel4">Nhân viên chọn ca làm việc
+                              </h5>
                               <button
                                 type="button"
                                 class="btn-close"
@@ -189,6 +190,12 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
+                                  <div class="d-flex mt-1 col-4 justify-content-end">
+                                    <div class="form-check form-switch">
+                                      <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" value="1" name="checked"/>
+                                      <label class="form-check-label" for="flexSwitchCheckDefault">Đi làm ngày lễ</label>
+                                    </div>
+                                  </div> 
                                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                                     Đóng
                                 </button>

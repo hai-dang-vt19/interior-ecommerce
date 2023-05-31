@@ -25,10 +25,16 @@ class calenderController extends Controller
     }
     public function post_calender(Request $request)
     {
+        if(count($request->all())-1 == 0){
+            session()->flash('calender_er', 'Bạn chưa chọn chọn ca làm việc !');
+            return redirect()->route('calender');
+        }
+        if(!empty($request->checked) && count($request->all())-2 == 0){
+            session()->flash('calender_er', 'Chưa có ca nào được chọn  !');
+            return redirect()->route('calender');
+        }
         $timeNow = Carbon::now('Asia/Ho_Chi_Minh');
-        // $timeNow = Carbon::now('Asia/Ho_Chi_Minh')->subDay(26);
-        // $timeNow = Carbon::now('Asia/Ho_Chi_Minh')->subDay(12);
-        // $timeNow = Carbon::now('Asia/Ho_Chi_Minh')->subDay(5);
+        // $timeNow = Carbon::now('Asia/Ho_Chi_Minh')->subDay(30);
         // $timeNow = Carbon::now('Asia/Ho_Chi_Minh')->addDay(3);
         $idu = Auth::user()->id;
         $id_user = Auth::user()->user_id;
@@ -37,14 +43,14 @@ class calenderController extends Controller
         $n1 = $request->n1;     $n2 = $request->n2;     $n3 = $request->n3;
         $n4 = $request->n4;     $n5 = $request->n5;     $n6 = $request->n6;
         $n7 = $request->n7;     $n8 = $request->n8;     $n9 = $request->n9;
-        $n10 = $request->n10;   $n11 = $request->n11;  $n12 = $request->n12;
-        $n13 = $request->n13;   $n14 = $request->n14;  $n15 = $request->n15;
-        $n16 = $request->n16;   $n17 = $request->n17;  $n18 = $request->n18;  
+        $n10 = $request->n10;   $n11 = $request->n11;   $n12 = $request->n12;
+        $n13 = $request->n13;   $n14 = $request->n14;   $n15 = $request->n15;
+        $n16 = $request->n16;   $n17 = $request->n17;   $n18 = $request->n18;  
         $n19 = $request->n19;
-        $n20 = $request->n20;   $n21 = $request->n21;  $n22 = $request->n22;
-        $n23 = $request->n23;   $n24 = $request->n24;  $n25 = $request->n25;
-        $n26 = $request->n26;   $n27 = $request->n27;  $n28 = $request->n28;
-        $n29 = $request->n29;   $n30 = $request->n30;  $n31 = $request->n31;
+        $n20 = $request->n20;   $n21 = $request->n21;   $n22 = $request->n22;
+        $n23 = $request->n23;   $n24 = $request->n24;   $n25 = $request->n25;
+        $n26 = $request->n26;   $n27 = $request->n27;   $n28 = $request->n28;
+        $n29 = $request->n29;   $n30 = $request->n30;   $n31 = $request->n31;
         
         if($n1 == 'c1'){$dn1 = 7;} elseif($n1 == 'c2'){$dn1 = 7;} elseif ($n1 == 'Fulltime'){$dn1 = 14;} else {$dn1 = 0;}
         if($n2 == 'c1'){$dn2 = 7;} elseif($n2 == 'c2'){$dn2 = 7;} elseif ($n2 == 'Fulltime'){$dn2 = 14;} else {$dn2 = 0;}
@@ -91,7 +97,7 @@ class calenderController extends Controller
         if($timeNow->day <= 7){
             $max_time = $dn1+$dn2+$dn3+$dn4+$dn5+$dn6+$dn7;
             if($check->get('idu') != '[]' && $check->get('t1') != '[{"t1":null}]'){
-                session()->flash('calender_er', 'Bạn đã đăng ký lịch cho tuần 1');
+                session()->flash('calender_er', 'Đăng ký ca làm thất bại !');
                 return redirect()->route('calender');
             }else{
                 calender::updateOrCreate([
@@ -104,13 +110,12 @@ class calenderController extends Controller
                     't1'=>'x',
                     'timework'=>$max_time + $check->sum('timework')
                 ]);
-            }
-            
-        }elseif($timeNow->day > 7 && $timeNow->day <= 14){
+            }    
+        }elseif($timeNow->day >= 8 && $timeNow->day <= 14){
                 $max_time = $dn8+$dn9+$dn10+$dn11+$dn12+$dn13+$dn14;
                 
                 if($check->get('idu') != '[]' && $check->get('t2') != '[{"t2":null}]'){
-                    session()->flash('calender_er', 'Bạn đã đăng ký lịch cho tuần 2');
+                    session()->flash('calender_er', 'Đăng ký ca làm thất bại !');
                     return redirect()->route('calender');
                 }else{
                     calender::updateOrCreate([
@@ -124,11 +129,11 @@ class calenderController extends Controller
                         'timework'=>$max_time + $check->sum('timework')
                     ]);
                 }
-        }elseif($timeNow->day > 14 && $timeNow->day <= 21){
+        }elseif($timeNow->day >= 15 && $timeNow->day <= 21){
                 $max_time = $dn15+$dn16+$dn17+$dn18+$dn19+$dn20+$dn21;
-                
+
                 if($check->get('idu') != '[]' && $check->get('t3') != '[{"t3":null}]'){
-                    session()->flash('calender_er', 'Bạn đã đăng ký lịch cho tuần 3');
+                    session()->flash('calender_er', 'Đăng ký ca làm thất bại !');
                     return redirect()->route('calender');
                 }else{
                     calender::updateOrCreate([
@@ -142,11 +147,11 @@ class calenderController extends Controller
                         'timework'=>$max_time + $check->sum('timework')
                     ]);
                 }
-        }elseif($timeNow->day > 21 && $timeNow->day <= 28){
+        }elseif($timeNow->day >= 22 && $timeNow->day <= 28){
                 $max_time = $dn22+$dn23+$dn24+$dn25+$dn26+$dn27+$dn28;
                 
                 if($check->get('idu') != '[]' && $check->get('t4') != '[{"t4":null}]'){
-                    session()->flash('calender_er', 'Bạn đã đăng ký lịch cho tuần 4');
+                    session()->flash('calender_er', 'Đăng ký ca làm thất bại !');
                     return redirect()->route('calender');
                 }else{
                     calender::updateOrCreate([
@@ -164,7 +169,7 @@ class calenderController extends Controller
             $max_time = $dn29+$dn30+$dn31;
 
             if($check->get('idu') != '[]' && $check->get('t5') != '[{"t5":null}]'){
-                session()->flash('calender_er', 'Bạn đã đăng ký lịch cho tuần 5');
+                session()->flash('calender_er', 'Đăng ký ca làm thất bại !');
                 return redirect()->route('calender');
             }else{
                 calender::updateOrCreate([
@@ -185,10 +190,15 @@ class calenderController extends Controller
             }else{
                 $luong_salary = '23000';
             }
+            $n_le = (count($request->all())-2); //này lễ
             if($salary != '[]'){
                 foreach($salary as $total){
                     $time_luong = $total->timework+$max_time; // đã có tổng số h mới và cũ
-                    $t_salary = $time_luong*$luong_salary; // số tiền nhận
+                    if(!empty($request->checked)){ // ngày lễ
+                        $t_salary = ($time_luong * $luong_salary)*2; // số tiền nhận
+                    }else{
+                        $t_salary = $time_luong*$luong_salary; // số tiền nhận
+                    }
                     luong::updateOrCreate([
                         'user_id'=>Auth::user()->user_id,
                     ],[
@@ -201,7 +211,11 @@ class calenderController extends Controller
                     ]);
                 }
             }else{
-                $t_salary = $max_time*$luong_salary;
+                if(!empty($request->checked)){ // ngày lễ x2
+                    $t_salary = ($max_time * $luong_salary)*2; // số tiền nhận
+                }else{
+                    $t_salary = $max_time * $luong_salary; // số tiền nhận
+                }
                 // print_r($t_salary);return;
                 luong::updateOrCreate([
                     'user_id'=>Auth::user()->user_id,
@@ -214,6 +228,11 @@ class calenderController extends Controller
                     'total_salary'=>$t_salary
                 ]);
             }
+            history::create([
+                'name_his'=>'Create',
+                'user_his'=>Auth::user()->email,
+                'description_his'=>'Đăng ký đi làm ngày lễ, '.$n_le.' ngày : '.number_format($t_salary)
+            ]);
         session()->flash('calender_sc', Auth::user()->name);
         return redirect(route('calender'));
         // if($max_time > 98){

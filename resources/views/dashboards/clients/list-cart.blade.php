@@ -106,7 +106,6 @@
                         <td>{{ $crt->amount_product }}</td>
                         <td>{{number_format($crt->total )}} &#8363;</td>
                         <td>{{number_format($crt->total_sales )}} &#8363;</td>
-                        <td>Table cell</td>
                       </tr>
                       @endforeach
                     </tbody>
