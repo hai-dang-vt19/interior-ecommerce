@@ -804,18 +804,20 @@ class interiorController extends Controller
     //------------------------------------------   client   -----------------------------------------
     public function index(Request $request)
     {
+        $pr_inte = product::where('status','Còn hàng');
         $slide = slide::orderby('position')->get();
-        return view('interiors.index', compact('slide'));
+        return view('interiors.index', compact('slide','pr_inte'));
     }
     public function product()
     {
         $type = typeproduct::all();
-        $product = product::where('status','Còn hàng')->limit(6)->paginate(6);
-        $min = product::where('status','Còn hàng')->min('price');
-        $max = product::where('status','Còn hàng')->max('price');
+        $pr_inte = product::where('status','Còn hàng');
+        $product = $pr_inte->limit(6)->paginate(6);
+        $min = $pr_inte->min('price');
+        $max = $pr_inte->max('price');
 
         $color = color::distinct('color')->get('id_color');
-        return view('interiors.product', compact('type','product','max','min','color'));
+        return view('interiors.product', compact('type','product','max','min','color','pr_inte'));
     }
     public function product_with_price(Request $req)
     {
@@ -846,78 +848,85 @@ class interiorController extends Controller
         // print_r($count_p1_ex);
         // print_r($p1_explode);return;
         // echo $arr[0];
+        $pr_inte = product::where('status','Còn hàng');
         $type = typeproduct::all();
         $color = color::all();
-        $products = product::where('status','Còn hàng')->whereBetween('price', [$p1, $p2]);
+        $products = $pr_inte->whereBetween('price', [$p1, $p2]);
         $c = $products->count();
         $product = $products->limit($c)->paginate($c);
-        $min = product::where('status','Còn hàng')->min('price');
-        $max = product::where('status','Còn hàng')->max('price');
-        return view('interiors.product', compact('type','product','max','min','color'));
+        $min = $pr_inte->min('price');
+        $max = $pr_inte->max('price');
+        return view('interiors.product', compact('type','product','max','min','color','pr_inte'));
     }
     public function new_product()
     {
+        $pr_inte = product::where('status','Còn hàng');
         $type = typeproduct::all();
         $color = color::all();
-        $product = product::where('status','Còn hàng')->orderbydesc('id')->limit(5)->paginate(5);
-        $min = product::where('status','Còn hàng')->min('price');
-        $max = product::where('status','Còn hàng')->max('price');
-        return view('interiors.product', compact('type','product','max','min', 'color'));
+        $product = $pr_inte->orderbydesc('id')->limit(5)->paginate(5);
+        $min = $pr_inte->min('price');
+        $max = $pr_inte->max('price');
+        return view('interiors.product', compact('type','product','max','min', 'color','pr_inte'));
     }
     public function get_with_type(Request $request)
     {
+        $pr_inte = product::where('status','Còn hàng');
         $type = typeproduct::all();
         $color = color::all();
-        $product = product::where('status','Còn hàng')->where('type_product',$request->type)->limit(6)->paginate(6);
-        $min = product::where('status','Còn hàng')->min('price');
-        $max = product::where('status','Còn hàng')->max('price');
-        return view('interiors.product', compact('type','product','max','min','color'));
+        $product = $pr_inte->where('type_product',$request->type)->limit(6)->paginate(6);
+        $min = $pr_inte->min('price');
+        $max = $pr_inte->max('price');
+        return view('interiors.product', compact('type','product','max','min','color','pr_inte'));
     }
     public function get_with_brand(Request $request)
     {
+        $pr_inte = product::where('status','Còn hàng');
         $type = typeproduct::all();
         $color = color::all();
-        $product = product::where('status','Còn hàng')->where('supplier',$request->supp)->limit(6)->paginate(6);
-        $min = product::where('status','Còn hàng')->min('price');
-        $max = product::where('status','Còn hàng')->max('price');
-        return view('interiors.product', compact('type','product','max','min','color'));
+        $product = $pr_inte->where('supplier',$request->supp)->limit(6)->paginate(6);
+        $min = $pr_inte->min('price');
+        $max = $pr_inte->max('price');
+        return view('interiors.product', compact('type','product','max','min','color','pr_inte'));
     }
     public function get_with_color(Request $request)
     {
+        $pr_inte = product::where('status','Còn hàng');
         $type = typeproduct::all();
         $color = color::all();
-        $product = product::where('status','Còn hàng')
+        $product = $pr_inte
                             ->where('color','like',"%$request->col%")
                             ->limit(6)->paginate(6);
-        $min = product::where('status','Còn hàng')->min('price');
-        $max = product::where('status','Còn hàng')->max('price');
-        return view('interiors.product', compact('type','product','max','min','color'));
+        $min = $pr_inte->min('price');
+        $max = $pr_inte->max('price');
+        return view('interiors.product', compact('type','product','max','min','color','pr_inte'));
     }
 
     public function product_detail(Request $request)
     {
+        $pr_inte = product::where('status','Còn hàng');
         $data['pro_detail'] = product::find($request->id)->toArray();
-        return view('interiors.product-details',$data);
+        return view('interiors.product-details',$data, compact('pr_inte'));
     }
     
     public function search_interior_client(Request $request)
     {
+        $pr_inte = product::where('status','Còn hàng');
         $search_inter = $request['search'] ?? "";
         if($search_inter != ""){
-                $product = product::where('status','Còn hàng')
+                $product = $pr_inte
                                 ->where('id_product','LIKE',"%$search_inter%")
                                 ->orWhere('name_product','LIKE',"%$search_inter%")
                                 ->paginate(6);
                 // dd($product);
         }else{
-                $product = product::where('status','Còn hàng')->limit(6)->paginate(6);
+                $product = $pr_inte->limit(6)->paginate(6);
                 // dd($product);
         }
         $color = color::all();
         $type = typeproduct::all();
-        $min = product::where('status','Còn hàng')->min('price');
-        $max = product::where('status','Còn hàng')->max('price');
-        return view('interiors.product', compact('color','type','product','search_inter','min','max'));
+        $min = $pr_inte->min('price');
+        $max = $pr_inte->max('price');
+        return view('interiors.product', compact('color','type','product','search_inter','min','max','pr_inte'));
     }
 
     public function review()

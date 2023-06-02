@@ -1,22 +1,55 @@
-<section class="newsletter-area section-padding-100-0">
+<section class="newsletter-area p-5 px-5">
     <div class="container">
-        <div class="row align-items-center">
-            <!-- Newsletter Text -->
-            <div class="col-12 col-lg-6 col-xl-7">
-                <div class="newsletter-text mb-100">
+        <div class="row">
+            <div class="col-4">
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        @php
+                            $pr_sl = $pr_inte->where('size','533x533')->take(1)->get();
+                            foreach ($pr_sl as $val) {
+                                $pr_sl2 = $pr_inte->where('id','!=',$val->id)->where('size','533x533')->get();
+                            }
+                        @endphp
+                      <div class="carousel-item active">
+                        @foreach ($pr_sl as $pr_active)
+                            <img class="d-block w-100" src="{{ asset('dashboard/upload_img/product/'.$pr_active->images) }}" width="800px" height="400px" alt="First slide">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5 class="text-warning">{{ $pr_active->name_product }}</h5>
+                                <p class="text-light">{{ number_format($pr_active->price) }}</p>
+                            </div>
+                        @endforeach
+                      </div>
+                      @foreach ($pr_sl2 as $pr2)
+                        <div class="carousel-item">
+                            <img class="d-block w-100 d-block" src="{{ asset('dashboard/upload_img/product/'.$pr2->images) }}" width="800px" height="400px" style="max-width: 800px; max-height: 400px;" alt="First slide">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5 class="text-warning">{{ $pr2->name_product }}</h5>
+                                <p class="text-light">{{ number_format($pr2->price) }}</p>
+                            </div>
+                        </div> 
+                      @endforeach
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-7 mt-5">
+                <div class="newsletter-text mb-100 mt-5">
                     <h2>Liên hệ chúng tôi <span>Chung Si Interior</span></h2>
                     <p>
                         Sự lựa chọn của bạn là ưu tiên hàng đầu và quan trọng nhất của chúng tôi. Thiết kế Đúng và Ý tưởng Đúng quan trọng rất nhiều trong Kinh doanh Thiết kế Nội thất. 
                     </p>
-                </div>
-            </div>
-            <!-- Newsletter Form -->
-            <div class="col-12 col-lg-6 col-xl-5">
-                <div class="newsletter-form mb-100">
-                    <form action="#" method="post">
-                        <input type="email" name="email" class="nl-email">
-                        <input type="submit" value="Subscribe">
-                    </form>
                 </div>
             </div>
         </div>

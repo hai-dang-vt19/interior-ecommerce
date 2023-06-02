@@ -248,3 +248,8 @@ Route::get('/ship/done', [checkoutContorller::class, 'ship_done'])->middleware([
 //Export excel
 Route::get('bill/export/', [BillExport::class, 'export_excel_bill'])->middleware(['auth'])->name('export_excel_bill');
 Route::get('history/export/', [HistoryExport::class, 'export_excel_history'])->middleware(['auth'])->name('export_excel_history');
+
+// ---------------------------
+Route::get('/index2', function(){
+    return view('interiors2.index');
+});
