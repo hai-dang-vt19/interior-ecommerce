@@ -15,7 +15,7 @@
 >
   <div class="container-fluid ms-4">
     <a class="navbar-brand" href="javascript:void(0)">
-      <img src="{{ asset('interior\img\core-img\logo.png') }}" alt="" >
+      <img src="{{ asset('interior\img\core-img\logo-client.png') }}" alt="" >
     </a>
     <button
       class="navbar-toggler"
@@ -40,9 +40,11 @@
             Sản phẩm
           </a>
           <ul class="dropdown-menu">
-            <li><button class="dropdown-item" type="button">Action</button></li>
-            <li><button class="dropdown-item" type="button">Another action</button></li>
-            <li><button class="dropdown-item" type="button">Something else here</button></li>
+            @foreach ($types as $item_type)
+            <li>
+              <a href="#" class="dropdown-item">{{ $item_type->name_type }}</a>
+            </li>
+            @endforeach
           </ul>
         </div>
         <a class="nav-item nav-link text-secondary" href="javascript:void(0)">Liên hệ</a>

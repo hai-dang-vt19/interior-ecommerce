@@ -712,15 +712,16 @@ class interiorController extends Controller
     }
     public function slide()
     {
-        $p1 = product::where('status','Còn hàng')->where('size','533x533')->get();
-        $p2 = product::where('status','Còn hàng')->where('size','533x757')->get();
-        $p3 = product::where('status','Còn hàng')->where('size','489x435')->get();
-        $p4 = product::where('status','Còn hàng')->where('size','489x435')->get();
-        $p5 = product::where('status','Còn hàng')->where('size','533x533')->get();
-        $p6 = product::where('status','Còn hàng')->where('size','533x475')->get();
-        $p7 = product::where('status','Còn hàng')->where('size','533x757')->get();
-        $p8 = product::where('status','Còn hàng')->where('size','533x641')->get();
-        $p9 = product::where('status','Còn hàng')->where('size','533x475')->get();
+        $product = product::where('status','Còn hàng');
+        $p1 = $product->where('size','533x533')->get();
+        $p2 = $product->where('size','533x757')->get();
+        $p3 = $product->where('size','489x435')->get();
+        $p4 = $product->where('size','489x435')->get();
+        $p5 = $product->where('size','533x533')->get();
+        $p6 = $product->where('size','533x475')->get();
+        $p7 = $product->where('size','533x757')->get();
+        $p8 = $product->where('size','533x641')->get();
+        $p9 = $product->where('size','533x475')->get();
 
         $slide = slide::all();
         return view('dashboards.slide',compact('p1','p2','p3','p4','p5','p6','p7','p8','p9','slide'));
@@ -802,11 +803,23 @@ class interiorController extends Controller
     //     return redirect($link);
     // }
     //------------------------------------------   client   -----------------------------------------
+        public function _type_product(){
+            $types = typeproduct::all()->where('type_status','Còn hàng');
+            return $types;
+        }
+        public function _supplier_product(){
+            $suppliers = supplier::all()->where('status_supplier','!=','Ngắt');
+            return $suppliers;
+        }
+
     public function index(Request $request)
     {
-        $pr_inte = product::where('status','Còn hàng');
-        $slide = slide::orderby('position')->get();
-        return view('interiors.index', compact('slide','pr_inte'));
+        $types = $this->_type_product();
+        $suppliers = $this->_supplier_product();
+        $product_9slide = slide::whereBetween('position', [1, 9])->get();
+        $head_slide = slide::all()->where('position','0');
+        // echo $head_slide;return;
+        return view('interiors.index', compact('types','suppliers','product_9slide','head_slide'));
     }
     public function product()
     {

@@ -80,19 +80,48 @@
           <div class="content-wrapper">
             <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Slide/</span> Chọn sản phẩm hiển thị</h4>
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Slide/</span> Chọn sản phẩm hiển thị
+                <div class="btn-group ms-2">
+                  <button
+                    type="button"
+                    class="btn btn-primary btn-sm dropdown-toggle"
+                    data-bs-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    Position 0
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-center w-px-500">
+                    <form class="p-4" action="{{ route('add_position_0') }}" method="POST" enctype="multipart/form-data">
+                      @csrf
+                      <div class="mb-3">
+                        <label class="form-label">Tiêu đề</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="..."
+                          name="title"
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Nội dung</label>
+                        <textarea name="des" rows="3" class="form-control"></textarea>
+                      </div>
+                      <div class="mb-3">
+                        <input class="form-control" type="file" name="images"/>
+                      </div>
+                      <button type="submit" class="btn btn-success btn-sm">Xác nhận</button>
+                    </form>
+                  </div>
+                </div>
+              </h4>
               <!-- Basic Layout & Basic with Icons -->
               <div class="row">
                 <!-- Basic with Icons -->
                 <div class="col-xxl">
                   <div class="card mb-4">
-                    <div class="card-header d-flex align-items-center justify-content-between">
-                      <h5 class="mb-0" style="color: #696cff">Nhân viên: {{Auth::user()->name}}</h5>
-                      <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
-                    </div>
-                    <hr class="my-0">
                     <div class="card-body">
-                        <div class="row mb-3">{{--Lấy tên sản phẩm sẽ hiển thị ra tất cả dữ liệu--}}
+                        <div class="row">{{--Lấy tên sản phẩm sẽ hiển thị ra tất cả dữ liệu--}}
                           <div class="col-sm-10 d-flex ms-5">
                             <div class="btn-group">
                               <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle me-4" data-bs-toggle="dropdown" aria-expanded="false">

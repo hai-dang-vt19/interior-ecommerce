@@ -49,4 +49,26 @@ class slideController extends Controller
         session()->flash('slide_sc', 'Thêm slide thành công');
         return redirect(route('slide'));
     }
+    public function add_position_0(Request $request)
+    {
+        $title = $request->title;
+        $description = $request->des;
+        $count = slide::all()->where('id_product','Position')->count();
+        $data = new slide();
+        $data->id_product = 'Position';
+        $data->name_product = $title;
+        $data->type_product = $count+1;
+        $data->descriptions = $description;
+        if($request->hasFile('images')){
+            $file = $request -> file('images');
+            $name_file = $file -> getClientOriginalName();
+            $filename = 'Position_'.$name_file;
+            $file -> move('dashboard/upload_img/product/',$filename);
+            $data->images = $filename;
+        }
+        $data->position = 0;
+        $data->save();
+        session()->flash('slide_sc', 'Thêm slide thành công');
+        return redirect(route('slide'));
+    }
 }

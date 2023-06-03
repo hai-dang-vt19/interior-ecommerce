@@ -22,7 +22,7 @@ use App\Http\Controllers\slideController;
 use App\Http\Controllers\warehouseController;
 
 //----------------------------------login------------------------------------------------------------
-Route::get('/login-interior', [interiorController::class,'login'])->name('login');
+Route::get('/login', [interiorController::class,'login'])->name('login');
 Route::post('/interior-login', [interiorPostController::class,'login_interior'])->name('login_interior');
 Route::get('/register-interior', [interiorController::class,'register'])->name('register');
 Route::post('/register', [interiorPostController::class, 'register_interior'])->name('register_interior');
@@ -160,7 +160,8 @@ Route::get('/dashboard/reset/salary', [calenderController::class, 'reset_salary'
 // new-calender
 Route::get('/dashboard-slide', [interiorController::class, 'slide'])->middleware(['can:admin','auth'])->name('slide');
 Route::get('/dashboard-slide/{id}', [interiorController::class, 'slide2'])->middleware(['can:admin','auth'])->name('slide2');
-Route::post('/dashboard-add-slide', [slideController::class, 'add_slide'])->middleware(['can:admin','auth'])->name('add_slide');
+Route::post('/dashboard/add/slide', [slideController::class, 'add_slide'])->middleware(['can:admin','auth'])->name('add_slide');
+Route::post('/dashboard/add/position/0', [slideController::class, 'add_position_0'])->middleware(['can:admin','auth'])->name('add_position_0');
 
 Route::get('/dashboard-salary', [interiorController::class, 'salary'])->middleware(['can:admin_manager_staff','auth'])->name('salary');
 
@@ -250,6 +251,6 @@ Route::get('bill/export/', [BillExport::class, 'export_excel_bill'])->middleware
 Route::get('history/export/', [HistoryExport::class, 'export_excel_history'])->middleware(['auth'])->name('export_excel_history');
 
 // ---------------------------
-Route::get('/index2', function(){
-    return view('interiors2.index');
-});
+// Route::get('/index2', function(){
+//     return view('interiors2.index');
+// });
