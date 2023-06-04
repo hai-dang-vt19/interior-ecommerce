@@ -104,8 +104,8 @@
       <div class="col-12 col-sm-6 col-md-3 mb-4 mb-md-0">
         <h5>Menu</h5>
         <ul class="list-unstyled">
-          <li><a href="javascript:void(0)" class="footer-link d-block pb-2">Trang chủ</a></li>
-          <li><a href="javascript:void(0)" class="footer-link d-block pb-2">Sản phẩm</a></li>
+          <li><a href="{{ route('index') }}" class="footer-link d-block pb-2">Trang chủ</a></li>
+          <li><a href="{{ route('product') }}" class="footer-link d-block pb-2">Sản phẩm</a></li>
           <li><a href="javascript:void(0)" class="footer-link d-block pb-2">Liên hệ</a></li>
           <li><a href="javascript:void(0)" class="footer-link d-block pb-2">Giỏ hàng</a></li>
         </ul>

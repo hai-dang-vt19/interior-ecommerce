@@ -151,11 +151,8 @@
                               <span class="input-group-text"><i class='bx bx-screenshot'></i></span>
                               <select name="size" class="form-select">
                                 <option selected value="{{$product['size']}}">{{$product['size']}}</option>
-                                <option value="533x533">533 x 533 (1,5)</option>
-                                <option value="533x757">533 x 757 (2,7)</option>
-                                <option value="533x475">533 x 475 (6,9)</option>
-                                <option value="533x641">533 x 641 (8)</option>
-                                <option value="489x435">489 x 435 (3,4)</option>
+                                <option value="Position400">Position 1-9 (xy ~ 400px)</option>
+                                <option value="Position1296">Position 0 (1296 x 524px)</option>
                               </select>
                             </div>
                           </div>
@@ -181,7 +178,7 @@
                         </div>
                         <div class="row mb-3">
                           <label class="col-sm-2 form-label">Giá tiền</label>
-                          <div class="col-sm-10 d-flex">
+                          <div class="col d-flex">
                             <div class="input-group input-group-merge me-2">
                               <span class="input-group-text"><i class='bx bx-money'></i></span>
                               {{-- <input type="text" class="form-control" placeholder="Nhập giá tiền sản phẩm" name="price" id="currency-field"  data-type="currency"/> --}}
@@ -191,8 +188,8 @@
                               <span class="input-group-text"><i class='bx bxs-discount'></i></span>
                               {{-- <input type="text" class="form-control" placeholder="Nhập giá tiền sản phẩm" name="price" id="currency-field"  data-type="currency"/> --}}
                               <input type="text" class="form-control"  name="sales1"/>
-                              <input type="hidden" class="form-control" value="{{$product['sales']}}" name="sales2"/>
                             </div>
+                            <input type="hidden" class="form-control" value="{{$product['sales']}}" name="sales2"/>
                           </div>
                       </div>
                         <div class="row mb-3">

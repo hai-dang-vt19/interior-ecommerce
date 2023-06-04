@@ -188,7 +188,10 @@ Route::get('/destroy/donhang/{id}',[checkoutContorller::class, 'destroy_donhang_
 // Route::get('test/map',[interiorController::class, 'test_api_map'])->name('test_api_map');
 // ---- user
 Route::get('/interior-index', [interiorController::class,'index'])->name('index');
-Route::get('/interior-product', [interiorController::class,'product'])->name('product');
+
+Route::get('/interior/product', [interiorController::class,'product'])->name('product');
+
+// Route::get('/interior-product', [interiorController::class,'product'])->name('product');
 Route::get('/interior-product/price', [interiorController::class,'product_with_price'])->name('product_with_price');
 Route::get('/interior-product-details/{id}', [interiorController::class,'product_detail'])->name('product_detail');
 Route::get('/inteiror-product-cat', [interiorController::class, 'get_with_type'])->name('get_with_type');

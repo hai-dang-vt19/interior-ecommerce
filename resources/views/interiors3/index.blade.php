@@ -17,7 +17,7 @@
     <!-- ##### Main Content Wrapper Start ##### -->
     <div class="main-content-wrapper d-flex clearfix">
         <!-- Mobile Nav (max width 767px)-->
-        @include('interiors.blocks.mobile-nav')
+        @include('interiors3.blocks.mobile-nav')
         <!-- Header Area Start -->
         <header class="header-area clearfix">
             <div class="nav-close">
@@ -34,7 +34,7 @@
                     <li><a href="{{ route('review') }}">Đánh giá</a></li>
                 </ul>
             </nav>
-            @include('interiors.blocks.nav_btn')
+            @include('interiors3.blocks.nav_btn')
              
         </header>
         <!-- Header Area End -->

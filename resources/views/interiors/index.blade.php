@@ -1,36 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/" data-template="vertical-menu-template-free">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
-    <title>Interior.CS</title>
-    <meta name="description" content="" />
+  @include('interiors.blocks.head')
 
-    <link rel="icon" type="image/x-icon" href="{{ asset('interior/assets/img/favicon/logo-interior.png') }}" />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&family=Raleway:wght@200&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="{{ asset('interior/assets/vendor/fonts/boxicons.css') }}" />
-
-    <link rel="stylesheet" href="{{ asset('interior/assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="{{ asset('interior/assets/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="{{ asset('interior/assets/css/demo.css') }}" />
-    <link rel="stylesheet" href="{{ asset('interior\assets\css\navbar.css') }}" />
-
-    <link rel="stylesheet" href="{{ asset('interior/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
-    <link rel="stylesheet" href="{{ asset('interior/assets/vendor/libs/apex-charts/apex-charts.css') }}" />
-    <link rel="stylesheet" href="{{ asset('interior\css\animate.css') }}">
-    
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="{{ asset('interior/assets/vendor/js/helpers.js') }}"></script>
-    <script src="{{ asset('interior/assets/js/config.js') }}"></script>
-    <script src="assets/vendor/js/dropdown-hover.js"></script>
-    
-
-  </head>
   {{-- <body style="background-image: url(https://images.pexels.com/photos/7914464/pexels-photo-7914464.jpeg)"> --}}
   <body style="background-color: #ffffff">
     <!-- Layout wrapper -->
@@ -157,12 +128,14 @@
                 </div>
               </div>
             </div>
-            <div class="container">
+            <div class="container mb-4">
               <div class="row row-cols-1 row-cols-md-3 g-4" >
                 @foreach ($product_9slide as $item_9slide)
                   <div class="col">
                     <div class="card m-3">
-                      <img class="card-img-top h-px-400" src="{{ asset('dashboard\upload_img\product/'.$item_9slide->images) }}" alt="Card image cap"  />
+                      <a href="#">
+                        <img class="card-img-top h-px-400" src="{{ asset('dashboard\upload_img\product/'.$item_9slide->images) }}" alt="Card image cap"  />
+                      </a>
                       <div class="card-body">
                         <h5 class="card-title">{{ $item_9slide->name_product }}</h5>
                         <p class="card-text">{{ $item_9slide->descriptions }}</p>
@@ -172,7 +145,7 @@
                         <li class="list-group-item">Loại sản phẩm: {{ $item_9slide->type_product }}</li>
                         <li class="list-group-item">Giá tiền: {{ number_format($item_9slide->price) }} &#8363;</li>
                       </ul>
-                      <div class="card-body">
+                      <div class="card-body px-4">
                         <a href="#" class="card-link text-decoration-none"><i class='bx bxs-heart-circle bx-sm text-danger' ></i></a>
                         <a href="#" class="card-link float-end text-decoration-none"><i class='bx bxs-cart-add bx-sm'></i></a>
                       </div>
@@ -197,24 +170,6 @@
     </div>
     <!-- / Layout wrapper -->
 
-    <!-- Core JS -->
-    <!-- build:js assets/vendor/js/core.js -->
-    <script src="{{ asset('interior/assets/vendor/libs/masonry/masonry.js') }}"></script>
-    <script src="{{ asset('interior/assets/vendor/libs/jquery/jquery.js') }}"></script>
-    <script src="{{ asset('interior/assets/vendor/libs/popper/popper.js') }}"></script>
-    <script src="{{ asset('interior/assets/vendor/js/bootstrap.js') }}"></script>
-    <script src="{{ asset('interior/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
-    <script src="{{ asset('interior/assets/vendor/js/menu.js') }}"></script>
-    <!-- endbuild -->
-    <!-- Vendors JS -->
-    <script src="{{ asset('interior/assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
-    <!-- Main JS -->
-    <script src="{{ asset('interior/assets/js/main.js') }}"></script>
-    <script src="{{ asset('interior\assets\vendor\js\menu.js') }}"></script>
-    <!-- Page JS -->
-    <script src="{{ asset('interior/assets/js/dashboards-analytics.js') }}"></script>
-    <!-- Place this tag in your head or just before your close body tag. -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    @include('interiors.blocks.foo')
   </body>
 </html>

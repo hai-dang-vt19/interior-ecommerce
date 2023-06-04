@@ -712,19 +712,10 @@ class interiorController extends Controller
     }
     public function slide()
     {
-        $product = product::where('status','Còn hàng');
-        $p1 = $product->where('size','533x533')->get();
-        $p2 = $product->where('size','533x757')->get();
-        $p3 = $product->where('size','489x435')->get();
-        $p4 = $product->where('size','489x435')->get();
-        $p5 = $product->where('size','533x533')->get();
-        $p6 = $product->where('size','533x475')->get();
-        $p7 = $product->where('size','533x757')->get();
-        $p8 = $product->where('size','533x641')->get();
-        $p9 = $product->where('size','533x475')->get();
-
+        $sl_position400 = product::where('status','Còn hàng')->where('size','Position400')->get();
         $slide = slide::all();
-        return view('dashboards.slide',compact('p1','p2','p3','p4','p5','p6','p7','p8','p9','slide'));
+        
+        return view('dashboards.slide',compact('sl_position400','slide'));
     }
     public function slide2(Request $request)
     {
@@ -823,14 +814,16 @@ class interiorController extends Controller
     }
     public function product()
     {
-        $type = typeproduct::all();
+        $types = $this->_type_product();
+        $suppliers = $this->_supplier_product();
+
         $pr_inte = product::where('status','Còn hàng');
-        $product = $pr_inte->limit(6)->paginate(6);
+        $product = $pr_inte->limit(12)->paginate(12);
         $min = $pr_inte->min('price');
         $max = $pr_inte->max('price');
-
         $color = color::distinct('color')->get('id_color');
-        return view('interiors.product', compact('type','product','max','min','color','pr_inte'));
+
+        return view('interiors.product', compact('types','suppliers','product','max','min','color','pr_inte'));
     }
     public function product_with_price(Request $req)
     {

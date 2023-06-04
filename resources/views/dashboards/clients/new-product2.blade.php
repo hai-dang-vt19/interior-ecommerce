@@ -158,11 +158,8 @@
                               <span class="input-group-text"><i class='bx bx-screenshot'></i></span>
                               <select name="size" class="form-select">
                                 <option selected></option>
-                                <option value="533x533">533 x 533 (1,5)</option>
-                                <option value="533x757">533 x 757 (2,7)</option>
-                                <option value="533x475">533 x 475 (6,9)</option>
-                                <option value="533x641">533 x 641 (8)</option>
-                                <option value="489x435">489 x 435 (3,4)</option>
+                                <option value="Position400">Position 1-9 (xy ~ 400px)</option>
+                                <option value="Position1296">Position 0 (1296 x 524px)</option>
                               </select>
                             </div>
                           </div>
