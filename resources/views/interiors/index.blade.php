@@ -4,6 +4,7 @@
 
   {{-- <body style="background-image: url(https://images.pexels.com/photos/7914464/pexels-photo-7914464.jpeg)"> --}}
   <body style="background-color: #ffffff">
+    @include('interiors.blocks.backGround')
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar layout-without-menu">
       <div class="layout-container">
@@ -12,13 +13,12 @@
           @include('interiors.blocks.navbar')
           <div class="content-wrapper mt-4">
             <!-- Content -->
-
             <div class="container mt-5">
               {{-- <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">UI elements /</span> Carousel</h4> --}}
               <div class="row row-cols-1 row-cols-md-1 g-4 align-items-center">
                 <!-- Bootstrap crossfade carousel -->
                 <div class="col mt-5">
-                  <div id="carouselExample-cf"class="w-100 carousel carousel-dark slide carousel-fade"data-bs-ride="carousel">
+                  <div id="carouselExample-cf"class="w-100 carousel slide carousel-fade"data-bs-ride="carousel">
                     @php
                       $sl_active = $head_slide->where('type_product','1');
                       foreach($sl_active as $itm_sl_active){
@@ -32,16 +32,16 @@
                       <div class="carousel-item active">
                         <img class="d-block w-100 rounded-3" src="{{ asset('dashboard\upload_img\product/'.$images) }}" alt="First slide" style="max-height: 527px;"/>
                         <div class="carousel-caption d-none d-md-block">
-                          <h3 class="text-light" style="text-shadow: black 0.1em 0.1em 0.2em;">{{ $title }}</h3>
-                          <p class="text-light" style="text-shadow: black 0.1em 0.1em 0.2em;">{{ $des }}</p>
+                          <h3 style="color: #ffffff;text-shadow: black 0.1em 0.1em 0.2em;">{{ $title }}</h3>
+                          <p style="color: #ffffff;text-shadow: black 0.1em 0.1em 0.2em;">{{ $des }}</p>
                         </div>
                       </div>
                       @foreach ($sl_next as $itm_sl_next_img)
                         <div class="carousel-item">
                           <img class="d-block w-100 rounded-3" src="{{ asset('dashboard\upload_img\product/'.$itm_sl_next_img->images) }}" alt="Second slide" style="max-height: 527px;"/>
                           <div class="carousel-caption d-none d-md-block">
-                            <h3 class="text-light" style="text-shadow: black 0.1em 0.1em 0.2em;">{{ $itm_sl_next_img->name_product }}</h3>
-                            <p class="text-light" style="text-shadow: black 0.1em 0.1em 0.2em;">{{ $itm_sl_next_img->descriptions }}</p>
+                            <h3 style="color: #ffffff;text-shadow: black 0.1em 0.1em 0.2em;">{{ $itm_sl_next_img->name_product }}</h3>
+                            <p style="color: #ffffff;text-shadow: black 0.1em 0.1em 0.2em;">{{ $itm_sl_next_img->descriptions }}</p>
                           </div>
                         </div>
                       @endforeach
@@ -56,33 +56,31 @@
                     </a>
                   </div>
                 </div>
-                <div class="col">
-                  <div class="mb-5 mt-4">
-                    <div class="divider divider-warning">
-                      <div class="divider-text">
-                        <figure class="text-center">
-                          <blockquote class="blockquote">
-                            <p class="fs-4" style="font-family: 'Quicksand', sans-serif;">Họ có một con mắt tuyệt vời để tạo ra xu hướng.</p>
-                          </blockquote>
-                          <figcaption class="blockquote-footer fs-6"  style="font-family: 'Raleway', sans-serif;">
-                            Một người nổi tiếng trong Design Sponge
-                          </figcaption>
-                        </figure>
-                      </div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+            <div class="container-xxl flex-grow-1 container-p-y mt-5">
+              <div class="divider divider-warning">
+                <div class="divider-text">
+                  <figure class="text-center">
+                    <blockquote class="blockquote">
+                      <p class="fs-4" style="font-family: 'Quicksand', sans-serif;">Họ có một con mắt tuyệt vời để tạo ra xu hướng.</p>
+                    </blockquote>
+                    <figcaption class="blockquote-footer fs-6"  style="font-family: 'Raleway', sans-serif;">
+                      Một người nổi tiếng trong Design Sponge
+                    </figcaption>
+                  </figure>
                 </div>
               </div>
             </div>
             <div class="container">
               <div class="row">
-                <div class="col-md">
+                <div class="col-lg">
                   <div class="card mb-3">
                     <div class="row g-0">
-                      <div class="col-md-4">
+                      <div class="col-lg-4">
                         <img class="card-img card-img-left" src="{{ asset('interior\assets\img\avatars\7.png') }}" alt="Card image" />
                       </div>
-                      <div class="col-md-8">
+                      <div class="col-lg-8">
                         <div class="card-body">
                           <h5 class="card-title">KTS - Nguyễn Tiến Chung</h5>
                           <p class="card-text">
@@ -94,10 +92,10 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-md">
+                <div class="col-lg">
                   <div class="card mb-3">
                     <div class="row g-0">
-                      <div class="col-md-8">
+                      <div class="col-lg-8">
                         <div class="card-body">
                           <h5 class="card-title">KTS - Nguyễn Khánh Huyền</h5>
                           <p class="card-text">
@@ -106,7 +104,7 @@
                           <p class="card-text"><small class="text-muted">Tốt nghiệp tháng 5 năm 2013</small></p>
                         </div>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-lg-4">
                         <img class="card-img card-img-right" src="{{ asset('interior\assets\img\avatars\6.png') }}" alt="Card image" />
                       </div>
                     </div>
@@ -138,17 +136,13 @@
                       </a>
                       <div class="card-body">
                         <h5 class="card-title">{{ $item_9slide->name_product }}</h5>
-                        <p class="card-text">{{ $item_9slide->descriptions }}</p>
+                        <p class="card-text max_dot">{{ $item_9slide->descriptions }}</p>
                       </div>
                       <ul class="list-group list-group-flush">
                         <li class="list-group-item">Mã sản phẩm: {{ $item_9slide->id_product }}</li>
                         <li class="list-group-item">Loại sản phẩm: {{ $item_9slide->type_product }}</li>
                         <li class="list-group-item">Giá tiền: {{ number_format($item_9slide->price) }} &#8363;</li>
                       </ul>
-                      <div class="card-body px-4">
-                        <a href="#" class="card-link text-decoration-none"><i class='bx bxs-heart-circle bx-sm text-danger' ></i></a>
-                        <a href="#" class="card-link float-end text-decoration-none"><i class='bx bxs-cart-add bx-sm'></i></a>
-                      </div>
                     </div>
                   </div>
                 @endforeach

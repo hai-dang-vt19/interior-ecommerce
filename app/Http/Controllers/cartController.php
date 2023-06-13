@@ -11,11 +11,21 @@ use Illuminate\Support\Facades\Auth;
 
 class cartController extends Controller
 {
+
     public function add_cart(Request $request)
     {
         $carbon = Carbon::now('Asia/Ho_Chi_Minh')->toDateTimeString();
         $get_product = product::where('id',$request->id)->get();
+        // dd($request->all());
         foreach($get_product as $get){
+            if($request->quantity > $get->amount){
+                session()->flash('error', 'Quá số lượng hiện có');
+                return redirect()->route('product');
+            }
+            if(empty($get->amount)){
+                session()->flash('warning', 'Bạn hãy nhập số lượng');
+                return redirect()->route('product');
+            }
             $amount = $get->amount-$request->quantity; //Update bảng product
             $total = $request->quantity * $get->price;
             $color = $get->color.', '.$get->color2.', '.$get->color3;
@@ -69,10 +79,10 @@ class cartController extends Controller
             }
             // warehouse::where('name_product',$get->name_product)->where('material',$get->material)->update(['amount'=>$amount]); khi nào tahnh toán mới trừ số lượng vào kho
             product::where('id',$request->id)->update(['amount'=>$amount]);
-            
         }
-        session()->flash('cart_sc', 'Thêm vào giỏ hàng thành công');
+        session()->flash('success', 'Thêm vào giỏ hàng thành công');
         return back();
+        // return redirect()->route('product');
     }
     
     public function destroy_cart_product(Request $request)

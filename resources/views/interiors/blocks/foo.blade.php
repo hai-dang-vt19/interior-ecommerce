@@ -17,3 +17,36 @@
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    @if (session()->has('success'))
+      <script>
+        swal({
+              title: "Thành công",
+              text: "{{session()->get('success')}}",
+              icon: "success",
+              button: "OK",
+              timer: 2000,
+            });
+      </script>
+    @endif
+    @if (session()->has('error'))
+      <script>
+        swal({
+              title: "Không thành công",
+              text: "{{session()->get('error')}}",
+              icon: "error",
+              button: "OK",
+              timer: 2000,
+            });
+      </script>
+    @endif
+    @if (session()->has('warning'))
+      <script>
+        swal({
+              title: "Opps !!",
+              text: "{{session()->get('warning')}}",
+              icon: "warning",
+              button: "OK",
+              timer: 2000,
+            });
+      </script>
+    @endif

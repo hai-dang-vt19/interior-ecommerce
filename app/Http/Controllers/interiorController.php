@@ -29,6 +29,7 @@ use App\Models\user_famous;
 use Carbon\Carbon;
 use App\Models\color;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 
 class interiorController extends Controller
 {
@@ -743,7 +744,7 @@ class interiorController extends Controller
             $count_hd_ = bill::all()->where('status_product_bill','3')->count();
             $product_ = product::all()->where('status','Còn hàng');
             if($bill == '[]'){
-                session()->flash('no_data_search','Bạn chưa nhập đơn hàng');
+                session()->flash('warning','Bạn chưa nhập đơn hàng');
                 return back();
             }else{
                 foreach($bill as $bills){
@@ -802,28 +803,45 @@ class interiorController extends Controller
             $suppliers = supplier::all()->where('status_supplier','!=','Ngắt');
             return $suppliers;
         }
+        public function _color_product()
+        {
+            $color = color::distinct('color')->get('id_color');
+            return $color;
+        }
+        public function _cart(){
+            if(!empty(Auth::user())){
+                $cart = cart::orderbydesc('id')->where('id_cart_user','CART_CS'.Auth::user()->user_id);
+            }else{
+                $cart = null;
+            }
+            return $cart;
+        }
 
     public function index(Request $request)
     {
         $types = $this->_type_product();
         $suppliers = $this->_supplier_product();
+        $carts = $this->_cart();
+
         $product_9slide = slide::whereBetween('position', [1, 9])->get();
-        $head_slide = slide::all()->where('position','0');
+        $head_slide = slide::all()->where('position','0');         
+        $max = product::where('status','Còn hàng')->max('price');
         // echo $head_slide;return;
-        return view('interiors.index', compact('types','suppliers','product_9slide','head_slide'));
+        return view('interiors.index', compact('types','max','suppliers','product_9slide','head_slide','carts'));
     }
     public function product()
     {
         $types = $this->_type_product();
         $suppliers = $this->_supplier_product();
+        $color = $this->_color_product();
+        $carts = $this->_cart();
 
         $pr_inte = product::where('status','Còn hàng');
         $product = $pr_inte->limit(12)->paginate(12);
-        $min = $pr_inte->min('price');
+         
         $max = $pr_inte->max('price');
-        $color = color::distinct('color')->get('id_color');
 
-        return view('interiors.product', compact('types','suppliers','product','max','min','color','pr_inte'));
+        return view('interiors.product', compact('types','suppliers','product','max' ,'color','pr_inte','carts'));
     }
     public function product_with_price(Request $req)
     {
@@ -850,89 +868,136 @@ class interiorController extends Controller
         }else{
             $p2 = $p2_explode[0].$p2_explode[1].$p2_explode[2];
         }
-        // echo $tst.'<BR>';
-        // print_r($count_p1_ex);
-        // print_r($p1_explode);return;
-        // echo $arr[0];
+        $types = $this->_type_product();
+        $suppliers = $this->_supplier_product();
+        $color = $this->_color_product();
+        $carts = $this->_cart();
+
         $pr_inte = product::where('status','Còn hàng');
-        $type = typeproduct::all();
-        $color = color::all();
+         
+        $max = $pr_inte->max('price');
         $products = $pr_inte->whereBetween('price', [$p1, $p2]);
         $c = $products->count();
         $product = $products->limit($c)->paginate($c);
-        $min = $pr_inte->min('price');
-        $max = $pr_inte->max('price');
-        return view('interiors.product', compact('type','product','max','min','color','pr_inte'));
-    }
-    public function new_product()
-    {
-        $pr_inte = product::where('status','Còn hàng');
-        $type = typeproduct::all();
-        $color = color::all();
-        $product = $pr_inte->orderbydesc('id')->limit(5)->paginate(5);
-        $min = $pr_inte->min('price');
-        $max = $pr_inte->max('price');
-        return view('interiors.product', compact('type','product','max','min', 'color','pr_inte'));
+        
+        return view('interiors.product', compact('types','suppliers','product','max' ,'color','pr_inte','carts'));
     }
     public function get_with_type(Request $request)
     {
+        $types = $this->_type_product();
+        $suppliers = $this->_supplier_product();
+        $color = $this->_color_product();
+        $carts = $this->_cart();
+
         $pr_inte = product::where('status','Còn hàng');
-        $type = typeproduct::all();
-        $color = color::all();
-        $product = $pr_inte->where('type_product',$request->type)->limit(6)->paginate(6);
-        $min = $pr_inte->min('price');
+         
         $max = $pr_inte->max('price');
-        return view('interiors.product', compact('type','product','max','min','color','pr_inte'));
+
+        $product = $pr_inte->where('type_product',$request->type)->limit(12)->paginate(12);
+
+        return view('interiors.product', compact('types','suppliers','product','max' ,'color','pr_inte','carts'));
     }
     public function get_with_brand(Request $request)
     {
+        $types = $this->_type_product();
+        $suppliers = $this->_supplier_product();
+        $color = $this->_color_product();
+        $carts = $this->_cart();
+
         $pr_inte = product::where('status','Còn hàng');
-        $type = typeproduct::all();
-        $color = color::all();
-        $product = $pr_inte->where('supplier',$request->supp)->limit(6)->paginate(6);
-        $min = $pr_inte->min('price');
+         
         $max = $pr_inte->max('price');
-        return view('interiors.product', compact('type','product','max','min','color','pr_inte'));
+
+        $product = $pr_inte->where('supplier',$request->supplier)->limit(12)->paginate(12);
+
+        return view('interiors.product', compact('types','suppliers','product','max' ,'color','pr_inte','carts'));
     }
     public function get_with_color(Request $request)
     {
+        $types = $this->_type_product();
+        $suppliers = $this->_supplier_product();
+        $color = $this->_color_product();
+        $carts = $this->_cart();
+
         $pr_inte = product::where('status','Còn hàng');
-        $type = typeproduct::all();
-        $color = color::all();
-        $product = $pr_inte
-                            ->where('color','like',"%$request->col%")
-                            ->limit(6)->paginate(6);
-        $min = $pr_inte->min('price');
+         
         $max = $pr_inte->max('price');
-        return view('interiors.product', compact('type','product','max','min','color','pr_inte'));
+
+        $product = $pr_inte->where('color','like',"%$request->color%")->limit(12)->paginate(12);
+
+        return view('interiors.product', compact('types','suppliers','product','max' ,'color','pr_inte','carts'));
+    }
+    public function get_a_z()
+    {
+        $types = $this->_type_product();
+        $suppliers = $this->_supplier_product();
+        $color = $this->_color_product();
+        $carts = $this->_cart();
+
+        $pr_inte = product::where('status','Còn hàng');
+         
+        $max = $pr_inte->max('price');
+
+        $product = $pr_inte->orderby('name_product')->limit(12)->paginate(12);
+
+        return view('interiors.product', compact('types','suppliers','product','max' ,'color','pr_inte','carts'));
+    }
+    public function get_z_a()
+    {
+        $types = $this->_type_product();
+        $suppliers = $this->_supplier_product();
+        $color = $this->_color_product();
+        $carts = $this->_cart();
+
+        $pr_inte = product::where('status','Còn hàng');
+         
+        $max = $pr_inte->max('price');
+
+        $product = $pr_inte->orderbydesc('name_product')->limit(12)->paginate(12);
+
+        return view('interiors.product', compact('types','suppliers','product','max' ,'color','pr_inte','carts'));
     }
 
-    public function product_detail(Request $request)
-    {
-        $pr_inte = product::where('status','Còn hàng');
-        $data['pro_detail'] = product::find($request->id)->toArray();
-        return view('interiors.product-details',$data, compact('pr_inte'));
-    }
+    // public function product_detail(Request $request)
+    // {
+    //     $pr_inte = product::where('status','Còn hàng');
+    //     $data['pro_detail'] = product::find($request->id)->toArray();
+    //     return view('interiors.product-details',$data, compact('pr_inte'));
+    // }
     
     public function search_interior_client(Request $request)
     {
+        // dd($request->all());
         $pr_inte = product::where('status','Còn hàng');
-        $search_inter = $request['search'] ?? "";
+        $max = $pr_inte->max('price');
+        $search_inter = $request['key'] ?? "";
+        $arrMin = [$request->min];
+        $arrMax = [$request->max];
+        $type = $request->types_nav;
+
         if($search_inter != ""){
-                $product = $pr_inte
-                                ->where('id_product','LIKE',"%$search_inter%")
-                                ->orWhere('name_product','LIKE',"%$search_inter%")
-                                ->paginate(6);
+                if(!empty($request->check)){
+                    $product = $pr_inte->Where('name_product','LIKE',"%$search_inter%")
+                                        ->where('type_product',$type)
+                                        ->whereBetween('price',[$arrMin, $arrMax])
+                                        ->limit(12)
+                                        ->paginate(12);
+                }else{
+                    $product = $pr_inte->Where('name_product','LIKE',"%$search_inter%")
+                                        ->limit(12)
+                                        ->paginate(12);
+                }
                 // dd($product);
         }else{
-                $product = $pr_inte->limit(6)->paginate(6);
+                $product = $pr_inte->limit(12)->paginate(12);
                 // dd($product);
         }
-        $color = color::all();
-        $type = typeproduct::all();
-        $min = $pr_inte->min('price');
-        $max = $pr_inte->max('price');
-        return view('interiors.product', compact('color','type','product','search_inter','min','max','pr_inte'));
+        $types = $this->_type_product();
+        $suppliers = $this->_supplier_product();
+        $color = $this->_color_product();
+        $carts = $this->_cart();
+
+        return view('interiors.product', compact('color','types','suppliers','product','search_inter' ,'max','pr_inte','carts'));
     }
 
     public function review()
@@ -956,6 +1021,11 @@ class interiorController extends Controller
     
     public function cart(Request $request)
     {
+        $types = $this->_type_product();
+        $suppliers = $this->_supplier_product();
+        $carts = $this->_cart();
+        $max = product::where('status','Còn hàng')->max('price');
+
         $check_adress = User::all()->where('user_id',Auth::user()->user_id);
         // echo $check_adress;return;
         foreach($check_adress as $check_ad){
@@ -964,39 +1034,65 @@ class interiorController extends Controller
             // $check_district = $check_ad->district;
             $check_phone = $check_ad->phone;
             if($check_city  == null){
-                session()->flash('err','Bạn cần nhập số điện thoại và địa chỉ');
+                session()->flash('error','Bạn cần nhập số điện thoại và địa chỉ');
                 return redirect()->route('update_profile');
             }elseif($check_province == null){
-                session()->flash('err','Bạn cần nhập số điện thoại và địa chỉ');
+                session()->flash('error','Bạn cần nhập số điện thoại và địa chỉ');
                 return redirect()->route('update_profile');
             }elseif($check_phone == null){
-                session()->flash('err','Bạn cần nhập số điện thoại và địa chỉ');
+                session()->flash('error','Bạn cần nhập số điện thoại và địa chỉ');
                 return redirect()->route('update_profile');
             }else{
-                
                 $id_cart_user = 'CART_CS'.Auth::user()->user_id;
-                $data_cart = cart::where('id_cart_user',$id_cart_user)->get();
+
+                if(empty($request->id_product)){
+                    $data_cart = cart::where('id_cart_user',$id_cart_user);
+                }else{
+                    $data_cart = cart::where('id_cart_user',$id_cart_user)->where('id_product',$request->id_product);
+                }
                 if($data_cart == '[]'){
-                    session()->flash('cart_null', 'Bạn chưa có sản phẩm');
+                    session()->flash('warning', 'Bạn chưa có sản phẩm');
                     return view('interiors.cart', compact('data_cart'));
                 }else{
                     // $sum = cart::where('id_cart_user',$id_cart_user)->sum('total');
-                    $sum_not_sale = cart::where('id_cart_user',$id_cart_user)->where('sales',0)->sum('total');
-                    $sum_sale = cart::where('id_cart_user',$id_cart_user)->where('sales','!=',0)->sum('total_sales');
-                    $sum = $sum_not_sale+$sum_sale;
-                    // echo $sum_not_sale.','.$sum_sale.'='.$sum;
-                    $city = city::where('name_city', Auth::user()->city)->where('city_province', Auth::user()->province)->get();
+                    if(empty($request->id_product)){
+                        $sum_not_sale = cart::where('id_cart_user',$id_cart_user)->where('sales',0)->sum('total');
+                        $sum_sale = cart::where('id_cart_user',$id_cart_user)->where('sales','!=',0)->sum('total_sales');
+                        $sum = $sum_not_sale+$sum_sale;
+                        // echo $sum_not_sale.','.$sum_sale.'='.$sum;
+                        $city = city::where('name_city', Auth::user()->city)->where('city_province', Auth::user()->province)->get();
+                    }else{
+                        $sum_not_sale = cart::where('id_cart_user',$id_cart_user)
+                                            ->where('id_product',$request->id_product)
+                                            ->where('sales',0)
+                                            ->sum('total');
+                        $sum_sale = cart::where('id_cart_user',$id_cart_user)
+                                            ->where('id_product',$request->id_product)
+                                            ->where('sales','!=',0)
+                                            ->sum('total_sales');
+                        $sum = $sum_not_sale+$sum_sale;
+                        // echo $sum_not_sale.','.$sum_sale.'='.$sum;
+                        $city = city::where('name_city', Auth::user()->city)->where('city_province', Auth::user()->province)->get();
+                    }
                     foreach($city as $cty){
                         $ct = $cty->price;
-                        $sum_product_city = $sum + $ct;
-                        return view('interiors.cart', compact('data_cart','sum','ct','sum_product_city'));
+                        // $sum_product_city = $sum + $ct;
+                        return view('interiors.cart', compact('data_cart','carts','sum','sum_not_sale','sum_sale','ct','suppliers','types','max'));
                     }
-                    
                 }
             }
         }
-        
-        // dd($sum);
+    }
+
+    public function bill(){
+        $bill = bill::where('email',Auth::user()->email);
+        $types = $this->_type_product();
+        $suppliers = $this->_supplier_product();
+        $carts = $this->_cart();
+        $max = product::where('status','Còn hàng')->max('price');
+
+
+        return view('interiors.bill', compact('bill','types','suppliers','carts','max'));
     }
     public function print_bill(Request $request)
     {
@@ -1021,12 +1117,22 @@ class interiorController extends Controller
     }
     public function favorite_user()
     {
-        $favorite = favorite::where('id_user',Auth::user()->user_id)->limit(6)->paginate(6);
-        if($favorite == '[]'){
-            session()->flash('ck_favo','Bạn chưa có sản phẩm yêu thích');
+        $types = $this->_type_product();
+        $suppliers = $this->_supplier_product();
+        $carts = $this->_cart();
+        // $color = $this->_color_product();
+
+        $pr_inte = product::where('status','Còn hàng');
+        $max = $pr_inte->max('price');
+
+        $favorites = favorite::where('id_user',Auth::user()->user_id);
+        // dd($favorites->get());
+        if($favorites->get() == '[]'){
+            session()->flash('warning','Bạn chưa có sản phẩm yêu thích');
             return redirect()->route('product');
         }else{
-            return view('interiors.favorite', compact('favorite'));
+            $favorite = $favorites->limit(10)->paginate(10);
+            return view('interiors.favorite', compact('favorite','types','suppliers','max','carts'));
         }
     }
     public function profile_user()
@@ -1066,15 +1172,22 @@ class interiorController extends Controller
 
     public function contact()
     {
-        $check_u = Auth::user();
+        $types = $this->_type_product();
+        $suppliers = $this->_supplier_product();
+        $carts = $this->_cart();
+
+        $pr_inte = product::where('status','Còn hàng');
+         
+        $max = $pr_inte->max('price');
+
         $adm = user::all()->where('email','admin@gmail.com');
-        return view('interiors.contact', compact('adm','check_u'));
+        return view('interiors.contact', compact('adm','types','suppliers','max','carts'));
     }
 
     public function cod403()
     {
         Auth::logout();
-        session()->flash('not_user', 'Để đảm bảo an toàn chúng tôi mời bạn đăng nhập lại!!!');
+        session()->flash('error', 'Để đảm bảo an toàn chúng tôi mời bạn đăng nhập lại!!!');
         return view('dashboards.login');
     }
 

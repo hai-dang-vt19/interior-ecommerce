@@ -41,6 +41,17 @@
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
   </head>
   <body>
+    <script>
+      function chooseFile(fileInput){
+          if(fileInput.files && fileInput.files[0]){
+              var reader = new FileReader();
+              reader.onload = function(e){
+                  $('#display_image').attr('src', e.target.result);
+              }
+              reader.readAsDataURL(fileInput.files[0]);
+          }
+      }
+    </script>
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
@@ -84,34 +95,70 @@
                 <div class="btn-group ms-2">
                   <button
                     type="button"
-                    class="btn btn-primary btn-sm dropdown-toggle"
-                    data-bs-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
+                    class="btn btn-primary rounded-3 btn-sm"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exLargeModal"
                   >
-                    Position 0
+                    New Banner
                   </button>
-                  <div class="dropdown-menu dropdown-menu-center w-px-500">
-                    <form class="p-4" action="{{ route('add_position_0') }}" method="POST" enctype="multipart/form-data">
-                      @csrf
-                      <div class="mb-3">
-                        <label class="form-label">Tiêu đề</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          placeholder="..."
-                          name="title"
-                        />
-                      </div>
-                      <div class="mb-3">
-                        <label class="form-label">Nội dung</label>
-                        <textarea name="des" rows="3" class="form-control"></textarea>
-                      </div>
-                      <div class="mb-3">
-                        <input class="form-control" type="file" name="images"/>
-                      </div>
-                      <button type="submit" class="btn btn-success btn-sm">Xác nhận</button>
-                    </form>
+                  <div class="modal fade" id="exLargeModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-xl" role="document">
+                      <form class="p-4" action="{{ route('add_position_0') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="modal-content">
+                          {{-- <div class="modal-header">
+                            <div class="container justify-content-center">
+                              <input type="text" class="form-control rounded-pill" placeholder="Nhập tên sản phẩm" name="key"/>
+                            </div>
+                          </div> --}}
+                          <div class="modal-body">
+                            <div class="row g-2">
+                              <div class="col mb-0">
+                                <label class="form-label">Chọn ảnh</label>
+                                <input class="form-control" type="file" name="images" onchange="chooseFile(this)"/>
+                              </div>
+                              <div class="col mb-0">
+                                <label class="form-label">Tiêu đề</label>
+                                <input type="text" class="form-control" placeholder="..." name="title" id="ip_title"/>
+                              </div>
+                              <div class="mb-2">
+                                <label class="form-label">Nội dung</label>
+                                <textarea name="des" rows="2" class="form-control" id="ip_des"></textarea>
+                              </div>
+                              <div class="mt-2">
+                                <img class="d-block w-100 rounded-3 shadow" src="" id="display_image"  style="max-height: 422.1px; max-width: 1044"/>
+                                <div class="carousel-caption d-none d-md-block">
+                                  <h3 style="color: #ffffff;text-shadow: black 0.1em 0.1em 0.2em;" id="op_title"></h3>
+                                  <p style="color: #ffffff;text-shadow: black 0.1em 0.1em 0.2em;" id="op_des"></p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <script>
+                            const op_title = document.querySelector("#op_title")
+                            const ip_title = document.querySelector("#ip_title")
+                            op_title.textContent = ip_title.value
+                            ip_title.addEventListener("input", (event) => {
+                                op_title.textContent = event.target.value
+                            })
+                          </script>
+                          <script>
+                            const op_des = document.querySelector("#op_des")
+                            const ip_des = document.querySelector("#ip_des")
+                            op_des.textContent = ip_des.value
+                            ip_des.addEventListener("input", (event) => {
+                                op_des.textContent = event.target.value
+                            })
+                          </script>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                              Close
+                            </button>
+                            <button type="submit" class="btn btn-primary">Xác nhận</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
                   </div>
                 </div>
               </h4>

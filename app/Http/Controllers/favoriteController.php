@@ -25,7 +25,7 @@ class favoriteController extends Controller
                 'status_product'=>$pr->status
             ]);
         }
-        session()->flash('create_fv', '');
+        session()->flash('success', 'Đã thích');
         return redirect()->route('product');
     }
     public function destroy_favorite_user(Request $request)

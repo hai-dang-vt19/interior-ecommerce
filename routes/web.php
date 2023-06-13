@@ -188,50 +188,55 @@ Route::get('/destroy/donhang/{id}',[checkoutContorller::class, 'destroy_donhang_
 // Route::get('test/map',[interiorController::class, 'test_api_map'])->name('test_api_map');
 // ---- user
 Route::get('/interior-index', [interiorController::class,'index'])->name('index');
-
 Route::get('/interior/product', [interiorController::class,'product'])->name('product');
-
-// Route::get('/interior-product', [interiorController::class,'product'])->name('product');
+Route::get('/interior/product/type', [interiorController::class, 'get_with_type'])->name('get_with_type');
+Route::get('/interior/product/supplier', [interiorController::class, 'get_with_brand'])->name('get_with_brand');
+Route::get('/interior/product/color', [interiorController::class, 'get_with_color'])->name('get_with_color');
+Route::get('/interior/product/az', [interiorController::class, 'get_a_z'])->name('get_a_z');
+Route::get('/interior/product/za', [interiorController::class, 'get_z_a'])->name('get_z_a');
 Route::get('/interior-product/price', [interiorController::class,'product_with_price'])->name('product_with_price');
-Route::get('/interior-product-details/{id}', [interiorController::class,'product_detail'])->name('product_detail');
-Route::get('/inteiror-product-cat', [interiorController::class, 'get_with_type'])->name('get_with_type');
-Route::get('/inteiror-product-supp', [interiorController::class, 'get_with_brand'])->name('get_with_brand');
-Route::get('/inteiror-product-col', [interiorController::class, 'get_with_color'])->name('get_with_color');
-Route::get('/interior-product-srh', [interiorController::class, 'search_interior_client'])->name('search_interior_client');
-Route::get('/interior-product-news', [interiorController::class, 'new_product'])->name('new_product');
 
-Route::get('/interior-contact', [interiorController::class, 'contact'])->name('contact');
-Route::post('/interior-sendmail', [interiorPostController::class, 'sendmail'])->name('sendmail');
+Route::get('/interior-product-srh', [interiorController::class, 'search_interior_client'])->name('search_interior_client');
+// Route::get('/interior-product', [interiorController::class,'product'])->name('product');
+// Route::get('/interior-product-details/{id}', [interiorController::class,'product_detail'])->name('product_detail');
+// Route::get('/interior-product-cat', [interiorController::class, 'get_with_type'])->name('get_with_type');
+// Route::get('/interior-product-news', [interiorController::class, 'new_product'])->name('new_product');
+
+Route::get('/interior/contact', [interiorController::class, 'contact'])->name('contact');
+Route::post('/interior/sendmail', [interiorPostController::class, 'sendmail'])->name('sendmail');
 route::get('/xoa-di', function(){
     return view('interiors.sendmail');
 });
 
-Route::get('/interior-cart', [interiorController::class, 'cart'])->middleware(['can:client_inte','auth'])->name('cart');
-Route::post('/indeior-add-cart/{id}', [cartController::class,'add_cart'])->middleware(['can:client_inte','auth'])->name('add_cart');
-Route::get('/inteiror-destroy/{id}', [cartController::class, 'destroy_cart_product'])->middleware(['can:client_inte','auth'])->name('destroy_cart_product');
-Route::get('/interior-review', [interiorController::class, 'review'])->name('review');
-Route::post('/interior-add-review', [productController::class, 'create_comment'])->middleware(['can:client_inte','auth'])->name('create_comment');
-Route::get('/inteiror-review/{id}', [interiorController::class, 'review_detail'])->name('review_detail');
-Route::get('/interior-product-detailsrv/{id}', [interiorController::class,'review_product_detail'])->name('review_product_detail');
+Route::get('/interior/cart', [interiorController::class, 'cart'])->middleware(['can:client_inte','auth'])->name('cart');
+Route::post('/interior/add/cart/{id}', [cartController::class,'add_cart'])->middleware(['can:client_inte','auth'])->name('add_cart');
+Route::get('/interior/destroy/{id}', [cartController::class, 'destroy_cart_product'])->middleware(['can:client_inte','auth'])->name('destroy_cart_product');
+Route::get('/interior/review', [interiorController::class, 'review'])->name('review');
+Route::post('/interior/add/review', [productController::class, 'create_comment'])->middleware(['can:client_inte','auth'])->name('create_comment');
+Route::get('/interior/review/{id}', [interiorController::class, 'review_detail'])->name('review_detail');
+Route::get('/interior/product-detailsrv/{id}', [interiorController::class,'review_product_detail'])->name('review_product_detail');
 
-// Route::post('/checkout/momo', [checkoutContorller::class, 'momo_payment'])->middleware(['can:client_inte','auth'])->name('momo_payment');
-Route::post('/checkout-vnpay', [checkoutContorller::class, 'vnpay_payment'])->middleware(['can:client_inte','auth'])->name('vnpay_payment');
-Route::post('/checkout-vnpay-qr', [checkoutContorller::class, 'vnpay_payment_qr'])->middleware(['can:client_inte','auth'])->name('vnpay_payment_qr');
+// Thanh toans
+    Route::post('/checkout', [checkoutContorller::class, 'pay_don'])->middleware(['can:client_inte','auth'])->name('pay_don');
+    
+    // Route::post('/checkout/momo', [checkoutContorller::class, 'momo_payment'])->middleware(['can:client_inte','auth'])->name('momo_payment');
+    Route::post('/checkout-vnpay', [checkoutContorller::class, 'vnpay_payment'])->middleware(['can:client_inte','auth'])->name('vnpay_payment');
+    Route::post('/checkout-vnpay-qr', [checkoutContorller::class, 'vnpay_payment_qr'])->middleware(['can:client_inte','auth'])->name('vnpay_payment_qr');
 
-Route::post('/checkout-vnpay-d-atm', [checkoutContorller::class, 'vnpay_payment_don_atm'])->middleware(['can:client_inte','auth'])->name('vnpay_payment_don_atm');
-Route::post('/checkout-vnpay-d-qr', [checkoutContorller::class, 'vnpay_payment_don_qr'])->middleware(['can:client_inte','auth'])->name('vnpay_payment_don_qr');
+    Route::post('/checkout-vnpay-d-atm', [checkoutContorller::class, 'vnpay_payment_don_atm'])->middleware(['can:client_inte','auth'])->name('vnpay_payment_don_atm');
+    Route::post('/checkout-vnpay-d-qr', [checkoutContorller::class, 'vnpay_payment_don_qr'])->middleware(['can:client_inte','auth'])->name('vnpay_payment_don_qr');
 
-// Route::post('/checkout-cod', [checkoutContorller::class, 'checkout_cod'])->name('checkout_cod');
-Route::get('/checkout-cod', [checkoutContorller::class, 'checkout_cod'])->middleware(['can:client_inte','auth'])->name('checkout_cod');
-Route::post('/checkout-cod-post', [checkoutContorller::class, 'checkout_cod_post'])->middleware(['can:client_inte','auth'])->name('checkout_cod_post');
+    // Route::post('/checkout-cod', [checkoutContorller::class, 'checkout_cod'])->name('checkout_cod');
+    Route::get('/checkout-cod', [checkoutContorller::class, 'checkout_cod'])->middleware(['can:client_inte','auth'])->name('checkout_cod');
+    Route::post('/checkout-cod-post', [checkoutContorller::class, 'checkout_cod_post'])->middleware(['can:client_inte','auth'])->name('checkout_cod_post');
 
-Route::get('/checkout-cod/{id}', [checkoutContorller::class, 'checkout_cod_get_don'])->middleware(['can:client_inte','auth'])->name('checkout_cod_get_don');
-Route::post('/checkout-cod-post-don', [checkoutContorller::class, 'checkout_cod_post_don'])->middleware(['can:client_inte','auth'])->name('checkout_cod_post_don');
-// Route::post('/checkout-cod/{id}', [checkoutContorller::class, 'checkout_cod_get_don'])->middleware(['can:client_inte','auth'])->name('checkout_cod_get_don');
+    Route::get('/checkout-cod/{id}', [checkoutContorller::class, 'checkout_cod_get_don'])->middleware(['can:client_inte','auth'])->name('checkout_cod_get_don');
+    Route::post('/checkout-cod-post-don', [checkoutContorller::class, 'checkout_cod_post_don'])->middleware(['can:client_inte','auth'])->name('checkout_cod_post_don');
+    // Route::post('/checkout-cod/{id}', [checkoutContorller::class, 'checkout_cod_get_don'])->middleware(['can:client_inte','auth'])->name('checkout_cod_get_don');
 
-Route::get('/return-vnpay', [checkoutContorller::class, 'return_vnpay'])->name('return_vnpay');
-Route::get('/return-vnpay-don', [checkoutContorller::class, 'return_vnpay_don'])->name('return_vnpay-don');
-
+    Route::get('/return-vnpay', [checkoutContorller::class, 'return_vnpay'])->name('return_vnpay');
+    Route::get('/return-vnpay-don', [checkoutContorller::class, 'return_vnpay_don'])->name('return_vnpay-don');
+// Thanh toans
 Route::get('/print-bill/{id}', [interiorController::class, 'print_bill'])->name('print_bill');
 
 Route::get('/add-favorite/{id}', [favoriteController::class, 'create_favorite'])->middleware(['can:client_inte','auth'])->name('create_favorite');
@@ -253,6 +258,7 @@ Route::get('/ship/done', [checkoutContorller::class, 'ship_done'])->middleware([
 Route::get('bill/export/', [BillExport::class, 'export_excel_bill'])->middleware(['auth'])->name('export_excel_bill');
 Route::get('history/export/', [HistoryExport::class, 'export_excel_history'])->middleware(['auth'])->name('export_excel_history');
 
+Route::get('interior/bill', [interiorController::class, 'bill'])->middleware(['can:client_inte','auth'])->name('bill');
 // ---------------------------
 // Route::get('/index2', function(){
 //     return view('interiors2.index');

@@ -1,4 +1,7 @@
-<footer class="content-footer footer bg-footer-theme px-5">
+<div class="position-absolute bottom-0 end-0 me-5 mb-5" style="z-index: 2">
+    <a href="#" class="position-fixed"><i class='bx bxs-chevron-up-circle text-warning fs-1'></i></a>
+</div>
+<footer class="content-footer footer bg-footer-theme px-5" style="z-index: 1">
   <div class="container-fluid pt-5 pb-4">
     <div class="row">
       <div class="divider divider-secondary">
@@ -7,80 +10,69 @@
         </div>
       </div>
     </div>
-    <div class="row mb-5">
-      <div id="carouselExample-cf2"class="w-100 carousel carousel-dark slide carousel-fade"data-bs-ride="carousel">
-        <ol class="carousel-indicators">
-          <li data-bs-target="#carouselExample-cf2" data-bs-slide-to="0" class="active"></li>
-          <li data-bs-target="#carouselExample-cf2" data-bs-slide-to="1"></li>
-          <li data-bs-target="#carouselExample-cf2" data-bs-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner d-block">
-          <div class="carousel-item d-flex justify-content-center active">
-            <div class="card w-50">
-                <div class="row g-0">
-                  <div class="col-md-4">
-                    <img class="card-img card-img-left" src="{{ asset('interior/assets/img/elements/13.jpg') }}" alt="Card image" />
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body">
-                          <h5 class="card-title">Card title</h5>
-                          <p class="card-text">
-                            This is a wider card with supporting text below as a natural lead-in to additional content.
-                            This content is a little bit longer.
-                          </p>
-                          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    <div class="row mb-5 justify-content-center">
+      <div class="col-md-8">
+        <div id="carouselExample-cf2"class="w-100 carousel carousel-dark slide carousel-fade"data-bs-ride="carousel">
+          <div class="carousel-inner d-block">
+            <div class="carousel-item d-flex justify-content-center active">
+              <div class="card">
+                  <div class="row g-0">
+                    <div class="col-md-4">
+                      <img class="card-img card-img-left" src="{{ asset('interior/assets/img/elements/13.jpg') }}" alt="Card image" />
+                    </div>
+                    <div class="col-md-8">
+                      <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text max_dot">
+                              This is a wider card with supporting text below as a natural lead-in to additional content.
+                              This content is a little bit longer.
+                            </p>
+                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                      </div>
                     </div>
                   </div>
-                </div>
+              </div>
             </div>
-          </div>
-          <div class="carousel-item d-flex justify-content-center">
-            <div class="card w-50">
-                <div class="row g-0">
-                  <div class="col-md-4">
-                    <img class="card-img card-img-left" src="{{ asset('interior/assets/img/elements/12.jpg') }}" alt="Card image" />
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body">
-                          <h5 class="card-title">Card title</h5>
-                          <p class="card-text">
-                            This is a wider card with supporting text below as a natural lead-in to additional content.
-                            This content is a little bit longer.
-                          </p>
-                          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            <div class="carousel-item d-flex justify-content-center">
+              <div class="card">
+                  <div class="row g-0">
+                    <div class="col-md-4">
+                      <img class="card-img card-img-left" src="{{ asset('interior/assets/img/elements/12.jpg') }}" alt="Card image" />
+                    </div>
+                    <div class="col-md-8">
+                      <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text max_dot">
+                              This is a wider card with supporting text below as a natural lead-in to additional content.
+                              This content is a little bit longer.
+                            </p>
+                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                      </div>
                     </div>
                   </div>
-                </div>
+              </div>
             </div>
-          </div>
-          <div class="carousel-item d-flex justify-content-center">
-            <div class="card w-50">
-                <div class="row g-0">
-                  <div class="col-md-4">
-                    <img class="card-img card-img-left" src="{{ asset('interior/assets/img/elements/11.jpg') }}" alt="Card image" />
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body">
-                          <h5 class="card-title">Card title</h5>
-                          <p class="card-text">
-                            This is a wider card with supporting text below as a natural lead-in to additional content.
-                            This content is a little bit longer.
-                          </p>
-                          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            <div class="carousel-item d-flex justify-content-center">
+              <div class="card">
+                  <div class="row g-0">
+                    <div class="col-md-4">
+                      <img class="card-img card-img-left" src="{{ asset('interior/assets/img/elements/11.jpg') }}" alt="Card image" />
+                    </div>
+                    <div class="col-md-8">
+                      <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text max_dot">
+                              This is a wider card with supporting text below as a natural lead-in to additional content.
+                              This content is a little bit longer.
+                            </p>
+                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                      </div>
                     </div>
                   </div>
-                </div>
+              </div>
             </div>
           </div>
         </div>
-        {{-- <a class="carousel-control-prev" href="#carouselExample-cf2" role="button" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExample-cf2" role="button" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </a> --}}
       </div>
     </div>
     <div class="row">
@@ -106,7 +98,7 @@
         <ul class="list-unstyled">
           <li><a href="{{ route('index') }}" class="footer-link d-block pb-2">Trang chủ</a></li>
           <li><a href="{{ route('product') }}" class="footer-link d-block pb-2">Sản phẩm</a></li>
-          <li><a href="javascript:void(0)" class="footer-link d-block pb-2">Liên hệ</a></li>
+          <li><a href="{{ route('contact') }}" class="footer-link d-block pb-2">Liên hệ</a></li>
           <li><a href="javascript:void(0)" class="footer-link d-block pb-2">Giỏ hàng</a></li>
         </ul>
       </div>

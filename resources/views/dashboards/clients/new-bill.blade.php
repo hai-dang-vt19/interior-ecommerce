@@ -146,8 +146,11 @@
                           </div>
                           <input type="hidden" class="form-control" value="{{ $item->id_product }}" name="id_product">
                           <input type="hidden" class="form-control" value="{{ $item->name_product }}" name="name_product">
-                          <input type="hidden" class="form-control" value="{{ $item->price }}" name="price_product">
-                          <input type="hidden" class="form-control" value="{{ $item->sales }}" name="price_product">
+                          @if (!empty($item->sales))
+                            <input type="hidden" class="form-control" value="{{ $item->sales }}" name="price_product">                              
+                          @else
+                            <input type="hidden" class="form-control" value="{{ $item->price }}" name="price_product">
+                          @endif
                           <input type="hidden" value="{{ $item->amount }}" name="amount_old">
                           <input type="hidden" value="{{ 'STORE-'.Auth::user()->user_id }}" name="id_cart_user">
                         @endforeach

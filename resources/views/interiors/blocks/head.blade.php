@@ -15,17 +15,15 @@
     <link rel="stylesheet" href="{{ asset('interior/assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
     <link rel="stylesheet" href="{{ asset('interior/assets/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
     <link rel="stylesheet" href="{{ asset('interior/assets/css/demo.css') }}" />
-    <link rel="stylesheet" href="{{ asset('interior\assets\css\navbar.css') }}" />
+    <link rel="stylesheet" href="{{ asset('interior/assets/css/navbar.css') }}" />
 
     <link rel="stylesheet" href="{{ asset('interior/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
     <link rel="stylesheet" href="{{ asset('interior/assets/vendor/libs/apex-charts/apex-charts.css') }}" />
-    <link rel="stylesheet" href="{{ asset('interior\css\animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('interior/css/animate.css') }}">
     
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> --}}
     <script src="{{ asset('interior/assets/vendor/js/helpers.js') }}"></script>
     <script src="{{ asset('interior/assets/js/config.js') }}"></script>
     <script src="assets/vendor/js/dropdown-hover.js"></script>
-    
-
   </head>

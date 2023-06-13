@@ -2209,7 +2209,7 @@ progress {
   background-color: #fff;
   border-color: rgba(249, 249, 255, 0.54);
   outline: 0;
-  box-shadow: 3px 3px rgb(197, 145, 1);
+  /* box-shadow: 3px 3px rgb(197, 145, 1); */
 }
 .form-control::-webkit-date-and-time-value {
   height: 1.53em;
@@ -3270,7 +3270,7 @@ textarea.form-control-lg {
 .nav-link {
   display: block;
   padding: 0.5rem 1.25rem;
-  color: #8e9baa;
+  color: #697a8d;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -3279,12 +3279,21 @@ textarea.form-control-lg {
   }
 }
 .nav-link:hover, .nav-link:focus {
-  color: #5f61e6;
+  color: #FBB710;
 }
 .nav-link.disabled {
   color: #c7cdd4;
   pointer-events: none;
   cursor: default;
+}
+
+.max_dot{
+  display: block;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .nav-tabs {
@@ -9125,6 +9134,10 @@ button.list-group-item-gray.active {
 
 .w-50 {
   width: 50% !important;
+}
+
+.w-60{
+  width: 60% !important;
 }
 
 .w-75 {
