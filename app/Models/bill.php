@@ -14,6 +14,8 @@ class bill extends Model
         'id_bill',
         'id_product',
         'name_product',
+        'type_product',
+        'image_product',
         'amount',
         'price',
         'username',

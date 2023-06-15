@@ -11,7 +11,7 @@
         <div class="layout-page">
           <!-- Navbar -->
           @include('interiors.blocks.navbar')
-          <div class="content-wrapper mt-4 ps-5">
+          <div class="content-wrapper mt-4">
             <!-- Content -->
             <div class="container mt-5 px-5 py-4">
                 <div class="row">
@@ -34,14 +34,14 @@
                                     <div class="scrollDad">
                                         <div class="list-group list-group-horizontal-md text-md-center mb-2">
                                             <a
-                                              class="list-group-item list-group-item-action active"
+                                              class="list-group-item list-group-item-action "
                                               id="home-list-item"
                                               data-bs-toggle="list"
                                               href="#horizontal-home"
                                               >Đang lấy hàng</a
                                             >
                                             <a
-                                              class="list-group-item list-group-item-action"
+                                              class="list-group-item list-group-item-action active"
                                               id="profile-list-item"
                                               data-bs-toggle="list"
                                               href="#horizontal-profile"
@@ -56,7 +56,7 @@
                                             >
                                         </div>
                                         <div class="tab-content px-0 mt-0">
-                                            <div class="tab-pane fade show active" id="horizontal-home">
+                                            <div class="tab-pane fade show " id="horizontal-home">
                                                 @if ($start == '[]')
                                                     <p class="text-center py-5 mt-5">Không có đơn</p>
                                                 @else
@@ -84,7 +84,7 @@
                                                                             </p>
                                                                         </div>
                                                                     </div>
-                                                                    <a href="#" class="btn btn-danger btn-xs float-end">Hủy đơn hàng</a>
+                                                                    <a href="#" class="btn btn-danger btn-xs float-end" onclick="return confirm('Bạn có chắc chắn hủy đơn này')">Hủy đơn hàng</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -154,7 +154,7 @@
                                                     @endforeach
                                                 @endif
                                             </div>
-                                            <div class="tab-pane fade show" id="horizontal-profile">
+                                            <div class="tab-pane fade show active" id="horizontal-profile">
                                                 @if ($ship == '[]')
                                                     <p class="text-center py-5 mt-5">Không có đơn</p>
                                                 @else
@@ -163,10 +163,11 @@
                                                         <div class="row g-0 mb-3">
                                                             <div class="col-lg-12">
                                                                 <div class="card-body">
-                                                                    <div class="row" data-bs-toggle="modal" data-bs-target="#{{ $itm_bill_ship->id_bill }}">
+                                                                    <div class="row">
                                                                         <div class="col-lg-4 text-center">
                                                                             <h5 class="card-title">{{ $itm_bill_ship->id_bill }}</h5><br>
-                                                                            <button class="btn btn-warning btn-sm rounded-3">Đang vận chuyển</button>
+                                                                            <button class="btn btn-warning btn-sm rounded-3" data-bs-toggle="modal" data-bs-target="#{{ $itm_bill_ship->id_bill }}">Đang vận chuyển</button>
+                                                                            <button class="btn btn-danger btn-xs mt-1"><a href="#"  style="color: #ffffff"  onclick="return confirm('Bạn có chắc chắn hủy đơn này')">Hủy đơn hàng</a></button>
                                                                         </div>
                                                                         <div class="col-lg-1"></div>
                                                                         <div class="col-lg">
@@ -182,7 +183,7 @@
                                                                             </p>
                                                                         </div>
                                                                     </div>
-                                                                    <a href="#" class="btn btn-danger btn-xs float-end">Hủy đơn hàng</a>
+                                                                    <a href="{{ route('ship_done', ['id_bill'=>$itm_bill_ship->id_bill]) }}" class="btn btn-success btn-sm float-end">Đã nhận hàng</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -256,15 +257,15 @@
                                                 @if ($end == '[]')
                                                     <p class="text-center py-5 mt-5">Không có đơn</p>
                                                 @else
-                                                    @foreach ($end as $number => $itm_bill_end)
+                                                    @foreach ($end as $itm_bill_end)
                                                     <div class="card mb-3">
                                                         <div class="row g-0 mb-3">
                                                             <div class="col-lg-12">
                                                                 <div class="card-body">
-                                                                    <div class="row" data-bs-toggle="modal" data-bs-target="#{{ $itm_bill_end->id_bill }}">
+                                                                    <div class="row">
                                                                         <div class="col-lg-4 text-center">
                                                                             <h5 class="card-title">{{ $itm_bill_end->id_bill }}</h5><br>
-                                                                            <button class="btn btn-success btn-sm rounded-3">Giao hàng thành công</button>
+                                                                            <button class="btn btn-success btn-sm rounded-3" data-bs-toggle="modal" data-bs-target="#{{ $itm_bill_end->id_product }}">Giao hàng thành công</button>
                                                                         </div>
                                                                         <div class="col-lg-1"></div>
                                                                         <div class="col-lg">
@@ -280,11 +281,15 @@
                                                                             </p>
                                                                         </div>
                                                                     </div>
+                                                                    <button class="btn btn-outline-secondary btn-xs float-end" data-bs-toggle="modal" data-bs-target="#modal{{ $itm_bill_end->id_product }}">
+                                                                        Đánh giá sản phẩm
+                                                                    </button>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="modal fade" id="{{ $itm_bill_end->id_bill }}" tabindex="-1" aria-hidden="true">
+                                                    {{-- modal detail --}}
+                                                    <div class="modal fade" id="{{ $itm_bill_end->id_product }}" tabindex="-1" aria-hidden="true">
                                                         <div class="modal-dialog modal-dialog-top modal-lg" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
@@ -298,52 +303,80 @@
                                                                   <div>
                                                                     <div class="row justify-content-center g-2">
                                                                         <div class="col-lg mb-0 ms-5">
-                                                                            @php
-                                                                                $product =  product::where('id_product',$itm_bill_end->id_product)->get();
-                                                                            @endphp
-                                                                            @foreach ($product as $itm_pr_sc)
-                                                                                <dl class="row">
-                                                                                    <dt class="col-lg">Mã sản phẩm:</dt>
-                                                                                    <dd class="col-lg-8">{{ $itm_pr_sc->id_product }}</dd>
-                                                                                </dl>
-                                                                                <dl class="row">
-                                                                                    <dt class="col-lg">Tên sản phẩm:</dt>
-                                                                                    <dd class="col-lg-8">{{ $itm_pr_sc->name_product }}</dd>
-                                                                                </dl>
-                                                                                <dl class="row">
-                                                                                    <dt class="col-lg">Loại sản phẩm:</dt>
-                                                                                    <dd class="col-lg-8">{{ $itm_pr_sc->type_product }} - {{ $itm_pr_sc->material }}</dd>
-                                                                                </dl>
-                                                                                <dl class="row">
-                                                                                    <dt class="col-lg">Nhà cung cấp:</dt>
-                                                                                    <dd class="col-lg-8">{{ $itm_pr_sc->supplier }}</dd>
-                                                                                </dl>
-                                                                                <dl class="row">
-                                                                                    <dt class="col-lg">Giá tiền:</dt>
-                                                                                    <dd class="col-lg-8">{{ number_format($itm_pr_sc->price) }} &#8363;</dd>
-                                                                                </dl>
-                                                                            @endforeach
-                                                                            <dl class="row">
-                                                                                <dt class="col-lg">Số lượng mua:</dt>
-                                                                                <dd class="col-lg-8">{{ $itm_bill_end->amount }}</dd>
-                                                                            </dl>
-                                                                        </div>
-                                                                        <div class="col-lg-4 mb-0 rounded-3 shadow py-2 me-5">
-                                                                            <img class="card-img" src="{{ asset('dashboard\upload_img\product/'.$itm_pr_sc->images) }}" alt="Card image" />
-                                                                        </div>
+                                                                                    <dl class="row">
+                                                                                        <dt class="col-lg">Mã sản phẩm:</dt>
+                                                                                        <dd class="col-lg-8">{{ $itm_bill_end->id_product }}</dd>
+                                                                                    </dl>
+                                                                                    <dl class="row">
+                                                                                        <dt class="col-lg">Tên sản phẩm:</dt>
+                                                                                        <dd class="col-lg-8">{{ $itm_bill_end->name_product }}</dd>
+                                                                                    </dl>
+                                                                                    <dl class="row">
+                                                                                        <dt class="col-lg">Loại sản phẩm:</dt>
+                                                                                        <dd class="col-lg-8">{{ $itm_bill_end->type_product }}</dd>
+                                                                                    </dl>
+                                                                                    <dl class="row">
+                                                                                        <dt class="col-lg">Giá tiền:</dt>
+                                                                                        <dd class="col-lg-8">{{ number_format($itm_bill_end->price) }} &#8363;</dd>
+                                                                                    </dl>
+                                                                                    <dl class="row">
+                                                                                        <dt class="col-lg">Số lượng mua:</dt>
+                                                                                        <dd class="col-lg-8">{{ $itm_bill_end->amount }}</dd>
+                                                                                    </dl>
+                                                                                
+                                                                            </div>
+                                                                            <div class="col-lg-4 mb-0 rounded-3 shadow py-2 ms-2 me-5">
+                                                                                <img class="card-img" src="{{ asset('dashboard\upload_img\product/'.$itm_bill_end->image_product) }}" style="max-width: 252px; max-height: 248px;" alt="Card image" />
+                                                                                <p class="card-text text-center mt-2">
+                                                                                    Tổng tiền: <strong class="fs-6">{{ number_format($itm_bill_end->total) }} &#8363;</strong>
+                                                                                </p>
+                                                                            </div>
                                                                     </div>
                                                                   </div>
                                                                 </div>
                                                                 <hr>
                                                                 <div class="modal-footer">
-                                                                    <p class="card-text me-5">
-                                                                        Tổng tiền: <strong class="fs-6">{{ number_format($itm_bill_end->total) }} &#8363;</strong>
-                                                                    </p>
-                                                                  <button type="button" class="btn btn-outline-secondary btn-sm ms-2" data-bs-dismiss="modal">
-                                                                    Close
-                                                                  </button>
+                                                                    <button type="button" class="btn btn-outline-secondary btn-sm ms-2" data-bs-dismiss="modal">
+                                                                        Close
+                                                                    </button>
                                                                 </div>
                                                             </div>
+                                                        </div>
+                                                    </div>
+                                                    {{-- Modal review --}}
+                                                    <div class="modal fade" id="modal{{ $itm_bill_end->id_product }}" tabindex="-1" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered  modal-sm" role="document">
+                                                        <form action="{{ route('add_review') }}" method="POST">@csrf
+                                                          <div class="modal-content">
+                                                            <div class="modal-header">
+                                                              <h5 class="modal-title" id="modalCenterTitle">Gửi đánh giá cho chúng tôi</h5>
+                                                              <button
+                                                                type="button"
+                                                                class="btn-close"
+                                                                data-bs-dismiss="modal"
+                                                                aria-label="Close"
+                                                              ></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                              <div class="row">
+                                                                <div class="col mb-3">
+                                                                    <img class="card-img" src="{{ asset('dashboard\upload_img\product/'.$itm_bill_end->image_product) }}" style="max-width: 252px; max-height: 248px;" alt="Card image" />
+                                                                </div>
+                                                              </div>
+                                                              <div class="row">
+                                                                <div class="col mb-3">
+                                                                  <label for="nameWithTitle" class="form-label">Nhập đánh giá của bạn: </label>
+                                                                  <textarea class="form-control" name="descriptions" id="nameWithTitle" cols="30" rows="2"></textarea>
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                            <input type="hidden" value="{{ $itm_bill_end->id_product }}" name="id_product_rv">
+                                                            <input type="hidden" value="{{ $itm_bill_end->image_product }}" name="img_rv">
+                                                            <div class="modal-footer">
+                                                              <button type="submit" class="btn btn-primary w-100">Gửi đánh giá</button>
+                                                            </div>
+                                                          </div>
+                                                        </form>
                                                         </div>
                                                     </div>
                                                     @endforeach
@@ -366,7 +399,7 @@
                                     >
                                     <a
                                       class="list-group-item list-group-item-action active bg-dark border border-dark"
-                                      href="#"
+                                      href="{{ route('bill') }}"
                                       >Đơn hàng</a
                                     >
                                 </div>

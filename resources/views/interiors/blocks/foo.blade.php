@@ -50,3 +50,32 @@
             });
       </script>
     @endif
+    {{-- Date Flat piker --}}
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/flatpickr.min.js"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/vn.js"></script>
+    <script>
+      flatpickr("#datepiker", {
+        dateFormat:'d-m-Y',
+        // defaultDate:'today',
+        allowInput: 'true' //cho phep go
+        // locale: "vn"
+      });
+    </script>
+    <script>
+      flatpickr("#ranger", {
+        dateFormat:'d-m-Y',
+        mode: "range"
+      });
+    </script>
+    {{-- select --}}
+    <script>
+      $(document).ready(function(){
+        var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+          removeItemButton: true,
+          maxItemCount:5,
+          searchResultLimit:5,
+          renderChoiceLimit:5
+        });
+    });
+    </script>

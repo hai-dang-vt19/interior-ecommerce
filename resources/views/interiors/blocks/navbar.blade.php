@@ -101,14 +101,20 @@
               <div class="dropdown-divider"></div>
             </li>
             <li>
-              <a class="dropdown-item" href="#">
+              <a class="dropdown-item" href="{{ route('profile') }}">
                 <i class="bx bx-user text-info me-2"></i>
                 <span class="align-middle">Hồ sơ</span>
               </a>
             </li>
             <li>
+              <a class="dropdown-item" href="{{ route('cart') }}">
+                <i class="bx bxs-cart-alt text-warning me-2"></i>
+                <span class="align-middle">Giỏ hàng</span>
+              </a>
+            </li>
+            <li>
               <a class="dropdown-item" href="{{ route('bill') }}">
-                <i class="bx bx-credit-card text-warning me-2"></i>
+                <i class="bx bx-credit-card text-success me-2"></i>
                 <span class="align-middle">Đơn hàng</span>
               </a>
             </li>

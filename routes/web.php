@@ -208,16 +208,20 @@ route::get('/xoa-di', function(){
     return view('interiors.sendmail');
 });
 
+Route::get('/interior/profile', [interiorController::class, 'profile'])->middleware(['can:client_inte','auth'])->name('profile');
+
 Route::get('/interior/cart', [interiorController::class, 'cart'])->middleware(['can:client_inte','auth'])->name('cart');
 Route::post('/interior/add/cart/{id}', [cartController::class,'add_cart'])->middleware(['can:client_inte','auth'])->name('add_cart');
 Route::get('/interior/destroy/{id}', [cartController::class, 'destroy_cart_product'])->middleware(['can:client_inte','auth'])->name('destroy_cart_product');
-Route::get('/interior/review', [interiorController::class, 'review'])->name('review');
-Route::post('/interior/add/review', [productController::class, 'create_comment'])->middleware(['can:client_inte','auth'])->name('create_comment');
-Route::get('/interior/review/{id}', [interiorController::class, 'review_detail'])->name('review_detail');
-Route::get('/interior/product-detailsrv/{id}', [interiorController::class,'review_product_detail'])->name('review_product_detail');
+// Route::get('/interior/review', [interiorController::class, 'review'])->name('review');
+// Route::post('/interior/add/review', [productController::class, 'create_comment'])->middleware(['can:client_inte','auth'])->name('create_comment');
+// Route::get('/interior/review/{id}', [interiorController::class, 'review_detail'])->name('review_detail');
+// Route::get('/interior/product-detailsrv/{id}', [interiorController::class,'review_product_detail'])->name('review_product_detail');
+Route::post('/interior/add/review', [productController::class, 'add_review'])->middleware(['can:client_inte','auth'])->name('add_review');
 
 // Thanh toans
     Route::post('/checkout', [checkoutContorller::class, 'pay_don'])->middleware(['can:client_inte','auth'])->name('pay_don');
+    Route::post('/checkouts', [checkoutContorller::class, 'pay_all'])->middleware(['can:client_inte','auth'])->name('pay_all');
     
     // Route::post('/checkout/momo', [checkoutContorller::class, 'momo_payment'])->middleware(['can:client_inte','auth'])->name('momo_payment');
     Route::post('/checkout-vnpay', [checkoutContorller::class, 'vnpay_payment'])->middleware(['can:client_inte','auth'])->name('vnpay_payment');
@@ -253,7 +257,7 @@ Route::post('/update-profile-city-pro/{id}', [interiorPostController::class, 'up
 
 Route::post('update_password', [interiorPostController::class, 'update_password'])->middleware('auth')->name('update_password');
 
-Route::get('/ship/done', [checkoutContorller::class, 'ship_done'])->middleware(['can:client_inte','auth'])->name('ship_done');
+Route::get('/ship/done/', [checkoutContorller::class, 'ship_done'])->middleware(['can:client_inte','auth'])->name('ship_done');
 //Export excel
 Route::get('bill/export/', [BillExport::class, 'export_excel_bill'])->middleware(['auth'])->name('export_excel_bill');
 Route::get('history/export/', [HistoryExport::class, 'export_excel_history'])->middleware(['auth'])->name('export_excel_history');

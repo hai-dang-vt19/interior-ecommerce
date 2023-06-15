@@ -102,7 +102,7 @@ class interiorPostController extends Controller
             return redirect(route('login'));
         }else{
             if($data == $e){
-                session()->flash('register-er', 'Đăng ký không thành công');
+                session()->flash('register-er', 'Email này đã được sử dụng');
                 return redirect(route('register'));
             }else{
                 session()->flash('register-er', 'Đăng ký thất bại');

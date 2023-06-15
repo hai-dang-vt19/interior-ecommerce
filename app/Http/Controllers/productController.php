@@ -272,15 +272,29 @@ class productController extends Controller
     }
     public function create_comment(Request $request)
     {
+        // $data = new comments();
+        // $data->name_user = Auth::user()->name;
+        // $data->id_user = Auth::user()->user_id;
+        // $data->id_product = $request->id_product_rv;
+        // $data->descriptions = $request->date_create_rv;
+        // $data->status_comment = "ok";
+        // $data->date_create = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+        // $data->img = $request->img_rv;
+        // $data->save();
+        // session()->flash('success','Gửi thành công');
+        // return back();
+    }
+    public function add_review(Request $request) {
         $data = new comments();
         $data->name_user = Auth::user()->name;
         $data->id_user = Auth::user()->user_id;
-        $data->id_product = $request->id_product_cmt;
-        $data->descriptions = $request->des_cmt;
+        $data->id_product = $request->id_product_rv;
+        $data->descriptions = $request->descriptions;
         $data->status_comment = "ok";
-        $data->date_create = $request->date_crt_cmt;
-        $data->img = $request->img;
+        $data->date_create = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+        $data->img = $request->img_rv;
         $data->save();
+        session()->flash('success','Gửi thành công');
         return back();
     }
 }

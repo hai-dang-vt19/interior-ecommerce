@@ -56,17 +56,14 @@ class checkoutContorller extends Controller
                 $done = "GD thành công";
                 $cart = cart::all()->where('id_cart_user','CART_CS'.Auth::user()->user_id);
                 foreach($cart as $crt){
-                    // if($crt->sales == 0){
-                    //     $price_all = $crt->total;
-                    // }else{
-                    //     $price_all = $crt->sales;
-                    // }
                     $pr_service = city::where('name_city',Auth::user()->city)->get();
                     foreach($pr_service as $price_service){
                         bill::create([
                             'id_bill'=>$vnp_TxnRef,
                             'id_product'=>$crt->id_product,
                             'name_product'=>$crt->name_product,
+                            'type_product'=>$crt->type_product,
+                            'image_product'=>$crt->image_product,
                             'amount'=>$crt->amount_product,
                             // 'price'=>$price_all,
                             'price'=>$crt->price_product,
@@ -86,71 +83,54 @@ class checkoutContorller extends Controller
                         ]);
                     }
                     //**** 1 thêm vào data sản phẩm nổi bật */
-                        $today = Carbon::now('Asia/Ho_Chi_Minh');
-                        $product_famous = product_famous::all()->where('id_product',$crt->id_product)
-                                                            ->where('day_c',$today->day)
-                                                            ->where('month_c',$today->month)
-                                                            ->where('year_c',$today->year);
-                        $sum_amount = $product_famous->sum('amount_bill');
-                        $samt = $sum_amount+1;
-                        product_famous::updateOrCreate([
-                            'id_product'=>$crt->id_product
-                        ],[
-                            'amount_bill'=>$samt,
-                            'day_c'=>$today->day,
-                            'month_c'=>$today->month,
-                            'year_c'=>$today->year
-                        ]);
+                        // $today = Carbon::now('Asia/Ho_Chi_Minh');
+                        // $product_famous = product_famous::all()->where('id_product',$crt->id_product)
+                        //                                     ->where('day_c',$today->day)
+                        //                                     ->where('month_c',$today->month)
+                        //                                     ->where('year_c',$today->year);
+                        // $sum_amount = $product_famous->sum('amount_bill');
+                        // $samt = $sum_amount+1;
+                        // product_famous::updateOrCreate([
+                        //     'id_product'=>$crt->id_product
+                        // ],[
+                        //     'amount_bill'=>$samt,
+                        //     'day_c'=>$today->day,
+                        //     'month_c'=>$today->month,
+                        //     'year_c'=>$today->year
+                        // ]);
                     //*** Xuwr lys theem data khasch hangf nooir abat */
-                        $user_famous = user_famous::all()->where('user_id',Auth::user()->user_id)
-                                                        ->where('day_c',$today->day)
-                                                        ->where('month_c',$today->month)
-                                                        ->where('year_c',$today->year);
-                        $sum_amount_us = $user_famous->sum('amount_user');
-                        $samtus = $sum_amount_us+1;
-                        $sum_total_u = $user_famous->sum('total');
-                        $total_u_f = $sum_total_u + $vnp_Amount;
-                        user_famous::updateOrCreate([
-                            'user_id'=>Auth::user()->user_id
-                        ],[
-                            'username'=>Auth::user()->name,
-                            'amount_user'=>$samtus,
-                            'day_c'=>$today->day,
-                            'month_c'=>$today->month,
-                            'year_c'=>$today->year,
-                            'total'=>$total_u_f
-                        ]);
+                    //     $user_famous = user_famous::all()->where('user_id',Auth::user()->user_id)
+                    //                                     ->where('day_c',$today->day)
+                    //                                     ->where('month_c',$today->month)
+                    //                                     ->where('year_c',$today->year);
+                    //     $sum_amount_us = $user_famous->sum('amount_user');
+                    //     $samtus = $sum_amount_us+1;
+                    //     $sum_total_u = $user_famous->sum('total');
+                    //     $total_u_f = $sum_total_u + $vnp_Amount;
+                    //     user_famous::updateOrCreate([
+                    //         'user_id'=>Auth::user()->user_id
+                    //     ],[
+                    //         'username'=>Auth::user()->name,
+                    //         'amount_user'=>$samtus,
+                    //         'day_c'=>$today->day,
+                    //         'month_c'=>$today->month,
+                    //         'year_c'=>$today->year,
+                    //         'total'=>$total_u_f
+                    //     ]);
                                                         
-                    cart::where('id_cart_user','CART_CS'.Auth::user()->user_id)->delete();
+                    // cart::where('id_cart_user','CART_CS'.Auth::user()->user_id)->delete();
                 }
-                $get_data_for_bill = bill::all()->where('id_bill',$vnp_TxnRef);
-                foreach($get_data_for_bill as $gdtfb){
-                    $date_bill = $gdtfb->date_create;
-                    $vnp_TxnRef_bill = $request->id;
-                    $vnp_BankCode_bill = $gdtfb->bank;
-                    $vnp_BankTranNo_bill = $gdtfb->code_bank;
-                    $vnp_TransactionNo_bill = $gdtfb->code_vnpay;
-                    $vnp_CardType_bill = $gdtfb->method;
-                    
-                    $name_bill = $gdtfb->username;
-                    $email_bill = $gdtfb->email;
-                    $phone_bill = $gdtfb->phone;
-                    $address_bill = $gdtfb->address;
-                    session()->flash('gd', $done);
-                    return view('interiors.blocks.bill', compact('get_data_for_bill','date_bill','vnp_TxnRef','vnp_BankCode',
-                    'vnp_BankTranNo','vnp_TransactionNo','vnp_CardType','vnp_Amount','done','vnp_TxnRef_bill','vnp_BankCode_bill',
-                    'vnp_BankTranNo_bill','vnp_TransactionNo_bill','vnp_CardType_bill','name_bill','email_bill','phone_bill','address_bill'));
-                }
-                // dd($get_data_for_bill);
+                session()->flash('success', $done);
+                return back();
             } 
             else {
                 $done = "GD Không thành công";
-                session()->flash('gd', $done);
+                session()->flash('error', $done);
                 return redirect()->route('cart');
                 }
         } else {
             $done = "Chữ ký không hợp lệ";
-            session()->flash('gd', $done);
+            session()->flash('error', $done);
             return redirect()->route('cart');
         }
     }
@@ -199,6 +179,8 @@ class checkoutContorller extends Controller
                             'id_bill'=>$vnp_TxnRef,
                             'id_product'=>$crt->id_product,
                             'name_product'=>$crt->name_product,
+                            'type_product'=>$crt->type_product,
+                            'image_product'=>$crt->image_product,
                             'amount'=>$crt->amount_product,
                             // 'price'=>$price_all,
                             'price'=>$crt->price_product,
@@ -272,282 +254,239 @@ class checkoutContorller extends Controller
             return redirect()->route('cart');
         }
     }
-    public function vnpay_payment(Request $request)
-    {
-        $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        $vnp_Returnurl = "http://127.0.0.1:8000/return-vnpay";
-        $vnp_TmnCode = "HEYD7Y8N";//Mã website tại VNPAY 
-        $vnp_HashSecret = "XJZONSMCWFAWVKHFSCLGCCIUIPLNCUPN"; //Chuỗi bí mật
-        
-        $vnp_TxnRef = 'ICS0'.time(); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
-        $vnp_OrderInfo = 'Thanh toán qua VNPAY';
-        $vnp_OrderType = 'billpayment';
-        $vnp_Amount = $request->total_vnpay * 100;
-        $vnp_Locale = 'vn';
-        $vnp_BankCode = "NCB";
-        // $vnp_BankCode = 'VNPAYQR';
-        $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
-        $inputData = array(
-            "vnp_Version" => "2.1.0",
-            "vnp_TmnCode" => $vnp_TmnCode,
-            "vnp_Amount" => $vnp_Amount,
-            "vnp_Command" => "pay",
-            "vnp_CreateDate" => date('YmdHis'),
-            "vnp_CurrCode" => "VND",
-            "vnp_IpAddr" => $vnp_IpAddr,
-            "vnp_Locale" => $vnp_Locale,
-            "vnp_OrderInfo" => $vnp_OrderInfo,
-            "vnp_OrderType" => $vnp_OrderType,
-            "vnp_ReturnUrl" => $vnp_Returnurl,
-            "vnp_TxnRef" => $vnp_TxnRef
-        );
-        
-        if (isset($vnp_BankCode) && $vnp_BankCode != "") {
-            $inputData['vnp_BankCode'] = $vnp_BankCode;
+    public function pay_all(Request $request) {
+        $checkMethod = $request->checkMethodAll;
+        if(empty($checkMethod)){
+            session()->flash('error','Bạn chưa chọn phương thức thanh toán !');
+            return back();
         }
-        if (isset($vnp_Bill_State) && $vnp_Bill_State != "") {
-            $inputData['vnp_Bill_State'] = $vnp_Bill_State;
-        }
-        
-        //var_dump($inputData);
-        ksort($inputData);
-        $query = "";
-        $i = 0;
-        $hashdata = "";
-        foreach ($inputData as $key => $value) {
-            if ($i == 1) {
-                $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
-            } else {
-                $hashdata .= urlencode($key) . "=" . urlencode($value);
-                $i = 1;
+        if(!empty($request->discountAll)){
+            $dis = discount::where('name_discount',$request->discountAll)->where('status_discount','Phát hành')->sum('price');
+            if($dis == 0){
+                session()->flash('warning','Mã giảm giá không tồn tại');
+                return back();
             }
-            $query .= urlencode($key) . "=" . urlencode($value) . '&';
+            $new_total = $request->totalAll*((100-$dis)/100);
+        }else{
+            $new_total = $request->totalAll;
         }
-        
-        $vnp_Url = $vnp_Url . "?" . $query;
-        if (isset($vnp_HashSecret)) {
-            $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret);//  
-            $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
-        }
-        $returnData = array('code' => '00'
-            , 'message' => 'success'
-            , 'data' => $vnp_Url);
-            if (isset($_POST['redirect'])) {// thêm name='redirect' vào nút thanh toán vnpay
-            // if (isset($request->redirect)) {// thêm name='redirect' vào nút thanh toán vnpay
-                header('Location: ' . $vnp_Url);
-                die();
-            } else {
-                echo json_encode($returnData);
+        // dd($checkMethod);
+
+        if ($checkMethod == 'ATM') {
+            $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+            // $vnp_Returnurl = "https://localhost/vnpay_php/vnpay_return.php";
+            $vnp_Returnurl = "http://127.0.0.1:8000/return-vnpay";
+            $vnp_TmnCode = "HEYD7Y8N";//Mã website tại VNPAY 
+            $vnp_HashSecret = "XJZONSMCWFAWVKHFSCLGCCIUIPLNCUPN"; //Chuỗi bí mật
+            
+            $vnp_TxnRef = 'ICS0'.time(); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
+            $vnp_OrderInfo = 'Thanh toán qua VNPAY';
+            $vnp_OrderType = 'billpayment';
+            $vnp_Amount = $new_total * 100;
+            $vnp_Locale = 'vn';
+            // $vnp_BankCode = "NCB";
+            $vnp_BankCode = 'NCB';
+            $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
+            $inputData = array(
+                "vnp_Version" => "2.1.0",
+                "vnp_TmnCode" => $vnp_TmnCode,
+                "vnp_Amount" => $vnp_Amount,
+                "vnp_Command" => "pay",
+                "vnp_CreateDate" => date('YmdHis'),
+                "vnp_CurrCode" => "VND",
+                "vnp_IpAddr" => $vnp_IpAddr,
+                "vnp_Locale" => $vnp_Locale,
+                "vnp_OrderInfo" => $vnp_OrderInfo,
+                "vnp_OrderType" => $vnp_OrderType,
+                "vnp_ReturnUrl" => $vnp_Returnurl,
+                "vnp_TxnRef" => $vnp_TxnRef
+            );
+            
+            if (isset($vnp_BankCode) && $vnp_BankCode != "") {
+                $inputData['vnp_BankCode'] = $vnp_BankCode;
             }
-            // vui lòng tham khảo thêm tại code demo
-    }
-    public function vnpay_payment_qr(Request $request)
-    {
-        $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        // $vnp_Returnurl = "https://localhost/vnpay_php/vnpay_return.php";
-        $vnp_Returnurl = "http://127.0.0.1:8000/return-vnpay";
-        $vnp_TmnCode = "HEYD7Y8N";//Mã website tại VNPAY 
-        $vnp_HashSecret = "XJZONSMCWFAWVKHFSCLGCCIUIPLNCUPN"; //Chuỗi bí mật
-        
-        $vnp_TxnRef = 'ICS0'.time(); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
-        $vnp_OrderInfo = 'Thanh toán qua VNPAY';
-        $vnp_OrderType = 'billpayment';
-        $vnp_Amount = $request->total_vnpay * 100;
-        $vnp_Locale = 'vn';
-        // $vnp_BankCode = "NCB";
-        $vnp_BankCode = 'VNPAYQR';
-        $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
-        $inputData = array(
-            "vnp_Version" => "2.1.0",
-            "vnp_TmnCode" => $vnp_TmnCode,
-            "vnp_Amount" => $vnp_Amount,
-            "vnp_Command" => "pay",
-            "vnp_CreateDate" => date('YmdHis'),
-            "vnp_CurrCode" => "VND",
-            "vnp_IpAddr" => $vnp_IpAddr,
-            "vnp_Locale" => $vnp_Locale,
-            "vnp_OrderInfo" => $vnp_OrderInfo,
-            "vnp_OrderType" => $vnp_OrderType,
-            "vnp_ReturnUrl" => $vnp_Returnurl,
-            "vnp_TxnRef" => $vnp_TxnRef
-        );
-        
-        if (isset($vnp_BankCode) && $vnp_BankCode != "") {
-            $inputData['vnp_BankCode'] = $vnp_BankCode;
-        }
-        if (isset($vnp_Bill_State) && $vnp_Bill_State != "") {
-            $inputData['vnp_Bill_State'] = $vnp_Bill_State;
-        }
-        
-        //var_dump($inputData);
-        ksort($inputData);
-        $query = "";
-        $i = 0;
-        $hashdata = "";
-        foreach ($inputData as $key => $value) {
-            if ($i == 1) {
-                $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
-            } else {
-                $hashdata .= urlencode($key) . "=" . urlencode($value);
-                $i = 1;
+            if (isset($vnp_Bill_State) && $vnp_Bill_State != "") {
+                $inputData['vnp_Bill_State'] = $vnp_Bill_State;
             }
-            $query .= urlencode($key) . "=" . urlencode($value) . '&';
-        }
-        
-        $vnp_Url = $vnp_Url . "?" . $query;
-        if (isset($vnp_HashSecret)) {
-            $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret);//  
-            $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
-        }
-        $returnData = array('code' => '00'
-            , 'message' => 'success'
-            , 'data' => $vnp_Url);
-            if (isset($_POST['redirect'])) {// thêm name='redirect' vào nút thanh toán vnpay
-            // if (isset($request->redirect)) {// thêm name='redirect' vào nút thanh toán vnpay
-                header('Location: ' . $vnp_Url);
-                die();
-            } else {
-                echo json_encode($returnData);
+            
+            //var_dump($inputData);
+            ksort($inputData);
+            $query = "";
+            $i = 0;
+            $hashdata = "";
+            foreach ($inputData as $key => $value) {
+                if ($i == 1) {
+                    $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
+                } else {
+                    $hashdata .= urlencode($key) . "=" . urlencode($value);
+                    $i = 1;
+                }
+                $query .= urlencode($key) . "=" . urlencode($value) . '&';
             }
-            // vui lòng tham khảo thêm tại code demo
-    }
-    public function vnpay_payment_don_atm(Request $request)
-    {
-        $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        // $vnp_Returnurl = "https://localhost/vnpay_php/vnpay_return.php";
-        $vnp_Returnurl = "http://127.0.0.1:8000/return-vnpay-don";
-        $vnp_TmnCode = "HEYD7Y8N";//Mã website tại VNPAY 
-        $vnp_HashSecret = "XJZONSMCWFAWVKHFSCLGCCIUIPLNCUPN"; //Chuỗi bí mật
-        
-        $vnp_TxnRef = 'ICS0'.time(); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
-        $vnp_OrderInfo = $request->total_vnpay_idpr;
-        $vnp_OrderType = 'billpayment';
-        $vnp_Amount = $request->total_vnpay * 100;
-        $vnp_Locale = 'vn';
-        $vnp_BankCode = "NCB";
-        // $vnp_BankCode = 'VNPAYQR';
-        $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
-        $inputData = array(
-            "vnp_Version" => "2.1.0",
-            "vnp_TmnCode" => $vnp_TmnCode,
-            "vnp_Amount" => $vnp_Amount,
-            "vnp_Command" => "pay",
-            "vnp_CreateDate" => date('YmdHis'),
-            "vnp_CurrCode" => "VND",
-            "vnp_IpAddr" => $vnp_IpAddr,
-            "vnp_Locale" => $vnp_Locale,
-            "vnp_OrderInfo" => $vnp_OrderInfo,
-            "vnp_OrderType" => $vnp_OrderType,
-            "vnp_ReturnUrl" => $vnp_Returnurl,
-            "vnp_TxnRef" => $vnp_TxnRef
-        );
-        
-        if (isset($vnp_BankCode) && $vnp_BankCode != "") {
-            $inputData['vnp_BankCode'] = $vnp_BankCode;
-        }
-        if (isset($vnp_Bill_State) && $vnp_Bill_State != "") {
-            $inputData['vnp_Bill_State'] = $vnp_Bill_State;
-        }
-        
-        //var_dump($inputData);
-        ksort($inputData);
-        $query = "";
-        $i = 0;
-        $hashdata = "";
-        foreach ($inputData as $key => $value) {
-            if ($i == 1) {
-                $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
-            } else {
-                $hashdata .= urlencode($key) . "=" . urlencode($value);
-                $i = 1;
+            
+            $vnp_Url = $vnp_Url . "?" . $query;
+            if (isset($vnp_HashSecret)) {
+                $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret);//  
+                $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
             }
-            $query .= urlencode($key) . "=" . urlencode($value) . '&';
-        }
-        
-        $vnp_Url = $vnp_Url . "?" . $query;
-        if (isset($vnp_HashSecret)) {
-            $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret);//  
-            $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
-        }
-        $returnData = array('code' => '00'
-            , 'message' => 'success'
-            , 'data' => $vnp_Url);
-            if (isset($_POST['redirect'])) {// thêm name='redirect' vào nút thanh toán vnpay
-            // if (isset($request->redirect)) {// thêm name='redirect' vào nút thanh toán vnpay
-                header('Location: ' . $vnp_Url);
-                die();
-            } else {
-                echo json_encode($returnData);
+            $returnData = array('code' => '00'
+                , 'message' => 'success'
+                , 'data' => $vnp_Url);
+                if (isset($_POST['redirect'])) {// thêm name='redirect' vào nút thanh toán vnpay
+                // if (isset($request->redirect)) {// thêm name='redirect' vào nút thanh toán vnpay
+                    header('Location: ' . $vnp_Url);
+                    die();
+                } else {
+                    echo json_encode($returnData);
+                }
+        }elseif($checkMethod == 'QR') {
+            $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+            // $vnp_Returnurl = "https://localhost/vnpay_php/vnpay_return.php";
+            $vnp_Returnurl = "http://127.0.0.1:8000/return-vnpay";
+            $vnp_TmnCode = "HEYD7Y8N";//Mã website tại VNPAY 
+            $vnp_HashSecret = "XJZONSMCWFAWVKHFSCLGCCIUIPLNCUPN"; //Chuỗi bí mật
+            
+            $vnp_TxnRef = 'ICS0'.time(); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
+            $vnp_OrderInfo = 'Thanh toán qua VNPAY';
+            $vnp_OrderType = 'billpayment';
+            $vnp_Amount = $new_total * 100;
+            $vnp_Locale = 'vn';
+            // $vnp_BankCode = "NCB";
+            $vnp_BankCode = 'VNPAYQR';
+            $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
+            $inputData = array(
+                "vnp_Version" => "2.1.0",
+                "vnp_TmnCode" => $vnp_TmnCode,
+                "vnp_Amount" => $vnp_Amount,
+                "vnp_Command" => "pay",
+                "vnp_CreateDate" => date('YmdHis'),
+                "vnp_CurrCode" => "VND",
+                "vnp_IpAddr" => $vnp_IpAddr,
+                "vnp_Locale" => $vnp_Locale,
+                "vnp_OrderInfo" => $vnp_OrderInfo,
+                "vnp_OrderType" => $vnp_OrderType,
+                "vnp_ReturnUrl" => $vnp_Returnurl,
+                "vnp_TxnRef" => $vnp_TxnRef
+            );
+            
+            if (isset($vnp_BankCode) && $vnp_BankCode != "") {
+                $inputData['vnp_BankCode'] = $vnp_BankCode;
             }
-    }
-    public function vnpay_payment_don_qr(Request $request)
-    {
-        $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        // $vnp_Returnurl = "https://localhost/vnpay_php/vnpay_return.php";
-        $vnp_Returnurl = "http://127.0.0.1:8000/return-vnpay-don";
-        $vnp_TmnCode = "HEYD7Y8N";//Mã website tại VNPAY 
-        $vnp_HashSecret = "XJZONSMCWFAWVKHFSCLGCCIUIPLNCUPN"; //Chuỗi bí mật
-        
-        $vnp_TxnRef = 'ICS0'.time(); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
-        $vnp_OrderInfo = 'Thanh toán qua VNPAY';
-        $vnp_OrderType = 'billpayment';
-        $vnp_Amount = $request->total_vnpay * 100;
-        $vnp_Locale = 'vn';
-        // $vnp_BankCode = "NCB";
-        $vnp_BankCode = 'VNPAYQR';
-        $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
-        $inputData = array(
-            "vnp_Version" => "2.1.0",
-            "vnp_TmnCode" => $vnp_TmnCode,
-            "vnp_Amount" => $vnp_Amount,
-            "vnp_Command" => "pay",
-            "vnp_CreateDate" => date('YmdHis'),
-            "vnp_CurrCode" => "VND",
-            "vnp_IpAddr" => $vnp_IpAddr,
-            "vnp_Locale" => $vnp_Locale,
-            "vnp_OrderInfo" => $vnp_OrderInfo,
-            "vnp_OrderType" => $vnp_OrderType,
-            "vnp_ReturnUrl" => $vnp_Returnurl,
-            "vnp_TxnRef" => $vnp_TxnRef
-        );
-        
-        if (isset($vnp_BankCode) && $vnp_BankCode != "") {
-            $inputData['vnp_BankCode'] = $vnp_BankCode;
-        }
-        if (isset($vnp_Bill_State) && $vnp_Bill_State != "") {
-            $inputData['vnp_Bill_State'] = $vnp_Bill_State;
-        }
-        
-        //var_dump($inputData);
-        ksort($inputData);
-        $query = "";
-        $i = 0;
-        $hashdata = "";
-        foreach ($inputData as $key => $value) {
-            if ($i == 1) {
-                $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
-            } else {
-                $hashdata .= urlencode($key) . "=" . urlencode($value);
-                $i = 1;
+            if (isset($vnp_Bill_State) && $vnp_Bill_State != "") {
+                $inputData['vnp_Bill_State'] = $vnp_Bill_State;
             }
-            $query .= urlencode($key) . "=" . urlencode($value) . '&';
-        }
-        
-        $vnp_Url = $vnp_Url . "?" . $query;
-        if (isset($vnp_HashSecret)) {
-            $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret);//  
-            $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
-        }
-        $returnData = array('code' => '00'
-            , 'message' => 'success'
-            , 'data' => $vnp_Url);
-            if (isset($_POST['redirect'])) {// thêm name='redirect' vào nút thanh toán vnpay
-            // if (isset($request->redirect)) {// thêm name='redirect' vào nút thanh toán vnpay
-                header('Location: ' . $vnp_Url);
-                die();
-            } else {
-                echo json_encode($returnData);
+            
+            //var_dump($inputData);
+            ksort($inputData);
+            $query = "";
+            $i = 0;
+            $hashdata = "";
+            foreach ($inputData as $key => $value) {
+                if ($i == 1) {
+                    $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
+                } else {
+                    $hashdata .= urlencode($key) . "=" . urlencode($value);
+                    $i = 1;
+                }
+                $query .= urlencode($key) . "=" . urlencode($value) . '&';
             }
+            
+            $vnp_Url = $vnp_Url . "?" . $query;
+            if (isset($vnp_HashSecret)) {
+                $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret);//  
+                $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
+            }
+            $returnData = array('code' => '00'
+                , 'message' => 'success'
+                , 'data' => $vnp_Url);
+                if (isset($_POST['redirect'])) {// thêm name='redirect' vào nút thanh toán vnpay
+                // if (isset($request->redirect)) {// thêm name='redirect' vào nút thanh toán vnpay
+                    header('Location: ' . $vnp_Url);
+                    die();
+                } else {
+                    echo json_encode($returnData);
+                }
+        }elseif($checkMethod == 'COD'){
+
+            $id_bill = $request->id_billAll;
+            $username= $request->usernameAll;
+            $email= $request->emailAll;
+            $phone= $request->phoneAll;
+            $date_create= $request->date_createAll;
+            $method= $request->methodAll;
+            $address= $request->addressAll;
+            $status_product_bill = $request->status_product_billAll;
+
+                $cartAll = cart::all()->where('id_cart_user','CART_CS'.Auth::user()->user_id);
+                foreach($cartAll as $crt){
+                    bill::create([
+                        'id_bill'=>$id_bill,
+                        'id_product'=>$crt->id_product,
+                        'name_product'=>$crt->name_product,
+                        'type_product'=>$crt->type_product,
+                        'image_product'=>$crt->image_product,
+                        'amount'=>$crt->amount_product,
+                        'price'=>$crt->price_product,
+                        'username'=>$username,
+                        'email'=>$email,
+                        'phone'=>$phone,
+                        'date_create'=>$date_create,
+                        'year_create'=>Carbon::now('Asia/Ho_Chi_Minh')->year,
+                        'method'=>$method,
+                        'price_service'=>$request->price_serviceAll,
+                        'address'=>$address,
+                        'total'=>$new_total,
+                        'status_product_bill'=>$status_product_bill
+                    ]);
+                }
+                //**** 1 thêm vào data sản phẩm nổi bật */
+                    // $today = Carbon::now('Asia/Ho_Chi_Minh');
+                    // $product_famous = product_famous::all()->where('id_product',$id_product)
+                    //                                     ->where('day_c',$today->day)
+                    //                                     ->where('month_c',$today->month)
+                    //                                     ->where('year_c',$today->year);
+                    // $sum_amount = $product_famous->sum('amount_bill');
+                    // $samt = $sum_amount+1;
+                    // product_famous::updateOrCreate([
+                    //     'id_product'=>$id_product
+                    // ],[
+                    //     'amount_bill'=>$samt,
+                    //     'day_c'=>$today->day,
+                    //     'month_c'=>$today->month,
+                    //     'year_c'=>$today->year
+                    // ]);
+                //*** Xuwr lys theem data khasch hangf nooir abat */
+                //         $get_tb = bill::where('id_bill',$request->id_bill)->distinct()->sum('total');
+                //         $user_famous = user_famous::all()->where('user_id',Auth::user()->user_id)
+                //                                         ->where('day_c',$today->day)
+                //                                         ->where('month_c',$today->month)
+                //                                         ->where('year_c',$today->year);
+                //         $sum_amount_us = $user_famous->sum('amount_user');
+                //         $samtus = $sum_amount_us+1;
+                //         $sum_total_u = $user_famous->sum('total');
+                //         $total_u_f = $sum_total_u + $get_tb;
+                //         user_famous::updateOrCreate([
+                //             'user_id'=>Auth::user()->user_id
+                //         ],[
+                //             'username'=>Auth::user()->name,
+                //             'amount_user'=>$samtus,
+                //             'day_c'=>$today->day,
+                //             'month_c'=>$today->month,
+                //             'year_c'=>$today->year,
+                //             'total'=>$total_u_f
+                //         ]);
+                // cart::where('id_cart_user','CART_CS'.Auth::user()->user_id)->where('id_product',$id_product)->delete();
+            
+            session()->flash('success','Đặt hàng thành công');
+            return back();
+            // session()->flash('error','Chức năng COD chưa hoạt động');
+            // return back();
+        }else{
+            session()->flash('error','Đặt hàng không thành công');
+            return back();
+        }
+        session()->flash('warning','Lỗi hệ thống');
+        return back();
     }
 
     public function pay_don(Request $request) {
@@ -556,7 +495,16 @@ class checkoutContorller extends Controller
             session()->flash('error','Bạn chưa chọn phương thức thanh toán !');
             return back();
         }
-
+        if(!empty($request->discount)){
+            $dis = discount::where('name_discount',$request->discount)->where('status_discount','Phát hành')->sum('price');
+            if($dis == 0){
+                session()->flash('warning','Mã giảm giá không tồn tại');
+                return back();
+            }
+            $new_total = $request->total*((100-$dis)/100);
+        }else{
+            $new_total = $request->total;
+        }
         // dd($checkMethod);
 
         if ($checkMethod == 'ATM') {
@@ -568,9 +516,9 @@ class checkoutContorller extends Controller
             $vnp_HashSecret = "XJZONSMCWFAWVKHFSCLGCCIUIPLNCUPN"; //Chuỗi bí mật
             
             $vnp_TxnRef = 'ICS0'.time(); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
-            $vnp_OrderInfo = $request->total_vnpay_idpr;
+            $vnp_OrderInfo = $request->id_product;
             $vnp_OrderType = 'billpayment';
-            $vnp_Amount = $request->total_vnpay * 100;
+            $vnp_Amount = $new_total * 100;
             $vnp_Locale = 'vn';
             $vnp_BankCode = "NCB";
             // $vnp_BankCode = 'VNPAYQR';
@@ -637,7 +585,7 @@ class checkoutContorller extends Controller
             $vnp_TxnRef = 'ICS0'.time(); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
             $vnp_OrderInfo = 'Thanh toán qua VNPAY';
             $vnp_OrderType = 'billpayment';
-            $vnp_Amount = $request->total_vnpay * 100;
+            $vnp_Amount = $new_total * 100;
             $vnp_Locale = 'vn';
             // $vnp_BankCode = "NCB";
             $vnp_BankCode = 'VNPAYQR';
@@ -707,15 +655,17 @@ class checkoutContorller extends Controller
             $date_create= $request->date_create;
             $method= $request->method;
             $address= $request->address;
-            $total = $request->total;
+            // $total = $request->total;
             $status_product_bill = $request->status_product_bill;
+            $images = $request->images;
+            $types = $request->types;
 
-            $pr_service = city::where('name_city',Auth::user()->city)->get();
-            foreach($pr_service as $price_service){
                 bill::create([
                     'id_bill'=>$id_bill,
                     'id_product'=>$id_product,
                     'name_product'=>$name_product,
+                    'type_product'=>$types,
+                    'image_product'=>$images,
                     'amount'=>$amount_product,
                     'price'=>$price,
                     'username'=>$username,
@@ -724,9 +674,9 @@ class checkoutContorller extends Controller
                     'date_create'=>$date_create,
                     'year_create'=>Carbon::now('Asia/Ho_Chi_Minh')->year,
                     'method'=>$method,
-                    'price_service'=>$price_service->price,
+                    'price_service'=>$request->price_service,
                     'address'=>$address,
-                    'total'=>$total,
+                    'total'=>$new_total,
                     'status_product_bill'=>$status_product_bill
                 ]);
                 //**** 1 thêm vào data sản phẩm nổi bật */
@@ -766,17 +716,27 @@ class checkoutContorller extends Controller
                 //             'total'=>$total_u_f
                 //         ]);
                 // cart::where('id_cart_user','CART_CS'.Auth::user()->user_id)->where('id_product',$id_product)->delete();
-            }
+            
             session()->flash('success','Đặt hàng thành công');
             return back();
             // session()->flash('error','Chức năng COD chưa hoạt động');
             // return back();
         }else{
-            session()->flash('error','Lỗi hệ thống');
+            session()->flash('error','Đặt hàng không thành công');
             return back();
         }
+        session()->flash('warning','Lỗi hệ thống');
+        return back();
+    }
 
-        return;
+    public function ship_done(Request $request)
+    {
+        // dd($request->all());
+        bill::where('id_bill',$request->id_bill)->update([
+            'status_product_bill'=>'4'
+        ]);
+        session()->flash('success', 'Cảm ơn bạn đã tin tưởng và sử dụng sản phẩm của chúng tôi.');
+        return back();
     }
 
 // -------------------------------------- dashboard
@@ -964,14 +924,6 @@ class checkoutContorller extends Controller
         return redirect(route('cart'));
     }
 
-    public function ship_done(Request $request)
-    {
-        bill::where('id_bill',$request->id)->update([
-            'status_product_bill'=>'4'
-        ]);
-        session()->flash('ship_done', 'Cảm ơn bạn đã tin tưởng và sử dụng sản phẩm của chúng tôi.');
-        return back();
-    }
 
     public function bill_dashboad()
     {

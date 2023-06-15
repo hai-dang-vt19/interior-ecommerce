@@ -11,68 +11,71 @@
       </div>
     </div>
     <div class="row mb-5 justify-content-center">
-      <div class="col-md-8">
-        <div id="carouselExample-cf2"class="w-100 carousel carousel-dark slide carousel-fade"data-bs-ride="carousel">
-          <div class="carousel-inner d-block">
-            <div class="carousel-item d-flex justify-content-center active">
-              <div class="card">
-                  <div class="row g-0">
-                    <div class="col-md-4">
-                      <img class="card-img card-img-left" src="{{ asset('interior/assets/img/elements/13.jpg') }}" alt="Card image" />
-                    </div>
-                    <div class="col-md-8">
-                      <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text max_dot">
-                              This is a wider card with supporting text below as a natural lead-in to additional content.
-                              This content is a little bit longer.
-                            </p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                      </div>
+      <div class="col-lg-6">
+        <div class="swiper">
+          <!-- Additional required wrapper -->
+          <div class="swiper-wrapper">
+            <!-- Slides -->
+            @php
+            use Carbon\Carbon;
+            @endphp
+            @foreach ($comment as $item_cmt)
+            @php
+                Carbon::setLocale('vi');
+                $date_cre_cmt = Carbon::create($item_cmt->date_create);
+                $time_cmt_now = Carbon::now('Asia/Ho_Chi_Minh');
+            @endphp
+            <div class="swiper-slide">
+              <div class="card mb-3">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img class="card-img card-img-left" src="{{ asset('dashboard\upload_img\product/'.$item_cmt->img) }}"  style="width: 220px;height: 248px;" alt="Card image" />
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title">{{ $item_cmt->name_user }}</h5>
+                      <p><strong>Mã sản phẩm: {{ $item_cmt->id_product }}</strong></p>
+                      <p class="card-text">
+                        "{{ $item_cmt->descriptions }}"
+                      </p>
+                      <p class="card-text"><small class="text-muted">Ngày tạo: {{ Carbon::parse($item_cmt->date_create)->format('d/m/Y'); }} - {{ $date_cre_cmt->diffForHumans($time_cmt_now) }}</small></p>
                     </div>
                   </div>
+                </div>
               </div>
             </div>
-            <div class="carousel-item d-flex justify-content-center">
-              <div class="card">
-                  <div class="row g-0">
-                    <div class="col-md-4">
-                      <img class="card-img card-img-left" src="{{ asset('interior/assets/img/elements/12.jpg') }}" alt="Card image" />
-                    </div>
-                    <div class="col-md-8">
-                      <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text max_dot">
-                              This is a wider card with supporting text below as a natural lead-in to additional content.
-                              This content is a little bit longer.
-                            </p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                      </div>
-                    </div>
-                  </div>
-              </div>
-            </div>
-            <div class="carousel-item d-flex justify-content-center">
-              <div class="card">
-                  <div class="row g-0">
-                    <div class="col-md-4">
-                      <img class="card-img card-img-left" src="{{ asset('interior/assets/img/elements/11.jpg') }}" alt="Card image" />
-                    </div>
-                    <div class="col-md-8">
-                      <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text max_dot">
-                              This is a wider card with supporting text below as a natural lead-in to additional content.
-                              This content is a little bit longer.
-                            </p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                      </div>
-                    </div>
-                  </div>
-              </div>
-            </div>
+            @endforeach
           </div>
+
+          {{-- <div class="swiper-pagination"></div>
+          <div class="swiper-scrollbar"></div> --}}
         </div>
+        <script>
+          const swiper = new Swiper('.swiper', {
+            
+            // direction: 'horizontal', // ngang or dọc
+            loop: true, // vòng lặp
+
+            // If we need pagination
+            // pagination: {
+            //   el: '.swiper-pagination',
+            // },
+
+            // thanh scrollbar
+            // scrollbar: {
+            //   el: '.swiper-scrollbar',
+            // },
+            
+            effect: 'cards',
+            cardsEffect: {
+              // ...
+            },
+
+            // autoplay: {
+            //   delay: 3000,
+            // },
+          });
+        </script>
       </div>
     </div>
     <div class="row">

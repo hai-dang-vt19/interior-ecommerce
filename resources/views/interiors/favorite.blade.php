@@ -11,7 +11,7 @@
         <div class="layout-page">
           <!-- Navbar -->
           @include('interiors.blocks.navbar')
-          <div class="content-wrapper mt-4 ps-5">
+          <div class="content-wrapper mt-4">
             <!-- Content -->
             <div class="container mt-5">
               {{-- <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">UI elements /</span> Carousel</h4> --}}
