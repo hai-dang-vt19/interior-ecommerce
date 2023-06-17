@@ -1,4 +1,4 @@
-<div class="containers">
+{{-- <div class="containers">
     <div class="bubbles">
         <span style="--i:11;"></span>
         <span style="--i:30;"></span>
@@ -12,4 +12,4 @@
         <span style="--i:13;"></span>
         <span style="--i:31;"></span>
     </div>
-</div>
+</div> --}}

@@ -3,11 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\city;
+use App\Models\discount;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\history;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Files\Disk;
 
 class interiorPostController extends Controller
 {
@@ -21,6 +26,7 @@ class interiorPostController extends Controller
         ]);
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+            // dd($request->all());
             if (Auth::check()) {
                 if(Auth::user()->name_status == 1){
                     if(Auth::user()->name_roles == 'user'){
@@ -137,35 +143,34 @@ class interiorPostController extends Controller
         return redirect(route('contact'));
      }
      
-     public function update_profile_city_cart(Request $request)
-     {
-        User::where('id',$request->id)->update([
-            'district'=>$request->district,
-            'city'=>$request->city,
-            'province'=>$request->province
-        ]);
-        session()->flash('update_sc', 'Cập nhật thành công');
-        return redirect()->route('cart');
-     }
-     public function update_profile_city(Request $request)
-     {
-        // dd($request->all());
-        $provinces = city::all()->where('name_city',$request->city);
-        foreach($provinces as $pro){
-            User::where('id',$request->id)->update([
-                'email'=>$request->email,
-                'name'=>$request->name,
-                'sex_user'=>$request->sex_user,
-                'date_user'=>$request->date_user,
-                'phone'=>$request->phone,
-                'city'=>$request->city,
-                'district'=>$request->district,
-                'province'=>$pro->city_province
-            ]);
-        }
-        session()->flash('update_sc', 'Cập nhật thành công');
-        return redirect()->route('profile_user');
-     }
+    //  public function update_profile_city_cart(Request $request)
+    //  {
+    //     User::where('id',$request->id)->update([
+    //         'district'=>$request->district,
+    //         'city'=>$request->city,
+    //         'province'=>$request->province
+    //     ]);
+    //     session()->flash('update_sc', 'Cập nhật thành công');
+    //     return redirect()->route('cart');
+    //  }
+    //  public function update_profile_city(Request $request)
+    //  {
+    //     $provinces = city::all()->where('name_city',$request->city);
+    //     foreach($provinces as $pro){
+    //         User::where('id',$request->id)->update([
+    //             'email'=>$request->email,
+    //             'name'=>$request->name,
+    //             'sex_user'=>$request->sex_user,
+    //             'date_user'=>$request->date_user,
+    //             'phone'=>$request->phone,
+    //             'city'=>$request->city,
+    //             'district'=>$request->district,
+    //             'province'=>$pro->city_province
+    //         ]);
+    //     }
+    //     session()->flash('update_sc', 'Cập nhật thành công');
+    //     return redirect()->route('profile_user');
+    //  }
      public function update_password(Request $request)
      {
         $request->validate([
@@ -186,10 +191,74 @@ class interiorPostController extends Controller
         $old_pass = Auth::user()->password;
         if(Hash::check($pass_old, $old_pass)){
             $get_info->update(['password'=>Hash::make($pass_new)]);
-            session()->flash('tb_sc', 'Đổi mật khẩu thành công');
+            session()->flash('success', 'Đổi mật khẩu thành công');
         }else{
-            session()->flash('tb_er', 'Mật khẩu cũ không chính xác');
+            session()->flash('warning', 'Mật khẩu cũ không chính xác');
         }
         return back();
+     }
+
+     public function update_profile(Request $request){
+        $name = $request->name;
+        $email = $request->email;
+        $sex = $request->sx_us;
+        $date = Carbon::parse($request->date)->toDateString();
+        $phone = $request->phone;
+        $city = $request->city;
+        $district = $request->district;
+        
+        // dd($request->all());
+        if($city == Auth::user()->city ){
+            $getCity = city::all()->where('name_city',$city);
+        }else{
+            $getCity = city::all()->where('id',$city);
+        }
+        foreach($getCity as $itmCity){
+            $data = User::find($request->id);
+            $data->email = $email;
+            $data->name = $name;
+            $data->sex_user = $sex;
+            $data->date_user = $date;
+            $data->city = $itmCity->name_city;
+            $data->province = $itmCity->city_province;
+            $data->district = $district;
+            $data->phone = $phone;
+
+            if($request->hasFile('images')){
+                $destination = 'dashboard/upload_img/user/'.Auth::user()->image;
+                if(File::exists($destination))
+                {
+                    File::delete($destination);
+                }
+                $file = $request -> file('images');
+                $name_file = $file -> getClientOriginalName();
+                $filename = 'IMG_CLUS_'.$request->id.'_'.$name_file;
+                $file -> move('dashboard/upload_img/user/',$filename);
+                $data -> image = $filename;
+            }
+            // if($request->hasFile('image')){
+            //     $file = $request -> file('image');
+            //     $extension = $file ->getClientOriginalExtension();
+            //     $filename = 'IMG_USER_'.Auth::user()->user_id.'_'.time().'.'.$extension;
+                
+            //     Storage::putFileAs('public/upload/user', $file, $filename);
+            //     $data -> image = $filename;
+            // }
+
+            $data->save();
+        }
+        session()->flash('success', 'Cập nhật thành công');
+        return back();
+     }
+     public function getDiscount(){
+        $discount = discount::all('id')->wh
+     }
+
+     public function lookup_user(){
+        User::where('id',Auth::user()->id)->update([
+            'name_status'=>0
+        ]);
+        session()->flash('success','Tài khoản của bạn đã bị khóa');
+        return redirect(route('logout'));
      }
 }

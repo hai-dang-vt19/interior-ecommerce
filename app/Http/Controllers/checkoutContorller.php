@@ -738,6 +738,129 @@ class checkoutContorller extends Controller
         session()->flash('success', 'Cảm ơn bạn đã tin tưởng và sử dụng sản phẩm của chúng tôi.');
         return back();
     }
+    public function destroy_bill(Request $request)
+    {
+        $year = Carbon::now('Asia/Ho_Chi_Minh')->year;
+        // thêm giá vào expenses_incurred, update status_bil = 0
+        bill::where('id_bill', $request->id)->update([
+            'status_product_bill'=>'0'
+        ]);
+
+        $today = Carbon::now('Asia/Ho_Chi_Minh');
+        $bill_amt = bill::all()->where('id_bill', $request->id);
+        foreach($bill_amt as $bill_a){
+            $id_product = $bill_a->id_product;
+            $product_old = product::where('id_product',$id_product)->sum('amount');
+            $amt = $product_old+$bill_a->amount;
+            product::where('id_product',$id_product)->update(['amount'=>$amt]);
+
+            //**** product famous */
+                // $product_famous = product_famous::all()->where('id_product',$bill_a->id_product)
+                //                                     ->where('day_c',$today->day)
+                //                                     ->where('month_c',$today->month)
+                //                                     ->where('year_c',$today->year);
+                // $sum_amount = $product_famous->sum('amount_bill');
+                // $samt = $sum_amount - $bill_a->amount;
+                // if($samt > 0){
+                //     product_famous::updateOrCreate([
+                //         'id_product'=>$bill_a->id_product
+                //     ],[
+                //         'amount_bill'=>$samt,
+                //         'day_c'=>$today->day,
+                //         'month_c'=>$today->month,
+                //         'year_c'=>$today->year,
+                //     ]);
+                // }else{
+                //     product_famous::updateOrCreate([
+                //         'id_product'=>$bill_a->id_product
+                //     ],[
+                //         'amount_bill'=>'0',
+                //         'day_c'=>$today->day,
+                //         'month_c'=>$today->month,
+                //         'year_c'=>$today->year,
+                //     ]);
+                // }
+            //*** user famous */
+                // $us = User::all()->where('email',$bill_a->email);
+                // if($us != "[]"){
+                //     foreach($us as $users){
+                //         $user_famous = user_famous::all()->where('user_id',$users->user_id)
+                //                                         ->where('day_c',$today->day)
+                //                                         ->where('month_c',$today->month)
+                //                                         ->where('year_c',$today->year);
+                //         $sum_amount_us = $user_famous->sum('amount_user');
+                //         $samtus = $sum_amount_us - $bill_a->amount;
+                //         $sum_total_u = $user_famous->sum('total');
+                //         $total_u_f = $sum_total_u - $bill_a->total;
+                //         if($total_u_f > 0){
+                //             user_famous::updateOrCreate([
+                //                 'user_id'=>$users->user_id
+                //             ],[
+                //                 'username'=>$users->name,
+                //                 'amount_user'=>$samtus,
+                //                 'day_c'=>$today->day,
+                //                 'month_c'=>$today->month,
+                //                 'year_c'=>$today->year,
+                //                 'total'=>$total_u_f
+                //             ]);
+                //         }else{
+                //             user_famous::updateOrCreate([
+                //                 'user_id'=>$users->user_id
+                //             ],[
+                //                 'username'=>$users->name,
+                //                 'amount_user'=>'0',
+                //                 'day_c'=>$today->day,
+                //                 'month_c'=>$today->month,
+                //                 'year_c'=>$today->year,
+                //                 'total'=>'0'
+                //             ]);
+                //         }
+                //     }
+                // }
+            //
+            // $check_ex = expense::all()->where('years',$year);
+            // $bill_price_service = bill::where('id_bill', $request->id)->distinct()->sum('price_service');
+            // if($check_ex == '[]'){
+            //     if($bill_a->status_product_bill == "1"){
+            //         expense::updateOrCreate(['years'=>$year,'expense_incurred'=>'0']);
+            //     }else{
+            //         foreach($check_ex as $check_e){
+            //             $incurred_old = $check_e->expense_incurred;
+            //         }
+            //         $incurred = $incurred_old+$bill_price_service;
+            //         expense::updateOrCreate([
+            //             'years'=>$year
+            //         ],[
+            //             'expense_incurred'=>$incurred
+            //         ]);
+            //     }
+            // }else{
+            //     if($bill_a->status_product_bill == "1"){
+            //         foreach($check_ex as $check_e){
+            //             $incurred_old = $check_e->expense_incurred;;
+            //         }
+            //         expense::updateOrCreate([
+            //             'years'=>$year,
+            //             'expense_incurred'=>$incurred_old
+            //         ]);
+            //         // echo '1 - '.$incurred_old;return;
+            //     }else{
+            //         foreach($check_ex as $check_e){
+            //             $incurred_old = $check_e->expense_incurred;
+            //         }
+            //         $incurred = $incurred_old+$bill_price_service;
+            //         expense::updateOrCreate([
+            //             'years'=>$year
+            //         ],[
+            //             'expense_incurred'=>$incurred
+            //         ]);
+            //         // echo '2 - '.$incurred;return;
+            //     }
+            // }
+        }
+        session()->flash('success', 'Hủy đơn hàng thành công');
+        return back();
+    }
 
 // -------------------------------------- dashboard
     public function checkout_cod(Request $request)

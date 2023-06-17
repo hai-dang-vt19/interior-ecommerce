@@ -6399,6 +6399,7 @@ label.btn {
   background-color: #66c732;
   border-color: #66c732;
   transform: translateY(-1px);
+  /* transform: skew(-2deg, -4deg); */
 }
 .btn-check:focus + .btn-success, .btn-success:focus, .btn-success.focus {
   color: #fff;

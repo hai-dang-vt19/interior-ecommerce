@@ -208,7 +208,6 @@ route::get('/xoa-di', function(){
     return view('interiors.sendmail');
 });
 
-Route::get('/interior/profile', [interiorController::class, 'profile'])->middleware(['can:client_inte','auth'])->name('profile');
 
 Route::get('/interior/cart', [interiorController::class, 'cart'])->middleware(['can:client_inte','auth'])->name('cart');
 Route::post('/interior/add/cart/{id}', [cartController::class,'add_cart'])->middleware(['can:client_inte','auth'])->name('add_cart');
@@ -240,6 +239,8 @@ Route::post('/interior/add/review', [productController::class, 'add_review'])->m
 
     Route::get('/return-vnpay', [checkoutContorller::class, 'return_vnpay'])->name('return_vnpay');
     Route::get('/return-vnpay-don', [checkoutContorller::class, 'return_vnpay_don'])->name('return_vnpay-don');
+
+    Route::get('/huydon{id}',[checkoutContorller::class, 'destroy_bill'])->middleware(['can:client_inte','auth'])->name('destroy_bill');
 // Thanh toans
 Route::get('/print-bill/{id}', [interiorController::class, 'print_bill'])->name('print_bill');
 
@@ -247,15 +248,18 @@ Route::get('/add-favorite/{id}', [favoriteController::class, 'create_favorite'])
 Route::get('/list-favorite', [interiorController::class, 'favorite_user'])->middleware(['can:client_inte','auth'])->name('favorite_user');
 Route::get('/destroy-favorite/{id}', [favoriteController::class, 'destroy_favorite_user'])->middleware(['can:client_inte','auth'])->name('destroy_favorite_user');
 
-Route::get('/profile-user', [interiorController::class, 'profile_user'])->middleware(['can:client_inte','auth'])->name('profile_user');
-Route::get('/update-profile', [interiorController::class, 'update_profile'])->middleware(['can:client_inte','auth'])->name('update_profile');
-Route::get('/update-profile-adr/{id}', [interiorController::class, 'update_profile2'])->middleware(['can:client_inte','auth'])->name('update_profile2');
-Route::get('/update-profile-opc/{id}', [interiorController::class, 'update_profile_opCart'])->middleware(['can:client_inte','auth'])->name('update_profile_opCart');
-Route::get('/update-profile-city/{id}', [interiorController::class, 'update_profile_get_city'])->middleware(['can:client_inte','auth'])->name('update_profile_get_city');
-Route::post('/update-profile-city-po/{id}', [interiorPostController::class, 'update_profile_city_cart'])->middleware(['can:client_inte','auth'])->name('update_profile_city_cart');
-Route::post('/update-profile-city-pro/{id}', [interiorPostController::class, 'update_profile_city'])->middleware(['can:client_inte','auth'])->name('update_profile_city');
+// Route::get('/profile-user', [interiorController::class, 'profile_user'])->middleware(['can:client_inte','auth'])->name('profile_user');
+// Route::get('/update-profile', [interiorController::class, 'update_profile'])->middleware(['can:client_inte','auth'])->name('update_profile');
+// Route::get('/update-profile-adr/{id}', [interiorController::class, 'update_profile2'])->middleware(['can:client_inte','auth'])->name('update_profile2');
+// Route::get('/update-profile-opc/{id}', [interiorController::class, 'update_profile_opCart'])->middleware(['can:client_inte','auth'])->name('update_profile_opCart');
+// Route::get('/update-profile-city/{id}', [interiorController::class, 'update_profile_get_city'])->middleware(['can:client_inte','auth'])->name('update_profile_get_city');
+// Route::post('/update-profile-city-po/{id}', [interiorPostController::class, 'update_profile_city_cart'])->middleware(['can:client_inte','auth'])->name('update_profile_city_cart');
+// Route::post('/update-profile-city-pro/{id}', [interiorPostController::class, 'update_profile_city'])->middleware(['can:client_inte','auth'])->name('update_profile_city');
+Route::get('/interior/profile', [interiorController::class, 'profile'])->middleware(['can:client_inte','auth'])->name('profile');
+Route::post('/interior/update/profile{id}', [interiorPostController::class, 'update_profile'])->middleware(['can:client_inte','auth'])->name('update_profile');
 
-Route::post('update_password', [interiorPostController::class, 'update_password'])->middleware('auth')->name('update_password');
+Route::post('update/password', [interiorPostController::class, 'update_password'])->middleware('can:client_inte','auth')->name('update_password');
+Route::get('lookup/user', [interiorPostController::class, 'lookup_user'])->middleware('can:client_inte','auth')->name('lookup_user');
 
 Route::get('/ship/done/', [checkoutContorller::class, 'ship_done'])->middleware(['can:client_inte','auth'])->name('ship_done');
 //Export excel

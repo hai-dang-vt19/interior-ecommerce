@@ -84,7 +84,7 @@
                                                                             </p>
                                                                         </div>
                                                                     </div>
-                                                                    <a href="#" class="btn btn-danger btn-xs float-end" onclick="return confirm('Bạn có chắc chắn hủy đơn này')">Hủy đơn hàng</a>
+                                                                    <a href="{{ route('destroy_bill', ['id'=>$itm_bill_start->id_bill]) }}" class="btn btn-danger btn-xs float-end" onclick="return confirm('Bạn có chắc chắn hủy đơn này')">Hủy đơn hàng</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -167,7 +167,7 @@
                                                                         <div class="col-lg-4 text-center">
                                                                             <h5 class="card-title">{{ $itm_bill_ship->id_bill }}</h5><br>
                                                                             <button class="btn btn-warning btn-sm rounded-3" data-bs-toggle="modal" data-bs-target="#{{ $itm_bill_ship->id_bill }}">Đang vận chuyển</button>
-                                                                            <button class="btn btn-danger btn-xs mt-1"><a href="#"  style="color: #ffffff"  onclick="return confirm('Bạn có chắc chắn hủy đơn này')">Hủy đơn hàng</a></button>
+                                                                            <button class="btn btn-danger btn-xs mt-1"><a href="{{ route('destroy_bill', ['id'=>$itm_bill_start->id_bill]) }}"  style="color: #ffffff"  onclick="return confirm('Bạn có chắc chắn hủy đơn này')">Hủy đơn hàng</a></button>
                                                                         </div>
                                                                         <div class="col-lg-1"></div>
                                                                         <div class="col-lg">
@@ -407,6 +407,8 @@
                                     <p>Đang lấy hàng: <span class="rounded-pill px-2 bg-secondary" style="color: #ffffff">{{ $start->count() }}</span></p>
                                     <p>Đơn vận chuyển: <span class="rounded-pill px-2 bg-warning" style="color: #ffffff">{{ $ship->count() }}</span></p>
                                     <p>Đơn thành công: <span class="rounded-pill px-2 bg-success" style="color: #ffffff">{{ $end->count() }}</span></p>
+                                    <hr>
+                                    <p class="fs-5 text-center">Tổng số đơn: <strong class="text-danger">{{ $start->count()+$ship->count()+$end->count() }}</strong></p>
                                 </div>
                             </div>
                         </div>

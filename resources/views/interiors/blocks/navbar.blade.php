@@ -73,20 +73,20 @@
               @if (Auth::user()->image == null)
                 <img src="{{ asset('interior\assets\img\avatars\7.png') }}" alt class="w-px-40 h-auto rounded-circle" />
               @else
-                <img src="{{ asset('interior\assets\img\avatars/'.Auth::user()->image) }}" alt class="w-px-40 h-auto rounded-circle" />  
+                <img src="{{ asset('dashboard/upload_img/user/'.Auth::user()->image) }}" alt class="w-px-40 h-auto rounded-circle" />  
               @endif
             </div>
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
             <li>
-              <a class="dropdown-item" href="#">
+              <a class="dropdown-item" href="{{ route('profile') }}">
                 <div class="d-flex">
                   <div class="flex-shrink-0 me-3">
                     <div class="avatar avatar-online">
                       @if (Auth::user()->image == null)
                         <img src="{{ asset('interior\assets\img\avatars\7.png') }}" alt class="w-px-40 h-auto rounded-circle" />
                       @else
-                        <img src="{{ asset('interior\assets\img\avatars/'.Auth::user()->image) }}" alt class="w-px-40 h-auto rounded-circle" />
+                        <img src="{{ asset('dashboard/upload_img/user/'.Auth::user()->image) }}" alt class="w-px-40 h-auto rounded-circle" />
                       @endif
                     </div>
                   </div>
@@ -159,7 +159,11 @@
       <div class="modal-content">
         <div class="modal-header">
           <div class="container justify-content-center">
-            <input type="text" class="form-control rounded-pill" placeholder="Nhập tên sản phẩm" name="key"/>
+            {{-- <input type="text" class="form-control rounded-pill" placeholder="Nhập tên sản phẩm" name="key"/> --}}
+            <div class="inputGroup">
+              <input type="text" required="" autocomplete="off" name="key">
+              <label for="name">Tìm kiếm tại đây</label>
+            </div>
           </div>
         </div>
         <div class="modal-body">
