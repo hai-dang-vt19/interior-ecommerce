@@ -42,10 +42,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
     {{-- <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'> --}}
+    @include('dashboards.blocks.head')
   </head>
 
-  <body>
-    <!-- Layout wrapper -->
+    <body>
+      @include('dashboards.blocks.fakeload')
+      <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
         <!-- Menu -->
@@ -396,5 +398,6 @@
           });
     </script>
     @endif
+    @include('dashboards.blocks.foo')
   </body>
 </html>

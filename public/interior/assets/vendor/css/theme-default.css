@@ -538,7 +538,6 @@ button.list-group-item-primary.active {
 .form-floating > .form-control:not(:-moz-placeholder-shown) ~ label {
   color: #696cff;
 }
-
 .form-floating > .form-control:focus ~ label,
 .form-floating > .form-control:not(:placeholder-shown) ~ label,
 .form-floating > .form-select ~ label {

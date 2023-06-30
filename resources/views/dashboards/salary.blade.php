@@ -41,9 +41,11 @@
     {{-- flat picker --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
+    @include('dashboards.blocks.head')
   </head>
 
-  <body>
+    <body>
+    @include('dashboards.blocks.fakeload')
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
@@ -168,5 +170,6 @@
           });
     </script>
     @endif
+    @include('dashboards.blocks.foo')
   </body>
 </html>

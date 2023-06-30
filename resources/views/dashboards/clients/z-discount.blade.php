@@ -38,9 +38,12 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('dashboard/assets/js/config.js') }}"></script>
+  {{-- loader --}}
+      <link rel="stylesheet" href="{{ asset('interior/fakeloader/src/fakeloader.css') }}">
   </head>
 
   <body>
+    @include('dashboards.blocks.fakeload')
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
@@ -139,6 +142,16 @@
                                 </div>
                               </div>
                             </div>
+                            {{-- <div class="row mb-3 fs-6 px-3">
+                              
+                              <div class="form-check form-switch mb-2">
+                                <input class="form-check-input" type="checkbox" value="1" id="checkSendMail" name="checkSendMail"/>
+                                <label class="form-check-label" for="checkSendMail"
+                                  >Gửi cho khách</label
+                                >
+                              </div>
+
+                            </div> --}}
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
@@ -261,5 +274,6 @@
           });
     </script>
     @endif
+    @include('dashboards.blocks.foo')
   </body>
 </html>

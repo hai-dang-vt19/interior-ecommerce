@@ -48,7 +48,7 @@
           <a class="nav-item nav-link fs-6" href="{{ route('contact') }}">Liên hệ</a>
         </div>
       </div>
-      <div class="btn-group" role="group" aria-label="Basic example">
+      <div class="btn-group me-4 mb-1 mt-1" role="group" aria-label="Basic example">
         <button
           type="button"
           class="btn btn-outline-warning btn-sm"
@@ -65,7 +65,54 @@
         @endif
       </div>
       @if (empty(Auth::user()))
-        <div class="nav-item d-block ms-4"><a href="{{ route('login') }}" class="btn btn-secondary btn-sm">Đăng nhập</a></div>
+        <div class="btn-group mt-1 mb-1" role="group" aria-label="Basic example">
+          {{-- <a href="{{ route('login') }}" class="btn btn-secondary btn-sm">Đăng nhập</a> --}}
+          <a href="{{ route('register') }}" class="btn btn-outline-secondary btn-sm">Đăng ký</a>
+        </div>
+        <div class="btn-group mt-1 mb-1">
+          <button
+            type="button"
+            class="btn btn-secondary btn-sm dropdown-toggle hide-arrow"
+            data-bs-toggle="modal"
+            data-bs-target="#modalLogin"
+          >
+            Đăng nhập
+          </button>
+          <div class="dropdown-menu dropdown-menu-end w-px-300">
+            <form class="p-4" action="{{route('login_interior')}}" method="POST">
+              @csrf
+              <div class="mb-3">
+                <label for="exampleDropdownFormEmail1" class="form-label">Email @error('email') <span class="text-danger">*</span> @enderror</label>
+                <input
+                  type="email"
+                  class="form-control  @error('email') is-invalid @enderror"
+                  id="exampleDropdownFormEmail1"
+                  name="email" 
+                  placeholder="@error('email') {{ $message  }} @enderror" value="{{ old('email') }}" required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="exampleDropdownFormPassword1" class="form-label">Password @error('password') <span class="text-danger">*</span> @enderror</label>
+                <input
+                  type="password"
+                  class="form-control @error('password') is-invalid @enderror"
+                  id="exampleDropdownFormPassword1"
+                  name="password" 
+                  placeholder="@error('password') {{ $message  }} @enderror" required
+                />
+              </div>
+              <div class="mb-3">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="defaultCheck1" value="1" name="remember_token"/>
+                  <label class="form-check-label" for="defaultCheck1"> Duy trì đăng nhập </label>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-success btn-sm w-100">Đăng nhập</button>
+            </form>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item link-primary text-center" href="{{route('register')}}">Đăng ký tại đây <i class='bx bx-happy-heart-eyes' style='color:#ef0000' ></i></a>
+          </div>
+        </div>
       @else
         <div class="nav-item navbar-dropdown dropdown-user dropdown d-block">
           <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -164,7 +211,7 @@
               <input type="text" required="" autocomplete="off" name="key">
               <label for="name">Tìm kiếm tại đây</label>
             </div>
-          </div>
+            </div>
         </div>
         <div class="modal-body">
           <div class="form-check form-switch mb-2">
@@ -290,3 +337,59 @@
     </div>
   </div>  
 @endif
+<!-- Small Modal -->
+<div class="modal fade" id="modalLogin" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel2">Đăng nhập ngay</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div><form class="p-4" action="{{route('login_interior')}}" method="POST">
+        @csrf
+        <div class="modal-body">
+          <div class="row">
+            <div class="col mb-3">
+              <label for="exampleDropdownFormEmail1" class="form-label">Email @error('email') <span class="text-danger">*</span> @enderror</label>
+                  <input
+                    type="email"
+                    class="form-control  @error('email') is-invalid @enderror"
+                    id="exampleDropdownFormEmail1"
+                    name="email" 
+                    placeholder="@error('email') {{ $message  }} @enderror" value="{{ old('email') }}" required
+                  />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col mb-0">
+              <label for="exampleDropdownFormPassword1" class="form-label">Password @error('password') <span class="text-danger">*</span> @enderror</label>
+                  <input
+                    type="password"
+                    class="form-control @error('password') is-invalid @enderror"
+                    id="exampleDropdownFormPassword1"
+                    name="password" 
+                    placeholder="@error('password') {{ $message  }} @enderror" required
+                  />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col mb-0">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="defaultCheck1" value="1" name="remember_token"/>
+                <label class="form-check-label" for="defaultCheck1"> Duy trì đăng nhập </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a class="dropdown-item link-primary text-center" href="{{route('register')}}">Đăng ký tại đây <i class='bx bx-happy-heart-eyes' style='color:#ef0000' ></i></a>
+          <button type="submit" class="btn btn-success btn-sm w-100">Đăng nhập</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

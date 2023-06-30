@@ -83,42 +83,42 @@ class checkoutContorller extends Controller
                         ]);
                     }
                     //**** 1 thêm vào data sản phẩm nổi bật */
-                        // $today = Carbon::now('Asia/Ho_Chi_Minh');
-                        // $product_famous = product_famous::all()->where('id_product',$crt->id_product)
-                        //                                     ->where('day_c',$today->day)
-                        //                                     ->where('month_c',$today->month)
-                        //                                     ->where('year_c',$today->year);
-                        // $sum_amount = $product_famous->sum('amount_bill');
-                        // $samt = $sum_amount+1;
-                        // product_famous::updateOrCreate([
-                        //     'id_product'=>$crt->id_product
-                        // ],[
-                        //     'amount_bill'=>$samt,
-                        //     'day_c'=>$today->day,
-                        //     'month_c'=>$today->month,
-                        //     'year_c'=>$today->year
-                        // ]);
+                        $today = Carbon::now('Asia/Ho_Chi_Minh');
+                        $product_famous = product_famous::all()->where('id_product',$crt->id_product)
+                                                            ->where('day_c',$today->day)
+                                                            ->where('month_c',$today->month)
+                                                            ->where('year_c',$today->year);
+                        $sum_amount = $product_famous->sum('amount_bill');
+                        $samt = $sum_amount+1;
+                        product_famous::updateOrCreate([
+                            'id_product'=>$crt->id_product
+                        ],[
+                            'amount_bill'=>$samt,
+                            'day_c'=>$today->day,
+                            'month_c'=>$today->month,
+                            'year_c'=>$today->year
+                        ]);
                     //*** Xuwr lys theem data khasch hangf nooir abat */
-                    //     $user_famous = user_famous::all()->where('user_id',Auth::user()->user_id)
-                    //                                     ->where('day_c',$today->day)
-                    //                                     ->where('month_c',$today->month)
-                    //                                     ->where('year_c',$today->year);
-                    //     $sum_amount_us = $user_famous->sum('amount_user');
-                    //     $samtus = $sum_amount_us+1;
-                    //     $sum_total_u = $user_famous->sum('total');
-                    //     $total_u_f = $sum_total_u + $vnp_Amount;
-                    //     user_famous::updateOrCreate([
-                    //         'user_id'=>Auth::user()->user_id
-                    //     ],[
-                    //         'username'=>Auth::user()->name,
-                    //         'amount_user'=>$samtus,
-                    //         'day_c'=>$today->day,
-                    //         'month_c'=>$today->month,
-                    //         'year_c'=>$today->year,
-                    //         'total'=>$total_u_f
-                    //     ]);
+                        $user_famous = user_famous::all()->where('user_id',Auth::user()->user_id)
+                                                        ->where('day_c',$today->day)
+                                                        ->where('month_c',$today->month)
+                                                        ->where('year_c',$today->year);
+                        $sum_amount_us = $user_famous->sum('amount_user');
+                        $samtus = $sum_amount_us+1;
+                        $sum_total_u = $user_famous->sum('total');
+                        $total_u_f = $sum_total_u + $vnp_Amount;
+                        user_famous::updateOrCreate([
+                            'user_id'=>Auth::user()->user_id
+                        ],[
+                            'username'=>Auth::user()->name,
+                            'amount_user'=>$samtus,
+                            'day_c'=>$today->day,
+                            'month_c'=>$today->month,
+                            'year_c'=>$today->year,
+                            'total'=>$total_u_f
+                        ]);
                                                         
-                    // cart::where('id_cart_user','CART_CS'.Auth::user()->user_id)->delete();
+                    cart::where('id_cart_user','CART_CS'.Auth::user()->user_id)->delete();
                 }
                 session()->flash('success', $done);
                 return back();
@@ -201,42 +201,42 @@ class checkoutContorller extends Controller
                     }
                     //**** 1 thêm vào data sản phẩm nổi bật */
                         $today = Carbon::now('Asia/Ho_Chi_Minh');
-                        // $product_famous = product_famous::all()->where('id_product',$crt->id_product)
-                        //                                     ->where('day_c',$today->day)
-                        //                                     ->where('month_c',$today->month)
-                        //                                     ->where('year_c',$today->year);
-                        // $sum_amount = $product_famous->sum('amount_bill');
-                        // $samt = $sum_amount+1;
-                        // product_famous::updateOrCreate([
-                        //     'id_product'=>$crt->id_product
-                        // ],[
-                        //     'amount_bill'=>$samt,
-                        //     'day_c'=>$today->day,
-                        //     'month_c'=>$today->month,
-                        //     'year_c'=>$today->year,
-                        // ]);
+                        $product_famous = product_famous::all()->where('id_product',$crt->id_product)
+                                                            ->where('day_c',$today->day)
+                                                            ->where('month_c',$today->month)
+                                                            ->where('year_c',$today->year);
+                        $sum_amount = $product_famous->sum('amount_bill');
+                        $samt = $sum_amount+1;
+                        product_famous::updateOrCreate([
+                            'id_product'=>$crt->id_product
+                        ],[
+                            'amount_bill'=>$samt,
+                            'day_c'=>$today->day,
+                            'month_c'=>$today->month,
+                            'year_c'=>$today->year,
+                        ]);
                     //*** Xuwr lys theem data khasch hangf nooir abat */
-                    //     $user_famous = user_famous::all()->where('user_id',Auth::user()->user_id)
-                    //                                     ->where('day_c',$today->day)
-                    //                                     ->where('month_c',$today->month)
-                    //                                     ->where('year_c',$today->year);
-                    //     $sum_amount_us = $user_famous->sum('amount_user');
-                    //     $samtus = $sum_amount_us+1;
-                    //     $sum_total_u = $user_famous->sum('total');
-                    //     $total_u_f = $sum_total_u + $vnp_Amount;
-                    //     user_famous::updateOrCreate([
-                    //         'user_id'=>Auth::user()->user_id
-                    //     ],[
-                    //         'username'=>Auth::user()->name,
-                    //         'amount_user'=>$samtus,
-                    //         'day_c'=>$today->day,
-                    //         'month_c'=>$today->month,
-                    //         'year_c'=>$today->year,
-                    //         'total'=>$total_u_f
-                    //     ]);
-                    // cart::where('id_cart_user','CART_CS'.Auth::user()->user_id)
-                    // ->where('id_product',$crt->id_product)
-                    // ->delete();
+                        $user_famous = user_famous::all()->where('user_id',Auth::user()->user_id)
+                                                        ->where('day_c',$today->day)
+                                                        ->where('month_c',$today->month)
+                                                        ->where('year_c',$today->year);
+                        $sum_amount_us = $user_famous->sum('amount_user');
+                        $samtus = $sum_amount_us+1;
+                        $sum_total_u = $user_famous->sum('total');
+                        $total_u_f = $sum_total_u + $vnp_Amount;
+                        user_famous::updateOrCreate([
+                            'user_id'=>Auth::user()->user_id
+                        ],[
+                            'username'=>Auth::user()->name,
+                            'amount_user'=>$samtus,
+                            'day_c'=>$today->day,
+                            'month_c'=>$today->month,
+                            'year_c'=>$today->year,
+                            'total'=>$total_u_f
+                        ]);
+                    cart::where('id_cart_user','CART_CS'.Auth::user()->user_id)
+                    ->where('id_product',$crt->id_product)
+                    ->delete();
                 }
                 // $get_data_for_bill = bill::all()->where('id_bill',$vnp_TxnRef);
                 session()->flash('success', $done);
@@ -438,45 +438,45 @@ class checkoutContorller extends Controller
                         'total'=>$new_total,
                         'status_product_bill'=>$status_product_bill
                     ]);
+                
+                    //**** 1 thêm vào data sản phẩm nổi bật */
+                        $today = Carbon::now('Asia/Ho_Chi_Minh');
+                        $product_famous = product_famous::all()->where('id_product',$crt->id_product)
+                                                            ->where('day_c',$today->day)
+                                                            ->where('month_c',$today->month)
+                                                            ->where('year_c',$today->year);
+                        $sum_amount = $product_famous->sum('amount_bill');
+                        $samt = $sum_amount+1;
+                        product_famous::updateOrCreate([
+                            'id_product'=>$crt->id_product
+                        ],[
+                            'amount_bill'=>$samt,
+                            'day_c'=>$today->day,
+                            'month_c'=>$today->month,
+                            'year_c'=>$today->year
+                        ]);
+                    //*** Xuwr lys theem data khasch hangf nooir abat */
+                            $get_tb = bill::where('id_bill',$request->id_bill)->distinct()->sum('total');
+                            $user_famous = user_famous::all()->where('user_id',Auth::user()->user_id)
+                                                            ->where('day_c',$today->day)
+                                                            ->where('month_c',$today->month)
+                                                            ->where('year_c',$today->year);
+                            $sum_amount_us = $user_famous->sum('amount_user');
+                            $samtus = $sum_amount_us+1;
+                            $sum_total_u = $user_famous->sum('total');
+                            $total_u_f = $sum_total_u + $get_tb;
+                            user_famous::updateOrCreate([
+                                'user_id'=>Auth::user()->user_id
+                            ],[
+                                'username'=>Auth::user()->name,
+                                'amount_user'=>$samtus,
+                                'day_c'=>$today->day,
+                                'month_c'=>$today->month,
+                                'year_c'=>$today->year,
+                                'total'=>$total_u_f
+                            ]);
+                    cart::where('id_cart_user','CART_CS'.Auth::user()->user_id)->where('id_product',$crt->id_product)->delete();
                 }
-                //**** 1 thêm vào data sản phẩm nổi bật */
-                    // $today = Carbon::now('Asia/Ho_Chi_Minh');
-                    // $product_famous = product_famous::all()->where('id_product',$id_product)
-                    //                                     ->where('day_c',$today->day)
-                    //                                     ->where('month_c',$today->month)
-                    //                                     ->where('year_c',$today->year);
-                    // $sum_amount = $product_famous->sum('amount_bill');
-                    // $samt = $sum_amount+1;
-                    // product_famous::updateOrCreate([
-                    //     'id_product'=>$id_product
-                    // ],[
-                    //     'amount_bill'=>$samt,
-                    //     'day_c'=>$today->day,
-                    //     'month_c'=>$today->month,
-                    //     'year_c'=>$today->year
-                    // ]);
-                //*** Xuwr lys theem data khasch hangf nooir abat */
-                //         $get_tb = bill::where('id_bill',$request->id_bill)->distinct()->sum('total');
-                //         $user_famous = user_famous::all()->where('user_id',Auth::user()->user_id)
-                //                                         ->where('day_c',$today->day)
-                //                                         ->where('month_c',$today->month)
-                //                                         ->where('year_c',$today->year);
-                //         $sum_amount_us = $user_famous->sum('amount_user');
-                //         $samtus = $sum_amount_us+1;
-                //         $sum_total_u = $user_famous->sum('total');
-                //         $total_u_f = $sum_total_u + $get_tb;
-                //         user_famous::updateOrCreate([
-                //             'user_id'=>Auth::user()->user_id
-                //         ],[
-                //             'username'=>Auth::user()->name,
-                //             'amount_user'=>$samtus,
-                //             'day_c'=>$today->day,
-                //             'month_c'=>$today->month,
-                //             'year_c'=>$today->year,
-                //             'total'=>$total_u_f
-                //         ]);
-                // cart::where('id_cart_user','CART_CS'.Auth::user()->user_id)->where('id_product',$id_product)->delete();
-            
             session()->flash('success','Đặt hàng thành công');
             return back();
             // session()->flash('error','Chức năng COD chưa hoạt động');
@@ -680,42 +680,42 @@ class checkoutContorller extends Controller
                     'status_product_bill'=>$status_product_bill
                 ]);
                 //**** 1 thêm vào data sản phẩm nổi bật */
-                    // $today = Carbon::now('Asia/Ho_Chi_Minh');
-                    // $product_famous = product_famous::all()->where('id_product',$id_product)
-                    //                                     ->where('day_c',$today->day)
-                    //                                     ->where('month_c',$today->month)
-                    //                                     ->where('year_c',$today->year);
-                    // $sum_amount = $product_famous->sum('amount_bill');
-                    // $samt = $sum_amount+1;
-                    // product_famous::updateOrCreate([
-                    //     'id_product'=>$id_product
-                    // ],[
-                    //     'amount_bill'=>$samt,
-                    //     'day_c'=>$today->day,
-                    //     'month_c'=>$today->month,
-                    //     'year_c'=>$today->year
-                    // ]);
+                    $today = Carbon::now('Asia/Ho_Chi_Minh');
+                    $product_famous = product_famous::all()->where('id_product',$id_product)
+                                                        ->where('day_c',$today->day)
+                                                        ->where('month_c',$today->month)
+                                                        ->where('year_c',$today->year);
+                    $sum_amount = $product_famous->sum('amount_bill');
+                    $samt = $sum_amount+1;
+                    product_famous::updateOrCreate([
+                        'id_product'=>$id_product
+                    ],[
+                        'amount_bill'=>$samt,
+                        'day_c'=>$today->day,
+                        'month_c'=>$today->month,
+                        'year_c'=>$today->year
+                    ]);
                 //*** Xuwr lys theem data khasch hangf nooir abat */
-                //         $get_tb = bill::where('id_bill',$request->id_bill)->distinct()->sum('total');
-                //         $user_famous = user_famous::all()->where('user_id',Auth::user()->user_id)
-                //                                         ->where('day_c',$today->day)
-                //                                         ->where('month_c',$today->month)
-                //                                         ->where('year_c',$today->year);
-                //         $sum_amount_us = $user_famous->sum('amount_user');
-                //         $samtus = $sum_amount_us+1;
-                //         $sum_total_u = $user_famous->sum('total');
-                //         $total_u_f = $sum_total_u + $get_tb;
-                //         user_famous::updateOrCreate([
-                //             'user_id'=>Auth::user()->user_id
-                //         ],[
-                //             'username'=>Auth::user()->name,
-                //             'amount_user'=>$samtus,
-                //             'day_c'=>$today->day,
-                //             'month_c'=>$today->month,
-                //             'year_c'=>$today->year,
-                //             'total'=>$total_u_f
-                //         ]);
-                // cart::where('id_cart_user','CART_CS'.Auth::user()->user_id)->where('id_product',$id_product)->delete();
+                        $get_tb = bill::where('id_bill',$request->id_bill)->distinct()->sum('total');
+                        $user_famous = user_famous::all()->where('user_id',Auth::user()->user_id)
+                                                        ->where('day_c',$today->day)
+                                                        ->where('month_c',$today->month)
+                                                        ->where('year_c',$today->year);
+                        $sum_amount_us = $user_famous->sum('amount_user');
+                        $samtus = $sum_amount_us+1;
+                        $sum_total_u = $user_famous->sum('total');
+                        $total_u_f = $sum_total_u + $get_tb;
+                        user_famous::updateOrCreate([
+                            'user_id'=>Auth::user()->user_id
+                        ],[
+                            'username'=>Auth::user()->name,
+                            'amount_user'=>$samtus,
+                            'day_c'=>$today->day,
+                            'month_c'=>$today->month,
+                            'year_c'=>$today->year,
+                            'total'=>$total_u_f
+                        ]);
+                cart::where('id_cart_user','CART_CS'.Auth::user()->user_id)->where('id_product',$id_product)->delete();
             
             session()->flash('success','Đặt hàng thành công');
             return back();
@@ -755,108 +755,108 @@ class checkoutContorller extends Controller
             product::where('id_product',$id_product)->update(['amount'=>$amt]);
 
             //**** product famous */
-                // $product_famous = product_famous::all()->where('id_product',$bill_a->id_product)
-                //                                     ->where('day_c',$today->day)
-                //                                     ->where('month_c',$today->month)
-                //                                     ->where('year_c',$today->year);
-                // $sum_amount = $product_famous->sum('amount_bill');
-                // $samt = $sum_amount - $bill_a->amount;
-                // if($samt > 0){
-                //     product_famous::updateOrCreate([
-                //         'id_product'=>$bill_a->id_product
-                //     ],[
-                //         'amount_bill'=>$samt,
-                //         'day_c'=>$today->day,
-                //         'month_c'=>$today->month,
-                //         'year_c'=>$today->year,
-                //     ]);
-                // }else{
-                //     product_famous::updateOrCreate([
-                //         'id_product'=>$bill_a->id_product
-                //     ],[
-                //         'amount_bill'=>'0',
-                //         'day_c'=>$today->day,
-                //         'month_c'=>$today->month,
-                //         'year_c'=>$today->year,
-                //     ]);
-                // }
+                $product_famous = product_famous::all()->where('id_product',$bill_a->id_product)
+                                                    ->where('day_c',$today->day)
+                                                    ->where('month_c',$today->month)
+                                                    ->where('year_c',$today->year);
+                $sum_amount = $product_famous->sum('amount_bill');
+                $samt = $sum_amount - $bill_a->amount;
+                if($samt > 0){
+                    product_famous::updateOrCreate([
+                        'id_product'=>$bill_a->id_product
+                    ],[
+                        'amount_bill'=>$samt,
+                        'day_c'=>$today->day,
+                        'month_c'=>$today->month,
+                        'year_c'=>$today->year,
+                    ]);
+                }else{
+                    product_famous::updateOrCreate([
+                        'id_product'=>$bill_a->id_product
+                    ],[
+                        'amount_bill'=>'0',
+                        'day_c'=>$today->day,
+                        'month_c'=>$today->month,
+                        'year_c'=>$today->year,
+                    ]);
+                }
             //*** user famous */
-                // $us = User::all()->where('email',$bill_a->email);
-                // if($us != "[]"){
-                //     foreach($us as $users){
-                //         $user_famous = user_famous::all()->where('user_id',$users->user_id)
-                //                                         ->where('day_c',$today->day)
-                //                                         ->where('month_c',$today->month)
-                //                                         ->where('year_c',$today->year);
-                //         $sum_amount_us = $user_famous->sum('amount_user');
-                //         $samtus = $sum_amount_us - $bill_a->amount;
-                //         $sum_total_u = $user_famous->sum('total');
-                //         $total_u_f = $sum_total_u - $bill_a->total;
-                //         if($total_u_f > 0){
-                //             user_famous::updateOrCreate([
-                //                 'user_id'=>$users->user_id
-                //             ],[
-                //                 'username'=>$users->name,
-                //                 'amount_user'=>$samtus,
-                //                 'day_c'=>$today->day,
-                //                 'month_c'=>$today->month,
-                //                 'year_c'=>$today->year,
-                //                 'total'=>$total_u_f
-                //             ]);
-                //         }else{
-                //             user_famous::updateOrCreate([
-                //                 'user_id'=>$users->user_id
-                //             ],[
-                //                 'username'=>$users->name,
-                //                 'amount_user'=>'0',
-                //                 'day_c'=>$today->day,
-                //                 'month_c'=>$today->month,
-                //                 'year_c'=>$today->year,
-                //                 'total'=>'0'
-                //             ]);
-                //         }
-                //     }
-                // }
-            //
-            // $check_ex = expense::all()->where('years',$year);
-            // $bill_price_service = bill::where('id_bill', $request->id)->distinct()->sum('price_service');
-            // if($check_ex == '[]'){
-            //     if($bill_a->status_product_bill == "1"){
-            //         expense::updateOrCreate(['years'=>$year,'expense_incurred'=>'0']);
-            //     }else{
-            //         foreach($check_ex as $check_e){
-            //             $incurred_old = $check_e->expense_incurred;
-            //         }
-            //         $incurred = $incurred_old+$bill_price_service;
-            //         expense::updateOrCreate([
-            //             'years'=>$year
-            //         ],[
-            //             'expense_incurred'=>$incurred
-            //         ]);
-            //     }
-            // }else{
-            //     if($bill_a->status_product_bill == "1"){
-            //         foreach($check_ex as $check_e){
-            //             $incurred_old = $check_e->expense_incurred;;
-            //         }
-            //         expense::updateOrCreate([
-            //             'years'=>$year,
-            //             'expense_incurred'=>$incurred_old
-            //         ]);
-            //         // echo '1 - '.$incurred_old;return;
-            //     }else{
-            //         foreach($check_ex as $check_e){
-            //             $incurred_old = $check_e->expense_incurred;
-            //         }
-            //         $incurred = $incurred_old+$bill_price_service;
-            //         expense::updateOrCreate([
-            //             'years'=>$year
-            //         ],[
-            //             'expense_incurred'=>$incurred
-            //         ]);
-            //         // echo '2 - '.$incurred;return;
-            //     }
-            // }
+                $us = User::all()->where('email',$bill_a->email);
+                if($us != "[]"){
+                    foreach($us as $users){
+                        $user_famous = user_famous::all()->where('user_id',$users->user_id)
+                                                        ->where('day_c',$today->day)
+                                                        ->where('month_c',$today->month)
+                                                        ->where('year_c',$today->year);
+                        $sum_amount_us = $user_famous->sum('amount_user');
+                        $samtus = $sum_amount_us - $bill_a->amount;
+                        $sum_total_u = $user_famous->sum('total');
+                        $total_u_f = $sum_total_u - $bill_a->total;
+                        if($total_u_f > 0){
+                            user_famous::updateOrCreate([
+                                'user_id'=>$users->user_id
+                            ],[
+                                'username'=>$users->name,
+                                'amount_user'=>$samtus,
+                                'day_c'=>$today->day,
+                                'month_c'=>$today->month,
+                                'year_c'=>$today->year,
+                                'total'=>$total_u_f
+                            ]);
+                        }else{
+                            user_famous::updateOrCreate([
+                                'user_id'=>$users->user_id
+                            ],[
+                                'username'=>$users->name,
+                                'amount_user'=>'0',
+                                'day_c'=>$today->day,
+                                'month_c'=>$today->month,
+                                'year_c'=>$today->year,
+                                'total'=>'0'
+                            ]);
+                        }
+                    }
+                }
+            
+            $check_ex = expense::all()->where('years',$year);
+            $bill_price_service = bill::where('id_bill', $request->id)->distinct()->sum('price_service');
+            if($check_ex == '[]'){
+                if($bill_a->status_product_bill == "1"){
+                    expense::updateOrCreate(['years'=>$year,'expense_incurred'=>'0']);
+                }else{
+                    foreach($check_ex as $check_e){
+                        $incurred_old = $check_e->expense_incurred;
+                    }
+                    $incurred = $incurred_old+$bill_price_service;
+                    expense::updateOrCreate([
+                        'years'=>$year
+                    ],[
+                        'expense_incurred'=>$incurred
+                    ]);
+                }
+            }else{
+                if($bill_a->status_product_bill == "1"){
+                    foreach($check_ex as $check_e){
+                        $incurred_old = $check_e->expense_incurred;;
+                    }
+                    expense::updateOrCreate([
+                        'years'=>$year,
+                        'expense_incurred'=>$incurred_old
+                    ]);
+                    // echo '1 - '.$incurred_old;return;
+                }else{
+                    foreach($check_ex as $check_e){
+                        $incurred_old = $check_e->expense_incurred;
+                    }
+                    $incurred = $incurred_old+$bill_price_service;
+                    expense::updateOrCreate([
+                        'years'=>$year
+                    ],[
+                        'expense_incurred'=>$incurred
+                    ]);
+                    // echo '2 - '.$incurred;return;
+                }
+            }
         }
         session()->flash('success', 'Hủy đơn hàng thành công');
         return back();
@@ -1177,154 +1177,6 @@ class checkoutContorller extends Controller
         cart::where('id',$request->id)->delete();
         return back();
     }
-    public function vnpay_payment_atm_dashboard(Request $request)
-    {
-        if($request->total_vnpay == 0){
-            session()->flash('er', 'Chưa có sản phẩm');
-            return back();
-        }
-        $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        // $vnp_Returnurl = "https://localhost/vnpay_php/vnpay_return.php";
-        $vnp_Returnurl = "http://127.0.0.1:8000/return-db";
-        $vnp_TmnCode = "HEYD7Y8N";//Mã website tại VNPAY 
-        $vnp_HashSecret = "XJZONSMCWFAWVKHFSCLGCCIUIPLNCUPN"; //Chuỗi bí mật
-        
-        $vnp_TxnRef = 'STORE-'.Auth::user()->user_id.time(); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
-        $vnp_OrderInfo = 'Thanh toán qua VNPAY';
-        $vnp_OrderType = 'billpayment';
-        $vnp_Amount = $request->total_vnpay * 100;
-        $vnp_Locale = 'vn';
-        $vnp_BankCode = "NCB";
-        // $vnp_BankCode = 'VNPAYQR';
-        $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
-        $inputData = array(
-            "vnp_Version" => "2.1.0",
-            "vnp_TmnCode" => $vnp_TmnCode,
-            "vnp_Amount" => $vnp_Amount,
-            "vnp_Command" => "pay",
-            "vnp_CreateDate" => date('YmdHis'),
-            "vnp_CurrCode" => "VND",
-            "vnp_IpAddr" => $vnp_IpAddr,
-            "vnp_Locale" => $vnp_Locale,
-            "vnp_OrderInfo" => $vnp_OrderInfo,
-            "vnp_OrderType" => $vnp_OrderType,
-            "vnp_ReturnUrl" => $vnp_Returnurl,
-            "vnp_TxnRef" => $vnp_TxnRef
-        );
-        
-        if (isset($vnp_BankCode) && $vnp_BankCode != "") {
-            $inputData['vnp_BankCode'] = $vnp_BankCode;
-        }
-        if (isset($vnp_Bill_State) && $vnp_Bill_State != "") {
-            $inputData['vnp_Bill_State'] = $vnp_Bill_State;
-        }
-        
-        //var_dump($inputData);
-        ksort($inputData);
-        $query = "";
-        $i = 0;
-        $hashdata = "";
-        foreach ($inputData as $key => $value) {
-            if ($i == 1) {
-                $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
-            } else {
-                $hashdata .= urlencode($key) . "=" . urlencode($value);
-                $i = 1;
-            }
-            $query .= urlencode($key) . "=" . urlencode($value) . '&';
-        }
-        
-        $vnp_Url = $vnp_Url . "?" . $query;
-        if (isset($vnp_HashSecret)) {
-            $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret);//  
-            $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
-        }
-        $returnData = array('code' => '00'
-            , 'message' => 'success'
-            , 'data' => $vnp_Url);
-            if (isset($_POST['redirect'])) {// thêm name='redirect' vào nút thanh toán vnpay
-            // if (isset($request->redirect)) {// thêm name='redirect' vào nút thanh toán vnpay
-                header('Location: ' . $vnp_Url);
-                die();
-            } else {
-                echo json_encode($returnData);
-            }
-            // vui lòng tham khảo thêm tại code demo
-    }
-    public function vnpay_payment_qr_dashboard(Request $request)
-    {
-        if($request->total_vnpay == 0){
-            session()->flash('er', 'Chưa có sản phẩm');
-            return back();
-        }
-        $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        // $vnp_Returnurl = "https://localhost/vnpay_php/vnpay_return.php";
-        $vnp_Returnurl = "http://127.0.0.1:8000/return-db";
-        $vnp_TmnCode = "HEYD7Y8N";//Mã website tại VNPAY 
-        $vnp_HashSecret = "XJZONSMCWFAWVKHFSCLGCCIUIPLNCUPN"; //Chuỗi bí mật
-        
-        $vnp_TxnRef = 'STORE-'.Auth::user()->user_id.time(); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
-        $vnp_OrderInfo = 'Thanh toán qua VNPAY';
-        $vnp_OrderType = 'billpayment';
-        $vnp_Amount = $request->total_vnpay * 100;
-        $vnp_Locale = 'vn';
-        // $vnp_BankCode = "NCB";
-        $vnp_BankCode = 'VNPAYQR';
-        $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
-        $inputData = array(
-            "vnp_Version" => "2.1.0",
-            "vnp_TmnCode" => $vnp_TmnCode,
-            "vnp_Amount" => $vnp_Amount,
-            "vnp_Command" => "pay",
-            "vnp_CreateDate" => date('YmdHis'),
-            "vnp_CurrCode" => "VND",
-            "vnp_IpAddr" => $vnp_IpAddr,
-            "vnp_Locale" => $vnp_Locale,
-            "vnp_OrderInfo" => $vnp_OrderInfo,
-            "vnp_OrderType" => $vnp_OrderType,
-            "vnp_ReturnUrl" => $vnp_Returnurl,
-            "vnp_TxnRef" => $vnp_TxnRef
-        );
-        
-        if (isset($vnp_BankCode) && $vnp_BankCode != "") {
-            $inputData['vnp_BankCode'] = $vnp_BankCode;
-        }
-        if (isset($vnp_Bill_State) && $vnp_Bill_State != "") {
-            $inputData['vnp_Bill_State'] = $vnp_Bill_State;
-        }
-        
-        //var_dump($inputData);
-        ksort($inputData);
-        $query = "";
-        $i = 0;
-        $hashdata = "";
-        foreach ($inputData as $key => $value) {
-            if ($i == 1) {
-                $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
-            } else {
-                $hashdata .= urlencode($key) . "=" . urlencode($value);
-                $i = 1;
-            }
-            $query .= urlencode($key) . "=" . urlencode($value) . '&';
-        }
-        
-        $vnp_Url = $vnp_Url . "?" . $query;
-        if (isset($vnp_HashSecret)) {
-            $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret);//  
-            $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
-        }
-        $returnData = array('code' => '00'
-            , 'message' => 'success'
-            , 'data' => $vnp_Url);
-            if (isset($_POST['redirect'])) {// thêm name='redirect' vào nút thanh toán vnpay
-            // if (isset($request->redirect)) {// thêm name='redirect' vào nút thanh toán vnpay
-                header('Location: ' . $vnp_Url);
-                die();
-            } else {
-                echo json_encode($returnData);
-            }
-            // vui lòng tham khảo thêm tại code demo
-    }
     public function return_db(Request $request)
     {
         $vnp_TxnRef = $request->vnp_TxnRef;
@@ -1334,6 +1186,7 @@ class checkoutContorller extends Controller
         $vnp_CardType = $request->vnp_CardType;
         $vnp_Amount = $request->vnp_Amount/100;
         $vnp_ResponseCode = $request->vnp_ResponseCode;
+        $phone = $request->vnp_OrderInfo;
 
         // $vnp_SecureHash = $_GET['vnp_SecureHash'];
         $vnp_SecureHash = $request->vnp_SecureHash;
@@ -1375,7 +1228,7 @@ class checkoutContorller extends Controller
                         'code_bank'=>$vnp_BankTranNo,
                         'code_vnpay'=>$vnp_TransactionNo,
                         'total'=>$vnp_Amount,
-                        'status_product_bill'=>'4'
+                        'status_product_bill'=>'STOP'
                     ]);
                     //**** 1 thêm vào data sản phẩm nổi bật */
                     $today = Carbon::now('Asia/Ho_Chi_Minh');
@@ -1398,7 +1251,7 @@ class checkoutContorller extends Controller
                 $get_data_for_bill = bill::all()->where('id_bill',$vnp_TxnRef);
                 foreach($get_data_for_bill as $gdtfb){
                     $id_bill_ = $gdtfb->id_bill;
-                    return view('dashboards.clients.new-bill-user', compact('get_data_for_bill','id_bill_','discounts'));
+                    return view('dashboards.clients.new-bill-user', compact('get_data_for_bill','id_bill_','discounts','phone'));
                 }
                 // dd($get_data_for_bill);
             } 
@@ -1422,13 +1275,33 @@ class checkoutContorller extends Controller
         }else{
             $new_total = $old_bill;
         }
-        // echo $new_total;return;
-        bill::where('id_bill',$request->id_bill)
+        $check_user = User::where('email',$request->email)
+                        ->orwhere('phone',$request->phone)
+                        ->get();
+        
+        foreach($check_user as $itm_ckUser){
+            if($check_user == "[]"){
+                $username = $request->username;
+                $phone = $request->phone;
+                $email = $request->email;
+            }else{
+                $username = $itm_ckUser->username;
+                $phone = $itm_ckUser->phone;
+                $email = $itm_ckUser->email;
+            }
+            if(!empty($request->address)){
+                $address = $request->address;
+            }else{
+                $address = $itm_ckUser->city.', '.$itm_ckUser->province.', '.$itm_ckUser->district;
+            }
+        }
+        
+        bill::where('id_bill',$request->id_bill)->where('status_product_bill','STOP')
         ->update([
-            'username'=>$request->username,
-            'phone'=>$request->phone,
-            'email'=>$request->email,
-            'address'=>$request->address,
+            'username'=>$username,
+            'phone'=>$phone,
+            'email'=>$email,
+            'address'=>$address,
             'method'=>'STORE',
             'status_product_bill'=>'1',
             'total'=>$new_total
@@ -1467,54 +1340,200 @@ class checkoutContorller extends Controller
         }
         
 
-        bill::where('id_bill',$request->id_bill)->delete();
+        bill::where('status_product_bill','STOP')->delete();
         return redirect(route('create_bill_dashboard'));
     }
-    public function pay_store(Request $request) 
-    {
-        $cart = cart::all()->where('id_cart_user','STORE-'.Auth::user()->user_id);
-        if($request->total_store == 0){
-            session()->flash('er', 'Chưa có sản phẩm');
-            return back();
-        }
-        foreach($cart as $crt){
-            bill::create([
-                'id_bill'=>'STORE-'.Auth::user()->user_id.time(),
-                'id_product'=>$crt->id_product,
-                'name_product'=>$crt->name_product,
-                'amount'=>$crt->amount_product,
-                'price'=>$crt->price_product,
-                'date_create'=>Carbon::now('Asia/Ho_Chi_Minh')->toDateString(),
-                'year_create'=>Carbon::now('Asia/Ho_Chi_Minh')->year,
-                'method'=>'STORE',
-                'total'=>$request->total_store,
-                'status_product_bill'=>'STOP'
-            ]);
+    public function pay_store(Request $request){
+        if($request->checkMethod == 1){
+            $cart = cart::all()->where('id_cart_user','STORE-'.Auth::user()->user_id);
+            if($request->total_cart == 0){
+                session()->flash('er', 'Chưa có sản phẩm');
+                return back();
+            }
+            foreach($cart as $crt){
+                bill::create([
+                    'id_bill'=>'STORE-'.Auth::user()->user_id.time(),
+                    'id_product'=>$crt->id_product,
+                    'name_product'=>$crt->name_product,
+                    'amount'=>$crt->amount_product,
+                    'price'=>$crt->price_product,
+                    'date_create'=>Carbon::now('Asia/Ho_Chi_Minh')->toDateString(),
+                    'year_create'=>Carbon::now('Asia/Ho_Chi_Minh')->year,
+                    'method'=>'STORE',
+                    'total'=>$request->total_cart,
+                    'status_product_bill'=>'STOP'
+                ]);
+                
+                //**** 1 thêm vào data sản phẩm nổi bật */
+                $today = Carbon::now('Asia/Ho_Chi_Minh');
+                $product_famous = product_famous::all()->where('id_product',$crt->id_product)
+                                                    ->where('day_c',$today->day)
+                                                    ->where('month_c',$today->month)
+                                                    ->where('year_c',$today->year);
+                $sum_amount = $product_famous->sum('amount_bill');
+                $samt = $sum_amount+1;
+                product_famous::updateOrCreate([
+                    'id_product'=>$crt->id_product
+                ],[
+                    'amount_bill'=>$samt,
+                    'day_c'=>$today->day,
+                    'month_c'=>$today->month,
+                    'year_c'=>$today->year
+                ]);
+            }
+            $get_ = bill::where('status_product_bill','STOP')
+                            ->where('method','STORE')
+                            ->orderbydesc('id')->first('id_bill');
+            $id_bill_ = substr($get_, 12, -2);
+            $discounts = discount::all()->where('status_discount','Phát hành');
+            $get_data_for_bill = bill::all()->where('id_bill',$id_bill_);
+            $phone = $request->phone;
+            return view('dashboards.clients.new-bill-user', compact('get_data_for_bill','id_bill_','discounts','phone'));
+        }elseif($request->checkMethod == 2){
+            if($request->total_cart == 0){
+                session()->flash('er', 'Chưa có sản phẩm');
+                return back();
+            }
+            $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+            // $vnp_Returnurl = "https://localhost/vnpay_php/vnpay_return.php";
+            $vnp_Returnurl = "http://127.0.0.1:8000/return-db";
+            $vnp_TmnCode = "HEYD7Y8N";//Mã website tại VNPAY 
+            $vnp_HashSecret = "XJZONSMCWFAWVKHFSCLGCCIUIPLNCUPN"; //Chuỗi bí mật
             
-            //**** 1 thêm vào data sản phẩm nổi bật */
-            $today = Carbon::now('Asia/Ho_Chi_Minh');
-            $product_famous = product_famous::all()->where('id_product',$crt->id_product)
-                                                ->where('day_c',$today->day)
-                                                ->where('month_c',$today->month)
-                                                ->where('year_c',$today->year);
-            $sum_amount = $product_famous->sum('amount_bill');
-            $samt = $sum_amount+1;
-            product_famous::updateOrCreate([
-                'id_product'=>$crt->id_product
-            ],[
-                'amount_bill'=>$samt,
-                'day_c'=>$today->day,
-                'month_c'=>$today->month,
-                'year_c'=>$today->year
-            ]);
+            $vnp_TxnRef = 'STORE-'.Auth::user()->user_id.time(); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
+            $vnp_OrderInfo = $request->phone;
+            $vnp_OrderType = 'billpayment';
+            $vnp_Amount = $request->total_cart * 100;
+            $vnp_Locale = 'vn';
+            $vnp_BankCode = "NCB";
+            // $vnp_BankCode = 'VNPAYQR';
+            $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
+            $inputData = array(
+                "vnp_Version" => "2.1.0",
+                "vnp_TmnCode" => $vnp_TmnCode,
+                "vnp_Amount" => $vnp_Amount,
+                "vnp_Command" => "pay",
+                "vnp_CreateDate" => date('YmdHis'),
+                "vnp_CurrCode" => "VND",
+                "vnp_IpAddr" => $vnp_IpAddr,
+                "vnp_Locale" => $vnp_Locale,
+                "vnp_OrderInfo" => $vnp_OrderInfo,
+                "vnp_OrderType" => $vnp_OrderType,
+                "vnp_ReturnUrl" => $vnp_Returnurl,
+                "vnp_TxnRef" => $vnp_TxnRef
+            );
+            
+            if (isset($vnp_BankCode) && $vnp_BankCode != "") {
+                $inputData['vnp_BankCode'] = $vnp_BankCode;
+            }
+            if (isset($vnp_Bill_State) && $vnp_Bill_State != "") {
+                $inputData['vnp_Bill_State'] = $vnp_Bill_State;
+            }
+            
+            //var_dump($inputData);
+            ksort($inputData);
+            $query = "";
+            $i = 0;
+            $hashdata = "";
+            foreach ($inputData as $key => $value) {
+                if ($i == 1) {
+                    $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
+                } else {
+                    $hashdata .= urlencode($key) . "=" . urlencode($value);
+                    $i = 1;
+                }
+                $query .= urlencode($key) . "=" . urlencode($value) . '&';
+            }
+            
+            $vnp_Url = $vnp_Url . "?" . $query;
+            if (isset($vnp_HashSecret)) {
+                $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret);//  
+                $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
+            }
+            $returnData = array('code' => '00'
+                , 'message' => 'success'
+                , 'data' => $vnp_Url);
+                if (isset($_POST['redirect'])) {// thêm name='redirect' vào nút thanh toán vnpay
+                // if (isset($request->redirect)) {// thêm name='redirect' vào nút thanh toán vnpay
+                    header('Location: ' . $vnp_Url);
+                    die();
+                } else {
+                    echo json_encode($returnData);
+                }
+                // vui lòng tham khảo thêm tại code demo
+        }else{
+            if($request->total_cart == 0){
+                session()->flash('er', 'Chưa có sản phẩm');
+                return back();
+            }
+            $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+            // $vnp_Returnurl = "https://localhost/vnpay_php/vnpay_return.php";
+            $vnp_Returnurl = "http://127.0.0.1:8000/return-db";
+            $vnp_TmnCode = "HEYD7Y8N";//Mã website tại VNPAY 
+            $vnp_HashSecret = "XJZONSMCWFAWVKHFSCLGCCIUIPLNCUPN"; //Chuỗi bí mật
+            
+            $vnp_TxnRef = 'STORE-'.Auth::user()->user_id.time(); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
+            $vnp_OrderInfo = $request->phone;
+            $vnp_OrderType = 'billpayment';
+            $vnp_Amount = $request->total_cart * 100;
+            $vnp_Locale = 'vn';
+            // $vnp_BankCode = "NCB";
+            $vnp_BankCode = 'VNPAYQR';
+            $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
+            $inputData = array(
+                "vnp_Version" => "2.1.0",
+                "vnp_TmnCode" => $vnp_TmnCode,
+                "vnp_Amount" => $vnp_Amount,
+                "vnp_Command" => "pay",
+                "vnp_CreateDate" => date('YmdHis'),
+                "vnp_CurrCode" => "VND",
+                "vnp_IpAddr" => $vnp_IpAddr,
+                "vnp_Locale" => $vnp_Locale,
+                "vnp_OrderInfo" => $vnp_OrderInfo,
+                "vnp_OrderType" => $vnp_OrderType,
+                "vnp_ReturnUrl" => $vnp_Returnurl,
+                "vnp_TxnRef" => $vnp_TxnRef
+            );
+            
+            if (isset($vnp_BankCode) && $vnp_BankCode != "") {
+                $inputData['vnp_BankCode'] = $vnp_BankCode;
+            }
+            if (isset($vnp_Bill_State) && $vnp_Bill_State != "") {
+                $inputData['vnp_Bill_State'] = $vnp_Bill_State;
+            }
+            
+            //var_dump($inputData);
+            ksort($inputData);
+            $query = "";
+            $i = 0;
+            $hashdata = "";
+            foreach ($inputData as $key => $value) {
+                if ($i == 1) {
+                    $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
+                } else {
+                    $hashdata .= urlencode($key) . "=" . urlencode($value);
+                    $i = 1;
+                }
+                $query .= urlencode($key) . "=" . urlencode($value) . '&';
+            }
+            
+            $vnp_Url = $vnp_Url . "?" . $query;
+            if (isset($vnp_HashSecret)) {
+                $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret);//  
+                $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
+            }
+            $returnData = array('code' => '00'
+                , 'message' => 'success'
+                , 'data' => $vnp_Url);
+                if (isset($_POST['redirect'])) {// thêm name='redirect' vào nút thanh toán vnpay
+                // if (isset($request->redirect)) {// thêm name='redirect' vào nút thanh toán vnpay
+                    header('Location: ' . $vnp_Url);
+                    die();
+                } else {
+                    echo json_encode($returnData);
+                }
+                // vui l
         }
-        $get_ = bill::where('status_product_bill','STOP')
-                        ->where('method','STORE')
-                        ->orderbydesc('id')->first('id_bill');
-        $id_bill_ = substr($get_, 12, -2);
-        $discounts = discount::all()->where('status_discount','Phát hành');
-        $get_data_for_bill = bill::all()->where('id_bill',$id_bill_);
-        return view('dashboards.clients.new-bill-user', compact('get_data_for_bill','id_bill_','discounts'));
     }
     public function destroy_donhang_dashboard(Request $request)
     {

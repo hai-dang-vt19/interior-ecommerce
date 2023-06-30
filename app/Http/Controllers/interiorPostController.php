@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\city;
-use App\Models\discount;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\history;
@@ -11,8 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
-use Maatwebsite\Excel\Files\Disk;
+use App\Jobs\DemoEmail;
 
 class interiorPostController extends Controller
 {
@@ -20,17 +18,40 @@ class interiorPostController extends Controller
      //------------------------------------------ login -----------------------------------------
      public function login_interior(Request $request)
      {
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
+        if(!empty($request->remember_token)){
+            $remember = $request->remember_token;
+        }else{
+            $remember = "0";
+        }
+        
+        $check_space_pass = strpos($request->password, ' ');
+        $check_space_email = strpos($request->email, ' ');
+        if ($check_space_pass == true) {
+            session()->flash('login-er','Mật khẩu không được nhập khoảng trắng');
+            return back();
+        }
+        if ($check_space_email == true) {
+            session()->flash('login-er','Email không được nhập khoảng trắng');
+            return back();
+        }
+        $request->validate([
+            'email' => 'required|max:100',
+            'password' => 'required|min:6|max:30'
+        ],[
+            'email.required'=>'Vui lòng điền vào trường này',
+            'email.max'=>'Quá số lượng ký tự',
+            'password.required'=>'Vui lòng điền vào trường này',
+            'password.max'=>'Quá số lượng ký tự',
+            'password.min'=>'Nhập tối thiểu 6 ký tự'
         ]);
-        if (Auth::attempt($credentials)) {
+        $credentials = $request->only('email', 'password');
+        if (Auth::attempt($credentials,$remember)) {
             $request->session()->regenerate();
             // dd($request->all());
             if (Auth::check()) {
                 if(Auth::user()->name_status == 1){
                     if(Auth::user()->name_roles == 'user'){
-                        session()->flash('login-sc', 'Đăng nhập thành công')    ;
+                        session()->flash('success', 'Đăng nhập thành công')    ;
                         return redirect(route('index'));
                     }elseif(Auth::user()->name_roles == 'admin'){
                         session()->flash('login-sc', 'Đăng nhập thành công');
@@ -55,17 +76,20 @@ class interiorPostController extends Controller
      public function register_interior(Request $request)
      {
         $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'password' => 'required|min:6',
+            'name' => 'required|max:50',
+            'email' => 'required|max:100',
+            'password' => 'required|min:6|max:30',
             'check_password' =>  'required|same:password',
         ], [
-            'name.required' => '* Bạn chưa nhập tên tài khoản',
-            'email.required' => '* Bạn chưa nhập email',
-            'password.required' => '* Bạn chưa nhập mật khẩu',
-            'password.min' => '* Mật khẩu tối thiểu 6 ký tự',
-            'check_password.required' => '* Bạn chưa nhập mật khẩu',
-            'check_password.same' => '* Nhập lại mật khẩu không chính xác',
+            'name.required' => 'Vui lòng điền vào trường này',
+            'name.max'=>'Quá số lượng ký tự',
+            'email.required' => 'Vui lòng điền vào trường này',
+            'email.max'=>'Quá số lượng ký tự',
+            'password.required' => 'Vui lòng điền vào trường này',
+            'password.min' => 'Nhập tối thiểu 6 ký tự',
+            'password.max'=>'Quá số lượng ký tự',
+            'check_password.required' => 'Vui lòng điền vào trường này',
+            'check_password.same' => 'Nhập lại mật khẩu không chính xác',
         ]);
         $email = $request->email;
         $password = $request->password;
@@ -138,7 +162,11 @@ class interiorPostController extends Controller
         $data['title'] = $request->email_user;
         $data['content'] = $request->content;
         $data['name'] = $request->name;
-        \App\Jobs\DemoEmail::dispatch($data, $request->email)->delay(now()->addSeconds(2));
+        $data['phone'] = $request->phone;
+        $data['check'] = $request->check;
+        $email = $request->email;
+        DemoEmail::dispatch($data, $email);
+        // \App\Jobs\DemoEmail::dispatch($data, $request->email)->delay(now()->addSeconds(2));
         session()->flash('msg', 'Gửi mail thành công');
         return redirect(route('contact'));
      }
@@ -175,14 +203,15 @@ class interiorPostController extends Controller
      {
         $request->validate([
             'pass_old' => 'required',
-            'pass_new' => 'required|min:6',
+            'pass_new' => 'required|min:6|max:30',
             'check_pass_new' =>  'required|same:pass_new',
         ], [
-            'pass_old.required' => '* Chưa nhập mật khẩu cũ',
-            'pass_new.required' => '* Chưa nhập mật khẩu',
-            'pass_new.min' => '* Mật khẩu tối thiểu 6 ký tự',
-            'check_pass_new.required' => '* Chưa nhập mật khẩu',
-            'check_pass_new.same' => '* Nhập lại mật khẩu không chính xác',
+            'pass_old.required' => 'Vui lòng điền vào trường này',
+            'pass_new.required' => 'Vui lòng điền vào trường này',
+            'pass_new.min' => 'Nhập tối thiểu 6 ký tự',
+            'pass_new.max' => 'Quá số lượng ký tự',
+            'check_pass_new.required' => 'Vui lòng điền vào trường này',
+            'check_pass_new.same' => 'Nhập lại mật khẩu không chính xác',
         ]);
         
         $pass_old = $request->pass_old;
@@ -249,9 +278,6 @@ class interiorPostController extends Controller
         }
         session()->flash('success', 'Cập nhật thành công');
         return back();
-     }
-     public function getDiscount(){
-        $discount = discount::all('id')->wh
      }
 
      public function lookup_user(){

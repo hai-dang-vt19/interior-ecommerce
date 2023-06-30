@@ -104,7 +104,8 @@
                                   </div>
                                 </div>
                               @endif
-                              <input class="form_control_ict" type="hidden" name="email" value="zzztrunzzz@gmail.com">
+                              <input type="hidden" name="email" value="zzztrunzzz@gmail.com">
+                              <input type="hidden" name="check" value="contact">
                               <div class="mb-3">
                                 <label class="form-label" for="basic-icon-default-message">Message</label>
                                 <div class="input-group input-group-merge">

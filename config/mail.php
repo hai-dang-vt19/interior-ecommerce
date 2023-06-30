@@ -91,11 +91,11 @@ return [
     |
     */
 
-    // 'from' => [
-    //     'address' => env('MAIL_FROM_ADDRESS', 'zzztrunzzz@gmail.com'),
-    //     'name' => env('MAIL_FROM_NAME', 'Đăng Đặng'),
-    // ],
-    'from' => ['address' => 'zzztrunzzz@gmail.com', 'name' => 'Đăng Đặng'],
+    'from' => [
+        'address' => env('MAIL_FROM_ADDRESS', 'zzztrunzzz@gmail.com'),
+        'name' => env('MAIL_FROM_NAME', 'Đăng Đặng'),
+    ],
+    // 'from' => ['address' => 'zzztrunzzz@gmail.com', 'name' => 'Đăng Đặng'],
 
     /*
     |--------------------------------------------------------------------------

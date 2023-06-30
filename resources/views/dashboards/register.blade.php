@@ -27,9 +27,22 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('dashboard/assets/js/config.js') }}"></script>
+    {{-- loader --}}
+    <link rel="stylesheet" href="{{ asset('interior/fakeloader/src/fakeloader.css') }}">
   </head>
 
   <body>
+    <div id="fakeloader-overlay" class="visible incoming">
+      <div class="loader-wrapper-outer">
+          <div class="loader-wrapper-inner">
+              <div class="loader">
+                  <div class="spinner-border spinner-border-lg text-warning" role="status">
+                      <span class="visually-hidden">Loading...</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
     <!-- Content -->
 
     <div class="container-xxl">
@@ -48,29 +61,44 @@
               <form class="mb-3" action="{{route('register_interior')}}" method="POST">
                 @csrf
                 <div class="mb-3">
-                  <label class="form-label">Email</label>
-                  <input type="text" class="form-control" name="email" />
+                  <label class="form-label">Email @error('email') <span class="text-danger">*</span> @enderror</label>
+                  <input type="email" 
+                    class="form-control  @error('email') is-invalid @enderror"
+                    name="email"
+                    placeholder="@error('email') {{ $message  }} @enderror" value="{{ old('email') }}" required 
+                  />
                 </div>
                 <div class="mb-3 form-password-toggle">
-                  <label class="form-label">Password</label>
+                  <label class="form-label">Password @error('password') <span class="text-danger">*</span> @enderror</label>
                   <div class="input-group input-group-merge">
-                    <input type="password" class="form-control" name="password"/>
+                    <input type="password" 
+                      class="form-control  @error('password') is-invalid @enderror"
+                      name="password"
+                      placeholder="@error('password') {{ $message  }} @enderror" required
+                    />
                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                   </div>
                 </div>
                 <div class="mb-3 form-password-toggle">
-                    <label class="form-label">Nhập lại Password</label>
+                    <label class="form-label">Nhập lại Password @error('check_password') <span class="text-danger">*</span> @enderror</label>
                     <div class="input-group input-group-merge">
-                      <input type="password" class="form-control" name="check_password"/>
+                      <input type="password" 
+                        class="form-control  @error('check_password') is-invalid @enderror"
+                        name="check_password"
+                        placeholder="@error('check_password') {{ $message  }} @enderror" required
+                      />
                       <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                     </div>
                 </div>
                 <div class="mb-3">
-                  <label class="form-label">Tên người dùng</label>
-                  <input type="text" class="form-control" name="name" />
-                  <input type="hidden" class="form-control" name="user_id"/>
+                  <label class="form-label">Tên người dùng @error('name') <span class="text-danger">*</span> @enderror</label>
+                  <input type="text" 
+                    class="form-control  @error('name') is-invalid @enderror"
+                    name="name"
+                    placeholder="@error('name') {{ $message  }} @enderror" value="{{ old('name') }}" required
+                  />
                 </div>
-                <input type="submit" value="Đăng ký" class="btn btn-warning d-grid w-100">
+                <input type="submit" value="Đăng ký" class="btn btn-warning mt-5 d-grid w-100">
               </form>
 
               <p class="text-center">
@@ -117,5 +145,17 @@
             });
       </script>
     @endif
+    {{-- fake  load--}}
+    <script src="{{ asset('interior/fakeloader/jquery-3.3.1.min.js') }}" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>
+    <script src="{{ asset('interior/fakeloader/dist/fakeloader.min.js') }}"></script>
+    <script>
+
+            $(document).ready(
+                function() {
+                    window.FakeLoader.init( { auto_hide: true } );
+                }
+            );
+
+    </script>
   </body>
 </html>

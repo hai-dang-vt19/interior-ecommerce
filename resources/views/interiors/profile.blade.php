@@ -95,7 +95,7 @@
                                             <div class="col-sm-10">
                                               <div class="input-group input-group-merge">
                                                 <span class="input-group-text"><i class="bx bx-user"></i></span>
-                                                <input type="text" class="form-control"  value="{{ Auth::user()->name }}" name="name"/>
+                                                <input type="text" class="form-control" value="{{ Auth::user()->name }}" name="name"/>
                                               </div>
                                             </div>
                                           </div>
@@ -111,11 +111,26 @@
                                           </div>
                                           <div class="row mb-3">
                                               <label class="col-sm-2 col-form-label">Giới tính</label>
-                                              <div class="col-sm-10">
-                                                <div class="input-group input-group-merge">
-                                                  <span class="input-group-text"><i class='bx bx-group'></i></span>
-                                                  <input type="text" class="form-control"  value="{{ Auth::user()->sex_user }}" name="sx_us"/>
-                                                </div>
+                                              <div class="col-sm-10 d-flex">
+                                                @if (Auth::user()->sex_user == 'Nam')
+                                                  <div class="form-check me-5">
+                                                    <input class="form-check-input" type="radio" value="{{ Auth::user()->sex_user }}" name="sx_us" id="defaultRadio1" checked/>
+                                                    <label class="form-check-label" for="defaultRadio1"> Nam </label>
+                                                  </div>
+                                                  <div class="form-check">
+                                                    <input class="form-check-input" type="radio" value="Nữ" id="defaultRadio2" name="sx_us"/>
+                                                    <label class="form-check-label" for="defaultRadio2"> Nữ </label>
+                                                  </div>
+                                                @else
+                                                  <div class="form-check me-5">
+                                                    <input class="form-check-input" type="radio" value="Nam" name="sx_us" id="defaultRadio1" />
+                                                    <label class="form-check-label" for="defaultRadio1"> Nam </label>
+                                                  </div>
+                                                  <div class="form-check">
+                                                    <input class="form-check-input" type="radio" value="{{ Auth::user()->sex_user }}" name="sx_us" id="defaultRadio2" checked/>
+                                                    <label class="form-check-label" for="defaultRadio2"> Nữ </label>
+                                                  </div>
+                                                @endif
                                               </div>
                                           </div>
                                           <div class="row mb-3">
@@ -162,7 +177,7 @@
                                   </div>
                               </div>
                               <div class="mt-2">
-                                <button type="submit" id="ckBtnUpProfile" disabled="disabled" class="btn btn-success float-end me-5 mb-3">Save changes</button>
+                                <button type="submit" id="ckBtnUpProfile" disabled="disabled" class="btn btn-success float-end me-5 mb-3">Cập nhật</button>
                               </div>
                             
                           </div>
@@ -181,16 +196,16 @@
                           <form action="{{ route('update_password') }}" method="POST">
                           @csrf
                           <div class="mb-3">
-                              <label class="form-label">Mật khẩu hiện tại</label>
-                              <input class="form-control" type="password" name="pass_old"/>
+                              <label class="form-label">Mật khẩu hiện tại @error('pass_old') <span class="text-danger">*</span> @enderror</label>
+                              <input class="form-control @error('pass_old') is-invalid @enderror" type="password" name="pass_old" placeholder="@error('pass_old') {{ $message  }} @enderror" required/>
                           </div>
                           <div class="mb-3">
-                              <label class="form-label">Mật khẩu mới</label>
-                              <input class="form-control" type="password" name="pass_new"/>
+                              <label class="form-label">Mật khẩu mới @error('pass_new') <span class="text-danger">*</span> @enderror</label>
+                              <input class="form-control @error('pass_new') is-invalid @enderror" type="password" name="pass_new" placeholder="@error('pass_new') {{ $message  }} @enderror" required/>
                           </div>
                           <div class="mb-3">
-                              <label class="form-label">Nhập lại mật khẩu mới</label>
-                              <input class="form-control" type="password" name="check_pass_new"/>
+                              <label class="form-label">Nhập lại mật khẩu mới @error('check_pass_new') <span class="text-danger">*</span> @enderror</label>
+                              <input class="form-control @error('check_pass_new') is-invalid @enderror" type="password" name="check_pass_new" placeholder="@error('check_pass_new') {{ $message  }} @enderror" required/>
                           </div>
                           <hr class="mt-5">
                           <button type="submit" class="btn btn-success mb-2 d-grid w-100">Đổi mật khẩu</button>
@@ -212,6 +227,7 @@
                 </div>
               </div>
             </div>
+            
             <!-- / Content -->
             <!-- Footer -->
             @include('interiors.blocks.footer')

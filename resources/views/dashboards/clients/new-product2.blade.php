@@ -39,8 +39,11 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('dashboard/assets/js/config.js') }}"></script>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+  {{-- loader --}}
+      <link rel="stylesheet" href="{{ asset('interior/fakeloader/src/fakeloader.css') }}">
   </head>
   <body>
+    @include('dashboards.blocks.fakeload')
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
@@ -282,5 +285,6 @@
               });
         </script>
       @endif
+      @include('dashboards.blocks.foo')
   </body>
 </html>

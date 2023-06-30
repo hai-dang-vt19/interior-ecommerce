@@ -39,4 +39,7 @@
     {{-- multi select --}}
     <link rel="stylesheet" href="{{ asset('interior/assets/css/multi-select.css') }}">
     <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+
+    {{-- loader --}}
+    <link rel="stylesheet" href="{{ asset('interior/fakeloader/src/fakeloader.css') }}">
   </head>

@@ -41,9 +41,12 @@
     {{-- flat picker --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
+  {{-- loader --}}
+      <link rel="stylesheet" href="{{ asset('interior/fakeloader/src/fakeloader.css') }}">
   </head>
 
   <body>
+    @include('dashboards.blocks.fakeload')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
         function chooseFile(fileInput){
@@ -275,5 +278,6 @@
           // locale: "vn"
         });
       </script>
+      @include('dashboards.blocks.foo')
   </body>
 </html>

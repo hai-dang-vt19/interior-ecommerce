@@ -40,7 +40,7 @@
     <script src="{{ asset('dashboard/assets/js/config.js') }}"></script>
   </head>
 
-  <body>
+    <body>
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
@@ -93,7 +93,7 @@
                 </div>
                 <form action="{{ route('create_bill_dashboard') }}" method="GET">
                   <div class="d-flex ms-5">
-                      <input type="text" class="form-control me-1" value="ICS" name="data" placeholder="Nhập mã">
+                      <input type="text" class="form-control me-1" value="ICS" name="data" placeholder="Nhập mã" required>
                       <Button class="btn btn-outline-secondary">Check</Button>
                   </div>
                 </form>

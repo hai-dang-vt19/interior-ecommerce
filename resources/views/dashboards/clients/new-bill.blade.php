@@ -35,12 +35,13 @@
     <!-- Page CSS -->
     <!-- Helpers -->
     <script src="{{ asset('dashboard/assets/vendor/js/helpers.js') }}"></script>
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('dashboard/assets/js/config.js') }}"></script>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    {{-- loader --}}
+      <link rel="stylesheet" href="{{ asset('interior/fakeloader/src/fakeloader.css') }}">
   </head>
   <body>
+    @include('dashboards.blocks.fakeload')
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
@@ -87,7 +88,8 @@
                 <div class="col-xxl">
                   <div class="card mb-4">
                     <div class="card-header d-flex align-items-center justify-content-between mb-3" style="border-bottom: 3px dashed #F5F5F9">
-                        <div class="d-flex">
+                        <div class="row">
+                          <div class="col-lg-4">
                             <div class="btn-group">
                               <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class='bx bx-message-square-add'></i> Chọn sản phẩm
@@ -98,50 +100,56 @@
                                 @endforeach
                               </ul>
                             </div>
+                          </div>
+                          <div class="col-lg-8">
                             <form action="{{ route('create_bill_dashboard') }}" method="GET">
-                              <div class="d-flex ms-5">
-                                  <input type="text" class="form-control me-1" value="ICS" name="data" placeholder="Nhập mã">
-                                  <Button class="btn btn-outline-secondary">Check</Button>
+                              <div class="row container">
+                                  <div class="col-8">
+                                    <input type="text" class="form-control me-1" value="ICS" name="data" placeholder="Nhập mã">
+                                  </div>
+                                  <div class="col-4">
+                                    <Button class="btn btn-outline-secondary">Check</Button>
+                                  </div>
                               </div>
                             </form>
                           </div>
-                      <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
+                        </div>
                     </div>
                     {{-- <hr class="my-0 mb-3"> --}}
                     <div class="card-body mb-3">
                       <form action="{{ route('up_to_cart_dashboard') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @foreach ($product as $item)
-                          <div class="d-flex">
-                            <div>
-                              <dl class="row mt-2 ms-4">
-                                <dt class="col-sm-2">Mã sản phẩm: </dt>
-                                <dd class="col-sm-9">{{ $item->id_product }}</dd>
+                          <div class="row container-xxl">
+                            <div class="col-lg-8">
+                              <dl class="row container">
+                                <dt class="col-lg-3">Mã sản phẩm: </dt>
+                                <dd class="col-lg-9">{{ $item->id_product }}</dd>
         
-                                <dt class="col-sm-2">Tên sản phẩm: </dt>
-                                <dd class="col-sm-9">
-                                  {{ $item->name_product }} &emsp;&emsp; ( {{ $item->type_product }} )
+                                <dt class="col-lg-3">Tên sản phẩm: </dt>
+                                <dd class="col-lg-9">
+                                  {{ $item->name_product }} ( {{ $item->type_product }} )
                                 </dd>
-                                <dt class="col-sm-2">Số lượng: </dt>
-                                <dd class="col-sm-9">
+                                <dt class="col-lg-3">Số lượng: </dt>
+                                <dd class="col-lg-9">
                                   <p>{{ $item->amount }}</p>
                                 </dd>
         
-                                <dt class="col-sm-2">Giá sản phẩm</dt>
-                                <dd class="col-sm-9">{{ number_format($item->price) }} &#8363;</dd>
+                                <dt class="col-lg-3">Giá sản phẩm</dt>
+                                <dd class="col-lg-9">{{ number_format($item->price) }} &#8363;</dd>
         
-                                <dt class="col-sm-2 text-truncate">Giá sale: </dt>
-                                <dd class="col-sm-9">
+                                <dt class="col-lg-3 text-truncate">Giá sale: </dt>
+                                <dd class="col-lg-9">
                                   <p>{{ number_format($item->sales) }} &#8363;</p>
                                 </dd>
-                                <dt class="col-sm-2 text-truncate">Số lượng mua </dt>
-                                <dd class="col-sm-2">
-                                  <input type="text" class="form-control" name="amount_product">
+                                <dt class="col-lg-3 text-truncate">Số lượng mua </dt>
+                                <dd class="col-lg-3">
+                                  <input type="text" class="form-control form-control-sm" name="amount_product">
                                 </dd>
                               </dl>
                             </div>
-                            <div>
-                              <img class="me-5 shadow" src="{{ asset('dashboard\upload_img\product/'.$item->images) }}" width="300px" height="290px" style="border: 1px solid rgb(255, 255, 255); border-radius: 1000px"  alt="">
+                            <div class="col-lg-4 mb-1">
+                              <img class="w-75 shadow rounded-pill" src="{{ asset('dashboard\upload_img\product/'.$item->images) }}" alt="">
                             </div>
                           </div>
                           <input type="hidden" class="form-control" value="{{ $item->id_product }}" name="id_product">
@@ -159,10 +167,8 @@
                             $timeNow = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
                         @endphp
                         <input type="hidden" name="date_create" value="{{$timeNow}}">
-                        <div class="row">
-                          <div>
-                            <button type="submit" class="btn btn-success">Thêm vào giỏ<i class='bx bxs-cart-add ms-2'></i></button>
-                          </div>
+                        <div class="container">
+                          <button type="submit" class="btn btn-success">Thêm vào giỏ<i class='bx bxs-cart-add ms-2'></i></button>
                         </div>
                       </form>
                     </div>
@@ -198,14 +204,53 @@
                             </td>
                           </tr>
                           @endforeach
-                          <tr>
-                            <td  colspan="7">Tổng đơn:&ensp; <span class="text-primary">{{number_format($sum_cart)}} &#8363;</span></td>
-                          </tr>
+                          <form action="{{ route('pay_store', ['total_cart'=>$sum_cart]) }}" method="POST">@csrf
+                            <tr class="table-dark">
+                              {{-- <td colspan="3">Tổng đơn:&ensp; <span class="text-primary">{{number_format($sum_cart)}} &#8363;</span></td> --}}
+                              <td colspan="2">
+                                <input type="text" class="form-control form-control-sm" placeholder="Nhập số điện thoại" name="phone" required>
+                              </td>
+                              <td></td>
+                              <td colspan="3">
+                                <span>Phương thức thanh toán</span>
+                              </td>
+                              <td></td>
+                            </tr>
+                            <tr class="table-dark">
+                              {{-- <td colspan="2">
+                                <input type="text" class="form-control form-control-sm">
+                              </td> --}}
+                              <td colspan="2">Tổng đơn:&ensp; <span class="text-primary">{{number_format($sum_cart)}} &#8363;</span></td>
+                              <td>
+                                <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="checkMethod" value="1" id="tienmat" checked/>
+                                  <label class="form-check-label" for="tienmat"> Tiền mặt </label>
+                                </div>
+                              </td>
+                              <td>
+                                <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="checkMethod" value="2" id="vnpayatm" />
+                                  <label class="form-check-label" for="vnpayatm"> VNPAY ATM </label>
+                                </div>
+                              </td>
+                              <td>
+                                <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="checkMethod" value="3" id="vnpayqr" />
+                                  <label class="form-check-label" for="vnpayqr"> VNPAY QR </label>
+                                </div>
+                              </td>
+                              <td colspan="2">
+                                <button type="submit" class="btn btn-warning btn-sm w-75" name="redirect">
+                                  Thanh toán
+                                </button>
+                              </td>
+                            </tr>
+                          </form>
                         </tbody>
                       </table>
                     </div>
                   </div>
-                  <div class="float-end mt-1 me-5 btn-group">
+                  {{-- <div class="float-end mt-1 me-5 btn-group">
                     <button type="button" class="btn btn-warning dropdown-toggle shadow " data-bs-toggle="dropdown" aria-expanded="false">
                       <i class='bx bx-dollar'></i> Thanh toán
                     </button>
@@ -238,7 +283,7 @@
                         </div>
                       </li>
                     </ul>
-                  </div>
+                  </div> --}}
                 </div>
               </div>
             </div>
@@ -276,7 +321,7 @@
     <script src="{{ asset('dashboard/assets/js/main.js') }}"></script>
 
     <!-- Page JS -->
-
+    <script src="{{ asset('dashboard/assets/js/form-basic-inputs.js') }}"></script>
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     {{-- <script src="{{ asset('dashboard\js\formatCurrence.js') }}"></script> --}}
@@ -312,5 +357,6 @@
               });
         </script>
       @endif
+      @include('dashboards.blocks.foo')
   </body>
 </html>

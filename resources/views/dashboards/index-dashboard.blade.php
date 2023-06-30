@@ -19,14 +19,16 @@
     <link rel="stylesheet" href="{{ asset('dashboard/assets/css/demo.css') }}" />
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{ asset('dashboard/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
+    {{-- <link rel="stylesheet" href="{{ asset('dashboard/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" /> --}}
+    
     <link rel="stylesheet" href="{{ asset('dashboard/assets/vendor/libs/apex-charts/apex-charts.css') }}" />
     <!-- Page CSS -->
     <!-- Helpers -->
     <script src="{{ asset('dashboard/assets/vendor/js/helpers.js') }}"></script>
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('dashboard/assets/js/config.js') }}"></script>
     
+    @include('dashboards.blocks.head')
+
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load('current', {'packages':['bar']});
@@ -72,8 +74,8 @@
         var options = {
           title: 'Tổng tiền 3 năm gần nhất',
           sliceVisibilityThreshold: .2,
-          'width':370,
-          'height':280
+          'width':0,
+          'height':0
           // 'backgroundColor': 'blue'
         };
 
@@ -82,7 +84,8 @@
       }
     </script>
   </head>
-  <body>
+    <body>
+    @include('dashboards.blocks.fakeload')
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
@@ -262,14 +265,10 @@
                 </div>
                 <!-- Total Revenue -->
                 <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
-                  <div class="card" style="height: 492px">
-                    <div class="row row-bordered g-0">
-                      <div class="col-md-8">
-                        <h4 class="container mt-4 mb-5">Doanh thu 3 năm gần nhất</h4>
-                        {{--<h4 class="container mt-4 mb-5">Doanh thu 3 năm gần nhất @include('dashboards.block_dashboard.modal_chart_month')</h4>--}}
-                        <div id="barchart_material" class="px-2 mt-5 mb-3" style="width: 800px; height: 310px;"></div>{{-- Biểu đồ --}}
-                        {{-- <div id="totalRevenueChart" class="px-2"></div> --}}
-                      </div>
+                  <div class="card overflow-hidden" style="height: 492px">
+                    <h5 class="card-header">Doanh thu 3 năm gần nhất</h5>
+                    <div class="card-body" id="horizontal-example">
+                      <div id="barchart_material" class="px-2 mt-5 mb-3" style="width: 800px; height: 310px;"></div>
                     </div>
                   </div>
                 </div>
@@ -380,7 +379,6 @@
                             <div class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
                               <div id="chart_div" class="ms-1" style="width: 350px; height: 285px"></div> {{--Biểu đồ tròn--}}
                             </div>
-                            {{-- <div id="profileReportChart"></div> --}}
                           </div>
                         </div>
                       </div>
@@ -641,10 +639,12 @@
     <!-- endbuild -->
     <!-- Vendors JS -->
     <script src="{{ asset('dashboard/assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
+    <script src="{{ asset('dashboard/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
     <!-- Main JS -->
     <script src="{{ asset('dashboard/assets/js/main.js') }}"></script>
     <!-- Page JS -->
     <script src="{{ asset('dashboard/assets/js/dashboards-analytics.js') }}"></script>
+    <script src="{{ asset('dashboard/assets/js/extended-ui-perfect-scrollbar.js') }}"></script>
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -678,5 +678,6 @@
             });
       </script>
     @endif
+    @include('dashboards.blocks.foo')
   </body>
 </html>

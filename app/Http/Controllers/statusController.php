@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\DemoEmail;
 use Illuminate\Http\Request;
 use App\Models\typestatus;
 use App\Models\status_interior;
@@ -9,6 +10,10 @@ use App\Models\roles;
 use App\Models\discount;
 use App\Models\history;
 use Illuminate\Support\Facades\Auth;
+use Mail;
+use App\Models\User;
+use Exception;
+use App\Mail\SendMail;
 
 class statusController extends Controller
 {
@@ -123,11 +128,20 @@ class statusController extends Controller
     
     public function add_discount(Request $request)
     {
-         discount::updateOrCreate([
+        discount::updateOrCreate([
             'name_discount'=>$request->name_discount,
             'price'=>$request->price,
             'status_discount'=>$request->status_discount
         ]);
+        $email = User::all()->where('name_roles','user')->where('name_status','1');
+        $data = [
+            'title'=>'Tôi có một món quà nhỏ dành cho bạn',
+            'content'=>$request->price,
+            'name'=>$request->name_discount,
+            'check'=>'discount',
+        ];
+        DemoEmail::dispatch($data, $email);
+
         history::create([
             'name_his'=>'Create',
              'user_his'=>Auth::user()->email,

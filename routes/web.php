@@ -271,3 +271,6 @@ Route::get('interior/bill', [interiorController::class, 'bill'])->middleware(['c
 // Route::get('/index2', function(){
 //     return view('interiors2.index');
 // });
+Route::get('/editmail', function(){
+    return view('SendMailDiscount');
+});

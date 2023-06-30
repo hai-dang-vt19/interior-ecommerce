@@ -41,8 +41,11 @@
     <script src="{{ asset('dashboard/assets/js/config.js') }}"></script>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     <script src="{{ asset('dashboard/assets/js/multi-select.js') }}"></script>
+  {{-- loader --}}
+      <link rel="stylesheet" href="{{ asset('interior/fakeloader/src/fakeloader.css') }}">
   </head>
   <body>
+    @include('dashboards.blocks.fakeload')
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
@@ -82,7 +85,7 @@
           <div class="content-wrapper">
             <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Product/</span> Thêm mới sản phẩm</h4>
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Order/</span> Thông tin khách hàng</h4>
               <!-- Basic Layout & Basic with Icons -->
               <div class="row">
                 <!-- Basic with Icons -->
@@ -95,37 +98,55 @@
                       <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
                     </div>
                     {{-- <hr class="my-0 mb-3"> --}}
-                    <div class="card-body mb-3">
-                      <form action="{{ route('update_after_pay') }}" method="POST">
+                    <div class="card-body px-5 mb-3">
+                      <form class="container-xxl" action="{{ route('update_after_pay') }}" method="POST">
                         @csrf
                           <input type="hidden" value="{{ $id_bill_ }}" name="id_bill">
+                          @php
+                              use App\Models\User;
+                              $userCart = User::all()->where('name_status',1)->where('phone',$phone);
+                              if ($userCart == "[]") {
+                                $username = null;
+                                $phone = null;
+                                $email = null;
+                                $address = null;
+                              } else {
+                                foreach ($userCart as $itmUserCart) {
+                                  $username = $itmUserCart->name;
+                                  $phone = $itmUserCart->phone;
+                                  $email = $itmUserCart->email;
+                                  $address = $itmUserCart->district.', '.$itmUserCart->city.', '.$itmUserCart->province;
+                                }
+                              }
+                              
+                          @endphp
                             <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label">Họ tên</label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" name="username">
+                                <label class="col-lg-2 col-form-label">Họ tên</label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" name="username" value="{{ $username }}">
                                 </div>
                             </div>
                             <div class="row mb-3">
-                              <label class="col-sm-2 col-form-label">Số điện thoại</label>
-                              <div class="col-sm-6">
-                                  <input type="text" class="form-control" name="phone">
+                              <label class="col-lg-2 col-form-label">Số điện thoại</label>
+                              <div class="col-lg-6">
+                                  <input type="text" class="form-control" required name="phone" value="{{ $phone }}">
                               </div>
                             </div>
                             <div class="row mb-3">
-                              <label class="col-sm-2 col-form-label">Email</label>
-                              <div class="col-sm-6">
-                                  <input type="text" class="form-control" name="email">
+                              <label class="col-lg-2 col-form-label">Email</label>
+                              <div class="col-lg-6">
+                                  <input type="text" class="form-control" name="email" value="{{ $email }}">
                               </div>
                             </div>
                             <div class="row mb-3">
-                              <label class="col-sm-2 col-form-label">Địa chỉ</label>
-                              <div class="col-sm-6">
-                                  <input type="text" class="form-control" name="address">
+                              <label class="col-lg-2 col-form-label">Địa chỉ</label>
+                              <div class="col-lg-6">
+                                  <input type="text" class="form-control" name="address" value="{{ $address }}">
                               </div>
                             </div>
                             <div class="row mb-3">
-                              <label class="col-sm-2 col-form-label">Mã giảm giá</label>
-                              <div class="col-sm-6">
+                              <label class="col-lg-2 col-form-label">Mã giảm giá</label>
+                              <div class="col-lg-6">
                                   <select class="form-select" name="discount" id="choices-multiple-remove-button">
                                     <option disabled selected></option>
                                     @foreach ($discounts as $discount)
@@ -134,8 +155,8 @@
                                   </select>
                               </div>
                             </div>
-                            <div class="row ms-1">
-                              <div>
+                            <div class="row">
+                              <div class="col-8">
                                 <button type="submit" class="btn btn-warning">Xác nhận</button>
                               </div>
                             </div>
@@ -267,5 +288,6 @@
           }); 
       });
     </script>
+    @include('dashboards.blocks.foo')
   </body>
 </html>

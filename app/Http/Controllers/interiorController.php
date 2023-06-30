@@ -395,7 +395,7 @@ class interiorController extends Controller
     public function detail_bill(Request $request)
     {
         $bill = bill::all()->where('id_bill',$request->id);
-        $product = product::all()->where('id_product',$request->product);
+        $product = product::all();
         return view('dashboards.block_dashboard.bill_detail',compact('bill','product'));
     }
 

@@ -26,9 +26,10 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('dashboard/assets/js/config.js') }}"></script>
-    
+    @include('dashboards.blocks.head')
   </head>
   <body>
+    @include('dashboards.blocks.fakeload')
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
@@ -67,22 +68,22 @@
           <div class="content-wrapper">
             <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span>Chi tiết đơn hàng </h4>
               <!-- Responsive Table -->
               {{-- <div class="card"> --}}
+              
                 @foreach ($bill as $key => $bl)
                   <div class="col mb-4 ms-5">
                     <div class="mt-3">
                       <div class="row">
                         <div class="col-md-2 col-12 mb-3 mb-md-0 me-5">
                           <div class="list-group">
-                            <a class="list-group-item list-group-item-action active" id="list-home-list" data-bs-toggle="list" href="#list-home" >Đơn hàng</a>
-                            <a class="list-group-item list-group-item-action" id="list-profile-list" data-bs-toggle="list" href="#list-profile">Sản phẩm</a>
+                            <a class="list-group-item list-group-item-action text-center active" id="list{{$bl->id_product}}" data-bs-toggle="list" href="#{{$bl->id_product}}" >Đơn hàng</a>
+                            <a class="list-group-item list-group-item-action text-center" id="list-profile{{$bl->id_product}}" data-bs-toggle="list" href="#profile{{$bl->id_product}}">{{$bl->id_product}}</a>
                           </div>
                         </div>
                         <div class="col-8 card">
                           <div class="tab-content p-0">
-                            <div class="tab-pane fade show active" id="list-home">
+                            <div class="tab-pane fade show active" id="{{$bl->id_product}}">
                                 <h5 class="mt-3 ms-4"><span>Mã đơn hàng:</span> <span class="ms-2 text-warning">{{$bl->id_bill}}</span></h5>
                                 <dl class="row mt-2 ms-4"><hr class="mb-4">
                                     <dt class="col-sm-2">Số lượng</dt>
@@ -153,9 +154,12 @@
                                     <dd class="col-sm-9 mb-4">{{$bl->address}}</dd>
                                 </dl>
                             </div>
-                            <div class="tab-pane fade" id="list-profile">
+                            <div class="tab-pane fade" id="profile{{$bl->id_product}}">
                               <h5 class="mt-3 ms-4"><span>Mã đơn hàng:</span> <span class="ms-2 text-warning">{{$bl->id_bill}}</span></h5><hr>
-                              @foreach ($product as $pr)
+                              @php
+                                  $products = $product->where('id_product',$bl->id_product);
+                              @endphp
+                              @foreach ($products as $pr)
                                 <div class="d-flex ms-2">
                                   <div class="col-7 ms-3">
                                     <div class="d-flex">
@@ -208,8 +212,8 @@
                       </div>
                     </div>
                   </div>
-              </div>
-            @endforeach    
+                @endforeach    
+            </div>
               <!--/ Responsive Table -->
             {{-- </div> --}}
             <!-- / Content -->            
@@ -246,5 +250,6 @@
     <script src="{{ asset('dashboard/assets/js/dashboards-analytics.js') }}"></script>
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    @include('dashboards.blocks.foo')
   </body>
 </html>

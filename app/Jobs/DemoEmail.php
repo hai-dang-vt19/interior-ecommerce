@@ -9,6 +9,9 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\OrderShipped;
+use App\Mail\SenDiscount;
+use App\Models\User;
 
 class DemoEmail implements ShouldQueue
 {
@@ -34,6 +37,15 @@ class DemoEmail implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->email)->send(new \App\Mail\OrderShipped($this->data));
+        $check = $this->data['check'];
+        if($check == "contact"){
+            Mail::to($this->email)->send(new OrderShipped($this->data));
+        }elseif($check == "discount"){
+            foreach($this->email as $us){
+                Mail::to($us->email)->send(new SenDiscount($this->data));
+            }
+        }else{
+            return back();
+        }
     }
 }
