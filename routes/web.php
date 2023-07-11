@@ -24,6 +24,7 @@ use App\Http\Controllers\warehouseController;
 //----------------------------------login------------------------------------------------------------
 Route::get('/login', [interiorController::class,'login'])->name('login');
 Route::post('/interior-login', [interiorPostController::class,'login_interior'])->name('login_interior');
+Route::get('/interior/loginMail/{email}/{key}', [interiorPostController::class,'loginToEmail']);
 Route::get('/register-interior', [interiorController::class,'register'])->name('register');
 Route::post('/register', [interiorPostController::class, 'register_interior'])->name('register_interior');
 Route::get('/logout/interior',[interiorPostController::class, 'logout'])->name('logout');
@@ -267,6 +268,8 @@ Route::get('bill/export/', [BillExport::class, 'export_excel_bill'])->middleware
 Route::get('history/export/', [HistoryExport::class, 'export_excel_history'])->middleware(['auth'])->name('export_excel_history');
 
 Route::get('interior/bill', [interiorController::class, 'bill'])->middleware(['can:client_inte','auth'])->name('bill');
+
+Route::get('rdr/qrcode/{id}', [interiorController::class, 'rdr_QrCode'])->name('rdr_QrCode');
 // ---------------------------
 // Route::get('/index2', function(){
 //     return view('interiors2.index');

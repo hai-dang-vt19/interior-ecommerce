@@ -632,7 +632,8 @@ class interiorController extends Controller
 
     public function comment_dashboard()
     {
-        $comment = comments::limit(8)->paginate(8);
+        // $comment = comments::all();
+        $comment = comments::limit(12)->paginate(12);
         return view('dashboards.clients.z-comment', compact('comment'));
     }
 
@@ -990,13 +991,13 @@ class interiorController extends Controller
 
         if($search_inter != ""){
                 if(!empty($request->check)){
-                    $product = $pr_inte->Where('name_product','LIKE',"%$search_inter%")
+                    $product = $pr_inte->Where('name_product','LIKE',"%$search_inter%")->orWhere('id_product','LIKE',"%$search_inter")
                                         ->where('type_product',$type)
                                         ->whereBetween('price',[$arrMin, $arrMax])
                                         ->limit(12)
                                         ->paginate(12);
                 }else{
-                    $product = $pr_inte->Where('name_product','LIKE',"%$search_inter%")
+                    $product = $pr_inte->Where('name_product','LIKE',"%$search_inter%")->orWhere('id_product','LIKE',"%$search_inter")
                                         ->limit(12)
                                         ->paginate(12);
                 }
@@ -1228,4 +1229,19 @@ class interiorController extends Controller
     //     $time = Carbon::now('Asia/Ho_Chi_Minh');
     //     return Excel::download(new BillExport(), 'Don_hang_'.$time->day.'_'.$time->month.'_'.$time->year.'.xlsx');
     // }
+    public function rdr_QrCode(Request $req) {
+        // dd($req->id);
+        if (empty(Auth::user())) {
+            $url = 'http://127.0.0.1:8000/interior-product-srh?key='.$req->id;
+            return redirect($url);
+        } else {
+            if (Auth::user()->name_roles == 'user') {
+                $url = 'http://127.0.0.1:8000/interior-product-srh?key='.$req->id;
+                return redirect($url);
+            } else {
+                $url = 'http://127.0.0.1:8000/new-bill?data='.$req->id;
+                return redirect($url);
+            }
+        }
+    }
 }

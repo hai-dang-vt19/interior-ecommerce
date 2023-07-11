@@ -77,15 +77,19 @@
                         <div class="container mb-4">
                             <div class="row row-cols-1 row-cols-md-3 g-4">
                                 @foreach ($product as $itm_prd)
+                                @php
+                                    $url = 'http://127.0.0.1:8000/rdr/qrcode/'.$itm_prd->id_product;
+                                @endphp
                                     <div class="col">
                                         <div class="card">
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#{{$itm_prd->id_product}}">
+                                                {{-- <div style="position: absolute; margin: 5px;">{{ QrCode::color(251,183,16)->size(50)->generate($url) }}</div> --}}
                                                 <img class="card-img-top h-px-300" src="{{ asset('dashboard\upload_img\product/'.$itm_prd->images) }}" alt="Card image cap"  />
-                                            
                                                 <div class="card-body">
                                                     <h5 class="card-title">{{ $itm_prd->name_product }}</h5>
                                                     <p class="card-text">{{ number_format($itm_prd->price) }} &#8363;</p>
                                                     <a href="{{ route('create_favorite', ['id'=>$itm_prd->id_product]) }}" class="card-link text-decoration-none float-end"><i class='bx bxs-heart-circle bx-sm text-danger' ></i></a>
+                                                    <a href="#" class="card-link text-decoration-none float-end me-2" data-bs-toggle="modal" data-bs-target="#qr{{$itm_prd->id_product}}"><i class='bx  bx-qr-scan bx-sm' ></i></a>
                                                 </div>
                                             </a>
                                             {{-- Modal --}}
@@ -135,11 +139,29 @@
                                                         <div class="modal-footer">
                                                             <div>
                                                                 <label class="form-label">Số lượng mua: </label>
-                                                                <input type="text" class="form-control form-control-sm w-50" value="1" name="quantity">
+                                                                <input type="number" class="form-control form-control-sm w-75" value="1" min="1" max="{{ $itm_prd->amount }}" name="quantity">
+                                                                {{-- <input type="text" class="form-control form-control-sm w-50" value="1" name="quantity"> --}}
                                                             </div>
                                                             <button type="submit" class="btn btn-warning">Thêm vào giỏ hàng<i class='bx bxs-cart-add bx-sm'></i></button>
                                                         </div>
                                                     </form>
+                                                  </div>
+                                                </div>
+                                            </div>
+                                            {{-- / Modal --}}
+                                            {{-- Modal QRCODE --}}
+                                            <div class="modal fade" id="qr{{$itm_prd->id_product}}" tabindex="-1" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                                                  <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="row justify-content-center text-center">
+                                                            {{ QrCode::color(251,183,16)->size(250)->generate($url) }}
+                                                            <h5 class="mt-5">{{ $itm_prd->name_product }}</h5>
+                                                        </div>
+                                                    </div>
                                                   </div>
                                                 </div>
                                             </div>

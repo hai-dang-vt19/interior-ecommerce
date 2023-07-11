@@ -6,10 +6,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Mail\Mailables\Address;
-use Illuminate\Mail\Mailables\Envelope;
 
-class OrderShipped extends Mailable
+class Register extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -24,7 +22,6 @@ class OrderShipped extends Mailable
         $this->data=$data;
     }
 
-    
     /**
      * Build the message.
      *
@@ -34,7 +31,7 @@ class OrderShipped extends Mailable
     {
         $data = $this->data;
         return $this->from('zzztrunzzz@gmail.com')
-           ->view('SendMail', compact('data'))
+           ->view('SendMailRegister', compact('data'))
            ->subject('Chung Si Inteiror');
     }
 }

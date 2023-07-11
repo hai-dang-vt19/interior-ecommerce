@@ -82,6 +82,7 @@
           <div class="container-xxl flex-grow-1 container-p-y">
             <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Comment / </span>Danh sách nhận xét</h4>
             <!-- Responsive Table -->
+            
             <div class="card">
               <div class="table-responsive text-nowrap">
                 <table class="table table-hover">
@@ -114,9 +115,9 @@
                 </table>
               </div>
             </div>
-            <div class="d-flex mt-2">
+            {{-- <div class="d-flex mt-2">
               {{ $comment->links() }}
-            </div>
+            </div> --}}
             <!--/ Responsive Table -->
           </div>
           <!-- Content wrapper -->

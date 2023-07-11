@@ -10,6 +10,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\OrderShipped;
+use App\Mail\Register;
 use App\Mail\SenDiscount;
 use App\Models\User;
 
@@ -44,6 +45,8 @@ class DemoEmail implements ShouldQueue
             foreach($this->email as $us){
                 Mail::to($us->email)->send(new SenDiscount($this->data));
             }
+        }elseif($check == 'Register'){
+            Mail::to($this->data['email'])->send(new Register($this->data));
         }else{
             return back();
         }

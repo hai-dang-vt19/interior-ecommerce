@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
 use App\Jobs\DemoEmail;
+use FFI\Exception;
 
 class interiorPostController extends Controller
 {
@@ -73,73 +74,140 @@ class interiorPostController extends Controller
             return redirect(route('login'));
         }
      }
+     public function loginToEmail(Request $req){
+        $email = $req->email;
+        $pass = $req->key;
+        $credentials = [
+            "email"=>$email,
+            "password"=>$pass,
+        ];
+        // return 1;
+        if (Auth::attempt($credentials)) {
+            $req->session()->regenerate();
+            // dd($request->all());
+            if (Auth::check()) {
+                if(Auth::user()->name_status == 1){
+                    session()->flash('success', 'Đăng nhập thành công')    ;
+                    return redirect(route('profile'));
+                }else{
+                    session()->flash('login-er', 'Tài khoản đã ngắt kết nối, để sử dụng lại bạn hãy liên hệ chúng tôi');
+                    return redirect(route('login'));
+                }                
+            } else {
+                session()->flash('login-er', 'Không thành công');
+                return redirect(route('login'));
+            }  
+        }else{
+            session()->flash('login-er', 'Tài khoản hoặc mật khẩu không chính xác');
+            return redirect(route('login'));
+        }
+     }
      public function register_interior(Request $request)
      {
         $request->validate([
             'name' => 'required|max:50',
             'email' => 'required|max:100',
-            'password' => 'required|min:6|max:30',
-            'check_password' =>  'required|same:password',
         ], [
             'name.required' => 'Vui lòng điền vào trường này',
             'name.max'=>'Quá số lượng ký tự',
             'email.required' => 'Vui lòng điền vào trường này',
             'email.max'=>'Quá số lượng ký tự',
-            'password.required' => 'Vui lòng điền vào trường này',
-            'password.min' => 'Nhập tối thiểu 6 ký tự',
-            'password.max'=>'Quá số lượng ký tự',
-            'check_password.required' => 'Vui lòng điền vào trường này',
-            'check_password.same' => 'Nhập lại mật khẩu không chính xác',
         ]);
         $email = $request->email;
-        $password = $request->password;
-        $name = $request->name;
-
-        $data = User::where('email',$email)->get('email');
-        $e = '[{"email":"'.$email.'"}]';
-        if($data != $e){
+        $pass = substr(str_shuffle(md5(mt_rand())), 0, 10);
+        $data = [
+            'email'=>$email,
+            'password'=>$pass,
+            'name'=>$request->name,
+            'check' =>'Register'
+        ];
+        
+        $user = User::where('email',$email)->get();
+        if($user == '[]'){
             $user = new User();
             $user->email = $email;
-            $user->password = Hash::make($password);
-            $user->name = $name;
-            $user->user_id = 'IT-KH00';
+            $user->password = Hash::make($pass);
+            $user->user_id = 'IT0'.time().'-KH'.rand(1,99999);
+            $user->name = $request->name;
             $user->save();
-            
-            $get = User::where('user_id', 'IT-KH00');
-            $id = $get->get('id');
-            $str = strlen($id);
-            if($str == 10){
-                $sub = substr($id,7,1);
-            }elseif($str == 11){
-                $sub = substr($id,7,2);
-            }elseif($str == 12){
-                $sub = substr($id,7,3);
-            }elseif($str == 13){
-                $sub = substr($id,7,4);
-            }else{
-                $sub = substr($id,7,5);
-            }
-            $us = 'IT'.time().'-KH0'.$sub;
-            User::where('id',$sub)->update(['user_id'=>$us]);
 
-            history::create([
-                'name_his'=>'Create',
-                'user_his'=>'New '.$email,
-                'description_his'=>'Người dùng đăng ký thài khoản :'.$email
-            ]);
+            DemoEmail::dispatch($data, $email);
 
-            session()->flash('register-sc','Đăng ký thành công');
-            return redirect(route('login'));
+            session()->flash('success', 'Kiểm tra email '.$email.' để lấy mật khẩu đăng nhập');
         }else{
-            if($data == $e){
-                session()->flash('register-er', 'Email này đã được sử dụng');
-                return redirect(route('register'));
-            }else{
-                session()->flash('register-er', 'Đăng ký thất bại');
-                return redirect(route('register'));
-            }
+            session()->flash('register-er', 'Email '.$email.' đã tồn tại trong hệ thống');
         }
+        
+        return redirect()->route('register');
      }
+    //  public function register_interior(Request $request)
+    //  {
+    //     $request->validate([
+    //         'name' => 'required|max:50',
+    //         'email' => 'required|max:100',
+    //         'password' => 'required|min:6|max:30',
+    //         'check_password' =>  'required|same:password',
+    //     ], [
+    //         'name.required' => 'Vui lòng điền vào trường này',
+    //         'name.max'=>'Quá số lượng ký tự',
+    //         'email.required' => 'Vui lòng điền vào trường này',
+    //         'email.max'=>'Quá số lượng ký tự',
+    //         'password.required' => 'Vui lòng điền vào trường này',
+    //         'password.min' => 'Nhập tối thiểu 6 ký tự',
+    //         'password.max'=>'Quá số lượng ký tự',
+    //         'check_password.required' => 'Vui lòng điền vào trường này',
+    //         'check_password.same' => 'Nhập lại mật khẩu không chính xác',
+    //     ]);
+
+    //     $email = $request->email;
+    //     $password = $request->password;
+    //     $name = $request->name;
+
+    //     $data = User::where('email',$email)->get('email');
+    //     $e = '[{"email":"'.$email.'"}]';
+    //     if($data != $e){
+    //         $user = new User();
+    //         $user->email = $email;
+    //         $user->password = Hash::make($password);
+    //         $user->name = $name;
+    //         $user->user_id = 'IT-KH00';
+    //         $user->save();
+            
+    //         $get = User::where('user_id', 'IT-KH00');
+    //         $id = $get->get('id');
+    //         $str = strlen($id);
+    //         if($str == 10){
+    //             $sub = substr($id,7,1);
+    //         }elseif($str == 11){
+    //             $sub = substr($id,7,2);
+    //         }elseif($str == 12){
+    //             $sub = substr($id,7,3);
+    //         }elseif($str == 13){
+    //             $sub = substr($id,7,4);
+    //         }else{
+    //             $sub = substr($id,7,5);
+    //         }
+    //         $us = 'IT'.time().'-KH0'.$sub;
+    //         User::where('id',$sub)->update(['user_id'=>$us]);
+
+    //         history::create([
+    //             'name_his'=>'Create',
+    //             'user_his'=>'New '.$email,
+    //             'description_his'=>'Người dùng đăng ký thài khoản :'.$email
+    //         ]);
+
+    //         session()->flash('register-sc','Đăng ký thành công');
+    //         return redirect(route('login'));
+    //     }else{
+    //         if($data == $e){
+    //             session()->flash('register-er', 'Email này đã được sử dụng');
+    //             return redirect(route('register'));
+    //         }else{
+    //             session()->flash('register-er', 'Đăng ký thất bại');
+    //             return redirect(route('register'));
+    //         }
+    //     }
+    //  }
      public function logout()
      {
         if(Auth::user()->name_roles == 'user'){

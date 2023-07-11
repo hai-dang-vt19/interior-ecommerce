@@ -38,6 +38,8 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('dashboard/assets/js/config.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('dashboard/assets/css/multi-select.css') }}" />
+    <script src="{{ asset('dashboard/assets/js/multi-select.js') }}"></script>
   </head>
 
     <body>
@@ -80,26 +82,26 @@
             <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
               <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Order / </span>Danh sách đơn hàng <a href="{{ route('export_excel_bill') }}" class="btn btn-primary btn-xs">Export Excel</a></h4>
-              <div class="mb-4 d-flex">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class='bx bx-message-square-add'></i> Chọn sản phẩm
-                  </button>
-                  <ul class="dropdown-menu">
-                    @foreach ($product as $pro)
-                      <li><a class="dropdown-item" href="{{ route('create_bill_dashboard', ['data'=>$pro->id_product]) }}">{{$pro->id_product}}</a></li>    
-                    @endforeach
-                  </ul>
-                </div>
+              <div class="mb-4">
                 <form action="{{ route('create_bill_dashboard') }}" method="GET">
-                  <div class="d-flex ms-5">
-                      <input type="text" class="form-control me-1" value="ICS" name="data" placeholder="Nhập mã">
-                      <Button class="btn btn-outline-secondary">Check</Button>
+                  <div class="row">
+                      {{-- <input type="text" class="form-control me-1" value="ICS" name="data" placeholder="Nhập mã"> --}}
+                      <div class="col-md-4">
+                        <select name="data" class="form-control me-1" id="choices-multiple-remove-button">
+                          <option selected disabled></option>
+                          @foreach ($product as $pro)
+                              <option value="{{$pro->id_product}}">{{$pro->id_product}} - {{$pro->name_product}}</option>
+                          @endforeach
+                        </select>
+                      </div>
+                      <div class="col-md-3">
+                        <Button class="btn btn-secondary">Check</Button>
+                      </div>
                   </div>
                 </form>
               </div>
               <!-- Responsive Table -->
-              <div class="card">
+              <div class="card" style="z-index: 0;">
                 <div class="nav-align-top">
                   <ul class="nav nav-tabs nav-fill" role="tablist">
                     <li class="nav-item">
@@ -268,5 +270,15 @@
             });
       </script>
       @endif
+      <script>
+        $(document).ready(function(){
+            var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+              removeItemButton: true,
+              maxItemCount:8,
+              searchResultLimit:8,
+              renderChoiceLimit:8
+            }); 
+        });
+      </script>
   </body>
 </html>

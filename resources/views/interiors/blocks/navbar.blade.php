@@ -386,8 +386,8 @@
           </div>
         </div>
         <div class="modal-footer">
-          <a class="dropdown-item link-primary text-center" href="{{route('register')}}">Đăng ký tại đây <i class='bx bx-happy-heart-eyes' style='color:#ef0000' ></i></a>
           <button type="submit" class="btn btn-success btn-sm w-100">Đăng nhập</button>
+          <a class="dropdown-item link-primary text-center" href="{{route('register')}}">Đăng ký tại đây <i class='bx bx-happy-heart-eyes' style='color:#ef0000' ></i></a>
         </div>
       </form>
     </div>

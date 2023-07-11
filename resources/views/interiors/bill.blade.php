@@ -167,7 +167,7 @@
                                                                         <div class="col-lg-4 text-center">
                                                                             <h5 class="card-title">{{ $itm_bill_ship->id_bill }}</h5><br>
                                                                             <button class="btn btn-warning btn-sm rounded-3" data-bs-toggle="modal" data-bs-target="#{{ $itm_bill_ship->id_bill }}">Đang vận chuyển</button>
-                                                                            <button class="btn btn-danger btn-xs mt-1"><a href="{{ route('destroy_bill', ['id'=>$itm_bill_start->id_bill]) }}"  style="color: #ffffff"  onclick="return confirm('Bạn có chắc chắn hủy đơn này')">Hủy đơn hàng</a></button>
+                                                                            <button class="btn btn-danger btn-xs mt-1"><a href="{{ route('destroy_bill', ['id'=>$itm_bill_ship->id_bill]) }}"  style="color: #ffffff"  onclick="return confirm('Bạn có chắc chắn hủy đơn này')">Hủy đơn hàng</a></button>
                                                                         </div>
                                                                         <div class="col-lg-1"></div>
                                                                         <div class="col-lg">

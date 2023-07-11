@@ -39,6 +39,9 @@
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     {{-- loader --}}
       <link rel="stylesheet" href="{{ asset('interior/fakeloader/src/fakeloader.css') }}">
+    
+    <link rel="stylesheet" href="{{ asset('dashboard/assets/css/multi-select.css') }}" />
+    <script src="{{ asset('dashboard/assets/js/multi-select.js') }}"></script>
   </head>
   <body>
     @include('dashboards.blocks.fakeload')
@@ -83,39 +86,28 @@
             <div class="container-xxl flex-grow-1 container-p-y">
               <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Product/</span> Thêm mới sản phẩm</h4>
               <!-- Basic Layout & Basic with Icons -->
+              <div class="mb-4">
+                <form action="{{ route('create_bill_dashboard') }}" method="GET">
+                  <div class="row">
+                      {{-- <input type="text" class="form-control me-1" value="ICS" name="data" placeholder="Nhập mã"> --}}
+                      <div class="col-md-4">
+                        <select name="data" class="form-control me-1" id="choices-multiple-remove-button">
+                          <option selected disabled></option>
+                          @foreach ($product_slt as $pro)
+                              <option value="{{$pro->id_product}}">{{$pro->id_product}} - {{$pro->name_product}}</option>
+                          @endforeach
+                        </select>
+                      </div>
+                      <div class="col-md-3">
+                        <Button class="btn btn-secondary">Check</Button>
+                      </div>
+                  </div>
+                </form>
+              </div>
               <div class="row">
                 <!-- Basic with Icons -->
                 <div class="col-xxl">
                   <div class="card mb-4">
-                    <div class="card-header d-flex align-items-center justify-content-between mb-3" style="border-bottom: 3px dashed #F5F5F9">
-                        <div class="row">
-                          <div class="col-lg-4">
-                            <div class="btn-group">
-                              <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class='bx bx-message-square-add'></i> Chọn sản phẩm
-                              </button>
-                              <ul class="dropdown-menu">
-                                @foreach ($product_slt as $pro)
-                                  <li><a class="dropdown-item" href="{{ route('create_bill_dashboard', ['data'=>$pro->id_product]) }}">{{$pro->id_product}}</a></li>   
-                                @endforeach
-                              </ul>
-                            </div>
-                          </div>
-                          <div class="col-lg-8">
-                            <form action="{{ route('create_bill_dashboard') }}" method="GET">
-                              <div class="row container">
-                                  <div class="col-8">
-                                    <input type="text" class="form-control me-1" value="ICS" name="data" placeholder="Nhập mã">
-                                  </div>
-                                  <div class="col-4">
-                                    <Button class="btn btn-outline-secondary">Check</Button>
-                                  </div>
-                              </div>
-                            </form>
-                          </div>
-                        </div>
-                    </div>
-                    {{-- <hr class="my-0 mb-3"> --}}
                     <div class="card-body mb-3">
                       <form action="{{ route('up_to_cart_dashboard') }}" method="POST" enctype="multipart/form-data">
                         @csrf
@@ -357,6 +349,16 @@
               });
         </script>
       @endif
+      <script>
+        $(document).ready(function(){
+            var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+              removeItemButton: true,
+              maxItemCount:8,
+              searchResultLimit:8,
+              renderChoiceLimit:8
+            }); 
+        });
+      </script>
       @include('dashboards.blocks.foo')
   </body>
 </html>
