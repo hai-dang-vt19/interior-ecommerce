@@ -135,10 +135,10 @@ class interiorPostController extends Controller
 
             session()->flash('success', 'Kiểm tra email '.$email.' để lấy mật khẩu đăng nhập');
         }else{
-            session()->flash('register-er', 'Email '.$email.' đã tồn tại trong hệ thống');
+            session()->flash('login-er', 'Email '.$email.' đã tồn tại trong hệ thống');
         }
         
-        return redirect()->route('register');
+        return redirect()->route('login');
      }
     //  public function register_interior(Request $request)
     //  {

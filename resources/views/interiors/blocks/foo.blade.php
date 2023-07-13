@@ -39,6 +39,16 @@
             });
       </script>
     @endif
+    @if (session()->has('error2'))
+      <script>
+        swal({
+              title: "{{session()->get('error2')}}",
+              icon: "error",
+              button: "OK",
+              timer: 2000,
+            });
+      </script>
+    @endif
     @if (session()->has('warning'))
       <script>
         swal({

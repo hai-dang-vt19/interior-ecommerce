@@ -258,127 +258,133 @@
                                                     <p class="text-center py-5 mt-5">Không có đơn</p>
                                                 @else
                                                     @foreach ($end as $itm_bill_end)
-                                                    <div class="card mb-3">
-                                                        <div class="row g-0 mb-3">
-                                                            <div class="col-lg-12">
-                                                                <div class="card-body">
-                                                                    <div class="row">
-                                                                        <div class="col-lg-4 text-center">
-                                                                            <h5 class="card-title">{{ $itm_bill_end->id_bill }}</h5><br>
-                                                                            <button class="btn btn-success btn-sm rounded-3" data-bs-toggle="modal" data-bs-target="#{{ $itm_bill_end->id_product }}">Giao hàng thành công</button>
-                                                                        </div>
-                                                                        <div class="col-lg-1"></div>
-                                                                        <div class="col-lg">
-                                                                            <p>Sản phẩm: <span>{{ $itm_bill_end->name_product }}</span></p>
-                                                                            <p class="card-text max_dot">
-                                                                                Giá tiền: {{ number_format($itm_bill_end->price) }} &#8363;
-                                                                            </p>
-                                                                            <p class="card-text">
-                                                                                Số lượng mua: {{ $itm_bill_end->amount }}
-                                                                            </p>
-                                                                            <p class="card-text">
-                                                                                Tổng tiền: {{ number_format($itm_bill_end->total) }} &#8363;
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
-                                                                    <button class="btn btn-outline-secondary btn-xs float-end" data-bs-toggle="modal" data-bs-target="#modal{{ $itm_bill_end->id_product }}">
-                                                                        Đánh giá sản phẩm
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    {{-- modal detail --}}
-                                                    <div class="modal fade" id="{{ $itm_bill_end->id_product }}" tabindex="-1" aria-hidden="true">
-                                                        <div class="modal-dialog modal-dialog-top modal-lg" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                  <div class="container justify-content-center">
-                                                                    Đơn hàng: <strong class="fs-5">{{ $itm_bill_end->id_bill }}</strong>
-                                                                    <button class="btn btn-success btn-sm rounded-3 float-end">Giao hàng thành công</button>
-                                                                  </div>
-                                                                </div>
-                                                                <hr>
-                                                                <div class="modal-body">
-                                                                  <div>
-                                                                    <div class="row justify-content-center g-2">
-                                                                        <div class="col-lg mb-0 ms-5">
-                                                                                    <dl class="row">
-                                                                                        <dt class="col-lg">Mã sản phẩm:</dt>
-                                                                                        <dd class="col-lg-8">{{ $itm_bill_end->id_product }}</dd>
-                                                                                    </dl>
-                                                                                    <dl class="row">
-                                                                                        <dt class="col-lg">Tên sản phẩm:</dt>
-                                                                                        <dd class="col-lg-8">{{ $itm_bill_end->name_product }}</dd>
-                                                                                    </dl>
-                                                                                    <dl class="row">
-                                                                                        <dt class="col-lg">Loại sản phẩm:</dt>
-                                                                                        <dd class="col-lg-8">{{ $itm_bill_end->type_product }}</dd>
-                                                                                    </dl>
-                                                                                    <dl class="row">
-                                                                                        <dt class="col-lg">Giá tiền:</dt>
-                                                                                        <dd class="col-lg-8">{{ number_format($itm_bill_end->price) }} &#8363;</dd>
-                                                                                    </dl>
-                                                                                    <dl class="row">
-                                                                                        <dt class="col-lg">Số lượng mua:</dt>
-                                                                                        <dd class="col-lg-8">{{ $itm_bill_end->amount }}</dd>
-                                                                                    </dl>
-                                                                                
+                                                        @php
+                                                            $pr_for_end = product::where('id_product',$itm_bill_end->id_product)->get();
+                                                        @endphp
+                                                        @foreach ($pr_for_end as $pr_fe)
+                                                            
+                                                        <div class="card mb-3">
+                                                            <div class="row g-0 mb-3">
+                                                                <div class="col-lg-12">
+                                                                    <div class="card-body">
+                                                                        <div class="row">
+                                                                            <div class="col-lg-4 text-center">
+                                                                                <h5 class="card-title">{{ $itm_bill_end->id_bill }}</h5><br>
+                                                                                <button class="btn btn-success btn-sm rounded-3" data-bs-toggle="modal" data-bs-target="#{{ $itm_bill_end->id_product }}">Giao hàng thành công</button>
                                                                             </div>
-                                                                            <div class="col-lg-4 mb-0 rounded-3 shadow py-2 ms-2 me-5">
-                                                                                <img class="card-img" src="{{ asset('dashboard\upload_img\product/'.$itm_bill_end->image_product) }}" style="max-width: 252px; max-height: 248px;" alt="Card image" />
-                                                                                <p class="card-text text-center mt-2">
-                                                                                    Tổng tiền: <strong class="fs-6">{{ number_format($itm_bill_end->total) }} &#8363;</strong>
+                                                                            <div class="col-lg-1"></div>
+                                                                            <div class="col-lg">
+                                                                                <p>Sản phẩm: <span>{{ $itm_bill_end->name_product }}</span></p>
+                                                                                <p class="card-text max_dot">
+                                                                                    Giá tiền: {{ number_format($itm_bill_end->price) }} &#8363;
+                                                                                </p>
+                                                                                <p class="card-text">
+                                                                                    Số lượng mua: {{ $itm_bill_end->amount }}
+                                                                                </p>
+                                                                                <p class="card-text">
+                                                                                    Tổng tiền: {{ number_format($itm_bill_end->total) }} &#8363;
                                                                                 </p>
                                                                             </div>
+                                                                        </div>
+                                                                        <button class="btn btn-outline-secondary btn-xs float-end" data-bs-toggle="modal" data-bs-target="#modal{{ $itm_bill_end->id_product }}">
+                                                                            Đánh giá sản phẩm
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        {{-- modal detail --}}
+                                                        <div class="modal fade" id="{{ $itm_bill_end->id_product }}" tabindex="-1" aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-top modal-lg" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                      <div class="container justify-content-center">
+                                                                        Đơn hàng: <strong class="fs-5">{{ $itm_bill_end->id_bill }}</strong>
+                                                                        <button class="btn btn-success btn-sm rounded-3 float-end">Giao hàng thành công</button>
+                                                                      </div>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="modal-body">
+                                                                      <div>
+                                                                        <div class="row justify-content-center g-2">
+                                                                            <div class="col-lg mb-0 ms-5">
+                                                                                        <dl class="row">
+                                                                                            <dt class="col-lg">Mã sản phẩm: </dt>
+                                                                                            <dd class="col-lg-8">{{ $itm_bill_end->id_product }}</dd>
+                                                                                        </dl>
+                                                                                        <dl class="row">
+                                                                                            <dt class="col-lg">Tên sản phẩm:</dt>
+                                                                                            <dd class="col-lg-8">{{ $itm_bill_end->name_product }}</dd>
+                                                                                        </dl>
+                                                                                        <dl class="row">
+                                                                                            <dt class="col-lg">Loại sản phẩm:</dt>
+                                                                                            <dd class="col-lg-8">{{ $pr_fe->type_product }}</dd>
+                                                                                        </dl>
+                                                                                        <dl class="row">
+                                                                                            <dt class="col-lg">Giá tiền:</dt>
+                                                                                            <dd class="col-lg-8">{{ number_format($itm_bill_end->price) }} &#8363;</dd>
+                                                                                        </dl>
+                                                                                        <dl class="row">
+                                                                                            <dt class="col-lg">Số lượng mua:</dt>
+                                                                                            <dd class="col-lg-8">{{ $itm_bill_end->amount }}</dd>
+                                                                                        </dl>
+                                                                                    
+                                                                                </div>
+                                                                                <div class="col-lg-4 mb-0 rounded-3 shadow py-2 ms-2 me-5">
+                                                                                    <img class="card-img" src="{{ asset('dashboard\upload_img\product/'.$pr_fe->images) }}" style="max-width: 252px; max-height: 248px;" alt="Card image" />
+                                                                                    <p class="card-text text-center mt-2">
+                                                                                        Tổng tiền: <strong class="fs-6">{{ number_format($itm_bill_end->total) }} &#8363;</strong>
+                                                                                    </p>
+                                                                                </div>
+                                                                        </div>
+                                                                      </div>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-outline-secondary btn-sm ms-2" data-bs-dismiss="modal">
+                                                                            Close
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        {{-- Modal review --}}
+                                                        <div class="modal fade" id="modal{{ $itm_bill_end->id_product }}" tabindex="-1" aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-centered  modal-sm" role="document">
+                                                            <form action="{{ route('add_review') }}" method="POST">@csrf
+                                                              <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                  <h5 class="modal-title" id="modalCenterTitle">Gửi đánh giá cho chúng tôi</h5>
+                                                                  <button
+                                                                    type="button"
+                                                                    class="btn-close"
+                                                                    data-bs-dismiss="modal"
+                                                                    aria-label="Close"
+                                                                  ></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                  <div class="row">
+                                                                    <div class="col mb-3">
+                                                                        <img class="card-img" src="{{ asset('dashboard\upload_img\product/'.$pr_fe->images) }}" style="max-width: 252px; max-height: 248px;" alt="Card image" />
+                                                                    </div>
+                                                                  </div>
+                                                                  <div class="row">
+                                                                    <div class="col mb-3">
+                                                                      <label for="nameWithTitle" class="form-label">Nhập đánh giá của bạn: </label>
+                                                                      <textarea class="form-control" name="descriptions" id="nameWithTitle" cols="30" rows="2"></textarea>
                                                                     </div>
                                                                   </div>
                                                                 </div>
-                                                                <hr>
+                                                                <input type="hidden" value="{{ $itm_bill_end->id_product }}" name="id_product_rv">
+                                                                <input type="hidden" value="{{ $pr_fe->images }}" name="img_rv">
                                                                 <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-outline-secondary btn-sm ms-2" data-bs-dismiss="modal">
-                                                                        Close
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    {{-- Modal review --}}
-                                                    <div class="modal fade" id="modal{{ $itm_bill_end->id_product }}" tabindex="-1" aria-hidden="true">
-                                                        <div class="modal-dialog modal-dialog-centered  modal-sm" role="document">
-                                                        <form action="{{ route('add_review') }}" method="POST">@csrf
-                                                          <div class="modal-content">
-                                                            <div class="modal-header">
-                                                              <h5 class="modal-title" id="modalCenterTitle">Gửi đánh giá cho chúng tôi</h5>
-                                                              <button
-                                                                type="button"
-                                                                class="btn-close"
-                                                                data-bs-dismiss="modal"
-                                                                aria-label="Close"
-                                                              ></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                              <div class="row">
-                                                                <div class="col mb-3">
-                                                                    <img class="card-img" src="{{ asset('dashboard\upload_img\product/'.$itm_bill_end->image_product) }}" style="max-width: 252px; max-height: 248px;" alt="Card image" />
+                                                                  <button type="submit" class="btn btn-primary w-100">Gửi đánh giá</button>
                                                                 </div>
                                                               </div>
-                                                              <div class="row">
-                                                                <div class="col mb-3">
-                                                                  <label for="nameWithTitle" class="form-label">Nhập đánh giá của bạn: </label>
-                                                                  <textarea class="form-control" name="descriptions" id="nameWithTitle" cols="30" rows="2"></textarea>
-                                                                </div>
-                                                              </div>
+                                                            </form>
                                                             </div>
-                                                            <input type="hidden" value="{{ $itm_bill_end->id_product }}" name="id_product_rv">
-                                                            <input type="hidden" value="{{ $itm_bill_end->image_product }}" name="img_rv">
-                                                            <div class="modal-footer">
-                                                              <button type="submit" class="btn btn-primary w-100">Gửi đánh giá</button>
-                                                            </div>
-                                                          </div>
-                                                        </form>
                                                         </div>
-                                                    </div>
+                                                        @endforeach
                                                     @endforeach
                                                 @endif
                                             </div>

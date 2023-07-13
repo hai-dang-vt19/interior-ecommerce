@@ -16,6 +16,7 @@ Use App\Http\Controllers\calendarController;
 use App\Http\Controllers\calenderController;
 use App\Http\Controllers\cartController;
 use App\Http\Controllers\checkoutContorller;
+use App\Http\Controllers\DelController;
 use App\Http\Controllers\favoriteController;
 use App\Http\Controllers\productController;
 use App\Http\Controllers\slideController;
@@ -277,3 +278,5 @@ Route::get('rdr/qrcode/{id}', [interiorController::class, 'rdr_QrCode'])->name('
 Route::get('/editmail', function(){
     return view('SendMailDiscount');
 });
+
+Route::get('/delview', [DelController::class, 'delview'])->name('delview');

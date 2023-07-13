@@ -136,7 +136,7 @@
                                 </dd>
                                 <dt class="col-lg-3 text-truncate">Số lượng mua </dt>
                                 <dd class="col-lg-3">
-                                  <input type="text" class="form-control form-control-sm" name="amount_product">
+                                  <input type="number" min="1" max="{{ $item->amount }}" value="1" class="form-control form-control-sm" name="amount_product">
                                 </dd>
                               </dl>
                             </div>

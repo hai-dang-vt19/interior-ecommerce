@@ -1050,14 +1050,14 @@ class interiorController extends Controller
             // $check_district = $check_ad->district;
             $check_phone = $check_ad->phone;
             if($check_city  == null){
-                session()->flash('error','Bạn cần nhập số điện thoại và địa chỉ');
-                return redirect()->route('update_profile');
+                session()->flash('error2','Bạn cần nhập địa chỉ');
+                return redirect()->route('profile');
             }elseif($check_province == null){
-                session()->flash('error','Bạn cần nhập số điện thoại và địa chỉ');
-                return redirect()->route('update_profile');
+                session()->flash('error2','Bạn cần nhập địa chỉ');
+                return redirect()->route('profile');
             }elseif($check_phone == null){
-                session()->flash('error','Bạn cần nhập số điện thoại và địa chỉ');
-                return redirect()->route('update_profile');
+                session()->flash('error2','Bạn cần nhập số điện thoại');
+                return redirect()->route('profile');
             }else{
                 $id_cart_user = 'CART_CS'.Auth::user()->user_id;
 
