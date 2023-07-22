@@ -93,7 +93,7 @@
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
-                              <input type="text" class="form-control" name="name_type" value="{{$type['name_type']}}"/>
+                              <input type="text" class="form-control" name="name_type" value="{{$type['name_type']}}" required/>
                             </div>
                           </div>
                         </div>
@@ -113,7 +113,7 @@
                         </div>
                         <div class="row justify-content-end">
                           <div class="col-sm-10">
-                            <button type="submit" class="btn btn-success">Thêm loại sản phẩm</button>
+                            <button type="submit" class="btn btn-success">Cập nhật</button>
                           </div>
                         </div>
                       </form>

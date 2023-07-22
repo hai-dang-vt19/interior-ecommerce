@@ -114,7 +114,7 @@
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
-                              <input type="text" class="form-control" name="name_product"/>
+                              <input type="text" class="form-control" name="name_product" required/>
                             </div>
                           </div>
                         </div>
@@ -132,7 +132,7 @@
                         </div>
                         <div class="row justify-content-end">
                           <div class="col-sm-10">
-                            <button type="submit" class="btn btn-success">Thêm sản phẩm</button>
+                            <button type="submit" class="btn btn-success">Xác nhận</button>
                             <div class="btn-group">
                                 <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                   Chọn lại chất liệu sản phẩm

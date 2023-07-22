@@ -101,7 +101,7 @@
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
-                              <input type="text" class="form-control" name="name_material" value="{{$material['name_material']}}"/>
+                              <input type="text" class="form-control" name="name_material" value="{{$material['name_material']}}" required/>
                             </div>
                           </div>
                         </div>
@@ -110,7 +110,7 @@
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
-                              <input type="text" class="form-control" name="price" value="{{$material['price']}}"/>
+                              <input type="text" class="form-control" name="price" value="{{$material['price']}}" required/>
                             </div>
                           </div>
                         </div>
@@ -144,7 +144,7 @@
                         </div>
                         <div class="row justify-content-end">
                           <div class="col-sm-10">
-                            <button type="submit" class="btn btn-success">Cập nhật nhà cung cấp</button>
+                            <button type="submit" class="btn btn-success">Cập nhật</button>
                           </div>
                         </div>
                       </form>

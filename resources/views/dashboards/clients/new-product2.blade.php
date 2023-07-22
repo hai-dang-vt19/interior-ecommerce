@@ -108,15 +108,25 @@
                         @csrf
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label">Tên sản phẩm</label> {{--Lấy tên sản phẩm sẽ hiển thị ra tất cả dữ liệu--}}
-                          <div class="col-sm-10">
+                          {{-- <div class="col-sm-10"> --}}
                             <div class="col-sm-10">
                                 <input type="hidden" class="form-control" value="{{$ware['name_product']}}" name="name_product">
-                                <h5 class=" fw-lighter text-decoration-underline ps-2" style="font-style: oblique; color: #8284FF">
-                                    {{$ware['name_product']}}</h5>
-                              </div>
+                                <h5 class=" fw-lighter text-decoration-underline ps-2" style="font-style: oblique; color: #8284FF"
+                                  data-bs-toggle="tooltip"
+                                  data-bs-offset="0,4"
+                                  data-bs-placement="top"
+                                  data-bs-html="true"
+                                  title="<span>LSP: {{$ware['name']}}</h5></span><br><span>CL: {{$ware['material']}}</h5></span><br><span>NSX: {{$ware['supplier']}}</h5></span>"
+                                >
+                                    {{$ware['name_product']}}
+                                </h5>
+                                  <input type="hidden" class="form-control" value="{{$ware['name']}}" name="type_product">
+                                  <input type="hidden" class="form-control" value="{{$ware['material']}}" name="material">
+                                  <input type="hidden" class="form-control" value="{{$ware['supplier']}}" name="supplier">
                             </div>
+                            {{-- </div> --}}
                         </div>
-                        <div class="row mb-3">
+                        {{-- <div class="row mb-3">
                           <label class="col-sm-2 col-form-label">Loại sản phẩm</label>
                           <div class="col-sm-10">
                             <div class="col-sm-10">
@@ -125,8 +135,8 @@
                                     {{$ware['name']}}</h5>
                               </div>
                           </div>
-                        </div>
-                        <div class="row mb-3">
+                        </div> --}}
+                        {{-- <div class="row mb-3">
                           <label class="col-sm-2 form-label">Chất liệu</label>
                           <div class="col-sm-10">
                             <div class="col-sm-10">
@@ -145,7 +155,7 @@
                                     {{$ware['supplier']}}</h5>
                             </div>
                           </div>
-                        </div>
+                        </div> --}}
                         <div class="row mb-3">
                           <label class="col-sm-2 form-label">Hình ảnh</label>
                           <div class="col-sm-10 d-flex">
@@ -177,12 +187,12 @@
                           </div>
                         </div>
                         <div class="row mb-3">
-                            <label class="col-sm-2 form-label">Giá tiền</label>
+                            <label class="col-sm-2 form-label">Giá tiền @error('price')<span style="color: red">{{$message}}</span>@enderror</label>
                             <div class="col-sm-10 d-flex">
                               <div class="input-group input-group-merge me-2">
                                 <span class="input-group-text"><i class='bx bx-money'></i></span>
                                 {{-- <input type="text" class="form-control" placeholder="Nhập giá tiền sản phẩm" name="price" id="currency-field"  data-type="currency"/> --}}
-                                <input type="text" class="form-control" placeholder="Nhập giá tiền sản phẩm" name="price"/>
+                                <input type="text" class="form-control" placeholder="Nhập giá tiền sản phẩm" name="price" required/>
                               </div>
                               <div class="input-group input-group-merge">
                                 <span class="input-group-text"><i class='bx bxs-discount'></i></span>
@@ -192,11 +202,12 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Số lượng</label>
+                          <label class="col-sm-2 col-form-label">Số lượng @error('amount')<span style="color: red">{{$message}}</span>@enderror</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class='bx bx-archive'></i></span>
-                              <input type="text" class="form-control" name="amount" placeholder="Nhập số lượng"/>
+                              {{-- <input type="text" class="form-control" name="amount" placeholder="Nhập số lượng"/> --}}
+                              <input type="number" class="form-control" name="amount" min="1" value="1" required/>
                             </div>
                           </div>
                         </div>

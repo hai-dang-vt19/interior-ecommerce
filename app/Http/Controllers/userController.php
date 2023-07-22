@@ -17,6 +17,21 @@ class userController extends Controller
 {
     public function add_user(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required|min:6',
+            'check_password' =>  'required|same:password',
+            
+        ], [
+            'name.required' => 'Không được để trống',
+            'email.required' => 'Không được để trống',
+            'password.required' => 'Không được để trống',
+            'password.min' => 'Tối thiểu 6 ký tự',
+            'check_password.required' => 'Nhập lại mật khẩu không chính xác',
+            'check_password.same' => 'Nhập lại mật khẩu không chính xác',
+            
+        ]);
         $email = $request->email;
         $password = $request->password;
         $name = $request->name;

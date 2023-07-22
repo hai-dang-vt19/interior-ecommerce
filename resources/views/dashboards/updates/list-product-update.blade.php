@@ -102,12 +102,22 @@
                           <div class="col-sm-10">
                             <div class="col-sm-10">
                                 <input type="hidden" class="form-control" value="{{$product['name_product']}}" name="name_product">
-                                <h5 class=" fw-lighter text-decoration-underline ps-2" style="font-style: oblique; color: #8284FF">
-                                    {{$product['name_product']}}</h5>
+                                <h5 class=" fw-lighter text-decoration-underline ps-2" style="font-style: oblique; color: #8284FF"
+                                  data-bs-toggle="tooltip"
+                                  data-bs-offset="0,4"
+                                  data-bs-placement="top"
+                                  data-bs-html="true"
+                                  title="<span>LSP: {{$product['type_product']}}</h5></span><br><span>CL: {{$product['material']}}</h5></span><br><span>NSX: {{$product['supplier']}}</h5></span>"
+                                >
+                                    {{$product['name_product']}}
+                                </h5>
+                                <input type="hidden" class="form-control" value="{{$product['type_product']}}" name="type_product">
+                                  <input type="hidden" class="form-control" value="{{$product['material']}}" name="material">
+                                  <input type="hidden" class="form-control" value="{{$product['supplier']}}" name="supplier">    
                               </div>
                             </div>
                         </div>
-                        <div class="row mb-3">
+                        {{-- <div class="row mb-3">
                           <label class="col-sm-2 col-form-label">Loại sản phẩm</label>
                           <div class="col-sm-10">
                             <div class="col-sm-10">
@@ -136,7 +146,7 @@
                                     {{$product['supplier']}}</h5>
                             </div>
                           </div>
-                        </div>
+                        </div> --}}
                         <div class="row mb-3">
                           <label class="col-sm-2 form-label">Hình ảnh</label>
                           <div class="col-sm-10 d-flex">

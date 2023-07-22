@@ -114,7 +114,7 @@
                               <div class="col">
                                 <div class="input-group input-group-merge">
                                   <span class="input-group-text col-3">Nhà cung cấp: </span>
-                                  <input type="text" class="form-control" name="name_supplier"/>
+                                  <input type="text" class="form-control" name="name_supplier" required/>
                                 </div>
                               </div>
                             </div>

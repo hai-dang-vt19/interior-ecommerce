@@ -114,7 +114,7 @@
                             <div class="col">
                               <div class="input-group input-group-merge">
                                 <span class="input-group-text col-3">Tên chất liệu: </span>
-                                <input type="text" class="form-control" name="name_material" placeholder="Gỗ hương"/>
+                                <input type="text" class="form-control" name="name_material" placeholder="Gỗ hương" required/>
                               </div>
                             </div>
                           </div>
@@ -123,7 +123,7 @@
                             <div class="col">
                               <div class="input-group input-group-merge">
                                 <span class="input-group-text col-3">Giá nhập: </span>
-                                <input type="text" class="form-control" name="price" placeholder="280.000"/>
+                                <input type="text" class="form-control" name="price" placeholder="280.000" required/>
                               </div>
                             </div>
                           </div>

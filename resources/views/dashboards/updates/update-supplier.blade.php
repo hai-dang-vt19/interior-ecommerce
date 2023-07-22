@@ -101,7 +101,7 @@
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
-                              <input type="text" class="form-control" name="name_supplier" value="{{$supplier['name_supplier']}}"/>
+                              <input type="text" class="form-control" name="name_supplier" value="{{$supplier['name_supplier']}}" required/>
                             </div>
                           </div>
                         </div>

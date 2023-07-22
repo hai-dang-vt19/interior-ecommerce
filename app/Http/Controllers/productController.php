@@ -21,6 +21,15 @@ class productController extends Controller
 {
     public function add_product(Request $request)
     {
+        $request->validate([
+            'price' => 'required|min:5',
+            'amount' =>  'required'
+        ],[
+            'price.required' => 'Không được để trống',
+            'price.min' => 'Giá sản phẩm tối thiểu 10.000',
+            'amount.required' => 'Không được để trống',
+        ]);
+        // dd($request->all());
         $name_product = $request->name_product;
         $type_product = $request->type_product;
         $amount = $request->amount;

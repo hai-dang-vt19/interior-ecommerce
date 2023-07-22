@@ -97,38 +97,38 @@
                       <form action="{{ route('add_user') }}" method="post">
                         @csrf
                         <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Email</label>
+                          <label class="col-sm-2 col-form-label">Email  @error('email')<span style="color: red">{{$message}}</span>@enderror</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
-                              <input type="text" class="form-control" name="email"/>
+                              <input type="text" class="form-control" name="email" required/>
                             </div>
                           </div>
                         </div>
                         <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Mật khẩu</label>
+                          <label class="col-sm-2 col-form-label">Mật khẩu @error('password')<span style="color: red">{{$message}}</span>@enderror</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class='bx bx-archive'></i></span>
-                              <input type="password" class="form-control" name="password"/>
+                              <input type="password" class="form-control" name="password" required/>
                             </div>
                           </div>
                         </div>
                         <div class="row mb-3">
-                          <label class="col-sm-2 form-label">Nhập lại mật khẩu</label>
+                          <label class="col-sm-2 form-label">Nhập lại mật khẩu @error('check_password')<span style="color: red">{{$message}}</span>@enderror</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class='bx bx-money'></i></span>
-                              <input type="password" class="form-control phone-mask" name="check_password"/>
+                              <input type="password" class="form-control phone-mask" name="check_password" required/>
                             </div>
                           </div>
                         </div>
                         <div class="row mb-3">
-                          <label class="col-sm-2 form-label">Tên người dùng</label>
+                          <label class="col-sm-2 form-label">Tên người dùng @error('name')<span style="color: red">{{$message}}</span>@enderror</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class='bx bx-image'></i></span>
-                              <input type="text" class="form-control phone-mask" name="name"/>
+                              <input type="text" class="form-control phone-mask" name="name" required/>
                             </div>
                           </div>
                         </div>
