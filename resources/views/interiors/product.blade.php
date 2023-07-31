@@ -78,7 +78,7 @@
                             <div class="row row-cols-1 row-cols-md-3 g-4">
                                 @foreach ($product as $itm_prd)
                                 @php
-                                    $url = 'http://127.0.0.1:8000/rdr/qrcode/'.$itm_prd->id_product;
+                                    $url = 'http://10.10.104.209:8099/rdr/qrcode/'.$itm_prd->id_product;
                                 @endphp
                                     <div class="col">
                                         <div class="card">

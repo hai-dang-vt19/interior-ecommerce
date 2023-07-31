@@ -36,7 +36,7 @@
 
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Năm', 'ATM', 'STORE', 'COD'],
+          ['', 'ATM', 'STORE', 'COD'],
           <?php echo $charts_0;?>
           <?php echo $charts_1;?>
           <?php echo $charts_2;?>

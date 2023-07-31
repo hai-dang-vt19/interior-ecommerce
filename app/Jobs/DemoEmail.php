@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\OrderShipped;
 use App\Mail\Register;
 use App\Mail\SenDiscount;
+use App\Mail\Review;
 use App\Models\User;
 
 class DemoEmail implements ShouldQueue
@@ -47,6 +48,8 @@ class DemoEmail implements ShouldQueue
             }
         }elseif($check == 'Register'){
             Mail::to($this->data['email'])->send(new Register($this->data));
+        }elseif($check == 'review'){
+            Mail::to($this->email)->send(new Review($this->data));
         }else{
             return back();
         }

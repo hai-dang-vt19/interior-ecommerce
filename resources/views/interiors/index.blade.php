@@ -129,22 +129,47 @@
             <div class="container mb-4">
               <div class="row row-cols-1 row-cols-md-3 g-4" >
                 @foreach ($product_9slide as $item_9slide)
+                  @php
+                      $url = 'http://10.10.104.209:8099/rdr/qrcode/'.$item_9slide->id_product;
+                  @endphp
                   <div class="col">
                     <div class="card m-3">
-                      <a href="#">
+                      <a href="{{ route('search_interior_client', ['key'=>$item_9slide->id_product]) }}">
                         <img class="card-img-top h-px-400" src="{{ asset('dashboard\upload_img\product/'.$item_9slide->images) }}" alt="Card image cap"  />
                       </a>
                       <div class="card-body">
-                        <h5 class="card-title">{{ $item_9slide->name_product }}</h5>
+                        <h5 class="card-title"><a href="{{ route('search_interior_client', ['key'=>$item_9slide->id_product]) }}" class="text-warning">{{ $item_9slide->name_product }}</a></h5>
                         <p class="card-text max_dot">{{ $item_9slide->descriptions }}</p>
                       </div>
                       <ul class="list-group list-group-flush">
                         <li class="list-group-item">Mã sản phẩm: {{ $item_9slide->id_product }}</li>
                         <li class="list-group-item">Loại sản phẩm: {{ $item_9slide->type_product }}</li>
-                        <li class="list-group-item">Giá tiền: {{ number_format($item_9slide->price) }} &#8363;</li>
+                        <li class="list-group-item">Giá tiền: {{ number_format($item_9slide->price) }} &#8363;
+                          <span>
+                            <a href="{{ route('create_favorite', ['id'=>$item_9slide->id_product]) }}" class="card-link text-decoration-none float-end"><i class='bx bxs-heart-circle bx-sm text-danger' ></i></a>
+                            <a href="#" class="card-link text-decoration-none float-end me-2" data-bs-toggle="modal" data-bs-target="#qr{{$item_9slide->id_product}}"><i class='bx  bx-qr-scan bx-sm' ></i></a>
+                          </span>
+                        </li>
                       </ul>
                     </div>
                   </div>
+                  {{-- Modal QRCODE --}}
+                  <div class="modal fade" id="qr{{$item_9slide->id_product}}" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row justify-content-center text-center">
+                                {{ QrCode::color(251,183,16)->size(250)->generate($url) }}
+                                <h5 class="mt-5">{{ $item_9slide->name_product }}</h5>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {{-- / Modal --}}
                 @endforeach
               </div>
             </div>

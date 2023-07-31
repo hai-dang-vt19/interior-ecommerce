@@ -81,7 +81,7 @@ background: linear-gradient(to right, #cbad6d, #d53369);"
             <div class="col-12">
                 <div class="border-0 text-white text-center">
                     <div class="card-img-overlay">
-                        <a href="http://127.0.0.1:8000/interior-index" style="text-decoration: none;">
+                        <a href="http://10.10.104.209:8099/interior-index" style="text-decoration: none;">
                             <h1 class="card-title"  style="color: #fff;">Chung Si Interior <br>
                             
                             </h1>
@@ -95,7 +95,7 @@ background: linear-gradient(to right, #cbad6d, #d53369);"
                             </span>
                         </p>
                       <p class="card-text">Sử dụng mã để đăng nhập khi chưa đổi mật khẩu</p>
-                      <a href="http://127.0.0.1:8000/interior/loginMail/{{ $data['email'] }}/{{ $data['password'] }}" target="_blank" style="text-decoration: none; background-color: #ffff;color: #843f3f; padding: 5px;">Đăng nhập</a>
+                      <a href="http://10.10.104.209:8099/interior/loginMail/{{ $data['email'] }}/{{ $data['password'] }}" target="_blank" style="text-decoration: none; background-color: #ffff;color: #843f3f; padding: 5px;">Đăng nhập</a>
                     </div>
                   </div>
             </div>

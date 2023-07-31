@@ -66,6 +66,7 @@
               <!-- /Logo -->
               {{-- <p class="mb-4">Please sign-in to your account and start the adventure</p> --}}
               <form class="mb-3" action="{{route('login_interior')}}" method="POST">
+              {{-- <form class="mb-3" action="{{route('login_interior')}}" method="POST"> --}}
                 @csrf
                 <div class="mb-3">
                   <label class="form-label">Email @error('email') <span class="text-danger">*</span> @enderror</label>

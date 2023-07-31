@@ -101,7 +101,7 @@ background: linear-gradient(to right, #cbad6d, #d53369);"
             <div class="col-12">
                 <div class="border-0 text-white text-center">
                     <div class="card-img-overlay">
-                        <a href="http://127.0.0.1:8000/interior-index" style="text-decoration: none;">
+                        <a href="http://10.10.104.209:8099/interior-index" style="text-decoration: none;">
                             <h1 class="card-title"  style="color: #fff;">Chung Si Interior <br>
                                 <p class="mt-2" style="color: #fff; font-size: 13px; font-style: italic">Cảm ơn bạn đã sử dụng sản phẩm của tôi</p>
                             </h1>
@@ -115,7 +115,7 @@ background: linear-gradient(to right, #cbad6d, #d53369);"
                             </span>
                         </p>
                       <p class="card-text">Sử dụng khi mua hàng để giảm {{ $data['content'] }} %</p>
-                      <a href="http://127.0.0.1:8000/interior/product" target="_blank" style="text-decoration: none; background-color: #ffff;color: #843f3f; padding: 5px;">
+                      <a href="http://10.10.104.209:8099/interior/product" target="_blank" style="text-decoration: none; background-color: #ffff;color: #843f3f; padding: 5px;">
                         Mua hàng tại đây
                       </a>
                     </div>

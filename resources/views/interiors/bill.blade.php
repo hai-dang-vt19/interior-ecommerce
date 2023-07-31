@@ -374,6 +374,64 @@
                                                                       <textarea class="form-control" name="descriptions" id="nameWithTitle" cols="30" rows="2"></textarea>
                                                                     </div>
                                                                   </div>
+                                                                  <div class="row">
+                                                                    <div class="col-md-12 d-flex justify-content-center">
+                                                                        <script>
+                                                                            var arr = [{
+                                                                                amount: "<i class='bx bxs-angry' style='color: #ff0000;font-size: 4em;'></i>",
+                                                                                subscriber_count: 1.0,
+                                                                                txt: "Vary Bad"
+                                                                            },
+                                                                            {
+                                                                                amount: "<i class='bx bxs-meh' style='color: #ff9100;font-size: 4em;'></i>",
+                                                                                subscriber_count: 2.0,
+                                                                                txt: "Pool"
+                                                                            },
+                                                                            {
+                                                                                amount: "<i class='bx bxs-smile' style='color: #ffd900;font-size: 4em;'></i>",
+                                                                                subscriber_count: 3.0,
+                                                                                txt: "Ok"
+                                                                            },
+                                                                            {
+                                                                                amount: "<i class='bx bxs-wink-smile' style='color: #ffff00;font-size: 4em;'></i>",
+                                                                                subscriber_count: 4.0,
+                                                                                txt: "Good"
+                                                                            },
+                                                                            {
+                                                                                amount: "<i class='bx bxs-happy-heart-eyes' style='color: #a2ff00;font-size: 4em;'></i>",
+                                                                                subscriber_count: 5.0,
+                                                                                txt: "Excellent"
+                                                                            }]
+
+
+                                                                            var slider = document.getElementById("inMyRange");
+                                                                            var output = document.getElementById("numb");
+                                                                            var output2 = document.getElementById("iconRange");
+                                                                            var output3 = document.getElementById("txtRange");
+                                                                            output.innerHTML = slider.value;
+
+                                                                            slider.oninput = function() {
+                                                                                output.innerHTML = getClosest(this.value, 'subscriber_count');
+                                                                                output2.innerHTML = getClosest(this.value, 'amount');
+                                                                                output3.innerHTML = getClosest(this.value, 'txt');
+                                                                            }
+
+                                                                            function getClosest(val, key) {
+                                                                            return arr.reduce(function(prev, curr) {
+                                                                                return (Math.abs(curr.subscriber_count - parseInt(val)) < Math.abs(prev.subscriber_count - parseInt(val)) ? curr : prev);
+                                                                                })[key];
+                                                                            }
+                                                                        </script>
+                                                                        <input type="range" min="1" max="5" value="0" class="w-100" step="0.1" id="inMyRange" name="rating">
+                                                                    </div>
+                                                                  </div>
+                                                                  <div class="row">
+                                                                    <div class="col-12 text-center">
+                                                                        <input id="numb" type="hidden" value="">
+                                                                        <p class="mt-1" id="iconRange"></p>
+                                                                        <strong class="fw-ligh fst-italic" id="txtRange"></strong>
+                                                                    </div>
+                                                                  </div>
                                                                 </div>
                                                                 <input type="hidden" value="{{ $itm_bill_end->id_product }}" name="id_product_rv">
                                                                 <input type="hidden" value="{{ $pr_fe->images }}" name="img_rv">

@@ -30,6 +30,7 @@ use Carbon\Carbon;
 use App\Models\color;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\DB;
 
 class interiorController extends Controller
 {
@@ -633,7 +634,11 @@ class interiorController extends Controller
     public function comment_dashboard()
     {
         // $comment = comments::all();
-        $comment = comments::limit(12)->paginate(12);
+        // $comment = comments::limit(12)->paginate(12);
+        $comment = DB::table('comments')
+                          ->join('users','comments.id_user','=','users.user_id')
+                          ->select('comments.*','users.*')
+                          ->limit(12)->paginate(12);
         return view('dashboards.clients.z-comment', compact('comment'));
     }
 
@@ -818,7 +823,7 @@ class interiorController extends Controller
             return $cart;
         }
         public function _comment(){
-            $comment = comments::where('status_comment','ok')->orderbydesc('id')->take(20)->get();
+            $comment = comments::orderbydesc('id')->take(20)->get();
             return $comment;
         }
 
@@ -1232,14 +1237,14 @@ class interiorController extends Controller
     public function rdr_QrCode(Request $req) {
         // dd($req->id);
         if (empty(Auth::user())) {
-            $url = 'http://127.0.0.1:8000/interior-product-srh?key='.$req->id;
+            $url = 'http://10.10.104.209:8099/interior-product-srh?key='.$req->id;
             return redirect($url);
         } else {
             if (Auth::user()->name_roles == 'user') {
-                $url = 'http://127.0.0.1:8000/interior-product-srh?key='.$req->id;
+                $url = 'http://10.10.104.209:8099/interior-product-srh?key='.$req->id;
                 return redirect($url);
             } else {
-                $url = 'http://127.0.0.1:8000/new-bill?data='.$req->id;
+                $url = 'http://10.10.104.209:8099/new-bill?data='.$req->id;
                 return redirect($url);
             }
         }

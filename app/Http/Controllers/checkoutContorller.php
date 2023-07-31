@@ -275,7 +275,7 @@ class checkoutContorller extends Controller
         if ($checkMethod == 'ATM') {
             $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
             // $vnp_Returnurl = "https://localhost/vnpay_php/vnpay_return.php";
-            $vnp_Returnurl = "http://127.0.0.1:8000/return-vnpay";
+            $vnp_Returnurl = "http://10.10.104.209:8099/return-vnpay";
             $vnp_TmnCode = "HEYD7Y8N";//Mã website tại VNPAY 
             $vnp_HashSecret = "XJZONSMCWFAWVKHFSCLGCCIUIPLNCUPN"; //Chuỗi bí mật
             
@@ -342,7 +342,7 @@ class checkoutContorller extends Controller
         }elseif($checkMethod == 'QR') {
             $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
             // $vnp_Returnurl = "https://localhost/vnpay_php/vnpay_return.php";
-            $vnp_Returnurl = "http://127.0.0.1:8000/return-vnpay";
+            $vnp_Returnurl = "http://10.10.104.209:8099/return-vnpay";
             $vnp_TmnCode = "HEYD7Y8N";//Mã website tại VNPAY 
             $vnp_HashSecret = "XJZONSMCWFAWVKHFSCLGCCIUIPLNCUPN"; //Chuỗi bí mật
             
@@ -511,7 +511,7 @@ class checkoutContorller extends Controller
             // code atm
             $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
             // $vnp_Returnurl = "https://localhost/vnpay_php/vnpay_return.php";
-            $vnp_Returnurl = "http://127.0.0.1:8000/return-vnpay-don";
+            $vnp_Returnurl = "http://10.10.104.209:8099/return-vnpay-don";
             $vnp_TmnCode = "HEYD7Y8N";//Mã website tại VNPAY 
             $vnp_HashSecret = "XJZONSMCWFAWVKHFSCLGCCIUIPLNCUPN"; //Chuỗi bí mật
             
@@ -578,7 +578,7 @@ class checkoutContorller extends Controller
         }elseif($checkMethod == 'QR') {
             $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
             // $vnp_Returnurl = "https://localhost/vnpay_php/vnpay_return.php";
-            $vnp_Returnurl = "http://127.0.0.1:8000/return-vnpay-don";
+            $vnp_Returnurl = "http://10.10.104.209:8099/return-vnpay-don";
             $vnp_TmnCode = "HEYD7Y8N";//Mã website tại VNPAY 
             $vnp_HashSecret = "XJZONSMCWFAWVKHFSCLGCCIUIPLNCUPN"; //Chuỗi bí mật
             
@@ -1396,7 +1396,7 @@ class checkoutContorller extends Controller
             }
             $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
             // $vnp_Returnurl = "https://localhost/vnpay_php/vnpay_return.php";
-            $vnp_Returnurl = "http://127.0.0.1:8000/return-db";
+            $vnp_Returnurl = "http://10.10.104.209:8099/return-db";
             $vnp_TmnCode = "HEYD7Y8N";//Mã website tại VNPAY 
             $vnp_HashSecret = "XJZONSMCWFAWVKHFSCLGCCIUIPLNCUPN"; //Chuỗi bí mật
             
@@ -1468,7 +1468,7 @@ class checkoutContorller extends Controller
             }
             $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
             // $vnp_Returnurl = "https://localhost/vnpay_php/vnpay_return.php";
-            $vnp_Returnurl = "http://127.0.0.1:8000/return-db";
+            $vnp_Returnurl = "http://10.10.104.209:8099/return-db";
             $vnp_TmnCode = "HEYD7Y8N";//Mã website tại VNPAY 
             $vnp_HashSecret = "XJZONSMCWFAWVKHFSCLGCCIUIPLNCUPN"; //Chuỗi bí mật
             

@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
 use App\Models\color;
+use App\Jobs\DemoEmail;
 
 
 class productController extends Controller
@@ -279,31 +280,28 @@ class productController extends Controller
         session()->flash('product_ds', 'Xóa sản phẩm thành công');
         return back();
     }
-    public function create_comment(Request $request)
-    {
-        // $data = new comments();
-        // $data->name_user = Auth::user()->name;
-        // $data->id_user = Auth::user()->user_id;
-        // $data->id_product = $request->id_product_rv;
-        // $data->descriptions = $request->date_create_rv;
-        // $data->status_comment = "ok";
-        // $data->date_create = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
-        // $data->img = $request->img_rv;
-        // $data->save();
-        // session()->flash('success','Gửi thành công');
-        // return back();
-    }
     public function add_review(Request $request) {
+        $rating = $request->rating;
+        if($rating < 3){
+            $data = [
+                'title'=>'Khách hàng đánh giá '.$rating.' ('.$request->id_product_rv.')',
+                'content'=>Auth::user()->user_id,
+                'name'=>$request->descriptions,
+                'check'=>'review',
+            ];
+            $email = 'zzztrunzzz@gmail.com';
+            DemoEmail::dispatch($data, $email);
+        }
         $data = new comments();
         $data->name_user = Auth::user()->name;
         $data->id_user = Auth::user()->user_id;
         $data->id_product = $request->id_product_rv;
         $data->descriptions = $request->descriptions;
-        $data->status_comment = "ok";
+        $data->status_comment = $rating;
         $data->date_create = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
         $data->img = $request->img_rv;
         $data->save();
-        session()->flash('success','Gửi thành công');
+        session()->flash('success','');
         return back();
     }
 }
