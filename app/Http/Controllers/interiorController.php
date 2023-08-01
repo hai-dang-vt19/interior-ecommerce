@@ -28,12 +28,20 @@ use App\Models\product_famous;
 use App\Models\user_famous;
 use Carbon\Carbon;
 use App\Models\color;
+use App\Models\Hosts;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 
 class interiorController extends Controller
 {
+    public function _hosts(){
+        $hosts = Hosts::where('active','y')->get();
+        foreach($hosts as $hst){
+            $host = $hst->host;
+            return $host;
+        }
+    }
     //------------------------------------------ dash board -----------------------------------------
     public function login()
     {
@@ -1237,14 +1245,14 @@ class interiorController extends Controller
     public function rdr_QrCode(Request $req) {
         // dd($req->id);
         if (empty(Auth::user())) {
-            $url = 'http://10.10.104.209:8099/interior-product-srh?key='.$req->id;
+            $url = $this->_hosts().'interior-product-srh?key='.$req->id;
             return redirect($url);
         } else {
             if (Auth::user()->name_roles == 'user') {
-                $url = 'http://10.10.104.209:8099/interior-product-srh?key='.$req->id;
+                $url = $this->_hosts().'interior-product-srh?key='.$req->id;
                 return redirect($url);
             } else {
-                $url = 'http://10.10.104.209:8099/new-bill?data='.$req->id;
+                $url = $this->_hosts().'new-bill?data='.$req->id;
                 return redirect($url);
             }
         }

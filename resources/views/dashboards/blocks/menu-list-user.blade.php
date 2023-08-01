@@ -185,6 +185,12 @@
       <div>History</div>
     </a>
   </li>
+  <li class="menu-item">
+    <a href="{{ route('host_index') }}" class="menu-link">
+      <i class='menu-icon tf-icons bx bx-globe'></i>
+      <div>Host</div>
+    </a>
+  </li>
   @endcan
 @endcan
 </ul>

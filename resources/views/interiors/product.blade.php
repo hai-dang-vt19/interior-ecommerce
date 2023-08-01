@@ -5,6 +5,13 @@
   {{-- <body style="background-image: url(https://images.pexels.com/photos/7914464/pexels-photo-7914464.jpeg)"> --}}
   <body style="background-color: #ffffff">
     @include('interiors.blocks.backGround')
+    @php
+    use App\Models\Hosts;
+    $hosts = Hosts::where('active','y')->get();
+    foreach ($hosts as $hts) {
+        $host = $hts->host;
+    }
+    @endphp
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar layout-without-menu">
       <div class="layout-container">
@@ -78,7 +85,7 @@
                             <div class="row row-cols-1 row-cols-md-3 g-4">
                                 @foreach ($product as $itm_prd)
                                 @php
-                                    $url = 'http://10.10.104.209:8099/rdr/qrcode/'.$itm_prd->id_product;
+                                    $url = $host.'rdr/qrcode/'.$itm_prd->id_product;
                                 @endphp
                                     <div class="col">
                                         <div class="card">

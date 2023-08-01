@@ -8,6 +8,7 @@ use App\Models\city;
 use App\Models\discount;
 use App\Models\expense;
 use App\Models\history;
+use App\Models\Hosts;
 use App\Models\product;
 use App\Models\product_famous;
 use App\Models\User;
@@ -19,6 +20,13 @@ use Illuminate\Support\Facades\Auth;
 
 class checkoutContorller extends Controller
 {
+    public function _hosts(){
+        $hosts = Hosts::where('active','y')->get();
+        foreach($hosts as $hst){
+            $host = $hst->host;
+            return $host;
+        }
+    }
     public function return_vnpay(Request $request)
     {
         $vnp_TxnRef = $request->vnp_TxnRef;
@@ -271,11 +279,10 @@ class checkoutContorller extends Controller
             $new_total = $request->totalAll;
         }
         // dd($checkMethod);
-
         if ($checkMethod == 'ATM') {
             $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
             // $vnp_Returnurl = "https://localhost/vnpay_php/vnpay_return.php";
-            $vnp_Returnurl = "http://10.10.104.209:8099/return-vnpay";
+            $vnp_Returnurl = $this->_hosts()."return-vnpay";
             $vnp_TmnCode = "HEYD7Y8N";//Mã website tại VNPAY 
             $vnp_HashSecret = "XJZONSMCWFAWVKHFSCLGCCIUIPLNCUPN"; //Chuỗi bí mật
             
@@ -342,7 +349,7 @@ class checkoutContorller extends Controller
         }elseif($checkMethod == 'QR') {
             $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
             // $vnp_Returnurl = "https://localhost/vnpay_php/vnpay_return.php";
-            $vnp_Returnurl = "http://10.10.104.209:8099/return-vnpay";
+            $vnp_Returnurl = $this->_hosts()."return-vnpay";
             $vnp_TmnCode = "HEYD7Y8N";//Mã website tại VNPAY 
             $vnp_HashSecret = "XJZONSMCWFAWVKHFSCLGCCIUIPLNCUPN"; //Chuỗi bí mật
             
@@ -511,7 +518,7 @@ class checkoutContorller extends Controller
             // code atm
             $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
             // $vnp_Returnurl = "https://localhost/vnpay_php/vnpay_return.php";
-            $vnp_Returnurl = "http://10.10.104.209:8099/return-vnpay-don";
+            $vnp_Returnurl = $this->_hosts()."return-vnpay-don";
             $vnp_TmnCode = "HEYD7Y8N";//Mã website tại VNPAY 
             $vnp_HashSecret = "XJZONSMCWFAWVKHFSCLGCCIUIPLNCUPN"; //Chuỗi bí mật
             
@@ -578,7 +585,7 @@ class checkoutContorller extends Controller
         }elseif($checkMethod == 'QR') {
             $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
             // $vnp_Returnurl = "https://localhost/vnpay_php/vnpay_return.php";
-            $vnp_Returnurl = "http://10.10.104.209:8099/return-vnpay-don";
+            $vnp_Returnurl = $this->_hosts()."return-vnpay-don";
             $vnp_TmnCode = "HEYD7Y8N";//Mã website tại VNPAY 
             $vnp_HashSecret = "XJZONSMCWFAWVKHFSCLGCCIUIPLNCUPN"; //Chuỗi bí mật
             
@@ -1396,7 +1403,7 @@ class checkoutContorller extends Controller
             }
             $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
             // $vnp_Returnurl = "https://localhost/vnpay_php/vnpay_return.php";
-            $vnp_Returnurl = "http://10.10.104.209:8099/return-db";
+            $vnp_Returnurl = $this->_hosts()."return-db";
             $vnp_TmnCode = "HEYD7Y8N";//Mã website tại VNPAY 
             $vnp_HashSecret = "XJZONSMCWFAWVKHFSCLGCCIUIPLNCUPN"; //Chuỗi bí mật
             
@@ -1468,7 +1475,7 @@ class checkoutContorller extends Controller
             }
             $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
             // $vnp_Returnurl = "https://localhost/vnpay_php/vnpay_return.php";
-            $vnp_Returnurl = "http://10.10.104.209:8099/return-db";
+            $vnp_Returnurl = $this->_hosts()."return-db";
             $vnp_TmnCode = "HEYD7Y8N";//Mã website tại VNPAY 
             $vnp_HashSecret = "XJZONSMCWFAWVKHFSCLGCCIUIPLNCUPN"; //Chuỗi bí mật
             

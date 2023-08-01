@@ -1,4 +1,4 @@
-  <div class="app-brand demo justify-content-center">
+<div class="app-brand demo justify-content-center">
     <a href="{{ route('index_dashboard') }}" class="app-brand-link d-flex">
       <img class="mt-2 ms-2 mb-3" src="{{ asset('interior\img\core-img\logo.png') }}" width="140px" height="51px" alt="Interior CS">
     </a>
@@ -7,16 +7,16 @@
     </a>
   </div>
   <div class="menu-inner-shadow"></div>
-<ul class="menu-inner py-1">
+  <ul class="menu-inner py-1">
     <!-- Dashboard -->
     @can('admin')
-    <li class="menu-item active">
-      <a href="{{ route('index_dashboard') }}" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-home-circle"></i>
-        <div >Dashboard</div>
-      </a>
-    </li>
-    @endcan
+      <li class="menu-item ">
+        <a href="{{ route('index_dashboard') }}" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-home-circle"></i>
+          <div >Dashboard</div>
+        </a>
+      </li>
+      @endcan
     <li class="menu-item">
       <a href="{{ route('bill_dashboad') }}" class="menu-link">
         <i class='menu-icon tf-icons bx bx-compass'></i>
@@ -50,11 +50,11 @@
     </li>
   @can('admin_manager')
     <li class="menu-item">
-      <a href="{{ route('list_type_dashboard') }}" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-box"></i>
-        <div >Type Product</div>
-      </a>
-    </li>
+        <a href="{{ route('list_type_dashboard') }}" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-box"></i>
+          <div >Type Product</div>
+        </a>
+      </li>
   @endcan
   @can('admin_manager')
     <li class="menu-item">
@@ -84,12 +84,12 @@
       </a>
       <ul class="menu-sub">
         <li class="menu-item">
-          <a href="{{ route('warehouse_dashboard') }}" class="menu-link">
+          <a href="{{ route('warehouse_dashboard') }}" class="menu-link"  >
             <div >New Warehouse</div>
           </a>
         </li>
-        <li class="menu-item">
-          <a href="{{ route('list_warehouse_dashboard') }}" class="menu-link">
+        <li class="menu-item ">
+          <a href="{{ route('list_warehouse_dashboard') }}" class="menu-link"  >
             <div >List Warehouse </div>
           </a>
         </li>
@@ -98,10 +98,10 @@
   @endcan
     <!-- Components -->
     @can('admin_manager')
-    <li class="menu-header small text-uppercase"><span class="menu-header-text">User</span></li>
-    @endcan
+      <li class="menu-header small text-uppercase"><span class="menu-header-text">User</span></li>
+      @endcan
     <!-- Cards -->
-    <li class="menu-item">
+    <li class="menu-item ">
       <a href="javascript:void(0)" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons bx bx-user"></i>
         <div>User</div>
@@ -171,7 +171,7 @@
         <div data-i18n="Form Layouts">Province - City</div>
       </a>
     </li>
-     
+   
     @can('admin')
     <li class="menu-item">
       <a href="{{ route('slide') }}" class="menu-link">
@@ -185,7 +185,7 @@
         <div>History</div>
       </a>
     </li>
-    <li class="menu-item">
+    <li class="menu-item active">
       <a href="{{ route('host_index') }}" class="menu-link">
         <i class='menu-icon tf-icons bx bx-globe'></i>
         <div>Host</div>
@@ -193,4 +193,4 @@
     </li>
     @endcan
   @endcan
-</ul>
+  </ul>

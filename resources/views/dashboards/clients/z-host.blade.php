@@ -82,20 +82,21 @@
           <div class="content-wrapper">
             <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Roles / </span>Danh sách phân quyền</h4>
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Host / </span>Danh sách</h4>
               <!-- Responsive Table -->
               <div class="card">
                 <div class="card-body">
-                  <form action="{{ route('add_roles') }}" method="POST">
+                  <form action="{{ route('host_create') }}" method="POST">
                     @csrf
                     <div class="row">
-                      <label class="col-sm-2 col-form-label">Roles</label>
-                      <div class="col-sm-10">
+                      <div class="col-sm-5">
                         <div class="input-group input-group-merge">
                           <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
-                          <input type="text" class="form-control" name="name_roles"/>
-                          <button type="submit" class="btn btn-success">Thêm</button>
+                          <input type="text" class="form-control" name="host"/>
                         </div>
+                      </div>
+                      <div class="col-sm-2">
+                        <button type="submit" class="btn btn-success">Thêm</button>
                       </div>
                     </div>
                   </form>
@@ -107,20 +108,31 @@
                           <thead>
                             <tr>
                               <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>
-                              <th style="color: rgb(231, 171, 6);font-size: 14px">Mã roles</th>
-                              <th style="color: rgb(231, 171, 6);font-size: 14px">Tên roles</th>
+                              <th style="color: rgb(231, 171, 6);font-size: 14px">Host</th>
+                              <th style="color: rgb(231, 171, 6);font-size: 14px">Active</th>
                               <th style="color: rgb(231, 171, 6);font-size: 14px">Chức năng</th>
                             </tr>
                           </thead>
                           <tbody>
-                            @foreach ($roles as $key => $role)
+                            @foreach ($hosts as $key => $host)
                             <tr>
                               <th>{{$key +1}}</th>
-                              <td style="color: gold">{{$role->id}}</td>
-                              <td>{{$role->name_roles}}</td>
+                              @if ($host->active == 'n')
+                                <td>{{$host->host}}</td>
+                              @else
+                                <td style="color: gold">{{$host->host}}</td>
+                              @endif
                               <td>
-                                <a href="{{ route('edit_roles_dashboard', ['id'=>$role->id]) }}" class="btn btn-primary btn-sm"><i class='bx bxs-edit'></i></a>
-                                <a onclick="return confirm('Bạn có chắc chắn xóa không?')"  href="{{ route('destroy_roles', ['id'=>$role->id]) }}" class="btn btn-danger btn-sm"><i class='bx bx-trash-alt'></i></a>
+                                @if ($host->active == 'n')
+                                    <a href="{{ route('host_active', ['id'=>$host->id]) }}" class="btn btn-primary btn-sm">Active now</a>
+                                @else
+                                <button class="btn btn-success btn-sm rounded-pill">
+                                    <i class='bx bx-check'></i>
+                                </button>
+                                @endif
+                              </td>
+                              <td>
+                                <a onclick="return confirm('Bạn có chắc chắn xóa không?')"  href="{{ route('host_destroy', ['id'=>$host->id]) }}" class="btn btn-danger btn-sm"><i class='bx bx-trash-alt'></i></a>
                               </td>
                             </tr>
                             @endforeach
@@ -129,7 +141,7 @@
                     </div>
                   </div>
                   <div class="d-flex mt-3">
-                    {{ $roles->links() }}
+                    {{ $hosts->links() }}
                   </div>
                   <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>    
                 </div>
@@ -166,35 +178,23 @@
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    @if (session()->has('roles_sc'))
+    @if (session()->has('success'))
       <script>
         swal({
-              title: "{{session()->get('roles_sc')}}",
-              text: "Tạo thành công",
+              title: "{{session()->get('success')}}",
               icon: "success",
               button: "OK",
-              timer: 20000,
+              timer: 2000,
             });
       </script>
     @endif
-    @if (session()->has('update_roles_sc'))
+    @if (session()->has('error'))
     <script>
       swal({
             title: "{{session()->get('update_roles_sc')}}",
-            text: "Cập nhật thành công",
-            icon: "success",
+            icon: "error",
             button: "OK",
-            timer: 20000,
-          });
-    </script>
-    @endif
-    @if (session()->has('roles_ds'))
-    <script>
-      swal({
-            title: "{{session()->get('roles_ds')}}",
-            icon: "success",
-            button: "OK",
-            timer: 20000,
+            timer: 2000,
           });
     </script>
     @endif

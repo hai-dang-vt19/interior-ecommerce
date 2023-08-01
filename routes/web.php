@@ -18,6 +18,7 @@ use App\Http\Controllers\cartController;
 use App\Http\Controllers\checkoutContorller;
 use App\Http\Controllers\DelController;
 use App\Http\Controllers\favoriteController;
+use App\Http\Controllers\hostController;
 use App\Http\Controllers\productController;
 use App\Http\Controllers\slideController;
 use App\Http\Controllers\warehouseController;
@@ -174,6 +175,11 @@ Route::get('/dashboard-thanhcong-bill', [checkoutContorller::class, 'bill_thanhc
 Route::get('/dashboad-up-bill', [checkoutContorller::class, 'up_bill_dashboad'])->middleware(['can:admin_manager_staff','auth'])->name('up_bill_dashboad');
 Route::get('/dashboad-up-bill-vc', [checkoutContorller::class, 'up_bill_vanchuyen'])->middleware(['can:admin_manager_staff','auth'])->name('up_bill_vanchuyen');
 Route::get('/dashboad-up-bill-store', [checkoutContorller::class, 'up_bill_xacnhan_store'])->middleware(['can:admin_manager_staff','auth'])->name('up_bill_xacnhan_store');
+
+Route::get('/dashboard/hosts', [hostController::class, 'host_index'])->middleware(['can:admin','auth'])->name('host_index');
+Route::post('/dashboard/hosts/create', [hostController::class, 'host_create'])->middleware(['can:admin','auth'])->name('host_create');
+Route::get('/dashboard/hosts/active/{id}', [hostController::class, 'host_active'])->middleware(['can:admin','auth'])->name('host_active');
+Route::get('/dashboard/hosts/destroy/{id}', [hostController::class, 'host_destroy'])->middleware(['can:admin','auth'])->name('host_destroy');
 
 Route::get('/checkout-user', [interiorController::class, 'checkout_dash_store'])->middleware(['can:admin_manager_staff','auth'])->name('checkout_dash_store');
 Route::post('/checkout-atm/db', [checkoutContorller::class, 'vnpay_payment_atm_dashboard'])->name('vnpay_payment_atm_dashboard');
