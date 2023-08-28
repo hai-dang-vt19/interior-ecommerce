@@ -920,7 +920,39 @@ class interiorController extends Controller
 
         return view('interiors.product', compact('types','comment','suppliers','product','max' ,'color','pr_inte','carts'));
     }
-    public function get_with_brand(Request $request)
+    // public function get_with_brand(Request $request)
+    // {
+    //     $types = $this->_type_product();
+    //     $suppliers = $this->_supplier_product();
+    //     $color = $this->_color_product();
+    //     $carts = $this->_cart();
+    //     $comment = $this->_comment();
+
+    //     $pr_inte = product::where('status','Còn hàng');
+         
+    //     $max = $pr_inte->max('price');
+
+    //     $product = $pr_inte->where('supplier',$request->supplier)->limit(12)->paginate(12);
+
+    //     return view('interiors.product', compact('types','comment','suppliers','product','max' ,'color','pr_inte','carts'));
+    // }
+    // public function get_with_color(Request $request)
+    // {
+    //     $types = $this->_type_product();
+    //     $suppliers = $this->_supplier_product();
+    //     $color = $this->_color_product();
+    //     $carts = $this->_cart();
+    //     $comment = $this->_comment();
+
+    //     $pr_inte = product::where('status','Còn hàng');
+         
+    //     $max = $pr_inte->max('price');
+
+    //     $product = $pr_inte->where('color','like',"%$request->color%")->limit(12)->paginate(12);
+
+    //     return view('interiors.product', compact('types','comment','suppliers','product','max' ,'color','pr_inte','carts'));
+    // }
+    public function loc_product(Request $request)
     {
         $types = $this->_type_product();
         $suppliers = $this->_supplier_product();
@@ -932,24 +964,11 @@ class interiorController extends Controller
          
         $max = $pr_inte->max('price');
 
-        $product = $pr_inte->where('supplier',$request->supplier)->limit(12)->paginate(12);
-
-        return view('interiors.product', compact('types','comment','suppliers','product','max' ,'color','pr_inte','carts'));
-    }
-    public function get_with_color(Request $request)
-    {
-        $types = $this->_type_product();
-        $suppliers = $this->_supplier_product();
-        $color = $this->_color_product();
-        $carts = $this->_cart();
-        $comment = $this->_comment();
-
-        $pr_inte = product::where('status','Còn hàng');
-         
-        $max = $pr_inte->max('price');
-
-        $product = $pr_inte->where('color','like',"%$request->color%")->limit(12)->paginate(12);
-
+        $product = product::where('status','Còn hàng')
+                            ->where('color','like',"%$request->color%")
+                            ->where('type_product',$request->typeproduct)
+                            ->whereBetween('price', [1, $request->ran_price])
+                            ->limit(12)->paginate(12);
         return view('interiors.product', compact('types','comment','suppliers','product','max' ,'color','pr_inte','carts'));
     }
     public function get_a_z()

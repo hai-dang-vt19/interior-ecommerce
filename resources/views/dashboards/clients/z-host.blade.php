@@ -49,7 +49,7 @@
       <div class="layout-container">
         <!-- Menu -->
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-          @include('dashboards.blocks.menu-z-roles');
+          @include('dashboards.blocks.menu-z-host');
         </aside>
         <!-- / Menu -->
 

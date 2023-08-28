@@ -195,11 +195,12 @@ Route::get('/destroy/donhang/{id}',[checkoutContorller::class, 'destroy_donhang_
 
 // Route::get('test/map',[interiorController::class, 'test_api_map'])->name('test_api_map');
 // ---- user
-Route::get('/interior-index', [interiorController::class,'index'])->name('index');
+Route::get('', [interiorController::class,'index'])->name('index');
 Route::get('/interior/product', [interiorController::class,'product'])->name('product');
 Route::get('/interior/product/type', [interiorController::class, 'get_with_type'])->name('get_with_type');
-Route::get('/interior/product/supplier', [interiorController::class, 'get_with_brand'])->name('get_with_brand');
-Route::get('/interior/product/color', [interiorController::class, 'get_with_color'])->name('get_with_color');
+// Route::get('/interior/product/supplier', [interiorController::class, 'get_with_brand'])->name('get_with_brand');
+// Route::get('/interior/product/color', [interiorController::class, 'get_with_color'])->name('get_with_color');
+Route::get('/interior/product/loc', [interiorController::class, 'loc_product'])->name('loc_product');
 Route::get('/interior/product/az', [interiorController::class, 'get_a_z'])->name('get_a_z');
 Route::get('/interior/product/za', [interiorController::class, 'get_z_a'])->name('get_z_a');
 Route::get('/interior-product/price', [interiorController::class,'product_with_price'])->name('product_with_price');

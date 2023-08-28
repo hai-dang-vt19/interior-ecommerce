@@ -42,30 +42,53 @@
                                     <i class='bx bx-grid-vertical'></i>
                                 </button>
                                 <div class="collapse navbar-collapse" id="navbar-ex-3">
-                                    <div class="me-auto text-left py-3">
-                                        <p>Loại sản phẩm
-                                            <br>
-                                            @foreach ($types as $itm_types)
-                                                <a class="nav-item nav-link" href="{{ route('get_with_type', ['type'=>$itm_types->name_type]) }}">
-                                                        {{ $itm_types->name_type }}
-                                                </a>  
-                                            @endforeach
-                                        </p>
-                                        <p>Nhà cung cấp
-                                            <br>
-                                            @foreach ($suppliers as $itm_suppliers)
-                                                <a class="nav-item nav-link" href="{{ route('get_with_brand', ['supplier'=>$itm_suppliers->name_supplier]) }}">
-                                                        {{ $itm_suppliers->name_supplier }}
-                                                </a>  
-                                            @endforeach
-                                        </p>
-                                        <p>Màu sắc
-                                            <br>
-                                            @foreach ($color as $itm_color)
-                                                <a class="nav-item nav-link mb-1 mt-2 ms-2 border border-warning rounded-pill" href="{{ route('get_with_color', ['color'=>$itm_color->id_color]) }}" style="min-width: 40px; max-width: 83px; background-color: {{$itm_color->id_color}};"> </a>
-                                            @endforeach
-                                        </p>
-                                    </div>
+                                    <form action="{{ route('loc_product') }}" method="GET">
+                                        <div class="me-auto text-left py-3">
+                                            <p>Loại sản phẩm
+                                                <br>
+                                                @foreach ($types as $key => $itm_types)
+                                                    {{-- <a class="nav-item nav-link" href="{{ route('get_with_type', ['type'=>$itm_types->name_type]) }}">
+                                                            {{ $itm_types->name_type }}
+                                                    </a>   --}}
+                                                    <div class="form-check mt-3">
+                                                        <input type="radio" value="{{$itm_types->name_type}}" name="typeproduct" id="RadioType{{$key+1}}" />
+                                                        <label class="form-check-label" for="RadioType{{$key+1}}">{{$itm_types->name_type}}</label>
+                                                    </div>
+                                                @endforeach
+                                            </p>
+                                            {{-- <p>Nhà cung cấp
+                                                <br>
+                                                @foreach ($suppliers as $key => $itm_suppliers)
+                                                    <a class="nav-item nav-link" href="{{ route('get_with_brand', ['supplier'=>$itm_suppliers->name_supplier]) }}">
+                                                            {{ $itm_suppliers->name_supplier }}
+                                                    </a>
+                                                @endforeach
+                                            </p> --}}
+                                            <p>Màu sắc
+                                                <br>
+                                                @foreach ($color as $key => $itm_color)
+                                                <div class="form-check mt-3">
+                                                    <input type="radio" value="{{$itm_color->id_color}}" name="color" id="RadioColor{{$key+1}}" />
+                                                    <label class="form-check-label btn border border-warning rounded-pill"  style="width: 5vw; height: 2.5vh ;background-color: {{$itm_color->id_color}};" for="RadioColor{{$key+1}}"> </label>
+                                                </div>
+                                                    {{-- <a class="nav-item nav-link mb-1 mt-2 ms-2 border border-warning rounded-pill" href="{{ route('get_with_color', ['color'=>$itm_color->id_color]) }}" style="min-width: 40px; max-width: 83px; background-color: {{$itm_color->id_color}};"> </a> --}}
+                                                @endforeach
+                                            </p>
+                                            <p class="mt-4">Giá 0 - <span id="op_price"></span>
+                                                <br>
+                                                <input type="range" class="form-range  mt-3" min="0" max="{{ $max }}" step="1000" value="0"  id="ip_price" name="ran_price">
+                                                <script>
+                                                    const op_price = document.querySelector("#op_price")
+                                                    const ip_price = document.querySelector("#ip_price")
+                                                    op_price.textContent = ip_price.value
+                                                    ip_price.addEventListener("input", (event) => {
+                                                        op_price.textContent = event.target.value
+                                                    })
+                                                </script>
+                                            </p>
+                                            <button class="btn btn-warning w-100" type="submit">Tìm kiếm</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </nav>
