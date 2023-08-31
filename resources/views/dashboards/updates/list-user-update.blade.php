@@ -104,7 +104,7 @@
                                 <label class="col-sm-2 col-form-label">Mã người dùng</label>
                                 <div class="col-sm-10">
                                   <div class="input-group input-group-merge">
-                                    <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
+                                    <span class="input-group-text">ID</span>
                                     <input type="text" class="form-control" name="user_id" value="{{$user['user_id']}}"/>
                                   </div>
                                 </div>
@@ -113,7 +113,7 @@
                               <label class="col-sm-2 col-form-label">Email</label>
                               <div class="col-sm-10">
                                 <div class="input-group input-group-merge">
-                                  <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
+                                  <span class="input-group-text"><i class='bx bx-envelope' ></i></span>
                                   <input type="text" class="form-control" name="email" value="{{$user['email']}}"/>
                                 </div>
                               </div>
@@ -122,7 +122,7 @@
                               <label class="col-sm-2 col-form-label">Tên người dùng</label>
                               <div class="col-sm-10">
                                 <div class="input-group input-group-merge">
-                                  <span class="input-group-text"><i class='bx bx-image'></i></span>
+                                  <span class="input-group-text"><i class='bx bx-rename'></i></span>
                                   <input type="text" class="form-control phone-mask" name="name" value="{{$user['name']}}"/>
                                 </div>
                               </div>
@@ -145,7 +145,7 @@
                                 <label class="col-sm-2 col-form-label">Giói tính</label>
                                 <div class="col-sm-10">
                                   <div class="input-group input-group-merge">
-                                    <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
+                                    <span class="input-group-text"><i class='bx bx-user' ></i></span>
                                     <select class="form-select" name="sex_user">
                                         <option style="color: rgb(164, 164, 164)" selected value="{{$user['sex_user']}}">{{$user['sex_user']}}</option>
                                         <option value="Nam">Nam</option>
@@ -158,7 +158,7 @@
                                 <label class="col-sm-2 col-form-label">Ngày sinh</label>
                                 <div class="col-sm-10">
                                   <div class="input-group input-group-merge">
-                                    <span class="input-group-text"><i class='bx bx-image'></i></span>
+                                    <span class="input-group-text"><i class='bx bx-calendar-heart' ></i></span>
                                     <input type="text" class="form-control phone-mask" name="date_user" id="datepiker" value="{{Carbon\Carbon::parse($user['date_user'])->format('d-m-Y')}}"/>
                                   </div>
                                 </div>
@@ -167,7 +167,7 @@
                                 <label class="col-sm-2 col-form-label">Tỉnh</label>
                                 <div class="col-sm-10">
                                   <div class="input-group input-group-merge">
-                                    <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
+                                    <span class="input-group-text"><i class='bx bxs-buildings' ></i></span>
                                     <select class="form-select" name="province">
                                         <option style="color: rgb(164, 164, 164)" selected value="{{$user['province']}}">{{$user['province']}}</option>
                                         @foreach ($pro as $pr)
@@ -181,7 +181,7 @@
                                 <label class="col-sm-2 col-form-label">Thành phố</label>
                                 <div class="col-sm-10">
                                   <div class="input-group input-group-merge">
-                                    <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
+                                    <span class="input-group-text"><i class='bx bxs-buildings' ></i></span>
                                     <select class="form-select" name="city">
                                         <option style="color: rgb(164, 164, 164)" selected value="{{$user['city']}}">{{$user['city']}}</option>
                                         @foreach ($cty as $ct)
@@ -195,7 +195,7 @@
                                 <label class="col-sm-2 col-form-label">Phường / xã</label>
                                 <div class="col-sm-10">
                                   <div class="input-group input-group-merge">
-                                    <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
+                                    <span class="input-group-text"><i class='bx bxs-buildings' ></i></span>
                                     <input type="text" class="form-control" name="district" value="{{$user['district']}}">
                                   </div>
                                 </div>
@@ -204,7 +204,7 @@
                                 <label class="col-sm-2 col-form-label">Số điện thoại</label>
                                 <div class="col-sm-10">
                                   <div class="input-group input-group-merge">
-                                    <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
+                                    <span class="input-group-text"><i class='bx bx-phone'></i></span>
                                     <input type="text" class="form-control" name="phone" value="{{$user['phone']}}"/>
                                   </div>
                                 </div>
@@ -213,7 +213,7 @@
                               <label class="col-sm-2 col-form-label">Trạng thái</label>
                               <div class="col-sm-10">
                                 <div class="input-group input-group-merge">
-                                  <span class="input-group-text"><i class='bx bx-shape-square'></i></span>
+                                  <span class="input-group-text"><i class='bx bx-station' ></i></span>
                                   <select class="form-select" name="name_status">
                                     @if ($user['name_status'] == 1)
                                     <option selected value="{{$user['name_status']}}">Hoạt động</option>

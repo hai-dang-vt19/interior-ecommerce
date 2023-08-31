@@ -112,6 +112,7 @@
                   </table>
                 </div>
               </div>
+              <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
               <div class="d-flex mt-3">
                 {{ $favorite->links() }}
               </div>

@@ -33,6 +33,10 @@ Route::get('/logout/interior',[interiorPostController::class, 'logout'])->name('
 
 Route::get('/notsIn', [interiorController::class, 'cod403'])->name('cod403');
 
+Route::get('/qrcode/{telecom}', [calenderController::class, 'read_qrcode'])->middleware('auth')->name('read_qrcode');
+Route::get('/reset/timekeeping', [calenderController::class,  'reset_timekeeping'])->middleware('can:admin_manager','auth')->name('reset_timekeeping');
+Route::get('/sb/timekeeping', [calenderController::class,  'submit_timekeeping'])->middleware('can:admin_manager','auth')->name('submit_timekeeping');
+
 //----------------------------------dashboard------------------------------------------------------------
 Route::get('/dashboard-interior', [interiorController::class,'index_dashboard'])->middleware(['can:admin','auth'])->name('index_dashboard');
 Route::get('/detail/method=', [interiorController::class, 'detail_with_method_dash'])->middleware(['can:admin','auth'])->name('detail_with_method_dash');
@@ -81,6 +85,7 @@ Route::get('/dashboard-list-warehouse', [interiorController::class,'list_warehou
 Route::get('/dashboard-user', [interiorController::class, 'user_dashboard'])->middleware(['can:admin_manager','auth'])->name('user_dashboard');
 Route::post('/dashboard-add-user', [userController::class, 'add_user'])->middleware(['can:admin_manager','auth'])->name('add_user');
 Route::get('/dashboard-list-user', [interiorController::class,'list_user_dashboard'])->middleware(['can:admin_manager_staff','auth'])->name('list_user_dashboard');
+Route::get('/dashboard/fill/list/user', [interiorController::class,'fill_list_user'])->middleware(['can:admin_manager_staff','auth'])->name('fill_list_user');
 Route::get('/dashboard-edit-list-user/{id}', [interiorController::class, 'edit_list_user'])->middleware(['can:admin_manager','auth'])->name('edit_list_user');
 Route::post('/dashboard-update-list-user/{id}', [userController::class, 'update_list_user'])->middleware(['can:admin_manager','auth'])->name('update_list_user');
 
@@ -90,12 +95,12 @@ Route::post('/dashboard-update-profile-user/{id}', [userController::class, 'upda
 Route::post('/dashboard-update-profile-addess-user/{id}', [userController::class, 'update_profile_adress_user'])->middleware(['can:admin_manager_staff','auth'])->name('update_profile_adress_user');
 Route::get('/dashboard-destroy-user/{id}', [userController::class, 'destroy_user'])->middleware(['can:admin_manager','auth'])->name('destroy_user');
 //Chức năng xem dữ liệu User
-Route::get('/dashboard-user-roles', [interiorController::class, 'user_name_roles_us'])->middleware(['can:admin_manager_staff','auth'])->name('user_name_roles_us');
-Route::get('/dashboard-user-interior', [interiorController::class, 'user_interior'])->middleware(['can:admin_manager_staff','auth'])->name('user_interior');
-Route::get('/dashboard-user-city', [interiorController::class, 'user_city'])->middleware(['can:admin_manager_staff','auth'])->name('user_city');
-Route::get('/dashboard-user-province', [interiorController::class, 'user_province'])->middleware(['can:admin_manager_staff','auth'])->name('user_province');
-Route::get('/dashboard-user-hoatdong', [interiorController::class, 'user_hoatdong'])->middleware(['can:admin_manager_staff','auth'])->name('user_hoatdong');
-Route::get('/dashboard-user-ngat', [interiorController::class, 'user_ngat'])->middleware(['can:admin_manager_staff','auth'])->name('user_ngat');
+// Route::get('/dashboard-user-roles', [interiorController::class, 'user_name_roles_us'])->middleware(['can:admin_manager_staff','auth'])->name('user_name_roles_us');
+// Route::get('/dashboard-user-interior', [interiorController::class, 'user_interior'])->middleware(['can:admin_manager_staff','auth'])->name('user_interior');
+// Route::get('/dashboard-user-city', [interiorController::class, 'user_city'])->middleware(['can:admin_manager_staff','auth'])->name('user_city');
+// Route::get('/dashboard-user-province', [interiorController::class, 'user_province'])->middleware(['can:admin_manager_staff','auth'])->name('user_province');
+// Route::get('/dashboard-user-hoatdong', [interiorController::class, 'user_hoatdong'])->middleware(['can:admin_manager_staff','auth'])->name('user_hoatdong');
+// Route::get('/dashboard-user-ngat', [interiorController::class, 'user_ngat'])->middleware(['can:admin_manager_staff','auth'])->name('user_ngat');
 //Reset password dashboard
 Route::get('/dashboard-user-reset-password/{id}', [userController::class,'reset_pw'])->middleware(['can:admin_manager_staff','auth'])->name('reset_pw');
 Route::post('/dashboard-user-reset-password-us', [userController::class, 'reset_pass_with_user'])->middleware(['can:admin_manager_staff','auth'])->name('reset_pass_with_user');

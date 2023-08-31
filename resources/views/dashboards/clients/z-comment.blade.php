@@ -90,7 +90,7 @@
                     <tr>
                       <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>
                       <th style="color: rgb(231, 171, 6);font-size: 14px">Thông tin khách</th>
-                      <th style="color: rgb(231, 171, 6);font-size: 14px">Trạng thái</th>
+                      <th style="color: rgb(231, 171, 6);font-size: 14px">Điểm</th>
                       <th style="color: rgb(231, 171, 6);font-size: 14px">Nội dung</th>
                       <th style="color: rgb(231, 171, 6);font-size: 14px">Mã sản phẩm</th>
                       <th style="color: rgb(231, 171, 6);font-size: 14px">Hình ảnh</th>
@@ -181,6 +181,7 @@
                 </table>
               </div>
             </div>
+            <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
             <div class="d-flex mt-2">
               {{ $comment->links() }}
             </div>

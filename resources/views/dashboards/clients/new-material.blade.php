@@ -169,7 +169,7 @@
               <div class="row">
                 <!-- Basic with Icons -->
                 <div class="col-xxl">
-                  <div class="card mb-4">
+                  <div class="card">
                     <div>
                       <div class="table-responsive text-nowrap">
                         <table class="table table-hover">
@@ -201,9 +201,10 @@
                         </table>
                       </div>
                     </div>
-                    <div class="d-flex mt-3">
-                      {{$material->links()}}
-                    </div>
+                  </div>
+                  <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
+                  <div class="d-flex mt-3">
+                    {{$material->links()}}
                   </div>
                 </div>
               </div>

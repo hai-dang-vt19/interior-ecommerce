@@ -100,7 +100,7 @@
                           <label class="col-sm-2 col-form-label">Email  @error('email')<span style="color: red">{{$message}}</span>@enderror</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
+                              <span class="input-group-text"><i class='bx bx-envelope'></i></span>
                               <input type="text" class="form-control" name="email" required/>
                             </div>
                           </div>
@@ -109,7 +109,7 @@
                           <label class="col-sm-2 col-form-label">Mật khẩu @error('password')<span style="color: red">{{$message}}</span>@enderror</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class='bx bx-archive'></i></span>
+                              <span class="input-group-text"><i class='bx bx-key'></i></span>
                               <input type="password" class="form-control" name="password" required/>
                             </div>
                           </div>
@@ -118,7 +118,7 @@
                           <label class="col-sm-2 form-label">Nhập lại mật khẩu @error('check_password')<span style="color: red">{{$message}}</span>@enderror</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class='bx bx-money'></i></span>
+                              <span class="input-group-text"><i class='bx bx-key'></i></span>
                               <input type="password" class="form-control phone-mask" name="check_password" required/>
                             </div>
                           </div>
@@ -127,7 +127,7 @@
                           <label class="col-sm-2 form-label">Tên người dùng @error('name')<span style="color: red">{{$message}}</span>@enderror</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class='bx bx-image'></i></span>
+                              <span class="input-group-text"><i class='bx bx-rename'></i></span>
                               <input type="text" class="form-control phone-mask" name="name" required/>
                             </div>
                           </div>

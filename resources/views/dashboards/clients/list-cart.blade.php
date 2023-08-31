@@ -109,12 +109,14 @@
                         <td>{{ $crt->amount_product }}</td>
                         <td>{{number_format($crt->total )}} &#8363;</td>
                         <td>{{number_format($crt->total_sales )}} &#8363;</td>
+                        <td>...</td>
                       </tr>
                       @endforeach
                     </tbody>
                   </table>
                 </div>
               </div>
+              <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
               <!--/ Responsive Table -->
             </div>
             <!-- / Content -->

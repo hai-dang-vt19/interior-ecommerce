@@ -74,6 +74,7 @@ class interiorPostController extends Controller
             return redirect(route('login'));
         }
      }
+
      public function loginToEmail(Request $req){
         $email = $req->email;
         $pass = $req->key;
@@ -223,7 +224,7 @@ class interiorPostController extends Controller
     //     Auth::logout();
     //     return redirect(route('index'));
     //  }
-     
+    
      //------------------------------------------   client   -----------------------------------------
      public function sendmail(Request $request)
      {

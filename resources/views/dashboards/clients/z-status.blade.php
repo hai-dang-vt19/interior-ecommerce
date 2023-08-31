@@ -103,7 +103,7 @@
                               @csrf
                               <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label">Tên trạng thái</label>
-                                <div class="col-sm-10">
+                                <div class="col-sm-3">
                                   <div class="input-group input-group-merge">
                                     <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
                                     <input type="text" class="form-control" name="name_status"/>
@@ -112,7 +112,7 @@
                               </div>
                               <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label">Loại trạng thái</label>
-                                <div class="col-sm-10">
+                                <div class="col-sm-3">
                                   <div class="input-group input-group-merge">
                                     <span class="input-group-text"><i class='bx bx-cube-alt'></i></span>
                                     <select class="form-select" name="type_status">
@@ -122,9 +122,7 @@
                                     </select>
                                   </div>
                                 </div>
-                              </div>
-                              <div class="row justify-content-end">
-                                <div class="col-sm-10">
+                                <div class="col-sm-1">
                                   <button type="submit" class="btn btn-success">Thêm</button>
                                 </div>
                               </div>
@@ -165,14 +163,15 @@
                           </form>
                         </div>
                       </div>
-                      <div class="d-flex">
-                        {{ $status->links() }}
-                      </div>
-                      <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
+                      {{-- <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small> --}}
                       <!--/ Responsive Table -->
                     </div>
                   </div>
                 </div>
+              </div>
+              <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
+              <div class="d-flex">
+                {{ $status->links() }}
               </div>
             </div>
             <!-- / Content -->

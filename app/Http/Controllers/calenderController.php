@@ -7,8 +7,10 @@ use App\Models\calender;
 use App\Models\expense;
 use App\Models\history;
 use App\Models\luong;
+use App\Models\timekeeping;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class calenderController extends Controller
 {
@@ -18,10 +20,16 @@ class calenderController extends Controller
             $count = count($cld);
             if ($cld == '[]') {
                 $calender = calender::all();
+                
             } else {
                 $calender = $cld;
             }
-            return view('dashboards.new-calender', compact('count','calender'));
+            $timekeeping = DB::table('calender')
+                            ->join('timekeeping', 'calender.id_user','=','timekeeping.id_user')
+                            ->where('idu','!=','1')
+                            ->select('calender.*','timekeeping.ip','timekeeping.address','timekeeping.telecom_operator','timekeeping.check_in','timekeeping.check_out','timekeeping.late')
+                            ->get();
+            return view('dashboards.new-calender', compact('count','calender','timekeeping'));
     }
     public function post_calender(Request $request)
     {
@@ -368,5 +376,106 @@ class calenderController extends Controller
         luong::truncate();
         session()->flash('salary_rs', 'Làm mới thành công');
         return back();
+    }
+
+    public function read_qrcode(Request $request){
+        $id_user = Auth::user()->user_id;
+        $ip = request()->ip();
+        $time = Carbon::now('Asia/Ho_Chi_Minh');
+        $n = 'n'.$time->day;
+        $check_calam = calender::where('id_user',$id_user)->get($n);
+        if($check_calam == '[]'){
+            session()->flash('calender_er','Bạn chưa đăng ký lịch');
+            return redirect()->route('calender');
+        }
+        foreach ($check_calam as $itm_calam) {
+            $check_calam_n = $itm_calam->$n;
+        }
+        if($check_calam_n == 0){
+            session()->flash('calender_er','Bạn không đăng ký lịch làm hôm nay');
+            return redirect()->route('calender');
+        }
+
+        $query = @unserialize(file_get_contents('http://ip-api.com/php/?fields=status,message,country,region,city,district,lat,lon,isp,org,as,query'));
+        // $query = @unserialize(file_get_contents('http://ip-api.com/php/'.$ip.'/?fields=status,message,country,regionName,city,district,lat,lon,isp,org,as,query'));
+
+        $telecom = timekeeping::all('telecom_operator')->take(1);
+        if($telecom != '[]'){
+            foreach ($telecom as $te) {
+                if($te->telecom_operator != $query['as']){
+                    session()->flash('calender_er','Hiện tại bạn không thể chấm công !');
+                    return redirect()->route('calender');
+                }
+            }
+        }
+
+        $check_ip = timekeeping::where('ip',$ip)->get();
+        $check_out = timekeeping::where('ip',$ip)->where('check_out','!=',null)->get();
+        if($query && $query['status'] == 'success')
+        {    
+            if($check_ip == '[]'){
+                if($request->telecom == $query['as']){
+                    timekeeping::create([
+                        'id_user'=>$id_user,
+                        'ip'=>$ip,
+                        'address'=>$query['city'].' ('.$query['region'].'), '.$query['country'],
+                        'telecom_operator'=>$query['as'],
+                        'lat_lon'=>$query['lat'].'-'.$query['lon'],
+                        'check_in'=>$time
+                    ]);
+                    
+                    session()->flash('calender_rs','Check in thành công');
+                    return redirect()->route('calender');
+                }else{
+                    session()->flash('calender_er','Lỗi hệ thống');
+                    return redirect()->route('calender');
+                }
+            }elseif($check_ip != '[]' and $check_out == '[]'){
+                $timekeeping = DB::table('calender')
+                            ->join('timekeeping', 'calender.id_user','=','timekeeping.id_user')
+                            ->where('timekeeping.id_user',$id_user)
+                            ->select('calender.*','timekeeping.check_in')
+                            ->get();
+                foreach ($timekeeping as $itm_kout) {
+                    $ca_lam = $itm_kout->$n;
+                    $ck_hour = $time->hour - Carbon::parse($itm_kout->check_in)->hour; // hiện tại - checkin
+
+                    if ($ck_hour < $ca_lam) {
+                        $timeWork = ($itm_kout->timework - $ca_lam) + $ck_hour;
+                        // echo $itm_kout->timework.'-'.$ca_lam.'+'.$ck_hour.'='.$timeWork;
+                        calender::where('id_user',$id_user)->update(['timework'=>$timeWork]);
+                    }
+                }
+                timekeeping::where('id_user',$id_user)->update([
+                    'check_out'=>$time
+                ]);
+                session()->flash('calender_rs','Check out thành công');
+                return redirect()->route('calender');
+            }else{
+                session()->flash('calender_er','Bạn đã chấm công');
+                return redirect()->route('calender');
+            }
+        }
+    }
+
+    public function reset_timekeeping(){
+        timekeeping::truncate();
+        session()->flash('calender_rs','');
+        return redirect()->route('calender');
+    }
+
+    public function submit_timekeeping(Request $request){
+        
+        // $time = Carbon::now('Asia/Ho_Chi_Minh');
+        $timekeeping = timekeeping::where('id_user',$request->id_user)->get();
+        foreach ($timekeeping as $value) {
+            $rset_time = Carbon::parse($value->check_out)->hour -  Carbon::parse($value->check_in)->hour ;
+            // echo  Carbon::parse($value->check_out)->hour.'-'.Carbon::parse($value->check_in)->hour.'='.$rset_time ;
+            $timework = $request->totalTime + $rset_time;
+        }
+        // echo '<br>'.$timework;
+        calender::where('id_user',$request->id_user)->update(['timework'=>$timework, 'late'=>1]);
+        session()->flash('calender_rs','');
+        return redirect()->route('calender');
     }
 }

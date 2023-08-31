@@ -102,6 +102,7 @@
                   <span>Đăng ký tại đây</span>
                 </a>
               </p>
+              <!-- Small Modal -->
             </div>
           </div>
           <!-- /Register -->
@@ -159,6 +160,16 @@
         swal({
               title: "{{session()->get('success')}}",
               icon: "success",
+              button: "OK",
+              timer: 5000,
+            });
+      </script>
+    @endif
+    @if (session()->has('warning'))
+      <script>
+        swal({
+              title: "{{session()->get('warning')}}",
+              icon: "warning",
               button: "OK",
               timer: 5000,
             });

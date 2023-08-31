@@ -136,7 +136,7 @@
                   </div>
                 </div>
               </div>
-              <div class="card mb-4">
+              <div class="card">
                 {{-- <h5 class="card-header">Profile Details</h5> --}}
                 <!-- Account -->
                 <form action="{{ route('update_profile_adress_user', ['id'=>Auth::user()->id]) }}" method="POST" enctype="multipart/form-data">
@@ -231,6 +231,7 @@
                 </form>
                 <!-- /Account -->
               </div>
+              <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
             </div>
             <!-- / Content -->
             <!-- Footer -->

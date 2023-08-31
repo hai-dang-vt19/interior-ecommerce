@@ -140,11 +140,11 @@
                         </table>
                     </div>
                   </div>
-                  <div class="d-flex mt-3">
-                    {{ $hosts->links() }}
-                  </div>
-                  <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>    
                 </div>
+              </div>
+              <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
+              <div class="d-flex mt-3">
+                {{ $hosts->links() }}
               </div>
               <!--/ Responsive Table -->
             </div>

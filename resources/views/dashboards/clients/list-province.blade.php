@@ -157,7 +157,7 @@
                     </div>
                     @endcan
                   </h4>
-                  <div class="card mb-4">
+                  <div class="card">
                     <div class="card-body">
                       <div class="table-responsive text-nowrap mt-4">
                         <table class="table table-hover  ">
@@ -189,11 +189,12 @@
                             @endforeach
                           </tbody>
                         </table>
-                        <div class="d-flex mt-3">
-                          {{$city->links()}}
-                        </div>
                       </div>
                     </div>
+                  </div>
+                  <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
+                  <div class="d-flex mt-3">
+                    {{$city->links()}}
                   </div>
                 </div>
                 <div class="col-xl">
@@ -246,7 +247,7 @@
                     </div>
                     @endcan
                   </h4>
-                  <div class="card mb-4">
+                  <div class="card">
                     <div class="card-body">
                       <div class="table-responsive text-nowrap mt-4">
                         <table class="table table-hover  ">
@@ -274,11 +275,12 @@
                             @endforeach
                           </tbody>
                         </table>
-                        <div class="d-flex mt-3">
-                          {{$province->links()}}
-                        </div>
                       </div>
                     </div>
+                  </div>
+                  <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
+                  <div class="d-flex mt-3">
+                    {{$province->links()}}
                   </div>
                 </div>
               </div>

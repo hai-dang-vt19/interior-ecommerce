@@ -128,6 +128,7 @@
                     </div>
                 </div>
               </div>
+              <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
             </div>
             <!-- / Content -->
             <!-- Footer -->

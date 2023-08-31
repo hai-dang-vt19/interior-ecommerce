@@ -38,11 +38,19 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('dashboard/assets/js/config.js') }}"></script>
-  {{-- loader --}}
+    {{-- loader --}}
       <link rel="stylesheet" href="{{ asset('interior/fakeloader/src/fakeloader.css') }}">
+
+    {{-- flat picker --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
   </head>
 
   <body>
+    @php
+        use App\Models\city;
+        $city_u = city::all();
+    @endphp
     @include('dashboards.blocks.fakeload')
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
@@ -83,7 +91,7 @@
             <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
               <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">User / </span>Danh sách người dùng</h4>
-              <div class="accordion mt-3 mb-2" id="accordionExample">
+              {{-- <div class="accordion mt-3 mb-2" id="accordionExample">
                 <div class="card accordion-item">
                   <h2 class="accordion-header" id="headingTwo">
                     <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordionTwo" aria-expanded="false" aria-controls="accordionTwo">
@@ -102,6 +110,62 @@
                     </div>
                   </div>
                 </div>
+              </div> --}}
+              <div class="card mt-3 mb-2 p-2">
+                <form action="{{ route('fill_list_user') }}" method="GET">
+                  <div class="row">
+                    <div class="col-sm-1">
+                      <a href="{{ route('list_user_dashboard') }}" class="btn btn-secondary w-100">All</a>
+                    </div>
+                    <div class="col-sm-2">
+                      <select name="roles_fill" class="form-select bg-dark" style="color: #ffffff">
+                        <option disabled>- Quyền hạn -</option>
+                        <option value="user" selected>User</option>
+                        <option value="staff">Staff</option>
+                        <option value="manager">Manager</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-2">
+                      <select name="status_fill" class="form-select bg-light">
+                        <option disabled>- Trạng thái -</option>
+                        <option value="1" selected>Hoạt động</option>
+                        <option value="0">Ngắt</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-2">
+                      <select name="city_fill" class="form-select bg-light">
+                        <option selected disabled>- Thành phố -</option>
+                        @foreach ($city_u as $item_cu)
+                          <option value="{{ $item_cu->name_city }}">{{ $item_cu->name_city }}</option>
+                        @endforeach
+                      </select>
+                    </div>
+                    <div class="col-sm-3">
+                      <input class="form-control bg-light" type="text" name="date_fill" id="datepiker" autocomplete="off" placeholder="Ngày tạo"
+                        data-bs-toggle="tooltip"
+                        data-bs-offset="0,4"
+                        data-bs-placement="top"
+                        data-bs-html="true"
+                        title="N, N to N"
+                      />
+                    </div>
+                    <div class="col-sm-1">
+                      <input class="form-control" type="number" value="10" min="1" max="50" name="number_page"
+                        data-bs-toggle="tooltip"
+                        data-bs-offset="0,4"
+                        data-bs-placement="bottom"
+                        data-bs-html="true"
+                        title="Số lượng"
+                      />
+                    </div>
+                    <div class="col-sm-1">
+                      <button class="btn btn-success w-100" type="submit">
+                        <i class='bx bxs-search-alt-2'></i>
+                        {{-- Tìm kiếm --}}
+                      </button>
+                    </div>
+                  </div>
+                </form>
               </div>
               <!-- Responsive Table -->
               <div class="card">
@@ -110,7 +174,10 @@
                     <thead>
                       <tr>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">STT</th>
-                        <th style="color: rgb(231, 171, 6);font-size: 14px">Mã người dùng</th>
+                        <th style="color: rgb(231, 171, 6);font-size: 14px">
+                          ID 
+                          {{-- <a href="#"><i class='bx bxs-down-arrow' style="font-size: 0.7vw"></i></a> --}}
+                        </th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Email</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Tên người dùng</th>
                         <th style="color: rgb(231, 171, 6);font-size: 14px">Quyền hạn</th>
@@ -168,10 +235,11 @@
                   </table>
                 </div>
               </div>
+              <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
               <div class="d-flex mt-3">
                 {{$user->links()}}
               </div>
-              <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
+              
               <!--/ Responsive Table -->
             </div>
             <!-- / Content -->
@@ -194,6 +262,7 @@
     <script src="{{ asset('dashboard/assets/vendor/libs/popper/popper.js') }}"></script>
     <script src="{{ asset('dashboard/assets/vendor/js/bootstrap.js') }}"></script>
     <script src="{{ asset('dashboard/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
+    {{-- <script src="{{ asset('dashboard/assets/vendor/js/') }}"></script> --}}
 
     <script src="{{ asset('dashboard/assets/vendor/js/menu.js') }}"></script>
     <!-- endbuild -->
@@ -204,6 +273,8 @@
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/flatpickr.min.js"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/vn.js"></script>
     @if (session()->has('update_user_sc'))
     <script>
       swal({
@@ -235,6 +306,14 @@
           });
     </script>
     @endif
+    <script>
+      flatpickr("#datepiker", {
+        mode: 'range',
+        dateFormat:'d-m-Y',
+        allowInput: 'true' //cho phep go
+        // locale: "vn"
+      });
+    </script>
     @include('dashboards.blocks.foo')
   </body>
 </html>

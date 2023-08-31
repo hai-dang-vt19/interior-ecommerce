@@ -136,7 +136,7 @@
                   </div>
                 </div>
               </div>
-              <div class="card mb-4">
+              <div class="card">
                 {{-- <h5 class="card-header">Profile Details</h5> --}}
                 <!-- Account -->
                 <form action="{{ route('update_profile_user', ['id'=>Auth::user()->id]) }}" method="POST" enctype="multipart/form-data">
@@ -186,10 +186,10 @@
                               @endforeach
                           </select>
                         </div>
-                        <div class="mt-2 d-flex">
+                        <div class="col-md-2 mb-3">
                           <div class="btn-group">
                             <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                              Chọn thành phố và cập nhật thông tin khác
+                              Chọn thành phố mới
                             </button>
                             <ul class="dropdown-menu">
                               @foreach ($cty as $ct)
@@ -197,15 +197,16 @@
                               @endforeach
                             </ul>
                           </div>
-                          <div class="container-xxl">
-                            <button type="submit" class="btn btn-success me-2 ">Cập nhật</button>
-                          </div>
+                        </div>
+                        <div class="col-md-2 ms-1">
+                          <button type="submit" class="btn btn-success">Cập nhật</button>
                         </div>
                       </div>
                   </div>
                 </form>
                 <!-- /Account -->
               </div>
+              <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
             </div>
             <!-- / Content -->
             <!-- Footer -->

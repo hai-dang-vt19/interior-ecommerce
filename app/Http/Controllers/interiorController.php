@@ -529,36 +529,89 @@ class interiorController extends Controller
         return view('dashboards.clients.list-user',compact('user'));
     }
     //------ Chức năng xem dữ liệu user
-    public function user_name_roles_us()
-    {
-        $user = User::where('name_roles', 'user')->limit(8)->paginate(8);
+    public function fill_list_user(Request $req){
+        $ex_date = explode(' to ', $req->date_fill);
+        if(empty($req->date_fill)){
+            if(empty($req->city_fill)){
+                // return 1;
+                $user = User::where('name_roles',$req->roles_fill)
+                    ->where('name_status',$req->status_fill)
+                    // ->where('city',$req->city_fill)
+                    // ->whereBetween('created_at', [$ex_date[0], $ex_date[1]])
+                    ->limit($req->number_page)->simplePaginate($req->number_page);
+            }else{
+                $user = User::where('name_roles',$req->roles_fill)
+                    ->where('name_status',$req->status_fill)
+                    ->where('city',$req->city_fill)
+                    // ->whereBetween('created_at', [$ex_date[0], $ex_date[1]])
+                    ->limit($req->number_page)->simplePaginate($req->number_page);
+            }
+        }else{
+            $time_f = Carbon::parse($ex_date[0])->toDateString();
+            if(!empty($ex_date[1])){
+                $time_l = Carbon::parse($ex_date[1])->toDateString();
+                if (empty($req->city_fill)) {
+                    $user = User::where('name_roles',$req->roles_fill)
+                        ->where('name_status',$req->status_fill)
+                        ->whereBetween('updated_at', [$time_f, $time_l])
+                        ->limit($req->number_page)->simplePaginate($req->number_page);
+                } else {
+                    $user = User::where('name_roles',$req->roles_fill)
+                        ->where('name_status',$req->status_fill)
+                        ->where('city',$req->city_fill)
+                        ->whereBetween('updated_at', [$time_f, $time_l])
+                        ->limit($req->number_page)->simplePaginate($req->number_page);
+                }    
+            }else{
+                if (empty($req->city_fill)) {
+                    $user = User::where('name_roles',$req->roles_fill)
+                        ->where('name_status',$req->status_fill)
+                        ->where('updated_at', $time_f)
+                        ->limit($req->number_page)->simplePaginate($req->number_page);
+                } else {
+                    $user = User::where('name_roles',$req->roles_fill)
+                        ->where('name_status',$req->status_fill)
+                        ->where('city',$req->city_fill)
+                        ->where('updated_at', $time_f)
+                        ->limit($req->number_page)->simplePaginate($req->number_page);
+                }
+            }
+                    
+        }
+        // dd($user->links());
+
         return view('dashboards.clients.list-user',compact('user'));
     }
-    public function user_interior()
-    {
-        $user = User::where('name_roles','!=','user')->limit(8)->paginate(8);
-        return view('dashboards.clients.list-user',compact('user'));
-    }
-    public function user_city()
-    {
-        $user = User::where('name_roles','user')->orderBy('city')->limit(8)->paginate(8);
-        return view('dashboards.clients.list-user',compact('user'));
-    }
-    public function user_province()
-    {
-        $user = User::where('name_roles','user')->orderBy('province')->limit(8)->paginate(8);
-        return view('dashboards.clients.list-user',compact('user'));
-    }
-    public function user_hoatdong()
-    {
-        $user = User::where('name_roles','user')->where('name_status','Hoạt động')->limit(8)->paginate(8);
-        return view('dashboards.clients.list-user',compact('user'));
-    }
-    public function user_ngat()
-    {
-        $user = User::where('name_roles','user')->where('name_status','Ngắt')->limit(8)->paginate(8);
-        return view('dashboards.clients.list-user',compact('user'));
-    }
+    // public function user_name_roles_us()
+    // {
+    //     $user = User::where('name_roles', 'user')->limit(8)->paginate(8);
+    //     return view('dashboards.clients.list-user',compact('user'));
+    // }
+    // public function user_interior()
+    // {
+    //     $user = User::where('name_roles','!=','user')->limit(8)->paginate(8);
+    //     return view('dashboards.clients.list-user',compact('user'));
+    // }
+    // public function user_city()
+    // {
+    //     $user = User::where('name_roles','user')->orderBy('city')->limit(8)->paginate(8);
+    //     return view('dashboards.clients.list-user',compact('user'));
+    // }
+    // public function user_province()
+    // {
+    //     $user = User::where('name_roles','user')->orderBy('province')->limit(8)->paginate(8);
+    //     return view('dashboards.clients.list-user',compact('user'));
+    // }
+    // public function user_hoatdong()
+    // {
+    //     $user = User::where('name_roles','user')->where('name_status','Hoạt động')->limit(8)->paginate(8);
+    //     return view('dashboards.clients.list-user',compact('user'));
+    // }
+    // public function user_ngat()
+    // {
+    //     $user = User::where('name_roles','user')->where('name_status','Ngắt')->limit(8)->paginate(8);
+    //     return view('dashboards.clients.list-user',compact('user'));
+    // }
     //---------------------------------
     public function edit_list_user(Request $request)
     {

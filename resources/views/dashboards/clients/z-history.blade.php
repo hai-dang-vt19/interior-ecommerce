@@ -49,7 +49,7 @@
       <div class="layout-container">
         <!-- Menu -->
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-          @include('dashboards.blocks.menu-z-history');
+          @include('dashboards.blocks.menu-z-history')
         </aside>
         <!-- / Menu -->
 
@@ -112,10 +112,10 @@
                 </table>
               </div>
             </div>
+            <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
             <div class="d-flex mt-3">
               {{$his->links()}}
             </div>
-            <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
             <!--/ Responsive Table -->
           </div>
           <!-- Content wrapper -->

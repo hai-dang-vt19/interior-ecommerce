@@ -89,8 +89,8 @@
                   <form action="{{ route('add_roles') }}" method="POST">
                     @csrf
                     <div class="row">
-                      <label class="col-sm-2 col-form-label">Roles</label>
-                      <div class="col-sm-10">
+                      <label class="col-sm-1 col-form-label">Roles</label>
+                      <div class="col-sm-3">
                         <div class="input-group input-group-merge">
                           <span class="input-group-text"><i class='bx bxl-codepen'></i></span>
                           <input type="text" class="form-control" name="name_roles"/>
@@ -128,11 +128,12 @@
                         </table>
                     </div>
                   </div>
-                  <div class="d-flex mt-3">
-                    {{ $roles->links() }}
-                  </div>
-                  <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>    
+                  {{-- <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>     --}}
                 </div>
+              </div>
+              <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
+              <div class="d-flex mt-3">
+                {{ $roles->links() }}
               </div>
               <!--/ Responsive Table -->
             </div>

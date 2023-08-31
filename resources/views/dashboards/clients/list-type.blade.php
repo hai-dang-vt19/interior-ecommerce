@@ -171,11 +171,11 @@
                       </tbody>
                     </table>
                   </div>
-                  <div class="d-flex mt-3">
-                    {{$type->links()}}
-                  </div>
-                  <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
                 </div>
+              </div>
+              <small class="text-muted float-end">Interior <span style="color: rgb(231, 171, 6)">CS</span></small>
+              <div class="d-flex mt-3">
+                {{$type->links()}}
               </div>
               <!--/ Responsive Table -->
             </div>

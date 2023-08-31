@@ -11,7 +11,7 @@
     <script src="{{ asset('interior/assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
     <!-- Main JS -->
     <script src="{{ asset('interior/assets/js/main.js') }}"></script>
-    <script src="{{ asset('interior\assets\vendor\js\menu.js') }}"></script>
+    {{-- <script src="{{ asset('interior\assets\vendor\js\menu.js') }}"></script> --}}
     <!-- Page JS -->
     <script src="{{ asset('interior/assets/js/dashboards-analytics.js') }}"></script>
     <!-- Place this tag in your head or just before your close body tag. -->

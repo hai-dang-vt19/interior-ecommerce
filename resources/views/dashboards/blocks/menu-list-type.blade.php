@@ -49,7 +49,7 @@
     </ul>
   </li>
 @can('admin_manager')
-<li class="menu-item">
+<li class="menu-item active">
   <a href="{{ route('list_type_dashboard') }}" class="menu-link">
     <i class="menu-icon tf-icons bx bx-box"></i>
     <div >Type Product</div>
