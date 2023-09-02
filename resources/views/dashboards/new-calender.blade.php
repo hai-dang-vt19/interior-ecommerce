@@ -119,6 +119,7 @@
                         $url = $host.'qrcode/'.$query['as'];
                     }
                 }
+                $url = 12;
             @endphp
           <!-- Content wrapper -->
           <div class="content-wrapper">
@@ -126,122 +127,123 @@
             <div class="container-xxl flex-grow-1 container-p-y">
               <h4 class="fw-bold py-3 mb-4">Lịch làm việc Tháng {{ $timeNow->month }}/{{ $timeNow->year }}</h4>
               <!-- Bottom Offcanvas -->
-              <div class="col mb-3 d-flex">
-                <div class="mt-3">
-                    <div class="modal fade" id="largeModal" tabindex="-1" aria-hidden="true">
-                        <div class="modal-dialog modal-lg" role="document">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLabel4">Nhân viên chọn ca làm việc
-                              </h5>
-                              <button
-                                type="button"
-                                class="btn-close"
-                                data-bs-dismiss="modal"
-                                aria-label="Close"
-                              ></button>
-                            </div>
-                            <form action="{{ route('post_calender') }}" method="post">
-                                @csrf
-                                <div class="modal-body">
-                                    <div class="ms-5">
-                                        @php
-                                            for($pic_day = 1; $pic_day <= $l_dofm; $pic_day++){
-                                                $cc[$pic_day] = $calender->where('c'.$pic_day,'!=',null)->count('c'.$pic_day);
-                                                
-                                                if($pic_day == 1){
-                                                  if($day <= 7 ){
-                                                    echo '<p class="text-success fw-bolder">Tuần 1</p><BR>';
-                                                  }else {
-                                                    echo '<p>Tuần 1</p><BR>';
-                                                  }
-                                                }
-                                                if($pic_day == 8){ 
-                                                  if($day >= 8 && $day <= 14 ){
-                                                    echo '<p class="text-success fw-bolder">Tuần 2</p><BR>';
-                                                  }else {
-                                                    echo '<p>Tuần 2</p><BR>';
-                                                  }
-                                                }
-                                                if($pic_day == 15){ 
-                                                  if($day >= 15 && $day <= 21 ){
-                                                    echo '<p class="text-success fw-bolder">Tuần 3</p><BR>';
-                                                  }else {
-                                                    echo '<p>Tuần 3</p><BR>';
-                                                  }
-                                                }
-                                                if($pic_day == 22){ 
-                                                  if($day >= 22 && $day <= 28 ){
-                                                    echo '<p class="text-success fw-bolder">Tuần 4</p><BR>';
-                                                  }else {
-                                                    echo '<p>Tuần 4</p><BR>';
-                                                  }
-                                                }
-                                                if($pic_day == 29){
-                                                  if($day >= 29){
-                                                    echo '<p class="text-success fw-bolder">Tuần lẻ</p><BR>';
-                                                  }else {
-                                                    echo '<p>Tuần lẻ</p><BR>';
-                                                  }
-                                                }
-                                                
-                                                if($cc[$pic_day] == 4){ // Điều kiện số lượng nv làm trong ngày
-                                                  echo '<div class="btn btn-sm rounded-pill btn-outline-warning me-2"><i class="bx bxs-badge-check"></i></div>';
-                                                }else{
-                                                  echo '<select name="n'.$pic_day.'" class="btn rounded-pill btn-sm btn-outline-warning me-2">';
-                                                  echo '<option selected disabled>Day '.$pic_day.'</option>';
-                                                  echo '<option value="c1">Ca 1</option>';
-                                                  echo '<option value="c2">Ca 2</option>';
-                                                  echo '<option value="Fulltime">Fulltime</option>';
-                                                  echo '<option value="">Nghỉ</option></select>';
-                                                }
-                                                if($pic_day % 7 == 0){
-                                                    echo '<br><hr>';
-                                                }
-                                            }
-                                        @endphp
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                  <div class="d-flex mt-1 col-4 justify-content-end">
-                                    <div class="form-check form-switch">
-                                      <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" value="1" name="checked"/>
-                                      <label class="form-check-label" for="flexSwitchCheckDefault">Đi làm ngày lễ</label>
-                                    </div>
-                                  </div> 
-                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                                    Đóng
-                                </button>
-                                <button type="submit" class="btn btn-primary">Đăng ký</button>
-                                </div>
-                            </form>
-                          </div>
-                        </div>
-                    </div>
-                    <button
+              {{-- Modal đăng ký lịch --}}
+              <div class="modal fade" id="largeModal" tabindex="-1" aria-hidden="true">
+                  <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel4">Nhân viên chọn ca làm việc
+                        </h5>
+                        <button
                           type="button"
-                          class="btn btn-sm btn-outline-dark"
-                          data-bs-toggle="modal"
-                          data-bs-target="#largeModal"
-                    >
-                        Đăng ký lịch
-                    </button>
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <form action="{{ route('post_calender') }}" method="post">
+                          @csrf
+                          <div class="modal-body">
+                              <div class="ms-5">
+                                  @php
+                                      for($pic_day = 1; $pic_day <= $l_dofm; $pic_day++){
+                                          $cc[$pic_day] = $calender->where('c'.$pic_day,'!=',null)->count('c'.$pic_day);
+                                          
+                                          if($pic_day == 1){
+                                            if($day <= 7 ){
+                                              echo '<p class="text-success fw-bolder">Tuần 1</p><BR>';
+                                            }else {
+                                              echo '<p>Tuần 1</p><BR>';
+                                            }
+                                          }
+                                          if($pic_day == 8){ 
+                                            if($day >= 8 && $day <= 14 ){
+                                              echo '<p class="text-success fw-bolder">Tuần 2</p><BR>';
+                                            }else {
+                                              echo '<p>Tuần 2</p><BR>';
+                                            }
+                                          }
+                                          if($pic_day == 15){ 
+                                            if($day >= 15 && $day <= 21 ){
+                                              echo '<p class="text-success fw-bolder">Tuần 3</p><BR>';
+                                            }else {
+                                              echo '<p>Tuần 3</p><BR>';
+                                            }
+                                          }
+                                          if($pic_day == 22){ 
+                                            if($day >= 22 && $day <= 28 ){
+                                              echo '<p class="text-success fw-bolder">Tuần 4</p><BR>';
+                                            }else {
+                                              echo '<p>Tuần 4</p><BR>';
+                                            }
+                                          }
+                                          if($pic_day == 29){
+                                            if($day >= 29){
+                                              echo '<p class="text-success fw-bolder">Tuần lẻ</p><BR>';
+                                            }else {
+                                              echo '<p>Tuần lẻ</p><BR>';
+                                            }
+                                          }
+                                          
+                                          if($cc[$pic_day] == 4){ // Điều kiện số lượng nv làm trong ngày
+                                            echo '<div class="btn btn-sm rounded-pill btn-outline-warning me-2"><i class="bx bxs-badge-check"></i></div>';
+                                          }else{
+                                            echo '<select name="n'.$pic_day.'" class="btn rounded-pill btn-sm btn-outline-warning me-2">';
+                                            echo '<option selected disabled>Day '.$pic_day.'</option>';
+                                            echo '<option value="c1">Ca 1</option>';
+                                            echo '<option value="c2">Ca 2</option>';
+                                            echo '<option value="Fulltime">Fulltime</option>';
+                                            echo '<option value="">Nghỉ</option></select>';
+                                          }
+                                          if($pic_day % 7 == 0){
+                                              echo '<br><hr>';
+                                          }
+                                      }
+                                  @endphp
+                              </div>
+                          </div>
+                          <div class="modal-footer">
+                            <div class="d-flex mt-1 col-4 justify-content-end">
+                              <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" value="1" name="checked"/>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Đi làm ngày lễ</label>
+                              </div>
+                            </div> 
+                          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                              Đóng
+                          </button>
+                          <button type="submit" class="btn btn-primary">Đăng ký</button>
+                          </div>
+                      </form>
+                    </div>
+                  </div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-sm-1 mb-1">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-dark"
+                    data-bs-toggle="modal"
+                    data-bs-target="#largeModal"
+                  >
+                      Đăng ký
+                  </button>
                 </div>
                 @can('admin_manager')
-                <div class="mt-3 ms-3">
-                  <a href="{{ route('reset_calender') }}" onclick="return confirm('Bạn có chắc chắn làm mới lịch không?')" class="btn btn-sm btn-warning">Làm mới</a>
+                <div class="col-sm-1 mb-1">
+                  <a href="{{ route('reset_calender') }}" onclick="return confirm('Bạn có chắc chắn làm mới lịch không?')" class="btn btn-sm btn-warning w-100">Làm mới</a>
                 </div>
 
-                <div class="mt-3 ms-3">
-                  <button class="btn btn-sm btn-dark" data-bs-toggle="modal" data-bs-target="#m_qr_calender">
-                      <i class='bx bx-qr-scan'></i>
+                <div class="col-sm-1 mb-1">
+                  <button class="btn btn-sm btn-dark w-100"  data-bs-toggle="modal" data-bs-target="#m_qr_calender">
+                      Scan <i class='bx bx-qr-scan'></i>
                   </button>
                 </div>
                 @endcan
-                <div class="mt-3 ms-3">
+                <div class="col-sm-2 mb-1">
                   <button
                       type="button"
-                      class="btn btn-sm btn-dark"
+                      class="btn btn-sm btn-dark w-100"
                       data-bs-toggle="modal"
                       data-bs-target="#largeModalTimekeeping"
                   >
@@ -321,12 +323,14 @@
                                   @can('admin_manager')
                                   <td>
                                     @empty($item_tmk->late)
-                                      <a href="{{ route('submit_timekeeping', ['id_user'=>$item_tmk->id_user, 'totalTime'=>$item_tmk->timework]) }}"
-                                        class="btn btn-success btn-xs btn-icon rounded-pill w-100 text-center"  
-                                        title="Click để cập nhật giờ làm khi check-in muộn đã xin phép"
-                                      >
-                                        <i class='bx bx-check'></i>
-                                      </a> 
+                                      @if (!empty($item_tmk->check_out))
+                                        <a href="{{ route('submit_timekeeping', ['id_user'=>$item_tmk->id_user, 'totalTime'=>$item_tmk->timework]) }}"
+                                          class="btn btn-success btn-xs btn-icon rounded-pill w-100 text-center"  
+                                          title="Click để cập nhật giờ làm khi check-in muộn đã xin phép"
+                                        >
+                                          <i class='bx bx-check'></i>
+                                        </a>
+                                      @endif
                                     @endempty
                                   </td>
                                   @endcan

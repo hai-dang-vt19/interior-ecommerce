@@ -81,7 +81,7 @@
                   </div>
                   <div class="input-group input-group-merge">
                     <input type="password" class="form-control @error('password') is-invalid @enderror" 
-                      name="password" 
+                      name="password" value="123456"
                       placeholder="@error('password') {{ $message  }} @enderror" required
                     />
                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
