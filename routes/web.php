@@ -38,7 +38,9 @@ Route::get('/reset/timekeeping', [calenderController::class,  'reset_timekeeping
 Route::get('/sb/timekeeping', [calenderController::class,  'submit_timekeeping'])->middleware('can:admin_manager','auth')->name('submit_timekeeping');
 
 //----------------------------------dashboard------------------------------------------------------------
-Route::get('/dashboard-interior', [interiorController::class,'index_dashboard'])->middleware(['can:admin','auth'])->name('index_dashboard');
+Route::get('/dashboards', [interiorController::class,'index_dashboard'])->middleware(['can:admin','auth'])->name('index_dashboard');
+Route::get('/dashboard/chart', [interiorController::class,'index_chart'])->middleware(['can:admin','auth'])->name('index_chart');
+Route::get('/dashboard/charts', [interiorController::class,'index_ExpenseYear'])->middleware(['can:admin','auth'])->name('index_ExpenseYear');
 Route::get('/detail/method=', [interiorController::class, 'detail_with_method_dash'])->middleware(['can:admin','auth'])->name('detail_with_method_dash');
 Route::get('bill/detail/{id}', [interiorController::class, 'detail_bill'])->name('detail_bill');
 

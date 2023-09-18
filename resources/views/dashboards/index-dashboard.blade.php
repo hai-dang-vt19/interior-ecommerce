@@ -26,6 +26,9 @@
     <!-- Helpers -->
     <script src="{{ asset('dashboard/assets/vendor/js/helpers.js') }}"></script>
     <script src="{{ asset('dashboard/assets/js/config.js') }}"></script>
+    {{-- flat picker --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css">
     
     @include('dashboards.blocks.head')
 
@@ -47,7 +50,7 @@
             title: '',
             subtitle: '', // tưi điền nếu muốn
           },
-          bars: 'horizontal' // Required for Material Bar Charts.
+          bars: 'horizontal'
         };
 
         var chart = new google.charts.Bar(document.getElementById('barchart_material'));
@@ -266,9 +269,12 @@
                 <!-- Total Revenue -->
                 <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
                   <div class="card overflow-hidden" style="height: 492px">
-                    <h5 class="card-header">Doanh thu 3 năm gần nhất</h5>
+                    <h5 class="card-header">
+                      Doanh thu 
+                      <a href="{{ route('index_chart')}}" class="btn btn-sm btn-dark float-end"><i class='bx bx-list-ul' ></i></a>
+                    </h5>
                     <div class="card-body" id="horizontal-example">
-                      <div id="barchart_material" class="px-2 mt-5 mb-3" style="width: 800px; height: 310px;"></div>
+                      <div id="barchart_material" class="px-2 mt-3 mb-3" style="width: 700px; height: 310px;"></div>
                     </div>
                   </div>
                 </div>
@@ -648,6 +654,18 @@
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    {{--flatpicker--}}
+    <script src="https://npmcdn.com/flatpickr/dist/flatpickr.min.js"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/vn.js"></script>
+    <script>
+        flatpickr("#datepiker", {
+          mode: "range",
+          dateFormat:'d-m-Y',
+          // defaultDate: 'today',
+          allowInput: 'true' //cho phep go
+          // locale: "vn"
+        });
+    </script>
     @if (session()->has('success'))
       <script>
         swal({

@@ -104,13 +104,13 @@
                         <td>{{number_format($bl->price)}} &#8363;</td>
                         <td>{{number_format($bl->price_service)}} &#8363;</td>
                         @if ($bl->status_product_bill == 1)
-                          <td><a href="#" class="badge bg-dark">Chờ xử lý</a></td>
+                          <td><a href="{{ route('detail_bill', ['id'=>$bl->id_bill, 'product'=>$bl->id_product]) }}" class="badge bg-dark">Chờ xử lý</a></td>
                         @elseif($bl->status_product_bill == 2)
-                          <td><a href="#" class="badge bg-primary">Đang giao</a></td>
+                          <td><a href="{{ route('detail_bill', ['id'=>$bl->id_bill, 'product'=>$bl->id_product]) }}" class="badge bg-primary">Đang giao</a></td>
                         @elseif($bl->status_product_bill == 3)
-                          <td><a href="#" class="badge bg-info">Chờ xác nhận</a></td>
+                          <td><a href="{{ route('detail_bill', ['id'=>$bl->id_bill, 'product'=>$bl->id_product]) }}" class="badge bg-info">Chờ xác nhận</a></td>
                         @else
-                          <td><a href="#" class="badge bg-warning">Thành công</a></td>
+                          <td><a href="{{ route('detail_bill', ['id'=>$bl->id_bill, 'product'=>$bl->id_product]) }}" class="badge bg-warning">Thành công</a></td>
                         @endif
                         <td>{{$bl->date_create}}</td>
                         <td>{{$bl->phone}}</td>
