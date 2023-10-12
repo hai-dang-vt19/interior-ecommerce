@@ -200,6 +200,7 @@ Route::get('/search-dashboard=',[interiorController::class, 'search_dashboard_up
 
 Route::get('/destroy/donhang/{id}',[checkoutContorller::class, 'destroy_donhang_dashboard'])->middleware('auth')->name('destroy_donhang_dashboard');
 
+// Route::get('/lapi', [interiorController::class,'lst_api'])->middleware('can:admin_manager','auth')->name('lst_api');
 // Route::get('test/map',[interiorController::class, 'test_api_map'])->name('test_api_map');
 // ---- user
 Route::get('', [interiorController::class,'index'])->name('index');

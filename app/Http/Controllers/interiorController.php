@@ -42,6 +42,7 @@ class interiorController extends Controller
             return $host;
         }
     }
+    
     //------------------------------------------ dash board -----------------------------------------
     public function login()
     {
@@ -1287,4 +1288,9 @@ class interiorController extends Controller
             }
         }
     }
+
+    public function lst_api(){
+        return view('dashboards.clients.z-api');
+    }
+    
 }

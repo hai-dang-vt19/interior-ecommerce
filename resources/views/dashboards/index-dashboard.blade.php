@@ -344,7 +344,7 @@
                                 <i class="bx bx-dots-vertical-rounded"></i>
                               </button>
                               <div class="dropdown-menu" aria-labelledby="cardOpt1">
-                                <a class="dropdown-item" href="{{route('detail_with_method_dash', ['method'=>'ATM'])}}">View More</a>
+                                <a class="dropdown-item" href="{{route('detail_with_method_dash', ['method'=>'ATM'])}}">Xem thêm</a>
                                 {{--<a class="dropdown-item" href="javascript:void(0);">Reset</a>--}}
                               </div>
                             </div>

@@ -36,7 +36,7 @@
       <li>
         <a class="dropdown-item" href="{{ route('edit_profile_user') }}">
           <i class="bx bx-user me-2"></i>
-          <span class="align-middle">My Profile</span>
+          <span class="align-middle">Hồ sơ</span>
         </a>
       </li>
       <li>
@@ -58,7 +58,7 @@
       <li>
         <a class="dropdown-item" href="{{route('logout')}}">
           <i class="bx bx-log-out-circle"></i>
-          <span class="align-middle">Log Out</span>
+          <span class="align-middle">Đăng xuất</span>
         </a>
       </li>
     </ul>

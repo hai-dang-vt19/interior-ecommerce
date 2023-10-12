@@ -50,4 +50,5 @@
 <i class="bx bx-dots-vertical-rounded"
     data-bs-toggle="modal"
     data-bs-target="#largeModal"
+    style="cursor: pointer"
 ></i>
